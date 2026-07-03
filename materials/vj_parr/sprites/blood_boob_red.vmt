@@ -1,0 +1,8 @@
+"UnlitGeneric"
+{
+    "$vertexcolor" "1"
+    "$vertexalpha" "1"
+    "$nolod" "1"
+    "$translucent" "1"
+    "$basetexture" "vj_parr/sprites/blood_boob_red"
+}

@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par1/terrorist/geo3"
+    "$alphatest" "1"
+}

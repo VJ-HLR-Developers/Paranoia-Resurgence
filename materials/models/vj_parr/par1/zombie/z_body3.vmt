@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par1/zombie/z_body3"
+    "$alphatest" "1"
+}
+
