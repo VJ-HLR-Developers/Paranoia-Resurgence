@@ -206,10 +206,12 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_pain5.wav",
         "vj_parr/par1/alpha/alpha_pain6.wav"
     }
-
-    if self:GetModel() == "models/vj_parr/par1/soldier_alpha_pistol.mdl" then
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
         self:SetBodygroup(1, math_random(0, 6))
+    elseif myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
+        self:SetBodygroup(1, math_random(0, 4))
     else
         self:SetBodygroup(1, math_random(0, 7))
     end
@@ -217,7 +219,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" then
+    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 3
@@ -403,37 +405,37 @@ function ENT:OnThink()
                     self:DoChangeWeapon("weapon_vj_hlrpar1_val")
                 elseif bodyGroup == 2 then -- Groza
                     self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
-                /*elseif IsValid(wep) then
-                    wep:Remove()*/
+                elseif IsValid(wep) then
+                    wep:Remove()
                 end
             elseif self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- APS
                     self:DoChangeWeapon("weapon_vj_hlrpar1_aps")
-                /*elseif IsValid(wep) then
-                    wep:Remove()*/
+                elseif IsValid(wep) then
+                    wep:Remove()
                 end
             end
         elseif self.Soldier_Type == 1 then -- Army
             if bodyGroup == 0 then -- AK-74
                 self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
-            /*elseif IsValid(wep) then
-                wep:Remove()*/
+            elseif IsValid(wep) then
+                wep:Remove()
             end
         elseif self.Soldier_Type == 2 then -- Terrorist
             if bodyGroup == 0 then -- AK-74
                 self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
             elseif bodyGroup == 1 then -- PKM
                 self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
-            /*elseif IsValid(wep) then
-                wep:Remove()*/
+            elseif IsValid(wep) then
+                wep:Remove()
             end
         elseif self.Soldier_Type == 3 then -- Clone
             if bodyGroup == 0 then -- AK-74
                 self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
             elseif bodyGroup == 1 then -- PKM
                 self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
-            /*elseif IsValid(wep) then
-                wep:Remove()*/
+            elseif IsValid(wep) then
+                wep:Remove()
             end
         elseif self.Soldier_Type == 4 then -- Saboteur
             if !self.Soldier_PistolAnims then
@@ -441,19 +443,30 @@ function ENT:OnThink()
                     self:DoChangeWeapon("weapon_vj_hlrpar1_mp5")
                 elseif bodyGroup == 1 then -- Shotgun
                     self:DoChangeWeapon("weapon_vj_hlrpar1_spas12")
-                /*elseif IsValid(wep) then
-                    wep:Remove()*/
+                elseif IsValid(wep) then
+                    wep:Remove()
                 end
             elseif self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- Glock 17
                     self:DoChangeWeapon("weapon_vj_hlrpar1_glock17")
-                /*elseif IsValid(wep) then
-                    wep:Remove()*/
+                elseif IsValid(wep) then
+                    wep:Remove()
                 end
             end
         end
     end
     if self.Soldier_OnThink then self:Soldier_OnThink() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local sdAlertMonster = {"vj_parr/par1/alpha/kulak_ih_mnogo.wav", "vj_parr/par1/alpha/kulak_wtf2.wav"}
+--
+function ENT:OnAlert(ent)
+    if math.random(1, 3) == 1 then
+        if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
+            self:PlaySoundSystem("Alert", sdAlertMonster)
+            return
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)

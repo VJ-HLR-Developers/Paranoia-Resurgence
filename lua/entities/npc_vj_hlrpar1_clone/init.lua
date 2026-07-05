@@ -23,3 +23,5 @@ function ENT:Soldier_Init()
     }
     self:SetBodygroup(1, math.random(0, 1))
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent) return end
