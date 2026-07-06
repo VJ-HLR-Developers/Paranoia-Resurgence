@@ -46,6 +46,7 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
+ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female
 ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
@@ -109,6 +110,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
+    if self.Civilian_Type != 0 then return end
     ply:ChatPrint("RELOAD: Toggle scared animations")
     ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
 
@@ -148,13 +150,17 @@ end
 function ENT:TranslateActivity(act)
     -- Scared animations
     local npcState = self:GetNPCState()
-    if ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
+    if self.Civilian_Type == 0 && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
         if act == ACT_IDLE then
             return ACT_CROUCHIDLE
         elseif act == ACT_WALK then
             return ACT_WALK_SCARED
         elseif act == ACT_RUN then
             return ACT_RUN_SCARED
+        end
+    elseif self.Civilian_Type == 1 && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+        if act == ACT_IDLE then
+            return ACT_IDLE
         end
     end
     return self.BaseClass.TranslateActivity(self, act)
@@ -164,7 +170,7 @@ function ENT:SCHEDULE_IDLE_STAND()
     if !self.BaseClass.SCHEDULE_IDLE_STAND(self) then return end
     -- Tie annoyance
     local curTime = CurTime()
-    if curTime > self.Civilian_NextTieAnnoyanceT && self:GetNPCState() <= NPC_STATE_IDLE then
+    if self.Civilian_Type == 0 && curTime > self.Civilian_NextTieAnnoyanceT && self:GetNPCState() <= NPC_STATE_IDLE then
         if math_random(1, 8) == 1 then
             self:PlayAnim(ACT_VM_IDLE_1, true, false)
         end
@@ -174,7 +180,7 @@ function ENT:SCHEDULE_IDLE_STAND()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled then return end
+    if self.VJ_IsBeingControlled or self.Civilian_Type != 0 then return end
     if math_random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
         self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
     end
