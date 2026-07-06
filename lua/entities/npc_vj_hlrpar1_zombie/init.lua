@@ -115,6 +115,10 @@ function ENT:OnMeleeAttack(status, enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         if dmginfo:GetDamage() > 30 then

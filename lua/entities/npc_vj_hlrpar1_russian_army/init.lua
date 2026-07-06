@@ -42,14 +42,16 @@ function ENT:Soldier_Init()
         "vj_parr/par1/soldier/yes1.wav"
     }
     self.SoundTbl_CombatIdle = {
-        "vj_parr/par1/soldier/guard1.wav",
-        "vj_parr/par1/soldier/guard2.wav",
-        "vj_parr/par1/soldier/guard3.wav"
+        "vj_parr/par1/npc/army/karaul1.wav",
+        "vj_parr/par1/npc/army/karaul2.wav",
+        "vj_parr/par1/npc/army/karaul3.wav",
+        "vj_parr/par1/npc/army/karaul4.wav"
     }
     self.SoundTbl_Alert = {
-        "vj_parr/par1/soldier/guard1.wav",
-        "vj_parr/par1/soldier/guard2.wav",
-        "vj_parr/par1/soldier/guard3.wav"
+        "vj_parr/par1/npc/army/karaul1.wav",
+        "vj_parr/par1/npc/army/karaul2.wav",
+        "vj_parr/par1/npc/army/karaul3.wav",
+        "vj_parr/par1/npc/army/karaul4.wav"
     }
     self.SoundTbl_OnPlayerSight = {
         "vj_parr/par1/soldier/hello2.wav",

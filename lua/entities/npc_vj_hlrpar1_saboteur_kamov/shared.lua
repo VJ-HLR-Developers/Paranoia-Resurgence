@@ -3,7 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Saboteur Kamov Ka-50"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "Half-Life Resurgence"
+ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_ID_Vehicle = true
 ENT.VJ_ID_Aircraft = true
@@ -17,14 +17,21 @@ if CLIENT then
             self.Apache_NextSmoke = CurTime() + 0.1
             if lvl > 0 then
                 local emitter = ParticleEmitter(self:GetPos())
+                local smoke1 = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("rotor_tail")).Pos)
+                smoke1:SetVelocity(self:GetUp() * 100 + VectorRand(-30, 30))
+                smoke1:SetDieTime(2)
+                smoke1:SetStartSize(30)
+                smoke1:SetEndSize(30 + math.random(0, 9))
+                smoke1:SetRoll(math.Rand(-2, 2))
+                smoke1:SetEndAlpha(0)
                 if lvl == 2 then
-                    local smoke = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("rotor")).Pos)
-                    smoke:SetVelocity(self:GetUp() * 100 + VectorRand(-30, 30))
-                    smoke:SetDieTime(2)
-                    smoke:SetStartSize(50)
-                    smoke:SetEndSize(50 + math.random(0, 9))
-                    smoke:SetRoll(math.Rand(-2, 2))
-                    smoke:SetEndAlpha(0)
+                    local smoke2 = emitter:Add("vj_hl/sprites/steam1", self:GetAttachment(self:LookupAttachment("rotor")).Pos)
+                    smoke2:SetVelocity(self:GetUp() * 100 + VectorRand(-30, 30))
+                    smoke2:SetDieTime(2)
+                    smoke2:SetStartSize(50)
+                    smoke2:SetEndSize(50 + math.random(0, 9))
+                    smoke2:SetRoll(math.Rand(-2, 2))
+                    smoke2:SetEndAlpha(0)
                 end
                 emitter:Finish()
             end

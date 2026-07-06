@@ -11,7 +11,15 @@ VJ.HLR_VERSION = parVersion
 
 local spawnCategory = "HL Resurgence: Paranoia"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia.png"})
+-- Civilians
+//VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory)
+//VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_scientist_paulina", spawnCategory)
+VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory)
+//VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_scientist_female", spawnCategory)
+VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_scientist_hazmat", spawnCategory)
+VJ.AddNPC("Worker", "npc_vj_hlrpar1_civilian", spawnCategory)
 -- Russian Military
+VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_russian_mil", spawnCategory)
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_russian_army", spawnCategory)
 VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_russian_alpha", spawnCategory)
 VJ.AddNPC("Russian Spetsnaz Soldier (Savior)", "npc_vj_hlrpar1_russian_alphasav", spawnCategory)

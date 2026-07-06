@@ -56,6 +56,8 @@ ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shar
 ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/weapons/melee_whoosh1.wav", "vj_parr/par1/weapons/melee_whoosh2.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
+ENT.MainSoundPitch = VJ.SET(95, 105)
+
 -- Custom
 ENT.Soldier_Type = 0 -- 0 = Spetsnaz, 1 = Army, 2 = Terrorist, 3 = Clone, 4 = Saboteur
 ENT.Soldier_WepBG = 0
@@ -279,7 +281,8 @@ function ENT:TranslateActivity(act)
             end
         end
     end
-    if act == ACT_IDLE && self.Alerted then
+    local npcState = self:GetNPCState()
+    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
     end
     return self.BaseClass.TranslateActivity(self, act)
@@ -458,15 +461,19 @@ function ENT:OnThink()
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local sdAlertMonster = {"vj_parr/par1/alpha/kulak_ih_mnogo.wav", "vj_parr/par1/alpha/kulak_wtf2.wav"}
+local sdAlertMonster = {"vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav", "vj_parr/par1/npc/bunk/kulak_wtf2.wav"}
 --
 function ENT:OnAlert(ent)
-    if math.random(1, 3) == 1 then
+    if math_random(1, 3) == 1 then
         if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
             self:PlaySoundSystem("Alert", sdAlertMonster)
             return
         end
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)

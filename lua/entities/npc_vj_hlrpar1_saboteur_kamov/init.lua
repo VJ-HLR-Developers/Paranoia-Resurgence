@@ -39,8 +39,8 @@ ENT.Immune_Bullet = true
 ENT.Immune_Fire = true
 ENT.HasMeleeAttack = false
 
-ENT.HasRangeAttack = false
-ENT.RangeAttackProjectiles = "obj_vj_hlr1_rocket"
+ENT.HasRangeAttack = true
+ENT.RangeAttackProjectiles = "obj_vj_hlrpar1_rocket"
 ENT.RangeAttackMaxDistance = combatDistance
 ENT.RangeAttackMinDistance = 1
 ENT.RangeAttackAngleRadius = 100
@@ -168,10 +168,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PreSpawn" then
-        projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
         projectile.Rocket_HelicopterMissile = true
     elseif status == "PostSpawn" then
-        VJ.CreateSound(projectile, "vj_hlr/gsrc/wep/rpg/rocketfire1.wav", 100)
+        VJ.CreateSound(projectile, "vj_parr/par1/weapons/rpg/rocketfire1.wav", 100)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -332,6 +331,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         deathCorpse:SetPos(self:GetPos())
         deathCorpse:SetAngles(self:GetAngles())
         function deathCorpse:Initialize()
+            self:ResetSequence("idle")
             self:PhysicsInit(SOLID_VPHYSICS)
             self:SetMoveType(MOVETYPE_VPHYSICS)
             self:SetMoveCollide(MOVECOLLIDE_FLY_BOUNCE)
