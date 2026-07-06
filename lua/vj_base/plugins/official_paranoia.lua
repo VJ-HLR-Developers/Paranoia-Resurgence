@@ -25,7 +25,9 @@ VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_russian_alpha", spawnCateg
 VJ.AddNPC("Russian Spetsnaz Soldier (Savior)", "npc_vj_hlrpar1_russian_alphasav", spawnCategory)
 -- Terrorists
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory)
+VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_terrorist_shahid", spawnCategory)
 -- Saboteurs
+VJ.AddNPC("Black Ops Soldier", "npc_vj_hlrpar1_blackops", spawnCategory)
 VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory)
 VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_saboteur_kamov", spawnCategory)
 -- Clones

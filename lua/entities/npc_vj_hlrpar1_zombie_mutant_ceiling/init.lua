@@ -4,6 +4,7 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/zombie_c.mdl"
 ENT.StartHealth = 300
+ENT.ControllerParams.FirstP_Bone = "Bip01 Head"
 
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 

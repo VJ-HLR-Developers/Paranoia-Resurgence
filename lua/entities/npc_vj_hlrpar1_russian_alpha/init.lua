@@ -5,7 +5,7 @@ ENT.Model = {"models/vj_parr/par1/soldier_alpha.mdl", "models/vj_parr/par1/soldi
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
+    ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(3, 0, 5),
 }
@@ -240,6 +240,11 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
+    elseif myMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" then
+        self.Soldier_Type = 2
+        self.Soldier_WepBG = 1
+        self.Soldier_WepBGRemove = 2
+        self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
     elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
@@ -250,6 +255,10 @@ function ENT:Init()
         self.Soldier_WepBG = 3
         self.Soldier_WepBGRemove = 2
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
+    elseif myMDL == "models/vj_parr/par1/cut/blackop.mdl" then
+        self.Soldier_Type = 4
+        self.Soldier_WepBG = 2
+        self.Soldier_WepBGRemove = 1
     elseif myMDL == "models/vj_parr/par1/diversant_pistol.mdl" then
         self.Soldier_Type = 4
         self.Soldier_WepBG = 3
@@ -444,7 +453,7 @@ function ENT:OnThink()
             if !self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- MP5
                     self:DoChangeWeapon("weapon_vj_hlrpar1_mp5")
-                elseif bodyGroup == 1 then -- Shotgun
+                elseif bodyGroup == 1 && self:GetModel() != "models/vj_parr/par1/cut/blackop.mdl" then -- Shotgun
                     self:DoChangeWeapon("weapon_vj_hlrpar1_spas12")
                 elseif IsValid(wep) then
                     wep:Remove()

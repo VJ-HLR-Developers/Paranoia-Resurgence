@@ -1,11 +1,11 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = "models/vj_parr/par1/zombie_slow.mdl"
+ENT.Model = {"models/vj_parr/par1/zombie_slow.mdl", "models/vj_parr/par1/early/zombie_slow.mdl"}
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(0, 0, -15),
+    ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bone02",
     FirstP_Offset = Vector(3, 0, 5),
 }
@@ -92,6 +92,8 @@ function ENT:Zombie_Init()
         "vj_parr/par1/zombie/zo_pain2.wav"
     }
     self:SetBodygroup(1, math_random(0, 5))
+    self:SetBodygroup(2, math_random(0, 1))
+    self:SetBodygroup(3, math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

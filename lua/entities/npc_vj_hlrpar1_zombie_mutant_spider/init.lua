@@ -4,6 +4,7 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/spider.mdl"
 ENT.StartHealth = 400
+ENT.ControllerParams.FirstP_Bone = "Bone64"
 
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 
