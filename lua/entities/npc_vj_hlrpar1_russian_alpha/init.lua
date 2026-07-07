@@ -251,6 +251,11 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
+    elseif myMDL == "models/vj_parr/par1/early/soldier_colba.mdl" then
+        self.Soldier_Type = 3
+        self.Soldier_WepBG = 1
+        self.Soldier_WepBGRemove = 2
+        self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
     elseif myMDL == "models/vj_parr/par1/diversant.mdl" then
         self.Soldier_Type = 4
         self.Soldier_WepBG = 3

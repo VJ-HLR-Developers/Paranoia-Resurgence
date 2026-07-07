@@ -36,6 +36,7 @@ VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clone_heavy", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory)
 VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zombie_clone", spawnCategory)
+VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zombie_clone_armed", spawnCategory)
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zombie_hazmat", spawnCategory)
 VJ.AddNPC("Zombie Mutant", "npc_vj_hlrpar1_zombie_mutant", spawnCategory)
 VJ.AddNPC("Zombie Mutant (3-Handed)", "npc_vj_hlrpar1_zombie_mutant_3h", spawnCategory)

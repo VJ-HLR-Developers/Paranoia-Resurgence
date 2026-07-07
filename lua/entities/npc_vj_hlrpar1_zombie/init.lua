@@ -39,7 +39,7 @@ ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/zombie/claw_miss1.wav", "vj_parr/p
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
 -- Custom
-ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie Mutant, 2 = Zombie 3-Armed Mutant, 4 = Zombie Spider Mutant, 5 = Zombie Ceiling Mutant
+ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie
 
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
@@ -57,6 +57,8 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee_both" then
         self.MeleeAttackDamage = 40
         self:ExecuteMeleeAttack()
+    elseif key == "shoot" then
+        self:ExecuteRangeAttack()
     elseif key == "body_knee" then
         VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
     elseif key == "body" then
@@ -102,6 +104,14 @@ function ENT:Init()
         self.Zombie_Type = 0
     elseif myMDL == "models/vj_parr/par1/zombie.mdl" then
         self.Zombie_Type = 1
+    elseif myMDL == "models/vj_parr/par1/z_3h.mdl" then
+        self.Zombie_Type = 2
+    elseif myMDL == "models/vj_parr/par1/spider.mdl" or myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/spider_v2.mdl" then
+        self.Zombie_Type = 3
+    elseif myMDL == "models/vj_parr/par1/zombie_c.mdl" then
+        self.Zombie_Type = 4
+    elseif myMDL == "models/vj_parr/par1/cut/zombie_slow_armed.mdl" then
+        self.Zombie_Type = 5
     end
     self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
     if self.Zombie_Init then self:Zombie_Init() end
@@ -135,6 +145,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
+        if self.Zombie_Type == 5 then
+            self:SetBodygroup(1, 1)
+            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
+        end
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
