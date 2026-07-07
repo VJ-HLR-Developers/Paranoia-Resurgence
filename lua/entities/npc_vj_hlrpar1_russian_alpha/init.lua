@@ -53,6 +53,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_H
 ENT.DisableFootStepSoundTimer = true
 
 ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shared/npc_step2.wav", "vj_parr/par1/shared/npc_step3.wav", "vj_parr/par1/shared/npc_step4.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/shared/cbar_hitbod1.wav", "vj_parr/par1/shared/cbar_hitbod2.wav", "vj_parr/par1/shared/cbar_hitbod3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/weapons/melee_whoosh1.wav", "vj_parr/par1/weapons/melee_whoosh2.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 

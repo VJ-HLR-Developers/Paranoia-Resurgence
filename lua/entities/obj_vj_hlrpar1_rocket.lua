@@ -122,7 +122,7 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("scale", "4")
     spr:SetPos(self:GetPos() + vecZ80)
     spr:Spawn()
-    spr:Fire("Kill", "", 0.9)
+    spr:Fire("Kill", "", 1)
     timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
     local expLight = ents.Create("light_dynamic")

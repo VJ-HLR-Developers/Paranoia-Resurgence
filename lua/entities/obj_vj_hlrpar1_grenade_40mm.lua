@@ -57,7 +57,7 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("scale", "4")
     spr:SetPos(myPos + Vector(0, 0, 90))
     spr:Spawn()
-    spr:Fire("Kill", "", 0.9)
+    spr:Fire("Kill", "", 1)
     //timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
     VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 80, 100)

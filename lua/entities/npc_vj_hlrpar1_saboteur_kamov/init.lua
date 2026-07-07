@@ -372,7 +372,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 spr:SetKeyValue("scale", "5")
                 spr:SetPos(expPos2)
                 spr:Spawn()
-                spr:Fire("Kill", "", 0.9)
+                spr:Fire("Kill", "", 1)
                 timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
                 util.BlastDamage(self, self, expPos2, 300, 100)
