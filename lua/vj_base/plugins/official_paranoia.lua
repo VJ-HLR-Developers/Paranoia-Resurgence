@@ -20,11 +20,14 @@ VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_scientist_hazmat", spawnCategory
 VJ.AddNPC("Worker", "npc_vj_hlrpar1_civilian", spawnCategory)
 -- Russian Military
 VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_russian_mil", spawnCategory)
+VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_russian_gru", spawnCategory)
+VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_russian_ng", spawnCategory)
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_russian_army", spawnCategory)
 VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_russian_alpha", spawnCategory)
 VJ.AddNPC("Russian Spetsnaz Soldier (Savior)", "npc_vj_hlrpar1_russian_alphasav", spawnCategory)
 -- Terrorists
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory)
+VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_terrorist_early", spawnCategory)
 VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_terrorist_shahid", spawnCategory)
 -- Saboteurs
 VJ.AddNPC("Black Ops Soldier", "npc_vj_hlrpar1_blackops", spawnCategory)
@@ -32,16 +35,23 @@ VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory)
 VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_saboteur_kamov", spawnCategory)
 -- Clones
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory)
+VJ.AddNPC("Clone Soldier (Early)", "npc_vj_hlrpar1_clone_early", spawnCategory)
 VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clone_heavy", spawnCategory)
+VJ.AddNPC("Clone Heavy Soldier (Early)", "npc_vj_hlrpar1_clone_heavy_early", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory)
+VJ.AddNPC("Zombie (Early)", "npc_vj_hlrpar1_zombie_early", spawnCategory)
 VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zombie_clone", spawnCategory)
 VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zombie_clone_armed", spawnCategory)
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zombie_hazmat", spawnCategory)
 VJ.AddNPC("Zombie Mutant", "npc_vj_hlrpar1_zombie_mutant", spawnCategory)
+VJ.AddNPC("Zombie Mutant (Early)", "npc_vj_hlrpar1_zombie_mutant", spawnCategory)
 VJ.AddNPC("Zombie Mutant (3-Handed)", "npc_vj_hlrpar1_zombie_mutant_3h", spawnCategory)
 VJ.AddNPC("Zombie Mutant (Ceiling)", "npc_vj_hlrpar1_zombie_mutant_ceiling", spawnCategory)
 VJ.AddNPC("Zombie Mutant (Spider)", "npc_vj_hlrpar1_zombie_mutant_spider", spawnCategory)
+VJ.AddNPC("Zombie Mutant (Spider) (Early)", "npc_vj_hlrpar1_zombie_mutant_spider_early", spawnCategory)
+-- Animals
+VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_PARR_Blood_Red", {"vj_parr/decals/parr_blood01", "vj_parr/decals/parr_blood02", "vj_parr/decals/parr_blood03", "vj_parr/decals/parr_blood04", "vj_parr/decals/parr_blood05", "vj_parr/decals/parr_blood06", "vj_parr/decals/parr_blood07"})

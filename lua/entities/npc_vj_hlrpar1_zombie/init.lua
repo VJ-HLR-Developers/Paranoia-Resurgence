@@ -94,8 +94,6 @@ function ENT:Zombie_Init()
         "vj_parr/par1/zombie/zo_pain2.wav"
     }
     self:SetBodygroup(1, math_random(0, 5))
-    self:SetBodygroup(2, math_random(0, 1))
-    self:SetBodygroup(3, math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()

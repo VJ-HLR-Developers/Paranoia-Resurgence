@@ -4,6 +4,8 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/soldier.mdl"
 ENT.StartHealth = 100
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_Idle = {
@@ -81,8 +83,8 @@ function ENT:Soldier_Init()
         "vj_parr/par1/military/mil_pain4.wav",
         "vj_parr/par1/military/mil_pain5.wav"
     }
-    self:SetBodygroup(1, math.random(0, 5))
-    self:SetBodygroup(3, math.random(0, 1))
+    self:SetBodygroup(1, math_random(0, 5))
+    self:SetBodygroup(3, math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent) return end

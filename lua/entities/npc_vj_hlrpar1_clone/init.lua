@@ -2,7 +2,7 @@ include("entities/npc_vj_hlrpar1_russian_alpha/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl", "models/vj_parr/par1/early/soldier_colba.mdl"}
+ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl"}
 ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.StartHealth = 200
 

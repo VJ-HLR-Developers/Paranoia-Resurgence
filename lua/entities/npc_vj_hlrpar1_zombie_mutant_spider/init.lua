@@ -2,7 +2,7 @@ include("entities/npc_vj_hlrpar1_zombie/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/spider.mdl", "models/vj_parr/par1/early/spider_v1.mdl", "models/vj_parr/par1/early/spider_v2.mdl"}
+ENT.Model = {"models/vj_parr/par1/spider.mdl", "models/vj_parr/par1/early/spider_v2.mdl"}
 ENT.StartHealth = 400
 ENT.ControllerParams.FirstP_Bone = "Bone64"
 

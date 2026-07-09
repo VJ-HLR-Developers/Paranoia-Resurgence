@@ -35,8 +35,12 @@ local validModels = {
     ["models/vj_parr/par1/soldier_clon_bio.mdl"] = true,
     ["models/vj_parr/par1/soldier_clon_heavy.mdl"] = true,
     ["models/vj_parr/par1/terror.mdl"] = true,
+    ["models/vj_parr/par1/cut/soldier_beret.mdl"] = true,
+    ["models/vj_parr/par1/cut/soldier_gru.mdl"] = true,
     ["models/vj_parr/par1/cut/terror_shahid.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_colba.mdl"] = true
+    ["models/vj_parr/par1/early/soldier_clon_heavy.mdl"] = true,
+    ["models/vj_parr/par1/early/soldier_colba.mdl"] = true,
+    ["models/vj_parr/par1/early/terror_old.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par1/weapons/aks/AKS_OUT.WAV"
 SWEP.Reload_Middle = "vj_parr/par1/weapons/aks/AKS_IN.WAV"
