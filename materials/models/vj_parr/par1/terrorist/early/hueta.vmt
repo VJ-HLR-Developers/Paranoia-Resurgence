@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_parr/par1/terrorist/early/hueta"
+    "$nocull" "1"
 }

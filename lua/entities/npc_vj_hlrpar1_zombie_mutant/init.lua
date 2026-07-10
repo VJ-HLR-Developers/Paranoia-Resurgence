@@ -2,7 +2,7 @@ include("entities/npc_vj_hlrpar1_zombie/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/zombie.mdl", "models/vj_parr/par1/early/zombie.mdl"}
+ENT.Model = "models/vj_parr/par1/zombie.mdl"
 ENT.ControllerParams.FirstP_Bone = "Bip01_Head2"
 
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
