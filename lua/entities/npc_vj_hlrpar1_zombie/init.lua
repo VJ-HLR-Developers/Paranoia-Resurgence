@@ -1,7 +1,7 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/zombie_slow.mdl", "models/vj_parr/par1/early/zombie_slow.mdl"}
+ENT.Model = "models/vj_parr/par1/zombie_slow.mdl"
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
@@ -143,9 +143,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if self.Zombie_Type == 5 then
+        if self.Zombie_Type == 5 then -- Have armed zombie drop pistol on death
             self:SetBodygroup(1, 1)
-            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
+            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
         end
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1

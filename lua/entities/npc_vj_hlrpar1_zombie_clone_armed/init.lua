@@ -1,12 +1,8 @@
-include("entities/npc_vj_hlrpar1_zombie/init.lua")
+include("entities/npc_vj_hlrpar1_zombie_clone/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/cut/zombie_slow_armed.mdl"
-ENT.StartHealth = 300
-
-ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIE_HEADSHOT, ACT_DIE_GUTSHOT}
 
 ENT.HasRangeAttack = true
 ENT.NextRangeAttackTime = 0

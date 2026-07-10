@@ -25,4 +25,8 @@ function ENT:Zombie_Init()
         "vj_parr/par1/zombie/zo_pain1.wav",
         "vj_parr/par1/zombie/zo_pain2.wav"
     }
+    if self:GetModel() == "models/vj_parr/par1/early/zombie.mdl" then
+        self.CanFlinch = false
+        self.HasDeathAnimation = false
+    end
 end
