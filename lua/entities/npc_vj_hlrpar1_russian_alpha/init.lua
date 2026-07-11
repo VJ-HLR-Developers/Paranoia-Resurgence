@@ -94,7 +94,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "body_knee" then
         VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
     elseif key == "body" then
-        VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 2) .. ".wav", 75, 100)
+        VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 4) .. ".wav", 75, 100)
         local watLevel = self:WaterLevel()
         if watLevel > 0 && watLevel < 3 then
             ParticleEffect("water_splash_01", self:GetPos(), Angle())
@@ -210,11 +210,15 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_pain6.wav"
     }
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" then
+    if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
         self:SetBodygroup(1, math_random(0, 6))
-    elseif myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
-        self:SetBodygroup(1, math_random(0, 4))
+    elseif myMDL == "models/vj_parr/par1/early/soldier_alpha_pistol.mdl" then
+        self:SetSkin(math_random(0, 2))
+        self:SetBodygroup(0, math_random(0, 1))
+    elseif myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" then
+        self:SetBodygroup(0, math_random(0, 1))
+        self:SetBodygroup(1, math_random(0, 9))
     else
         self:SetBodygroup(1, math_random(0, 7))
     end
@@ -222,12 +226,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
+    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 3
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 2))
-    elseif myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" then
+    elseif myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
@@ -300,9 +304,10 @@ function ENT:TranslateActivity(act)
             end
         end
     end
-    local npcState = self:GetNPCState()
-    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
-        return self:TranslateActivity(act == ACT_IDLE and ACT_IDLE_ANGRY)
+    if act == ACT_IDLE then
+        if self.Alerted && self:GetWeaponState() != VJ.WEP_STATE_HOLSTERED && IsValid(self:GetActiveWeapon()) then
+            return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
+        end
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
