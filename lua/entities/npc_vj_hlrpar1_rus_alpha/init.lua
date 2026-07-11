@@ -237,6 +237,11 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
+    elseif myMDL == "models/vj_parr/par1/cut/general_pistol.mdl" then
+        self.Soldier_Type = 0
+        self.Soldier_WepBG = 1
+        self.Soldier_WepBGRemove = 1
+        self.Soldier_PistolAnims = true
     elseif myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl" or myMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" then
         self.Soldier_Type = 1
         self.Soldier_WepBG = 2
