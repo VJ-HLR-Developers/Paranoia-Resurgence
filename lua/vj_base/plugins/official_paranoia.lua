@@ -13,53 +13,56 @@ local spawnCategory = "HL Resurgence: Paranoia"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia.png"})
 -- Civilians
 VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory)
-VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_scientist_paulina", spawnCategory)
+VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory)
 VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory)
-VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_scientist_female", spawnCategory)
-VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_scientist_hazmat", spawnCategory)
-VJ.AddNPC("Worker", "npc_vj_hlrpar1_civilian", spawnCategory)
+VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_sci_fem", spawnCategory)
+VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_sci_haz", spawnCategory)
+VJ.AddNPC("Worker", "npc_vj_hlrpar1_worker", spawnCategory)
 -- Russian Military
-VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_russian_mil", spawnCategory)
-VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_russian_gru", spawnCategory)
-VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_russian_ng", spawnCategory)
-VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_russian_army", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_russian_alpha", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_russian_alpha_early", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_russian_alpha_early_v2", spawnCategory)
+VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_rus_mil", spawnCategory)
+VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory)
+VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_rus_ng", spawnCategory)
+VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_rus_soldier", spawnCategory)
+VJ.AddNPC("Russian Soldier (Early)", "npc_vj_hlrpar1_rus_soldier_early", spawnCategory)
+VJ.AddNPC("Russian Soldier (Early V2)", "npc_vj_hlrpar1_rus_soldier_early_v2", spawnCategory)
+VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_rus_alpha", spawnCategory)
+VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_rus_alpha_early", spawnCategory)
+VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_rus_alpha_early_v2", spawnCategory)
 -- Terrorists
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory)
-VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_terrorist_early", spawnCategory)
-VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_terrorist_shahid", spawnCategory)
+VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_ter_early", spawnCategory)
+VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_ter_shahid", spawnCategory)
 -- Saboteurs
-VJ.AddNPC("Black Ops Soldier", "npc_vj_hlrpar1_blackops", spawnCategory)
+VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory)
 VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory)
-VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_saboteur_kamov", spawnCategory)
+VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_sab_kamov", spawnCategory)
 -- Clones
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory)
-VJ.AddNPC("Clone Soldier (Early)", "npc_vj_hlrpar1_clone_early", spawnCategory)
-VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clone_heavy", spawnCategory)
-VJ.AddNPC("Clone Heavy Soldier (Early)", "npc_vj_hlrpar1_clone_heavy_early", spawnCategory)
+VJ.AddNPC("Clone Soldier (Early)", "npc_vj_hlrpar1_clo_early", spawnCategory)
+VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clo_heavy", spawnCategory)
+VJ.AddNPC("Clone Heavy Soldier (Early)", "npc_vj_hlrpar1_clo_heavy_early", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory)
 VJ.AddNPC("Zombie (Early)", "npc_vj_hlrpar1_zombie_early", spawnCategory)
-VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zombie_clone", spawnCategory)
-VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zombie_clone_armed", spawnCategory)
-VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zombie_clone_early", spawnCategory)
-VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zombie_hazmat", spawnCategory)
-VJ.AddNPC("Zombie Mutant", "npc_vj_hlrpar1_zombie_mutant", spawnCategory)
-VJ.AddNPC("Zombie Mutant (Early)", "npc_vj_hlrpar1_zombie_mutant_early", spawnCategory)
-VJ.AddNPC("Zombie Mutant (3-Handed)", "npc_vj_hlrpar1_zombie_mutant_3h", spawnCategory)
-VJ.AddNPC("Zombie Mutant (3-Handed) (Early)", "npc_vj_hlrpar1_zombie_mutant_3h_early", spawnCategory)
-VJ.AddNPC("Zombie Mutant (Ceiling)", "npc_vj_hlrpar1_zombie_mutant_ceiling", spawnCategory)
-VJ.AddNPC("Zombie Mutant (Ceiling) (Early)", "npc_vj_hlrpar1_zombie_mutant_ceiling_early", spawnCategory)
-VJ.AddNPC("Zombie Mutant (Spider)", "npc_vj_hlrpar1_zombie_mutant_spider", spawnCategory)
-VJ.AddNPC("Zombie Mutant (Spider) (Early)", "npc_vj_hlrpar1_zombie_mutant_spider_early", spawnCategory)
+VJ.AddNPC("Zombie 4-Handed Mutant", "npc_vj_hlrpar1_z4h", spawnCategory)
+VJ.AddNPC("Zombie 4-Handed Mutant (Early)", "npc_vj_hlrpar1_z4h_early", spawnCategory)
+VJ.AddNPC("Zombie 3-Handed Mutant", "npc_vj_hlrpar1_z3h", spawnCategory)
+VJ.AddNPC("Zombie 3-Handed Mutant (Early)", "npc_vj_hlrpar1_z3h_early", spawnCategory)
+VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory)
+VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory)
+VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zclone_early", spawnCategory)
+VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory)
+VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory)
+VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory)
+VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory)
+VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory)
+VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory)
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_PARR_Blood_Red", {"vj_parr/decals/parr_blood01", "vj_parr/decals/parr_blood02", "vj_parr/decals/parr_blood03", "vj_parr/decals/parr_blood04", "vj_parr/decals/parr_blood05", "vj_parr/decals/parr_blood06", "vj_parr/decals/parr_blood07"})
-game.AddDecal("VJ_PARR_Scorch", {"vj_parr/decals/scorch0", "vj_parr/decals/scorch1", "vj_parr/decals/scorch2", "vj_parr/decals/scorch3"})
+//game.AddDecal("VJ_PARR_Scorch", {"vj_parr/decals/scorch0", "vj_parr/decals/scorch1", "vj_parr/decals/scorch2", "vj_parr/decals/scorch3"})
 
 -- Particles --
 VJ.AddParticle("particles/vj_parr_blood.pcf", {
@@ -70,7 +73,7 @@ VJ.AddParticle("particles/vj_parr_blood.pcf", {
 
 -- Add to paint tool
 list.Add("PaintMaterials", "VJ_PARR_Blood_Red")
-list.Add("PaintMaterials", "VJ_PARR_Scorch")
+//list.Add("PaintMaterials", "VJ_PARR_Scorch")
 
 -- Weapon Sounds
 local SNDLVL_GUNFIRE = 140
