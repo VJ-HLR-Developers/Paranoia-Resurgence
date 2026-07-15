@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/zombie/rotten/geo_rotten_eye"
+
+    "$emissiveBlendEnabled" "1"
+    "$emissiveBlendTexture" "vgui/white"
+    "$emissiveBlendBaseTexture" "models/vj_parr/par2/zombie/rotten/geo_rotten_eye"
+    "$emissiveBlendFlowTexture" "vgui/white"
+    "$emissiveBlendTint" "[1 1 1]"
+    "$emissiveBlendStrength" "1"
+    "$emissiveBlendScrollVector" "[0 0]"
+}

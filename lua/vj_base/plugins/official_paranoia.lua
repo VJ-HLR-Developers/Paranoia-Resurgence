@@ -61,6 +61,14 @@ VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnC
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
+spawnCategory = "HL Resurgence: Paranoia 2"
+VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
+-- Clones
+VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
+-- Zombies
+VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
+VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
+
 -- Decals --
 game.AddDecal("VJ_PARR_Blood_Red", {"vj_parr/decals/parr_blood01", "vj_parr/decals/parr_blood02", "vj_parr/decals/parr_blood03", "vj_parr/decals/parr_blood04", "vj_parr/decals/parr_blood05", "vj_parr/decals/parr_blood06", "vj_parr/decals/parr_blood07"})
 //game.AddDecal("VJ_PARR_Scorch", {"vj_parr/decals/scorch0", "vj_parr/decals/scorch1", "vj_parr/decals/scorch2", "vj_parr/decals/scorch3"})
@@ -80,6 +88,7 @@ list.Add("PaintMaterials", "VJ_PARR_Blood_Red")
 local SNDLVL_GUNFIRE = 140
 local PITCH_RANDOM = {90, 110}
 
+-- Paranoia
 sound.Add({
     name = "VJ.PARR1_AK74.Single",
     channel = CHAN_WEAPON,
@@ -199,4 +208,23 @@ sound.Add({
         "^vj_parr/par1/weapons/explode4.wav",
         "^vj_parr/par1/weapons/explode5.wav"
     }
+})
+-- Paranoia 2: Savior
+sound.Add({
+    name = "VJ.PARR2_AKS.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par2/weapons/aks/aks_fire1.wav"
+})
+sound.Add({
+    name = "VJ.PARR2_PKM.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par2/weapons/pkm/pkm_outside.wav"
 })

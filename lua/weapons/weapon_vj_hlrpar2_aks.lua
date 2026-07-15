@@ -1,7 +1,7 @@
 AddCSLuaFile()
 
 SWEP.Base = "weapon_vj_base"
-SWEP.PrintName = "AK-74"
+SWEP.PrintName = "AKS"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "VJ Base"
@@ -11,18 +11,18 @@ SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.WorldModel = "models/vj_parr/par1/weapons/w_ak74.mdl"
+SWEP.WorldModel = "models/vj_parr/par2/weapons/world_aks.mdl"
 SWEP.HoldType = "ar2"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(180, 163, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(2, 8, -0.5)
+SWEP.WorldModel_CustomPositionAngle = Vector(190, -25, 80)
+SWEP.WorldModel_CustomPositionOrigin = Vector(1.5, -12.5, 0.5)
 SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound = "VJ.PARR1_AK74.Single"
+SWEP.Primary.Sound = "VJ.PARR2_AKS.Single"
 SWEP.Primary.TracerType = "VJ_PARR_Tracer"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.PrimaryEffects_MuzzleFlash = false
@@ -30,23 +30,11 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
-    ["models/vj_parr/par1/soldier.mdl"] = true,
-    ["models/vj_parr/par1/soldier_clon.mdl"] = true,
-    ["models/vj_parr/par1/soldier_clon_bio.mdl"] = true,
-    ["models/vj_parr/par1/soldier_clon_heavy.mdl"] = true,
-    ["models/vj_parr/par1/terror.mdl"] = true,
-    ["models/vj_parr/par1/cut/soldier_beret.mdl"] = true,
-    ["models/vj_parr/par1/cut/soldier_gru.mdl"] = true,
-    ["models/vj_parr/par1/cut/terror_shahid.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier.mdl"] = true,
-    ["models/vj_parr/par1/early/v2/soldier.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_clon_heavy.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_colba.mdl"] = true,
-    ["models/vj_parr/par1/early/terror_old.mdl"] = true
+    ["models/vj_parr/par2/monster_clonsoldier.mdl"] = true
 }
-SWEP.Reload_Start = "vj_parr/par1/weapons/aks/AKS_OUT.WAV"
-SWEP.Reload_Middle = "vj_parr/par1/weapons/aks/AKS_IN.WAV"
-SWEP.Reload_Finish = "vj_parr/par1/weapons/aks/AKS_01.WAV"
+SWEP.Reload_Start = "vj_parr/par2/weapons/aks/aks_out.wav"
+SWEP.Reload_Middle = "vj_parr/par2/weapons/aks/aks_in.wav"
+SWEP.Reload_Finish = "vj_parr/par2/weapons/aks/aks_boltpull.wav"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     timer.Simple(0.1, function()
@@ -60,9 +48,9 @@ function SWEP:DoImpactEffect(tr, damageType)
     return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function SWEP:OnDrawWorldModel()
+function SWEP:OnDrawWorldModel()
     return !IsValid(self:GetOwner())
-end*/
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")

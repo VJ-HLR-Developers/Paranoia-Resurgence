@@ -260,7 +260,7 @@ function ENT:Init()
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 2
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1))
-    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" then
+    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
@@ -463,10 +463,18 @@ function ENT:OnThink()
                 wep:Remove()
             end
         elseif self.Soldier_Type == 3 then -- Clone
-            if bodyGroup == 0 then -- AK-74
-                self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
+            if bodyGroup == 0 then -- AK-74/AKS
+                if self:GetModel() == "models/vj_parr/par2/monster_clonsoldier.mdl" then
+                    self:DoChangeWeapon("weapon_vj_hlrpar2_aks")
+                else
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
+                end
             elseif bodyGroup == 1 then -- PKM
-                self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
+                if self:GetModel() == "models/vj_parr/par2/monster_clonsoldier.mdl" then
+                    self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
+                else
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
+                end
             elseif IsValid(wep) then
                 wep:Remove()
             end
