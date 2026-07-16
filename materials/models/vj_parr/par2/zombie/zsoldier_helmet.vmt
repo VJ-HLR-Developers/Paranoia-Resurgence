@@ -7,5 +7,7 @@
     "$phongboost" ".05"
     "$phongfresnelranges" "[.3 .6 .9]"
     "$phongexponenttexture" "models/vj_parr/par2/zombie/zsoldier_helmet_gloss"
+
+    "$nocull" "1"
 }
 

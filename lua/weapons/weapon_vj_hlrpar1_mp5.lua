@@ -39,6 +39,9 @@ local validModels = {
 SWEP.Reload_Start = "vj_parr/par1/weapons/mp5/hks_clipout.wav"
 SWEP.Reload_Middle = "vj_parr/par1/weapons/mp5/hks_clipin.wav"
 SWEP.Reload_Finish = "vj_parr/par1/weapons/mp5/hks_01.wav"
+
+local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
     timer.Simple(0.1, function()
@@ -59,7 +62,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
-    muz:SetKeyValue("scale", "" .. math.Rand(0.3, 0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
@@ -70,7 +73,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:SetKeyValue("spawnflags", "0")
     muz:SetParent(self)
     muz:Fire("SetParentAttachment", self.PrimaryEffects_MuzzleAttachment)
-    muz:SetAngles(Angle(math.random(-100, 100), math.random(-100, 100), math.random(-100, 100)))
+    muz:SetAngles(Angle(math_random(-100, 100), math_random(-100, 100), math_random(-100, 100)))
     muz:Spawn()
     muz:Activate()
     muz:Fire("Kill", "", 0.08)

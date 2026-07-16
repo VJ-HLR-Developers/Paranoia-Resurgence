@@ -67,6 +67,8 @@ VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
+VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory)
+VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory)
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 
 -- Decals --
