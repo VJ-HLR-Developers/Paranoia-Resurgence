@@ -6,12 +6,12 @@ ENT.Model = "models/vj_parr/par1/cut/zombie_slow_armed.mdl"
 
 ENT.HasRangeAttack = true
 ENT.NextRangeAttackTime = 0
-ENT.RangeAttackMaxDistance = 2000
-ENT.RangeAttackMinDistance = 60
+ENT.RangeAttackMaxDistance = 812
+ENT.RangeAttackMinDistance = 100
 ENT.TimeUntilRangeAttackProjectileRelease = false
-ENT.LimitChaseDistance = true
-ENT.LimitChaseDistance_Max = 300
-ENT.LimitChaseDistance_Min = 150
+ENT.LimitChaseDistance = "OnlyRange"
+ENT.LimitChaseDistance_Max = "UseRangeDistance"
+ENT.LimitChaseDistance_Min = "UseRangeDistance"
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -79,6 +79,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.HLR1_Effect_Impact(tr)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttack(status, enemy)
+    if status == "Init" then
+        self.NextAnyAttackTime_Range = math_rand(1, 2)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

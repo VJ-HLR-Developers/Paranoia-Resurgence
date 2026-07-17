@@ -63,9 +63,9 @@ function SWEP:DoImpactEffect(tr, damageType)
     return VJ.HLR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-/*function SWEP:OnDrawWorldModel()
+function SWEP:OnDrawWorldModel()
     return !IsValid(self:GetOwner())
-end*/
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")

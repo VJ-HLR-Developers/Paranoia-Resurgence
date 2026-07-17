@@ -3,6 +3,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/monster_clonsoldier.mdl"
+ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

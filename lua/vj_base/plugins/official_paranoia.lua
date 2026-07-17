@@ -67,8 +67,11 @@ VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
+VJ.AddNPC("Zombie (Armed)", "npc_vj_hlrpar2_zarmed", spawnCategory)
 VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory)
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory)
+VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory)
+VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory)
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 
 -- Decals --
@@ -220,6 +223,17 @@ sound.Add({
     pitch = PITCH_RANDOM,
     sound =
         "^vj_parr/par2/weapons/aks/aks_fire1.wav"
+})
+sound.Add({
+    name = "VJ.PARR2_AK74.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound = {
+        "^vj_parr/par2/weapons/ak74/ak74_fire1-inside.wav",
+        "^vj_parr/par2/weapons/ak74/ak74_fire2-inside.wav"
+    }
 })
 sound.Add({
     name = "VJ.PARR2_PKM.Single",

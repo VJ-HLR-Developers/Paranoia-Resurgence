@@ -1,10 +1,4 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_parr/par2/zombie/hazmat/hazmat_zombied"
-    "$bumpmap" "models/vj_parr/par2/zombie/hazmat/bes_norm"
-
-    "$phong" "1"
-    "$phongboost" ".05"
-    "$phongfresnelranges" "[.3 .6 .9]"
-    "$phongexponenttexture" "models/vj_parr/par2/zombie/hazmat/bes_gloss"
 }

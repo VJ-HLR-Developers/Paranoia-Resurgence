@@ -58,7 +58,16 @@ function ENT:OnInput(key, activator, caller, data)
         self.MeleeAttackDamage = 40
         self:ExecuteMeleeAttack()
     elseif key == "shoot" then
-        self:ExecuteRangeAttack()
+        local wep = self:GetActiveWeapon()
+        if !IsValid(wep) then
+            self:ExecuteRangeAttack()
+        end
+        if IsValid(wep) then
+            wep:NPCShoot_Primary()
+            if self.DeathAnimationCodeRan && self.DeathShoot then
+                self:DeathShoot()
+            end
+        end
     elseif key == "body_knee" then
         VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
     elseif key == "body" then
@@ -71,6 +80,16 @@ function ENT:OnInput(key, activator, caller, data)
             effectdata:SetOrigin(self:GetPos())
             effectdata:SetScale(10)
             util.Effect("watersplash", effectdata)*/
+        end
+    end
+    if IsValid(self:GetActiveWeapon()) then
+        local wep = self.WeaponEntity
+        if key == "reload_start" then
+            VJ.EmitSound(wep, wep.Reload_Start, 60)
+        elseif key == "reload_middle" then
+            VJ.EmitSound(wep, wep.Reload_Middle, 60)
+        elseif key == "reload_finish" then
+            VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
 end
