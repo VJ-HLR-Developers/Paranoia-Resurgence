@@ -7,9 +7,10 @@ ENT.Model = "models/vj_parr/par2/monster_soldiershooter.mdl"
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
-ENT.Weapon_RetreatDistance = 150
+ENT.Weapon_RetreatDistance = 0
 ENT.Weapon_FindCoverOnReload = false
 
+ENT.CombatDamageResponse = false
 ENT.AnimTbl_DamageAllyResponse = false
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.AnimTbl_TakingCover = false
