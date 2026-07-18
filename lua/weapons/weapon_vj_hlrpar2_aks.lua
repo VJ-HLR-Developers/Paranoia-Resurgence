@@ -30,7 +30,8 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
-    ["models/vj_parr/par2/monster_clonsoldier.mdl"] = true
+    ["models/vj_parr/par2/monster_clonsoldier.mdl"] = true,
+    ["models/vj_parr/par2/v1/monster_clonsoldier.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/aks/aks_out.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/aks/aks_in.wav"
@@ -43,6 +44,10 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
+            if self:GetOwner():GetModel() == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
+                self.WorldModel_CustomPositionAngle = Vector(190, -23, 85)
+                self.WorldModel_CustomPositionOrigin = Vector(1, -14, 0)
+            end
         end
     end)
 end

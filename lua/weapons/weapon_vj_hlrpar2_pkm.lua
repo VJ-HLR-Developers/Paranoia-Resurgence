@@ -32,7 +32,8 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 local validModels = {
     ["models/vj_parr/par2/monster_clonsoldier.mdl"] = true,
     ["models/vj_parr/par2/monster_soldiershooter.mdl"] = true,
-    ["models/vj_parr/par2/monster_soldier_rhb.mdl"] = true
+    ["models/vj_parr/par2/monster_soldier_rhb.mdl"] = true,
+    ["models/vj_parr/par2/v1/monster_clonsoldier.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/pkm/pkm_boxout.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/pkm/pkm_boxin.wav"
@@ -49,6 +50,9 @@ function SWEP:Init()
             if ownerMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or ownerMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" then
                 self.WorldModel_CustomPositionAngle = Vector(182, -28, 175)
                 self.WorldModel_CustomPositionOrigin = Vector(0, -8, -5.5)
+            elseif ownerMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
+                self.WorldModel_CustomPositionAngle = Vector(180, -22.8, 180)
+                self.WorldModel_CustomPositionOrigin = Vector(0, -11, -4.8)
             end
         end
     end)

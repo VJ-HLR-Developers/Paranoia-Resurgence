@@ -65,6 +65,7 @@ spawnCategory = "HL Resurgence: Paranoia 2: Savior"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 -- Clones
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
+VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory)
 -- Zombies
 VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
 VJ.AddNPC("Zombie (Armed)", "npc_vj_hlrpar2_zarmed", spawnCategory)
