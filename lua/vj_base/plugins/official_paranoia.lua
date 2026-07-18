@@ -61,7 +61,7 @@ VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnC
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
-spawnCategory = "HL Resurgence: Paranoia 2"
+spawnCategory = "HL Resurgence: Paranoia 2: Savior"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 -- Clones
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
@@ -70,9 +70,10 @@ VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
 VJ.AddNPC("Zombie (Armed)", "npc_vj_hlrpar2_zarmed", spawnCategory)
 VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory)
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory)
-VJ.AddNPC("Zombie NBC Soldier", "npc_vj_hlrpar2_znbc", spawnCategory)
+VJ.AddNPC("Zombie RHB Soldier", "npc_vj_hlrpar2_zrhb", spawnCategory)
 VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory)
 VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory)
+VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory)
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 
 -- Decals --

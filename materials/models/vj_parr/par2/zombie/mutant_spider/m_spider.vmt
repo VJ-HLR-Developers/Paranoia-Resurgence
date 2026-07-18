@@ -1,0 +1,19 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/zombie/mutant_spider/m_spider"
+    "$bumpmap" "models/vj_parr/par2/zombie/mutant_spider/m_spider_norm"
+
+    "$phong" "1"
+    "$phongalbedotint" "1"
+    "$phongboost" ".1"
+    "$phongfresnelranges" "[.3 .6 .9]"
+    "$phongexponenttexture" "models/vj_parr/par2/zombie/mutant_spider/m_spider_gloss"
+
+    "$emissiveBlendEnabled" "1"
+    "$emissiveBlendTexture" "vgui/white"
+    "$emissiveBlendBaseTexture" "models/vj_parr/par2/zombie/mutant_spider/m_spider_luma"
+    "$emissiveBlendFlowTexture" "vgui/white"
+    "$emissiveBlendTint" "[1 1 1]"
+    "$emissiveBlendStrength" "1"
+    "$emissiveBlendScrollVector" "[0 0]"
+}

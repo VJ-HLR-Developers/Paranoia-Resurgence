@@ -38,6 +38,8 @@ ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/zombie/claw_strike1.wav", "vj_par
 ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/zombie/claw_miss1.wav", "vj_parr/par1/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
+ENT.MainSoundPitch = VJ.SET(95, 105)
+
 -- Custom
 ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie
 

@@ -9,9 +9,9 @@ ENT.Model = {"models/vj_parr/par1/npc_elektrik.mdl", "models/vj_parr/par1/npc_si
 ENT.StartHealth = 100
 ENT.HullType = HULL_HUMAN
 ENT.ControllerParams = {
-    ThirdP_Offset = Vector(10, 0, -30),
+    ThirdP_Offset = Vector(30, 25, -50),
     FirstP_Bone = "Bip01 Head",
-    FirstP_Offset = Vector(5, 0, 5),
+    FirstP_Offset = Vector(3, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_RUSSIAN"}
@@ -20,9 +20,7 @@ ENT.BloodParticle = "vj_parr_blood_red"
 ENT.BloodDecal = "VJ_PARR_Blood_Red"
 ENT.HasBloodPool = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
-ENT.BecomeEnemyToPlayer = 2
 ENT.DropDeathLoot = false
-ENT.HasOnPlayerSight = true
 ENT.HasMeleeAttack = false
 ENT.DisableFootStepSoundTimer = true
 ENT.HasDeathAnimation = true
@@ -119,6 +117,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
 
     function controlEnt:OnKeyBindPressed(key)
         local npc = self.VJCE_NPC
+        local curTime = CurTime()
         -- Toggle behavior setting (Idle / Alert)
         if key == IN_RELOAD then
             if npc.Civilian_ControllerAnim == 0 then
@@ -128,7 +127,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
                 npc.Civilian_ControllerAnim = 0
                 self.VJCE_Player:ChatPrint("Calming down...")
             end
-            local curTime = CurTime()
         elseif key == IN_ATTACK && curTime > npc.Civilian_NextTieAnnoyanceT then
             npc:PlayAnim(ACT_VM_IDLE_1, true, false)
             npc.Civilian_NextTieAnnoyanceT = curTime + 4
