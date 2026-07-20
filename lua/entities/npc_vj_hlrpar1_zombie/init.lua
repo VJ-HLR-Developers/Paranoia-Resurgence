@@ -36,6 +36,8 @@ ENT.HasExtraMeleeAttackSounds = true
 ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shared/npc_step2.wav", "vj_parr/par1/shared/npc_step3.wav", "vj_parr/par1/shared/npc_step4.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/zombie/claw_strike1.wav", "vj_parr/par1/zombie/claw_strike2.wav", "vj_parr/par1/zombie/claw_strike3.wav"}
 ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/zombie/claw_miss1.wav", "vj_parr/par1/zombie/claw_miss2.wav"}
+ENT.SoundTbl_LeapAttackDamage = {"vj_parr/par1/zombie/claw_strike1.wav", "vj_parr/par1/zombie/claw_strike2.wav", "vj_parr/par1/zombie/claw_strike3.wav"}
+ENT.SoundTbl_LeapAttackDamageMiss = {"vj_parr/par1/zombie/claw_miss1.wav", "vj_parr/par1/zombie/claw_miss2.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
@@ -59,6 +61,8 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "melee_both" then
         self.MeleeAttackDamage = 40
         self:ExecuteMeleeAttack()
+    elseif key == "range" then
+        self:ExecuteRangeAttack()
     elseif key == "shoot" then
         local wep = self:GetActiveWeapon()
         if !IsValid(wep) then

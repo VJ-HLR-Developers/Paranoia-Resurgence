@@ -139,7 +139,7 @@ function ENT:OnThink()
         self.Zombie_LastBodyGroup = bodyGroup
         if bodyGroup == 0 then -- AK-74
             self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
-        elseif bodyGroup == 1 then -- PKM
+        elseif bodyGroup == 1 && self:GetModel() != "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then -- PKM
             self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
         elseif IsValid(wep) then
             wep:Remove()

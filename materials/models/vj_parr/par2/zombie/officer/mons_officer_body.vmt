@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/zombie/officer/mons_officer_body"
+    "$bumpmap" "models/vj_parr/par2/zombie/officer/mons_officer_body_norm"
+}
