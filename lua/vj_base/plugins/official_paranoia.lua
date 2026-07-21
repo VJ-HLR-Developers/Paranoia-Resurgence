@@ -76,6 +76,7 @@ VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory)
 VJ.AddNPC("Zombie RHB Soldier", "npc_vj_hlrpar2_zrhb", spawnCategory)
 VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory)
 VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory)
+VJ.AddNPC("Zombie Scientist (Female) (1.0)", "npc_vj_hlrpar2_zscientist_fem_v1", spawnCategory)
 VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory)
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 

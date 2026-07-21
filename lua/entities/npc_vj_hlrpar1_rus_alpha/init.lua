@@ -14,7 +14,10 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr_blood_red"
 ENT.BloodDecal = "VJ_PARR_Blood_Red"
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.AlliedWithPlayerAllies = true
+ENT.BecomeEnemyToPlayer = 2
+ENT.HasOnPlayerSight = true
 
 -- Melee Attack
 ENT.HasMeleeAttack = true
@@ -46,6 +49,7 @@ ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
+ENT.DropDeathLoot = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 

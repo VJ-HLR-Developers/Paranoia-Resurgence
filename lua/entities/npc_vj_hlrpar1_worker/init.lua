@@ -14,7 +14,10 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(3, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.AlliedWithPlayerAllies = true
+ENT.BecomeEnemyToPlayer = 2
+ENT.HasOnPlayerSight = true
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr_blood_red"
 ENT.BloodDecal = "VJ_PARR_Blood_Red"
@@ -23,6 +26,7 @@ ENT.Behavior = VJ_BEHAVIOR_PASSIVE
 ENT.DropDeathLoot = false
 ENT.HasMeleeAttack = false
 ENT.DisableFootStepSoundTimer = true
+ENT.DropDeathLoot = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false

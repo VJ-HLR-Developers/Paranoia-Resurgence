@@ -3,8 +3,10 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl"}
-ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.StartHealth = 200
+ENT.VJ_NPC_Class = {"CLASS_CLONE"}
+ENT.AlliedWithPlayerAllies = false
+ENT.BecomeEnemyToPlayer = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -7,4 +7,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/mi24.mdl"
-ENT.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.AlliedWithPlayerAllies = true
+ENT.BecomeEnemyToPlayer = 2

@@ -5,6 +5,8 @@ include("shared.lua")
 ENT.Model = {"models/vj_parr/par1/diversant.mdl", "models/vj_parr/par1/diversant_pistol.mdl"}
 ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
+ENT.AlliedWithPlayerAllies = false
+ENT.BecomeEnemyToPlayer = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_CombatIdle = {
