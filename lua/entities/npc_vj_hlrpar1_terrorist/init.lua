@@ -7,6 +7,14 @@ ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
 ENT.BecomeEnemyToPlayer = false
+
+local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_HLRPAR_Terrorist_Hostile"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_TERRORIST"}
+    end
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_Idle = {
@@ -86,7 +94,7 @@ function ENT:Soldier_Init()
         "vj_parr/par1/terror/ter_pain4.wav",
         "vj_parr/par1/terror/ter_pain5.wav"
     }
-    self:SetBodygroup(1, math.random(0, 4))
+    self:SetBodygroup(1, math_random(0, 4))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
@@ -100,7 +108,7 @@ end
 local sdAlertMonster = {"vj_parr/par1/terror/shaitan1.wav", "vj_parr/par1/terror/shaitan2.wav", "vj_parr/par1/terror/shaitan3.wav"}
 --
 function ENT:OnAlert(ent)
-    if math.random(1, 3) == 1 then
+    if math_random(1, 3) == 1 then
         if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
             self:PlaySoundSystem("Alert", sdAlertMonster)
             return

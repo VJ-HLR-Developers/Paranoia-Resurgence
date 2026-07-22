@@ -10,6 +10,14 @@ ENT.BecomeEnemyToPlayer = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_HLRPAR_Clone_Ally"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+        self.AlliedWithPlayerAllies = true
+        self.BecomeEnemyToPlayer = 2
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_Death = {
         "vj_parr/par1/clone/cl_die1.wav",

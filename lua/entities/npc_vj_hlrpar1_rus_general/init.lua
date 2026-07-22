@@ -4,8 +4,6 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/cut/general_pistol.mdl"
 ENT.StartHealth = 100
-
-local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_IdleDialogue =

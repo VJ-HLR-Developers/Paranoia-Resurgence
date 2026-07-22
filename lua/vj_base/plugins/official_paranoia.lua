@@ -53,8 +53,8 @@ VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory)
 VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory)
 VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zclone_early", spawnCategory)
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory)
-VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory)
-VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory)
+VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
+VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, false, function(x) x.OnCeiling = true x.Offset = 0 end)
 VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory)
 VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory)
 VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory)
@@ -99,7 +99,7 @@ list.Add("PaintMaterials", "VJ_PARR_Blood_Red")
 local SNDLVL_GUNFIRE = 140
 local PITCH_RANDOM = {90, 110}
 
--- Paranoia
+-- Paranoia --
 sound.Add({
     name = "VJ.PARR1_AK74.Single",
     channel = CHAN_WEAPON,
@@ -220,7 +220,7 @@ sound.Add({
         "^vj_parr/par1/weapons/explode5.wav"
     }
 })
--- Paranoia 2: Savior
+-- Paranoia 2: Savior --
 sound.Add({
     name = "VJ.PARR2_AKS.Single",
     channel = CHAN_WEAPON,
@@ -250,3 +250,28 @@ sound.Add({
     sound =
         "^vj_parr/par2/weapons/pkm/pkm_outside.wav"
 })
+
+local bit_bor = bit.bor
+
+-- ConVars --
+VJ.AddConVar("VJ_HLRPAR_Clone_Ally", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_HLRPAR_Terrorist_Hostile", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+
+-- Main Configure Menu --
+if CLIENT then
+    hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLRPAR", function()
+        spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Paranoia Resurgence", "Paranoia Resurgence", "", "", function(panel)
+            if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+                panel:Help("#vjbase.menu.general.admin.not")
+                panel:Help("#vjbase.menu.general.admin.only")
+                return
+            end
+            panel:Help("#vjbase.menu.general.admin.only")
+            panel:Help("#vjbase.menu.general.npc.note.future")
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_HLRPAR_Clone_Ally 0\nVJ_HLRPAR_Terrorist_Hostile 0"})
+            panel:Help("Server-Side Options:")
+            panel:CheckBox("Clones Are Allies?", "VJ_HLRPAR_Clone_Ally")
+            panel:CheckBox("Terrorists Have Their Own Faction?", "VJ_HLRPAR_Terrorist_Hostile")
+        end)
+    end)
+end

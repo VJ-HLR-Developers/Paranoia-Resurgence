@@ -7,6 +7,8 @@ ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
 ENT.BecomeEnemyToPlayer = false
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_CombatIdle = {
@@ -52,8 +54,8 @@ function ENT:Soldier_Init()
         "vj_parr/par1/diversant/gr_pain5.wav",
         "vj_parr/par1/diversant/gr_pain6.wav"
     }
-    self:SetBodygroup(2, math.random(0, 4))
-    self:SetBodygroup(4, math.random(0, 1))
+    self:SetBodygroup(2, math_random(0, 4))
+    self:SetBodygroup(4, math_random(0, 1))
 
     local myBG = self:GetBodygroup(2)
     if myBG == 0 or myBG == 3 then
@@ -74,7 +76,7 @@ end
 local sdAlertMonster = {"vj_parr/par1/diversant/dv_monst1.wav", "vj_parr/par1/diversant/dv_monst2.wav"}
 --
 function ENT:OnAlert(ent)
-    if math.random(1, 3) == 1 then
+    if math_random(1, 3) == 1 then
         if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
             self:PlaySoundSystem("Alert", sdAlertMonster)
             return

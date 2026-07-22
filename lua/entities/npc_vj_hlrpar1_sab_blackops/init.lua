@@ -3,6 +3,8 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par1/cut/blackop.mdl"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     self.SoundTbl_CombatIdle = {
@@ -48,8 +50,8 @@ function ENT:Soldier_Init()
         "vj_parr/par1/diversant/gr_pain5.wav",
         "vj_parr/par1/diversant/gr_pain6.wav"
     }
-    self:SetBodygroup(1, math.random(0, 1))
-    self:SetBodygroup(3, math.random(0, 1))
+    self:SetBodygroup(1, math_random(0, 1))
+    self:SetBodygroup(3, math_random(0, 1))
 
     if self:GetBodygroup(1) == 0 then
         self:SetBodygroup(4, 0)

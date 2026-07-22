@@ -31,11 +31,13 @@ ENT.RadiusDamageForce = 90
 ENT.CollisionDecal = "VJ_HLR1_Scorch"
 ENT.SoundTbl_OnRemove = "VJ.PARR1_Explosion.Single"
 ENT.OnRemoveSoundLevel = 100
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:InitPhys()
     local phys = self:GetPhysicsObject()
     if IsValid(phys) then
-        phys:AddAngleVelocity(Vector(0, math.random(300, 400), 0))
+        phys:AddAngleVelocity(Vector(0, math_random(300, 400), 0))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
