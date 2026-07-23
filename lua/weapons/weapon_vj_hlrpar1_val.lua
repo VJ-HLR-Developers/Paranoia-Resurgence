@@ -4,12 +4,12 @@ SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "VAL"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category = "VJ Base"
+SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
-SWEP.NPC_CustomSpread = 0.75
+//SWEP.NPC_CustomSpread = 0.75
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_val.mdl"

@@ -63,6 +63,9 @@ VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
 spawnCategory = "HL Resurgence: Paranoia 2: Savior"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
+-- Russian Military
+VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory)
+VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar2_rus_alpha", spawnCategory)
 -- Clones
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
 VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory)
@@ -242,6 +245,15 @@ sound.Add({
     }
 })
 sound.Add({
+    name = "VJ.PARR2_Groza.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par2/weapons/groza/groza-inside.wav"
+})
+sound.Add({
     name = "VJ.PARR2_PKM.Single",
     channel = CHAN_WEAPON,
     volume = 1.0,
@@ -249,6 +261,15 @@ sound.Add({
     pitch = PITCH_RANDOM,
     sound =
         "^vj_parr/par2/weapons/pkm/pkm_outside.wav"
+})
+sound.Add({
+    name = "VJ.PARR2_VAL.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par2/weapons/val/vss_fire1.wav"
 })
 
 local bit_bor = bit.bor

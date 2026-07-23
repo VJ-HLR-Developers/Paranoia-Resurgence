@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/weapons/vss/weapon_vss"
+    "$bumpmap" "models/vj_parr/par2/weapons/vss/weapon_vss_norm"
+
+    "$phong" "1"
+    "$phongalbedotint" "1"
+    "$phongboost" ".1"
+    "$phongfresnelranges" "[.3 .6 .9]"
+    "$phongexponenttexture" "models/vj_parr/par2/weapons/vss/weapon_vss_gloss"
+}

@@ -4,7 +4,7 @@ SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "AK-74"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
-SWEP.Category = "VJ Base"
+SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
@@ -32,7 +32,8 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 local validModels = {
     ["models/vj_parr/par2/monster_soldiershooter.mdl"] = true,
     ["models/vj_parr/par2/monster_soldier_rhb.mdl"] = true,
-    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true
+    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true,
+    ["models/vj_parr/par2/soldier.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/ak74/ak74_out.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/ak74/ak74_in.wav"

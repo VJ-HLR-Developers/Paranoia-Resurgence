@@ -1,4 +1,4 @@
-include("entities/npc_vj_hlrpar1_sci_fem/init.lua")
+include("entities/npc_vj_hlrpar1_worker/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -41,6 +41,10 @@ function ENT:Civilian_Init()
         "vj_parr/par1/medic/hello1.wav",
         "vj_parr/par1/medic/hello2.wav",
         "vj_parr/par1/medic/hello3.wav"
+    }
+    self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/medic/blocked1.wav",
+        "vj_parr/par1/medic/blocked2.wav"
     }
     self.SoundTbl_Alert = {
         "vj_parr/par1/medic/fear1.wav",

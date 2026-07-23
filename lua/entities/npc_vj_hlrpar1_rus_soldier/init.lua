@@ -66,6 +66,11 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/hello4.wav",
         "vj_parr/par1/alpha/hello5.wav"
     }
+    self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/soldier/cantgo1.wav",
+        "vj_parr/par1/soldier/cantgo2.wav",
+        "vj_parr/par1/soldier/cantgo3.wav"
+    }
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",
         "vj_parr/par1/military/mil_die2.wav",

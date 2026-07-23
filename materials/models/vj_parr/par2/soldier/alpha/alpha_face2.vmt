@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/soldier/alpha/alpha_face2"
+    "$bumpmap" "models/vj_parr/par2/soldier/alpha/alpha_face1_norm"
+
+    "$phong" "1"
+    "$phongalbedotint" "1"
+    "$phongboost" ".1"
+    "$phongfresnelranges" "[.3 .6 .9]"
+    "$phongexponenttexture" "models/vj_parr/par2/soldier/alpha/alpha_face1_gloss"
+}

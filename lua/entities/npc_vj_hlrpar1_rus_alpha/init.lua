@@ -154,9 +154,11 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_yes3.wav"
     }
     self.SoundTbl_CombatIdle = {
-        "vj_parr/par1/alpha/alpha_enemy1.wav",
-        "vj_parr/par1/alpha/alpha_enemy2.wav",
-        "vj_parr/par1/alpha/alpha_enemy3.wav"
+        "vj_parr/par1/npc/bunk/kulak_gogogo.wav",
+        "vj_parr/par1/npc/bunk/kulak_wtf1.wav",
+        "vj_parr/par1/npc/indust/7shluz_cover_me.wav",
+        "vj_parr/par1/npc/indust/7shluz_go.wav",
+        "vj_parr/par1/npc/indust/7shluz_underfire.wav"
     }
     self.SoundTbl_ReceiveOrder = {
         "vj_parr/par1/alpha/alpha_yes0.wav",
@@ -164,13 +166,26 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_yes2.wav",
         "vj_parr/par1/alpha/alpha_yes3.wav"
     }
-    self.SoundTbl_Investigate =
-        "vj_parr/par1/alpha/alpha_wait0.wav"
-
+    self.SoundTbl_Investigate = {
+        "vj_parr/par1/alpha/alpha_wait0.wav",
+        "vj_parr/par1/npc/indust/7shluz_get_ready.wav"
+    }
     self.SoundTbl_Alert = {
         "vj_parr/par1/alpha/alpha_enemy1.wav",
         "vj_parr/par1/alpha/alpha_enemy2.wav",
         "vj_parr/par1/alpha/alpha_enemy3.wav"
+    }
+    self.SoundTbl_OnPlayerSight = {
+        "vj_parr/par1/npc/bunk/kulak_introlab1.wav",
+        "vj_parr/par1/npc/bunk/kulak_mayor!.wav",
+        "vj_parr/par1/npc/indust/mayor!.wav"
+    }
+    self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/alpha/alpha_blocked0.wav",
+        "vj_parr/par1/alpha/alpha_blocked1.wav",
+        "vj_parr/par1/alpha/alpha_blocked2.wav",
+        "vj_parr/par1/alpha/alpha_blocked3.wav",
+        "vj_parr/par1/alpha/alpha_blocked4.wav"
     }
     self.SoundTbl_KilledEnemy = {
         "vj_parr/par1/alpha/alpha_enemydown0.wav",
@@ -224,6 +239,8 @@ function ENT:Soldier_Init()
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" then
         self:SetBodygroup(0, math_random(0, 1))
         self:SetBodygroup(1, math_random(0, 9))
+    elseif myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
+        self:SetBodygroup(1, math_random(0, 2))
     else
         self:SetBodygroup(1, math_random(0, 7))
     end
@@ -231,7 +248,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" then
+    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 3
@@ -246,7 +263,7 @@ function ENT:Init()
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
-    elseif myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl" or myMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" then
+    elseif myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl" or myMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or myMDL == "models/vj_parr/par2/soldier.mdl" then
         self.Soldier_Type = 1
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
@@ -437,12 +454,24 @@ function ENT:OnThink()
         self.Soldier_LastBodyGroup = bodyGroup
         if self.Soldier_Type == 0 then -- Spetsnaz
             if !self.Soldier_PistolAnims then
-                if bodyGroup == 0 then -- AK-74
-                    self:DoChangeWeapon("weapon_vj_hlrpar1_aks")
+                if bodyGroup == 0 then -- AKS
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
+                        self:DoChangeWeapon("weapon_vj_hlrpar2_aks")
+                    else
+                        self:DoChangeWeapon("weapon_vj_hlrpar1_aks")
+                    end
                 elseif bodyGroup == 1 then -- VAL
-                    self:DoChangeWeapon("weapon_vj_hlrpar1_val")
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
+                        self:DoChangeWeapon("weapon_vj_hlrpar2_val")
+                    else
+                        self:DoChangeWeapon("weapon_vj_hlrpar1_val")
+                    end
                 elseif bodyGroup == 2 then -- Groza
-                    self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
+                        self:DoChangeWeapon("weapon_vj_hlrpar2_groza")
+                    else
+                        self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
+                    end
                 elseif IsValid(wep) then
                     wep:Remove()
                 end
@@ -455,7 +484,11 @@ function ENT:OnThink()
             end
         elseif self.Soldier_Type == 1 then -- Army
             if bodyGroup == 0 then -- AK-74
-                self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
+                if myMDL == "models/vj_parr/par2/soldier.mdl" then
+                    self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
+                else
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
+                end
             elseif IsValid(wep) then
                 wep:Remove()
             end
