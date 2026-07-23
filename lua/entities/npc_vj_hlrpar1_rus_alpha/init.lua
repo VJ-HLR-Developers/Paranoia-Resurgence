@@ -554,6 +554,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
     if status == "Init" then
+        if !VJ.AnimExists(self, ACT_SPECIAL_ATTACK2) then return end
         -- Play a unique animation when throwing back grenades
         if IsValid(overrideEnt) then
             self.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2
