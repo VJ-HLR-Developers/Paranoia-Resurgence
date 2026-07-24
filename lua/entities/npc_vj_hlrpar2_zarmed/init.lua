@@ -80,7 +80,7 @@ function ENT:DeathShoot()
         util.Effect("RifleShellEject", effectData, true, true)
 
         local muz = ents.Create("env_sprite")
-        muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+        muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash2.vmt")
         muz:SetKeyValue("scale", "" .. math_rand(0.15, 0.25))
         muz:SetKeyValue("GlowProxySize", "2.0")
         muz:SetKeyValue("HDRColorScale", "1.0")

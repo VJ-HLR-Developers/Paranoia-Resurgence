@@ -48,7 +48,7 @@ function SWEP:Init()
             local ownerMDL = self:GetOwner():GetModel()
             if ownerMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
                 self.WorldModel_CustomPositionAngle = Vector(190, -23, 85)
-                self.WorldModel_CustomPositionOrigin = Vector(1, -14, 0)
+                self.WorldModel_CustomPositionOrigin = Vector(1, -14, 0.25)
             elseif ownerMDL == "models/vj_parr/par2/soldier.mdl" or ownerMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
                 self.WorldModel_CustomPositionBone = "bip01_r_hand"
             end
@@ -66,7 +66,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash2.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")

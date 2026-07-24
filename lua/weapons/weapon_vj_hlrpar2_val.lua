@@ -58,7 +58,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash2.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")
