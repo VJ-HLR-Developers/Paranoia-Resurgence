@@ -16,8 +16,8 @@ ENT.ControllerParams = {
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
-ENT.BloodParticle = "vj_parr_blood_red"
-ENT.BloodDecal = "VJ_PARR_Blood_Red"
+ENT.BloodParticle = "vj_parr1_blood_red"
+ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 ENT.HasMeleeAttack = false
@@ -131,12 +131,12 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
     end
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 5))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 5))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 5))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 5))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 5))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 4, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 5))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {BloodType = "Red", CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 4, 5))})
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end

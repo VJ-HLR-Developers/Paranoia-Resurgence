@@ -3,7 +3,9 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/monster_clonsoldier.mdl"
+ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
+ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

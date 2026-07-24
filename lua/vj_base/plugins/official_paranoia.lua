@@ -84,19 +84,23 @@ VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory)
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 
 -- Decals --
-game.AddDecal("VJ_PARR_Blood_Red", {"vj_parr/decals/parr_blood01", "vj_parr/decals/parr_blood02", "vj_parr/decals/parr_blood03", "vj_parr/decals/parr_blood04", "vj_parr/decals/parr_blood05", "vj_parr/decals/parr_blood06", "vj_parr/decals/parr_blood07"})
-//game.AddDecal("VJ_PARR_Scorch", {"vj_parr/decals/scorch0", "vj_parr/decals/scorch1", "vj_parr/decals/scorch2", "vj_parr/decals/scorch3"})
+game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/decals/parr1_blood02", "vj_parr/decals/parr1_blood03", "vj_parr/decals/parr1_blood04", "vj_parr/decals/parr1_blood05", "vj_parr/decals/parr1_blood06", "vj_parr/decals/parr1_blood07"})
+game.AddDecal("VJ_PARR1_Scorch", {"vj_parr/decals/parr1_scorch1", "vj_parr/decals/parr1_scorch2", "vj_parr/decals/parr1_scorch3"})
+game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/decals/parr2_blood2"})
+game.AddDecal("VJ_PARR2_Scorch", {"vj_parr/decals/parr2_scorch1", "vj_parr/decals/parr2_scorch2", "vj_parr/decals/parr2_scorch3"})
 
 -- Particles --
-VJ.AddParticle("particles/vj_parr_blood.pcf", {
-    "vj_parr_blood_red",
-    "vj_parr_blood_red_large",
-    "vj_parr_blood_boob_red"
+VJ.AddParticle("particles/vj_parr1_blood.pcf", {
+    "vj_parr1_blood_red",
+    "vj_parr1_blood_red_large",
+    "vj_parr1_blood_boob_red"
 })
 
 -- Add to paint tool
-list.Add("PaintMaterials", "VJ_PARR_Blood_Red")
-//list.Add("PaintMaterials", "VJ_PARR_Scorch")
+list.Add("PaintMaterials", "VJ_PARR1_Blood_Red")
+list.Add("PaintMaterials", "VJ_PARR1_Scorch")
+list.Add("PaintMaterials", "VJ_PARR2_Blood_Red")
+list.Add("PaintMaterials", "VJ_PARR2_Scorch")
 
 -- Weapon Sounds
 local SNDLVL_GUNFIRE = 140
@@ -270,6 +274,18 @@ sound.Add({
     pitch = PITCH_RANDOM,
     sound =
         "^vj_parr/par2/weapons/val/vss_fire1.wav"
+})
+sound.Add({
+    name = "VJ.PARR2_Explosion.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound = {
+        "^vj_parr/par2/weapons/explode3.wav",
+        "^vj_parr/par2/weapons/explode4.wav",
+        "^vj_parr/par2/weapons/explode5.wav"
+    }
 })
 
 local bit_bor = bit.bor

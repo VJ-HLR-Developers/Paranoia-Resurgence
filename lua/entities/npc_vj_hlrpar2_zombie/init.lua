@@ -3,6 +3,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/monster_soldierguard.mdl"
+ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 
 local math_random = math.random

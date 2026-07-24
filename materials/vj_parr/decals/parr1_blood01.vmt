@@ -1,0 +1,9 @@
+"DecalModulate"
+{
+    // Original shader: DecalBaseTimesLightmapAlphaBlend
+    "$translucent" "1"
+    "$basetexture" "vj_parr/decals/parr1_blood01"
+    "$decal" "1"
+    "$size" "128 128"
+    "$decalscale" "0.25"
+}

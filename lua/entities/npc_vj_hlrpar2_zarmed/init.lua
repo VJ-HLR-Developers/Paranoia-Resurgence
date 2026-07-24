@@ -65,7 +65,7 @@ function ENT:DeathShoot()
             Src = attMuz.Pos,
             Dir = attMuz.Ang:Forward(),
             Spread = Vector(0.1, 0.1, 0),
-            TracerName = "VJ_PARR_Tracer",
+            TracerName = "VJ_PARR1_Tracer",
             Tracer = 1,
             Damage = self.ScaleByDifficulty(self, wep.Primary.Damage),
             Force = 5,

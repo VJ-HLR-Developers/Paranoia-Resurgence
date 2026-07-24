@@ -4,6 +4,8 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/soldier.mdl"
 ENT.StartHealth = 100
+ENT.BloodDecal = "VJ_PARR2_Blood_Red"
+ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

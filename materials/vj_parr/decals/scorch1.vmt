@@ -1,9 +1,0 @@
-"DecalModulate"
-{
-    // Original shader: DecalBaseTimesLightmapAlphaBlend
-    "$translucent" "1"
-    "$basetexture" "vj_parr/decals/scorch1"
-    "$decal" "1"
-    "$size" "256 256"
-    "$decalscale" "0.25"
-}

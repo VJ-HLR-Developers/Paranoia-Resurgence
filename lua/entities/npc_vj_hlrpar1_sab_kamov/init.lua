@@ -188,7 +188,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
             Dir = (enemy:GetPos() + enemy:OBBCenter() - att.Pos):Angle():Forward(),
             Spread = bulletSpread,
             Tracer = 1,
-            TracerName = "VJ_PARR_Tracer",
+            TracerName = "VJ_PARR1_Tracer",
             Force = 3,
             Damage = self:ScaleByDifficulty(8),
             AmmoType = "HelicopterGun"
@@ -263,7 +263,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             rico:SetOrigin(dmginfo:GetDamagePosition())
             rico:SetScale(4) -- Size
             rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-            util.Effect("VJ_PARR_Rico", rico)
+            util.Effect("VJ_PARR1_Rico", rico)
         end
     elseif status == "PostDamage" then
         if self.Heli_SmokeStatus == 2 then return end

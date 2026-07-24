@@ -28,7 +28,7 @@ ENT.RadiusDamage = 80
 ENT.RadiusDamageUseRealisticRadius = true
 ENT.RadiusDamageType = DMG_BLAST
 ENT.RadiusDamageForce = 90
-ENT.CollisionDecal = "VJ_HLR1_Scorch"
+ENT.CollisionDecal = "VJ_PARR1_Scorch"
 ENT.SoundTbl_OnRemove = "VJ.PARR1_Explosion.Single"
 ENT.OnRemoveSoundLevel = 100
 
