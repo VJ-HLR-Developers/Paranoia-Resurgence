@@ -24,7 +24,7 @@ SWEP.Primary.ClipSize = 17
 SWEP.Primary.Ammo = "Pistol"
 SWEP.Primary.Sound = "VJ.PARR1_APS.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
-SWEP.Primary.TracerType = "VJ_PARR1_Tracer"
+SWEP.Primary.TracerType = "VJ_PARR_Tracer"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 

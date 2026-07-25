@@ -1,11 +1,9 @@
-include("entities/npc_vj_hlrpar1_rus_soldier/init.lua")
+include("entities/npc_vj_hlrpar2_rus_alpha/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/soldier.mdl"
 ENT.StartHealth = 100
-ENT.BloodDecal = "VJ_PARR2_Blood_Red"
-ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,3 +84,5 @@ function ENT:Soldier_Init()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent) return end

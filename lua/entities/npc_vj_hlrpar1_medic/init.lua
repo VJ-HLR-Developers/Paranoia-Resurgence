@@ -7,6 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/npc_medic.mdl"
+
+ENT.Civilian_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Init()
     self.SoundTbl_Idle = {

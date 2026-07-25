@@ -90,10 +90,12 @@ game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/dec
 game.AddDecal("VJ_PARR2_Scorch", {"vj_parr/decals/parr2_scorch1", "vj_parr/decals/parr2_scorch2", "vj_parr/decals/parr2_scorch3"})
 
 -- Particles --
-VJ.AddParticle("particles/vj_parr1_blood.pcf", {
+VJ.AddParticle("particles/vj_parr_blood.pcf", {
     "vj_parr1_blood_red",
     "vj_parr1_blood_red_large",
-    "vj_parr1_blood_boob_red"
+    "vj_parr1_blood_boob_red",
+    "vj_parr2_blood_red",
+    "vj_parr2_blood_red_large"
 })
 
 -- Add to paint tool

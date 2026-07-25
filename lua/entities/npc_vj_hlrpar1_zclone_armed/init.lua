@@ -97,7 +97,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             Src = attPos,
             Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
             Spread = Vector(0.1, 0.1, 0),
-            TracerName = "VJ_PARR1_Tracer",
+            TracerName = "VJ_PARR_Tracer",
             Tracer = 1,
             Damage = self:ScaleByDifficulty(8),
             Force = 5,

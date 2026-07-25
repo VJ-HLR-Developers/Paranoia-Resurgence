@@ -23,7 +23,7 @@ SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
 SWEP.Primary.Sound = "VJ.PARR2_AK74.Single"
-SWEP.Primary.TracerType = "VJ_PARR1_Tracer"
+SWEP.Primary.TracerType = "VJ_PARR_Tracer"
 SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
@@ -65,7 +65,7 @@ end
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash2.vmt")
-    muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
+    muz:SetKeyValue("scale", "" .. math_rand(0.2, 0.4))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")
     muz:SetKeyValue("renderfx", "14")
