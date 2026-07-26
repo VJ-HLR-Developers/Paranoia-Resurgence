@@ -124,7 +124,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
         self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
         self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
     elseif bodyGroup == 1 then -- PKM
-        self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2 //VJ.PICK({ACT_RANGE_ATTACK_SMG1, ACT_RANGE_ATTACK_AR2})
+        self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2 // VJ.PICK({ACT_RANGE_ATTACK_SMG1, ACT_RANGE_ATTACK_AR2})
         //self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
         self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
         self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
@@ -139,7 +139,7 @@ function ENT:OnThink()
         self.Zombie_LastBodyGroup = bodyGroup
         if bodyGroup == 0 then -- AK-74
             self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
-        elseif bodyGroup == 1 && self:GetModel() != "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then -- PKM
+        elseif bodyGroup == 1 then -- PKM
             self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
         elseif IsValid(wep) then
             wep:Remove()

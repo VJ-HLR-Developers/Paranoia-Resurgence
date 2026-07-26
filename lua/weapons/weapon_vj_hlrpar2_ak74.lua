@@ -46,10 +46,6 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
-            -- 1.0 Armed Zombie doesn't have reloading animations
-            if self:GetOwner():GetModel() == "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then
-                self.Primary.TakeAmmo = 0
-            end
         end
     end)
 end

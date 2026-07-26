@@ -1,0 +1,12 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/zombie/gasmas_glass"
+    "$bumpmap" "models/vj_parr/par2/zombie/gasmas_glass_norm"
+
+    "$phong" "1"
+    "$phongalbedotint" "1"
+    "$phongboost" ".1"
+    "$phongfresnelranges" "[.3 .6 .9]"
+    "$phongexponenttexture" "models/vj_parr/par2/zombie/gasmas_glass_gloss"
+}
+
