@@ -2,7 +2,8 @@ include("entities/npc_vj_hlrpar2_zarmed/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = "models/vj_parr/par2/v1/monster_soldiershooter.mdl"
+ENT.Model = "models/vj_parr/par2/cut/monster_himtrooper.mdl"
+ENT.StartHealth = 250
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

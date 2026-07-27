@@ -32,8 +32,10 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 local validModels = {
     ["models/vj_parr/par2/monster_soldiershooter.mdl"] = true,
     ["models/vj_parr/par2/monster_soldier_rhb.mdl"] = true,
-    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true,
-    ["models/vj_parr/par2/soldier.mdl"] = true
+    ["models/vj_parr/par2/soldier.mdl"] = true,
+    ["models/vj_parr/par2/cut/monster_himtrooper.mdl"] = true,
+    ["models/vj_parr/par2/cut/soldier_clon_zombied.mdl"] = true,
+    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/ak74/ak74_out.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/ak74/ak74_in.wav"
@@ -46,6 +48,14 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
+            local ownerMDL = self:GetOwner():GetModel()
+            if ownerMDL == "models/vj_parr/par2/cut/monster_himtrooper.mdl" then
+                self.WorldModel_CustomPositionAngle = Vector(10, 24, 84.5)
+                self.WorldModel_CustomPositionOrigin = Vector(0.25, 4.5, 0)
+            elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then
+                self.WorldModel_CustomPositionAngle = Vector(10, 20, 90)
+                self.WorldModel_CustomPositionOrigin = Vector(-1.25, 8, 0.8)
+            end
         end
     end)
 end

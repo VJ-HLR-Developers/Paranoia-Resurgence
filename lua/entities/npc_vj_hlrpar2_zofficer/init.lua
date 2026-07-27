@@ -2,7 +2,8 @@ include("entities/npc_vj_hlrpar2_zombie/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = "models/vj_parr/par2/monster_superofficer.mdl"
+ENT.Model = "models/vj_parr/par2/cut/monster_superofficer.mdl"
+ENT.StartHealth = 300
 
 ENT.HasRangeAttack = true
 ENT.RangeAttackProjectiles = "obj_vj_hlr1_gonomegut"
