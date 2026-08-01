@@ -2,8 +2,8 @@
 {
     // Original shader: DecalBaseTimesLightmapAlphaBlend
     "$translucent" "1"
-    "$basetexture" "vj_parr/decals/parr2_blood1"
+    "$basetexture" "vj_parr/decals/parr1_shot"
     "$decal" "1"
-    "$size" "256 256"
+    "$size" "64 64"
     "$decalscale" "0.10"
 }

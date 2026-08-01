@@ -50,7 +50,7 @@ function ENT:TranslateActivity(act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
-    return VJ.HLR1_Effect_Impact(tr)
+    return VJ.PARR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathShoot()

@@ -49,7 +49,7 @@ function SWEP:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
-    return VJ.HLR1_Effect_Impact(tr)
+    return VJ.PARR2_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:OnDrawWorldModel()

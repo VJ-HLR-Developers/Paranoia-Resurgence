@@ -87,8 +87,11 @@ VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/decals/parr1_blood02", "vj_parr/decals/parr1_blood03", "vj_parr/decals/parr1_blood04", "vj_parr/decals/parr1_blood05", "vj_parr/decals/parr1_blood06", "vj_parr/decals/parr1_blood07"})
+game.AddDecal("VJ_PARR1_Blood_Red_Large", {"vj_parr/decals/parr1_bloodbigsplat", "vj_parr/decals/parr1_bloodbigsplat2"})
+game.AddDecal("VJ_PARR1_Impact", "vj_parr/decals/parr1_shot")
 game.AddDecal("VJ_PARR1_Scorch", {"vj_parr/decals/parr1_scorch1", "vj_parr/decals/parr1_scorch2", "vj_parr/decals/parr1_scorch3"})
 game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/decals/parr2_blood2"})
+game.AddDecal("VJ_PARR2_Impact", {"vj_parr/decals/parr2_shot1", "vj_parr/decals/parr2_shot2", "vj_parr/decals/parr2_shot3"})
 game.AddDecal("VJ_PARR2_Scorch", {"vj_parr/decals/parr2_scorch1", "vj_parr/decals/parr2_scorch2", "vj_parr/decals/parr2_scorch3"})
 
 -- Particles --
@@ -102,6 +105,7 @@ VJ.AddParticle("particles/vj_parr_blood.pcf", {
 
 -- Add to paint tool
 list.Add("PaintMaterials", "VJ_PARR1_Blood_Red")
+list.Add("PaintMaterials", "VJ_PARR1_Blood_Red_Large")
 list.Add("PaintMaterials", "VJ_PARR1_Scorch")
 list.Add("PaintMaterials", "VJ_PARR2_Blood_Red")
 list.Add("PaintMaterials", "VJ_PARR2_Scorch")
@@ -291,6 +295,43 @@ sound.Add({
         "^vj_parr/par2/weapons/explode5.wav"
     }
 })
+---------------------------------------------------------------------------------------------------------------------------------------------
+local excludedMats = {
+    [MAT_ANTLION] = true,
+    [MAT_ALIENFLESH] = true,
+    [MAT_BLOODYFLESH] = true,
+    [MAT_FLESH] = true
+}
+--
+function VJ.PARR1_Effect_Impact(tr)
+    if excludedMats[tr.MatType] then return end
+    local effectData = EffectData()
+    effectData:SetEntity(tr.Entity)
+    effectData:SetStart(tr.StartPos)
+    effectData:SetOrigin(tr.HitPos)
+    effectData:SetNormal(tr.HitNormal)
+    effectData:SetHitBox(tr.HitBox)
+    effectData:SetSurfaceProp(tr.SurfaceProps)
+    effectData:SetFlags(1)
+    util.Effect("Impact_GMOD", effectData)
+    util.Decal("VJ_PARR1_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+    return true
+end
+
+function VJ.PARR2_Effect_Impact(tr)
+    if excludedMats[tr.MatType] then return end
+    local effectData = EffectData()
+    effectData:SetEntity(tr.Entity)
+    effectData:SetStart(tr.StartPos)
+    effectData:SetOrigin(tr.HitPos)
+    effectData:SetNormal(tr.HitNormal)
+    effectData:SetHitBox(tr.HitBox)
+    effectData:SetSurfaceProp(tr.SurfaceProps)
+    effectData:SetFlags(1)
+    util.Effect("Impact_GMOD", effectData)
+    util.Decal("VJ_PARR2_Impact", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+    return true
+end
 
 local bit_bor = bit.bor
 
