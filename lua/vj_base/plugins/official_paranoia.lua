@@ -3,7 +3,7 @@
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local parVersion = "0.5.0-Beta"
+local parVersion = "0.6.0-Beta"
 
 VJ.AddPlugin("Paranoia Resurgence", "NPC", parVersion)
 
@@ -12,78 +12,86 @@ VJ.HLR_VERSION = parVersion
 local spawnCategory = "HL Resurgence: Paranoia"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia.png"})
 -- Civilians
-VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory)
-VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory)
-VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory)
-VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_sci_fem", spawnCategory)
-VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_sci_haz", spawnCategory)
-VJ.AddNPC("Worker", "npc_vj_hlrpar1_worker", spawnCategory)
+local subCategory = "Russians"
+VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_sci_fem", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_sci_haz", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Worker", "npc_vj_hlrpar1_worker", spawnCategory, {SubCategory = subCategory})
 -- Russian Military
-VJ.AddNPC("Russian General", "npc_vj_hlrpar1_rus_general", spawnCategory)
-VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory)
-VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_rus_mil", spawnCategory)
-VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_rus_ng", spawnCategory)
-VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_rus_soldier", spawnCategory)
-VJ.AddNPC("Russian Soldier (Early)", "npc_vj_hlrpar1_rus_soldier_early", spawnCategory)
-VJ.AddNPC("Russian Soldier (Early V2)", "npc_vj_hlrpar1_rus_soldier_early_v2", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_rus_alpha", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_rus_alpha_early", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_rus_alpha_early_v2", spawnCategory)
+VJ.AddNPC("Russian General", "npc_vj_hlrpar1_rus_general", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_rus_mil", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_rus_ng", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_rus_soldier", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Soldier (Early)", "npc_vj_hlrpar1_rus_soldier_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Soldier (Early V2)", "npc_vj_hlrpar1_rus_soldier_early_v2", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_rus_alpha", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_rus_alpha_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_rus_alpha_early_v2", spawnCategory, {SubCategory = subCategory})
 -- Terrorists
-VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory)
-VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_ter_early", spawnCategory)
-VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_ter_shahid", spawnCategory)
+subCategory = "Terrorists"
+VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_ter_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_ter_shahid", spawnCategory, {SubCategory = subCategory})
 -- Saboteurs
-VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory)
-VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory)
-VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_sab_kamov", spawnCategory)
+subCategory = "Saboteurs"
+VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_sab_kamov", spawnCategory, {SubCategory = subCategory})
 -- Clones
-VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory)
-VJ.AddNPC("Clone Soldier (Early)", "npc_vj_hlrpar1_clo_early", spawnCategory)
-VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clo_heavy", spawnCategory)
-VJ.AddNPC("Clone Heavy Soldier (Early)", "npc_vj_hlrpar1_clo_heavy_early", spawnCategory)
+subCategory = "Clones"
+VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Soldier (Early)", "npc_vj_hlrpar1_clo_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clo_heavy", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Heavy Soldier (Early)", "npc_vj_hlrpar1_clo_heavy_early", spawnCategory, {SubCategory = subCategory})
 -- Zombies
-VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory)
-VJ.AddNPC("Zombie (Early)", "npc_vj_hlrpar1_zombie_early", spawnCategory)
-VJ.AddNPC("Zombie 4-Handed Mutant", "npc_vj_hlrpar1_z4h", spawnCategory)
-VJ.AddNPC("Zombie 4-Handed Mutant (Early)", "npc_vj_hlrpar1_z4h_early", spawnCategory)
-VJ.AddNPC("Zombie 3-Handed Mutant", "npc_vj_hlrpar1_z3h", spawnCategory)
-VJ.AddNPC("Zombie 3-Handed Mutant (Early)", "npc_vj_hlrpar1_z3h_early", spawnCategory)
-VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory)
-VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory)
-VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zclone_early", spawnCategory)
-VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory)
-VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {OnCeiling = true, Offset = 0})
-VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, {OnCeiling = true, Offset = 0})
-VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory)
-VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory)
-VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory)
+subCategory = "Zombies"
+VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie (Early)", "npc_vj_hlrpar1_zombie_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie 4-Handed Mutant", "npc_vj_hlrpar1_z4h", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie 4-Handed Mutant (Early)", "npc_vj_hlrpar1_z4h_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie 3-Handed Mutant", "npc_vj_hlrpar1_z3h", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie 3-Handed Mutant (Early)", "npc_vj_hlrpar1_z3h_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zclone_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory, {SubCategory = subCategory})
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
-spawnCategory = "HL Resurgence: Paranoia 2: Savior"
+spawnCategory = "HL Resurgence: Paranoia 2"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 -- Russian Military
-VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory)
-VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar2_rus_alpha", spawnCategory)
+subCategory = "Russians"
+VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar2_rus_alpha", spawnCategory, {SubCategory = subCategory})
 -- Clones
-VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory)
-VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory)
+subCategory = "Clones"
+VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory, {SubCategory = subCategory})
 -- Zombies
-VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory)
-VJ.AddNPC("Zombie Clone Soldier", "npc_vj_hlrpar2_zclone", spawnCategory)
-VJ.AddNPC("Zombie Elite Shooter", "npc_vj_hlrpar2_zarmed_elite", spawnCategory)
-VJ.AddNPC("Zombie Shooter", "npc_vj_hlrpar2_zarmed", spawnCategory)
-VJ.AddNPC("Zombie Shooter (1.0)", "npc_vj_hlrpar2_zarmed_v1", spawnCategory)
-VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory)
-VJ.AddNPC("Zombie Officer", "npc_vj_hlrpar2_zofficer", spawnCategory)
-VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory)
-VJ.AddNPC("Zombie RHB Soldier", "npc_vj_hlrpar2_zrhb", spawnCategory)
-VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory)
-VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory)
-VJ.AddNPC("Zombie Scientist (Female) (1.0)", "npc_vj_hlrpar2_zscientist_fem_v1", spawnCategory)
-VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory)
-VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory)
+subCategory = "Zombies"
+VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Clone Soldier", "npc_vj_hlrpar2_zclone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Elite Shooter", "npc_vj_hlrpar2_zarmed_elite", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Shooter", "npc_vj_hlrpar2_zarmed", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Shooter (1.0)", "npc_vj_hlrpar2_zarmed_v1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Officer", "npc_vj_hlrpar2_zofficer", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar2_zhazmat", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie RHB Soldier", "npc_vj_hlrpar2_zrhb", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Scientist (Female) (1.0)", "npc_vj_hlrpar2_zscientist_fem_v1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory, {SubCategory = subCategory})
 
 -- Decals --
 game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/decals/parr1_blood02", "vj_parr/decals/parr1_blood03", "vj_parr/decals/parr1_blood04", "vj_parr/decals/parr1_blood05", "vj_parr/decals/parr1_blood06", "vj_parr/decals/parr1_blood07"})
