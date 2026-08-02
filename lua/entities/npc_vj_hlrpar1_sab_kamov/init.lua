@@ -74,7 +74,7 @@ ENT.Heli_SmokeStatus = 0 -- 0 = No smoke | 1 = Tail smoke | 2 = Tail & Rotor smo
 ENT.Heli_RangeAttach = "missile_left"
 ENT.Heli_NextMGT = 0
 
-local defVec = Vector(0, 0, 0)
+local defVec = Vector()
 local CurTime = CurTime
 local math_abs = math.abs
 local math_approachangle = math.ApproachAngle
@@ -241,7 +241,7 @@ function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector(0, 0, 0)
+local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
