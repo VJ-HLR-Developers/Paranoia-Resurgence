@@ -1,0 +1,12 @@
+include("entities/npc_vj_hlrpar1_rat/init.lua")
+AddCSLuaFile("shared.lua")
+include("shared.lua")
+/*-----------------------------------------------
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
+ENT.Model = "models/vj_parr/par2/krisa.mdl"
+ENT.ControllerParams.FirstP_Bone = "bip01_head"
+ENT.BloodParticle = "vj_parr2_blood_red"
+ENT.BloodDecal = "VJ_PARR2_Blood_Red"

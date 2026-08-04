@@ -92,6 +92,8 @@ VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCat
 VJ.AddNPC("Zombie Scientist (Female) (1.0)", "npc_vj_hlrpar2_zscientist_fem_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory, {SubCategory = subCategory})
+-- Animals
+VJ.AddNPC("Rat", "npc_vj_hlrpar2_rat", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/decals/parr1_blood02", "vj_parr/decals/parr1_blood03", "vj_parr/decals/parr1_blood04", "vj_parr/decals/parr1_blood05", "vj_parr/decals/parr1_blood06", "vj_parr/decals/parr1_blood07"})
