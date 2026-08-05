@@ -2,7 +2,7 @@ include("entities/npc_vj_hlrpar1_zombie/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/spider.mdl", "models/vj_parr/par1/early/spider_v2.mdl"}
+ENT.Model = {"models/vj_parr/par1/spider.mdl", "models/vj_parr/par1/early/v2/spider_v2.mdl"}
 ENT.StartHealth = 400
 ENT.ControllerParams.FirstP_Bone = "Bone64"
 
@@ -27,7 +27,7 @@ function ENT:Zombie_Init()
         "vj_parr/par1/spider/zo_pain2.wav"
     }
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/spider_v2.mdl" then
+    if myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.AnimTbl_Death = ACT_DIEBACKWARD
     elseif myMDL == "models/vj_parr/par1/early/spider_v1.mdl" then
         self.CanFlinch = false

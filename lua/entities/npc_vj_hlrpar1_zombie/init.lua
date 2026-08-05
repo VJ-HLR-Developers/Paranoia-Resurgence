@@ -129,7 +129,7 @@ function ENT:Init()
         self.Zombie_Type = 1
     elseif myMDL == "models/vj_parr/par1/z_3h.mdl" then
         self.Zombie_Type = 2
-    elseif myMDL == "models/vj_parr/par1/spider.mdl" or myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/spider_v2.mdl" then
+    elseif myMDL == "models/vj_parr/par1/spider.mdl" or myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.Zombie_Type = 3
     elseif myMDL == "models/vj_parr/par1/zombie_c.mdl" then
         self.Zombie_Type = 4

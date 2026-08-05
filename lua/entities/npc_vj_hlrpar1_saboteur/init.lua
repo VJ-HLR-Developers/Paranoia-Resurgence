@@ -77,7 +77,7 @@ local sdAlertMonster = {"vj_parr/par1/diversant/dv_monst1.wav", "vj_parr/par1/di
 --
 function ENT:OnAlert(ent)
     if math_random(1, 3) == 1 then
-        if ent.IsVJBaseSNPC_Creature && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
+        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
             self:PlaySoundSystem("Alert", sdAlertMonster)
             return
         end
