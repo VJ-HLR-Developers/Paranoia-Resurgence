@@ -17,8 +17,8 @@ SWEP.HoldType = "ar2"
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
-    Pos = Vector(0, -8, -4.8),
-    Ang = Angle(182, -25, 175)
+    Pos = Vector(7.236, 3.76, -4.532),
+    Ang = Angle(1.813, -154.987, -4.154)
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
@@ -53,14 +53,14 @@ function SWEP:Init()
             self.NPC_NextPrimaryFire = false
             local ownerMDL = self:GetOwner():GetModel()
             if ownerMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or ownerMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or ownerMDL == "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then
-                self.WorldModelOffsetParams,Ang = Angle(182, -28, 175)
-                self.WorldModelOffsetParams.Pos = Vector(0, -8, -5.5)
+                self.WorldModelOffsetParams.Ang = Angle(1.766, -151.986, -4.061)
+                self.WorldModelOffsetParams.Pos = Vector(7.026, 4.179, -5.237)
             elseif ownerMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
-                self.WorldModelOffsetParams.Ang = Angle(180, -22.8, 180)
-                self.WorldModelOffsetParams.Pos = Vector(0, -11, -4.8)
+                self.WorldModelOffsetParams.Ang = Angle(0, -157.2, 0)
+                self.WorldModelOffsetParams.Pos = Vector(10.14, 4.263, -4.8)
             elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then
-                self.WorldModelOffsetParams.Ang = Angle(180, -20, 180)
-                self.WorldModelOffsetParams.Pos = Vector(-1.2, -12, -2.8)
+                self.WorldModelOffsetParams.Ang = Angle(0, -160, 0)
+                self.WorldModelOffsetParams.Pos = Vector(11.687, 2.977, -2.8)
             end
         end
     end)

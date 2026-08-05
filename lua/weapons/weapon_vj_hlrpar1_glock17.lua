@@ -17,8 +17,8 @@ SWEP.HoldType = "pistol"
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
-    Pos = Vector(-3, 5, 0),
-    Ang = Angle(180, 165, 90)
+    Pos = Vector(4.83, 1.294, -3),
+    Ang = Angle(0, 15, -90)
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 8
