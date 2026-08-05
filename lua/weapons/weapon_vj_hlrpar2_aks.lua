@@ -14,10 +14,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_aks.mdl"
 SWEP.HoldType = "ar2"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(190, -25, 80)
-SWEP.WorldModel_CustomPositionOrigin = Vector(1.5, -12.5, 0.5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(1.5, -12.5, 0.5),
+    Ang = Angle(190, -25, 80)
+}
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
@@ -42,18 +44,18 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //timer.Simple(0.1, function()
-        if /*IsValid(self) &&*/ IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             local ownerMDL = self:GetOwner():GetModel()
             if ownerMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
-                self.WorldModel_CustomPositionAngle = Vector(190, -23, 85)
-                self.WorldModel_CustomPositionOrigin = Vector(1, -14, 0.25)
+                self.WorldModelOffsetParams.Ang = Angle(190, -23, 85)
+                self.WorldModelOffsetParams.Pos = Vector(1, -14, 0.25)
             elseif ownerMDL == "models/vj_parr/par2/soldier.mdl" or ownerMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
-                self.WorldModel_CustomPositionBone = "bip01_r_hand"
+                self.WorldModelOffsetParams.Bone = "bip01_r_hand"
             end
         end
-    //end)
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)

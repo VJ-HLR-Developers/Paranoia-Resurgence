@@ -14,10 +14,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_akm.mdl"
 SWEP.HoldType = "ar2"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(10, 24, 84.5)
-SWEP.WorldModel_CustomPositionOrigin = Vector(-2, 3, -0.5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(-2, 3, -0.5),
+    Ang = Angle(10, 24, 84.5)
+}
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
@@ -45,19 +47,19 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //timer.Simple(0.1, function()
-        if /*IsValid(self) &&*/ IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             local ownerMDL = self:GetOwner():GetModel()
             if ownerMDL == "models/vj_parr/par2/cut/monster_himtrooper.mdl" then
-                self.WorldModel_CustomPositionAngle = Vector(10, 24, 84.5)
-                self.WorldModel_CustomPositionOrigin = Vector(0.25, 4.5, 0)
+                self.WorldModelOffsetParams.Ang = Angle(10, 24, 84.5)
+                self.WorldModelOffsetParams.Pos = Vector(0.25, 4.5, 0)
             elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then
-                self.WorldModel_CustomPositionAngle = Vector(10, 20, 90)
-                self.WorldModel_CustomPositionOrigin = Vector(-1.25, 8, 0.8)
+                self.WorldModelOffsetParams.Ang  = Angle(10, 20, 90)
+                self.WorldModelOffsetParams.Pos = Vector(-1.25, 8, 0.8)
             end
         end
-    //end)
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)

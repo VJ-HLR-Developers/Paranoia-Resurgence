@@ -14,10 +14,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_aps.mdl"
 SWEP.HoldType = "pistol"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(180, 165, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(1.8, 3.5, 0.5)
-SWEP.WorldModel_CustomPositionBone = "Bip01 R Hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "Bip01 R Hand",
+    Pos = Vector(1.8, 3.5, 0.5),
+    Ang = Angle(180, 165, 90)
+}
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 8
 SWEP.Primary.ClipSize = 17

@@ -15,10 +15,12 @@ SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_val.mdl"
 SWEP.HoldType = "ar2"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.WorldModel_UseCustomPosition = true
-SWEP.WorldModel_CustomPositionAngle = Vector(183, 191, 90)
-SWEP.WorldModel_CustomPositionOrigin = Vector(0, 10, 0.8)
-SWEP.WorldModel_CustomPositionBone = "bip01_r_hand"
+SWEP.WorldModelOffsetParams = {
+    Enabled = true,
+    Bone = "bip01_r_hand",
+    Pos = Vector(0, 10, 0.8),
+    Ang = Angle(183, 191, 90)
+}
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
@@ -41,11 +43,11 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //timer.Simple(0.1, function()
-        if /*IsValid(self) &&*/ IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
         end
-    //end)
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
