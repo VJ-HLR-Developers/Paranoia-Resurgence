@@ -57,6 +57,7 @@ VJ.AddNPC("Zombie 3-Handed Mutant (Early)", "npc_vj_hlrpar1_z3h_early", spawnCat
 VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone (Early)", "npc_vj_hlrpar1_zclone_early", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Dog Mutant", "npc_vj_hlrpar1_zdog", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
