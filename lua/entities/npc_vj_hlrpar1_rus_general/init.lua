@@ -25,11 +25,7 @@ function ENT:Soldier_Init()
         "vj_parr/par1/military/mil_die3.wav"
     }
     self.SoundTbl_Pain = {
-        "vj_parr/par1/alpha/hit1.wav",
-        "vj_parr/par1/alpha/hit2.wav",
-        "vj_parr/par1/alpha/hit3.wav",
-        "vj_parr/par1/alpha/hit4.wav",
-        "vj_parr/par1/alpha/hit5.wav",
+        "vj_parr/par1/npc/army/dermo1.wav",
         "vj_parr/par1/military/mil_pain1.wav",
         "vj_parr/par1/military/mil_pain2.wav",
         "vj_parr/par1/military/mil_pain3.wav",
