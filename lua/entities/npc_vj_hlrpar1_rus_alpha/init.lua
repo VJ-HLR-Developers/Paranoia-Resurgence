@@ -235,14 +235,14 @@ function ENT:Soldier_Init()
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
         self:SetBodygroup(0, math_random(0, 1))
-        self:SetBodygroup(1, math_random(0, 7))
+        self:SetBodygroup(1, math_random(0, 9))
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" then
         self:SetBodygroup(0, math_random(0, 1))
         self:SetBodygroup(1, math_random(0, 9))
     elseif myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self:SetBodygroup(1, math_random(0, 2))
     else
-        self:SetBodygroup(1, math_random(0, 7))
+        self:SetBodygroup(1, math_random(0, 9))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -564,6 +564,23 @@ function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
             self.GrenadeAttackAttachment = "rhand"
         end
     end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local vec = Vector()
+--
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+	if status == "Init" then
+		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+			self.HasBloodParticle = false
+			local rico = EffectData()
+			rico:SetOrigin(dmginfo:GetDamagePosition())
+			rico:SetScale(4)
+			rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+			util.Effect("VJ_HLR_Rico", rico)
+		else
+			self.HasBloodParticle = true
+		end
+	end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
