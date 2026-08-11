@@ -231,11 +231,11 @@ function ENT:Soldier_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
-        self:SetBodygroup(1, math_random(0, 6))
+        self:SetBodygroup(1, math_random(0, 8))
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
         self:SetBodygroup(0, math_random(0, 1))
-        self:SetBodygroup(1, math_random(0, 9))
+        self:SetBodygroup(1, math_random(0, 7))
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" then
         self:SetBodygroup(0, math_random(0, 1))
         self:SetBodygroup(1, math_random(0, 9))
