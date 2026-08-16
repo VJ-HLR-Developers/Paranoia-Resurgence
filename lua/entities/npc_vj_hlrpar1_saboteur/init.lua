@@ -10,7 +10,7 @@ ENT.BecomeEnemyToPlayer = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Soldier_Init()
+function ENT:Soldier_Voice()
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/diversant/dv_charge1.wav",
         "vj_parr/par1/diversant/dv_charge2.wav",
@@ -54,6 +54,9 @@ function ENT:Soldier_Init()
         "vj_parr/par1/diversant/gr_pain5.wav",
         "vj_parr/par1/diversant/gr_pain6.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Soldier_Init()
     self:SetBodygroup(2, math_random(0, 4))
     self:SetBodygroup(4, math_random(0, 1))
 

@@ -54,7 +54,7 @@ ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
 ENT.Civilian_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Civilian_Init()
+function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/npc/bunk/prof_idle1.wav",
         "vj_parr/par1/npc/bunk/prof_idle2.wav",
@@ -96,6 +96,9 @@ function ENT:Civilian_Init()
         "vj_parr/par1/military/mil_pain4.wav",
         "vj_parr/par1/military/mil_pain5.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Civilian_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" then
         self:SetBodygroup(1, math_random(0, 3))
@@ -109,6 +112,7 @@ function ENT:Init()
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)
     if self.Civilian_Init then self:Civilian_Init() end
+    if self.Civilian_Voice then self:Civilian_Voice() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

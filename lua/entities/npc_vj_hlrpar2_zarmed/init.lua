@@ -21,7 +21,7 @@ ENT.Zombie_WepBG = 0
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_Init()
+function ENT:Zombie_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par2/clone/cl_die1.wav",
         "vj_parr/par2/clone/cl_die2.wav",
@@ -34,6 +34,9 @@ function ENT:Zombie_Init()
         "vj_parr/par2/clone/cl_pain4.wav",
         "vj_parr/par2/clone/cl_pain5.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2
     self:SetBodygroup(1, math_random(0, 1))

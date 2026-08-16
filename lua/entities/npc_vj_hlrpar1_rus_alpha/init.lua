@@ -121,13 +121,15 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Soldier_Init()
+function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/alpha/alpha_clear0.wav",
         "vj_parr/par1/alpha/alpha_clear1.wav",
         "vj_parr/par1/alpha/alpha_clear2.wav",
         "vj_parr/par1/alpha/alpha_clear3.wav",
-        "vj_parr/par1/alpha/alpha_clear4.wav",
+        "vj_parr/par1/alpha/alpha_clear4.wav"
+    }
+    self.SoundTbl_IdleDialogue = {
         "vj_parr/par1/alpha/alpha_idle0.wav",
         "vj_parr/par1/alpha/alpha_idle1.wav",
         "vj_parr/par1/alpha/alpha_idle2.wav",
@@ -139,15 +141,13 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_idle8.wav",
         "vj_parr/par1/alpha/alpha_idle9.wav"
     }
-    self.SoundTbl_IdleDialogue = {
+    self.SoundTbl_IdleDialogueAnswer = {
         "vj_parr/par1/alpha/alpha_ok0.wav",
         "vj_parr/par1/alpha/alpha_ok1.wav",
         "vj_parr/par1/alpha/alpha_ok3.wav",
         "vj_parr/par1/alpha/alpha_ok4.wav",
         "vj_parr/par1/alpha/alpha_ok5.wav",
-        "vj_parr/par1/alpha/alpha_ok6.wav"
-    }
-    self.SoundTbl_IdleDialogueAnswer = {
+        "vj_parr/par1/alpha/alpha_ok6.wav",
         "vj_parr/par1/alpha/alpha_yes0.wav",
         "vj_parr/par1/alpha/alpha_yes1.wav",
         "vj_parr/par1/alpha/alpha_yes2.wav",
@@ -161,6 +161,12 @@ function ENT:Soldier_Init()
         "vj_parr/par1/npc/indust/7shluz_underfire.wav"
     }
     self.SoundTbl_ReceiveOrder = {
+        "vj_parr/par1/alpha/alpha_ok0.wav",
+        "vj_parr/par1/alpha/alpha_ok1.wav",
+        "vj_parr/par1/alpha/alpha_ok3.wav",
+        "vj_parr/par1/alpha/alpha_ok4.wav",
+        "vj_parr/par1/alpha/alpha_ok5.wav",
+        "vj_parr/par1/alpha/alpha_ok6.wav",
         "vj_parr/par1/alpha/alpha_yes0.wav",
         "vj_parr/par1/alpha/alpha_yes1.wav",
         "vj_parr/par1/alpha/alpha_yes2.wav",
@@ -226,8 +232,14 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/alpha_pain3.wav",
         "vj_parr/par1/alpha/alpha_pain4.wav",
         "vj_parr/par1/alpha/alpha_pain5.wav",
-        "vj_parr/par1/alpha/alpha_pain6.wav"
+        "vj_parr/par1/alpha/alpha_pain6.wav",
+        "vj_parr/par1/alpha/alpha_wounded1.wav",
+        "vj_parr/par1/alpha/alpha_wounded2.wav",
+        "vj_parr/par1/alpha/alpha_wounded3.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Soldier_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
@@ -308,6 +320,7 @@ function ENT:Init()
     end
     self.Soldier_NextStrafeT = CurTime() + 4
     if self.Soldier_Init then self:Soldier_Init() end
+    if self.Soldier_Voice then self:Soldier_Voice() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)

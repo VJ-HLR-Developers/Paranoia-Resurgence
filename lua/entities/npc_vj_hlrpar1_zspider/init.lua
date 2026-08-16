@@ -13,7 +13,7 @@ ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/p
 -- Custom
 ENT.Spider_EyeOpen = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_Init()
+function ENT:Zombie_Voice()
     self.SoundTbl_BeforeMeleeAttack = {
         "vj_parr/par1/spider/zo_attack1.wav",
         "vj_parr/par1/spider/zo_attack2.wav"
@@ -26,6 +26,9 @@ function ENT:Zombie_Init()
         "vj_parr/par1/spider/zo_pain1.wav",
         "vj_parr/par1/spider/zo_pain2.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.AnimTbl_Death = ACT_DIEBACKWARD

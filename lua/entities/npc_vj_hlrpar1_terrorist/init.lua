@@ -16,7 +16,7 @@ function ENT:PreInit()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Soldier_Init()
+function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/terror/idle1.wav",
         "vj_parr/par1/terror/idle2.wav",
@@ -94,6 +94,9 @@ function ENT:Soldier_Init()
         "vj_parr/par1/terror/ter_pain4.wav",
         "vj_parr/par1/terror/ter_pain5.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 4))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

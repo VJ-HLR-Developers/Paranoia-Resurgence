@@ -4,11 +4,12 @@ include("shared.lua")
 
 ENT.Model = "models/vj_parr/par2/soldier.mdl"
 ENT.StartHealth = 100
-
-local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Soldier_Init()
+function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
+        "vj_parr/par1/npc/army/afgan.wav",
+        "vj_parr/par1/npc/army/fix.wav",
+        "vj_parr/par1/npc/army/pentagon_hack.wav",
         "vj_parr/par1/soldier/bolnoy1.wav",
         "vj_parr/par1/soldier/bolnoy2.wav",
         "vj_parr/par1/soldier/bolnoy3.wav",
@@ -35,19 +36,34 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/monologue8.wav"
     }
     self.SoundTbl_IdleDialogueAnswer = {
+        "vj_parr/par1/soldier/guard1.wav",
+        "vj_parr/par1/soldier/guard2.wav",
+        "vj_parr/par1/soldier/guard3.wav",
         "vj_parr/par1/soldier/no1.wav",
         "vj_parr/par1/soldier/ok1.wav",
         "vj_parr/par1/soldier/ok2.wav",
         "vj_parr/par1/soldier/ok3.wav",
         "vj_parr/par1/soldier/work1.wav",
         "vj_parr/par1/soldier/no10.wav",
-        "vj_parr/par1/soldier/yes1.wav"
+        "vj_parr/par1/soldier/yes1.wav",
+        "vj_parr/par1/npc/army/postclear1.wav",
+        "vj_parr/par1/npc/army/postclear2.wav",
+        "vj_parr/par1/npc/army/postclear3.wav",
+        "vj_parr/par1/npc/army/postclear4.wav",
+        "vj_parr/par1/npc/army/postclear5.wav",
+        "vj_parr/par1/npc/army/postclear6.wav"
     }
     self.SoundTbl_CombatIdle = {
-        "vj_parr/par1/npc/army/karaul1.wav",
-        "vj_parr/par1/npc/army/karaul2.wav",
-        "vj_parr/par1/npc/army/karaul3.wav",
-        "vj_parr/par1/npc/army/karaul4.wav"
+        "vj_parr/par1/npc/army/zapalil1.wav",
+        "vj_parr/par1/npc/army/zapalil2.wav",
+        "vj_parr/par1/npc/army/zapalil3.wav",
+        "vj_parr/par1/npc/army/zapalil4.wav"
+    }
+    self.SoundTbl_ReceiveOrder = {
+        "vj_parr/par1/soldier/ok1.wav",
+        "vj_parr/par1/soldier/ok2.wav",
+        "vj_parr/par1/soldier/ok3.wav",
+        "vj_parr/par1/soldier/yes1.wav"
     }
     self.SoundTbl_Alert = {
         "vj_parr/par1/npc/army/karaul1.wav",
@@ -65,6 +81,11 @@ function ENT:Soldier_Init()
         "vj_parr/par1/alpha/hello3.wav",
         "vj_parr/par1/alpha/hello4.wav",
         "vj_parr/par1/alpha/hello5.wav"
+    }
+    self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/soldier/cantgo1.wav",
+        "vj_parr/par1/soldier/cantgo2.wav",
+        "vj_parr/par1/soldier/cantgo3.wav"
     }
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",

@@ -10,7 +10,7 @@ ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Soldier_Init()
+function ENT:Soldier_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par2/clone/cl_die1.wav",
         "vj_parr/par2/clone/cl_die2.wav",
@@ -23,6 +23,9 @@ function ENT:Soldier_Init()
         "vj_parr/par2/clone/cl_pain4.wav",
         "vj_parr/par2/clone/cl_pain5.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

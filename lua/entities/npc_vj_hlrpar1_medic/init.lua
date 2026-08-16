@@ -7,10 +7,11 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/npc_medic.mdl"
-
+ENT.HasDeathAnimation = false
+-- Custom
 ENT.Civilian_Type = 1
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Civilian_Init()
+function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/medic/monologue1.wav",
         "vj_parr/par1/medic/monologue2.wav",

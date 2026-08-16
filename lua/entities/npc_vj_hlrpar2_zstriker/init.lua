@@ -9,7 +9,7 @@ ENT.ControllerParams.FirstP_Bone = "Bip02 Head"
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_Init()
+function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
         "vj_parr/par2/monsters/boss/striker_alert1.wav",
         "vj_parr/par2/monsters/boss/striker_alert2.wav"
@@ -26,6 +26,9 @@ function ENT:Zombie_Init()
         "vj_parr/par2/monsters/boss/striker_pain2.wav",
         "vj_parr/par2/monsters/boss/striker_pain3.wav"
     }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Init()
     self:SetCollisionBounds(Vector(35, 35, 110), Vector(-35, -35, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

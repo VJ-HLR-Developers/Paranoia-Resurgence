@@ -16,26 +16,6 @@ ENT.LimitChaseDistance_Min = "UseRangeDistance"
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Zombie_Init()
-    self.SoundTbl_Alert = {
-        "vj_parr/par1/zombie/zo_alert10.wav",
-        "vj_parr/par1/zombie/zo_alert20.wav",
-        "vj_parr/par1/zombie/zo_alert30.wav"
-    }
-    self.SoundTbl_BeforeMeleeAttack = {
-        "vj_parr/par1/zombie/zo_attack1.wav",
-        "vj_parr/par1/zombie/zo_attack2.wav"
-    }
-    self.SoundTbl_Death = {
-        "vj_parr/par1/zombie/zo_pain1.wav",
-        "vj_parr/par1/zombie/zo_pain2.wav"
-    }
-    self.SoundTbl_Pain = {
-        "vj_parr/par1/zombie/zo_pain1.wav",
-        "vj_parr/par1/zombie/zo_pain2.wav"
-    }
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
     local attShell = self:GetAttachment(self:LookupAttachment("shell"))
 
@@ -69,12 +49,12 @@ function ENT:FireFX()
     muzLight:SetPos(self:GetAttachment(self:LookupAttachment("muzzle")).Pos)
     muzLight:SetLocalAngles(self:GetAngles())
     muzLight:Fire("Color", "255 150 60")
-    //muzLight:SetParent(self)
+    muzLight:SetParent(self)
     muzLight:Spawn()
     muzLight:Activate()
     muzLight:Fire("TurnOn", "" , 0)
     muzLight:Fire("Kill", "", 0.07)
-    //self:DeleteOnRemove(muzLight)
+    self:DeleteOnRemove(muzLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
