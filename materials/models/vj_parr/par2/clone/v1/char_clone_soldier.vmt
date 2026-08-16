@@ -8,4 +8,6 @@
     "$phongboost" ".1"
     "$phongfresnelranges" "[.3 .6 .9]"
     "$phongexponenttexture" "models/vj_parr/par2/clone/v1/char_clone_soldier_gloss"
+
+    "$nocull" "1"
 }
