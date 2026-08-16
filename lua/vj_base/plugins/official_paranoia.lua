@@ -63,6 +63,7 @@ VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {Su
 VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Spider Mutant (Early V2)", "npc_vj_hlrpar1_zspider_early_v2", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory, {SubCategory = subCategory})
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
