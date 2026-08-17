@@ -36,6 +36,7 @@ local validModels = {
     ["models/vj_parr/par2/monster_soldiershooter.mdl"] = true,
     ["models/vj_parr/par2/monster_soldier_rhb.mdl"] = true,
     ["models/vj_parr/par2/cut/monster_himtrooper.mdl"] = true,
+    ["models/vj_parr/par2/cut/monster_himtrooper2.mdl"] = true,
     ["models/vj_parr/par2/cut/soldier_clon_zombied.mdl"] = true,
     ["models/vj_parr/par2/v1/monster_clonsoldier.mdl"] = true,
     ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true

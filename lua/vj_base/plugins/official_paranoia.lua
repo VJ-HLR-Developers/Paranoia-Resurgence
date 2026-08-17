@@ -3,7 +3,7 @@
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local parVersion = "0.6.0-Beta"
+local parVersion = "0.7.0-Beta"
 
 VJ.AddPlugin("Paranoia Resurgence", "NPC", parVersion)
 
@@ -83,6 +83,7 @@ subCategory = "Zombies"
 VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone Soldier", "npc_vj_hlrpar2_zclone", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Elite Shooter", "npc_vj_hlrpar2_zarmed_elite", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Elite Officer Shooter", "npc_vj_hlrpar2_zarmed_officer", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Shooter", "npc_vj_hlrpar2_zarmed", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Shooter (1.0)", "npc_vj_hlrpar2_zarmed_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie (Rotten)", "npc_vj_hlrpar2_zrotten", spawnCategory, {SubCategory = subCategory})

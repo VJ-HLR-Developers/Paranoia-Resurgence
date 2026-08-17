@@ -22,7 +22,7 @@ SWEP.WorldModelOffsetParams = {
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 8
-SWEP.Primary.ClipSize = 17
+SWEP.Primary.ClipSize = 12
 SWEP.Primary.Ammo = "Pistol"
 SWEP.Primary.Sound = "VJ.PARR1_APS.Single"
 SWEP.PrimaryEffects_ShellType = "ShellEject"
@@ -45,11 +45,11 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    //timer.Simple(0.1, function()
-        if /*IsValid(self) &&*/ IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+    timer.Simple(0.1, function()
+        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
         end
-    //end)
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:DoImpactEffect(tr, damageType)
