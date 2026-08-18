@@ -32,7 +32,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIESIMPLE}
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    self:SetBodygroup(2, math_random(0, 3))
+    self:SetBodygroup(1, math_random(0, 3))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
