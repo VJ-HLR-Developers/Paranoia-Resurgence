@@ -52,10 +52,6 @@ function ENT:TranslateActivity(act)
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:DoImpactEffect(tr, damageType)
-    return VJ.PARR1_Effect_Impact(tr)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathShoot()
     local wep = self:GetActiveWeapon()
     if IsValid(wep) && wep:Clip1() > 3 then
