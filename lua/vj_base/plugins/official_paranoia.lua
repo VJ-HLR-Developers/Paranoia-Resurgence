@@ -61,6 +61,8 @@ VJ.AddNPC("Zombie Dog Mutant", "npc_vj_hlrpar1_zdog", spawnCategory, {SubCategor
 VJ.AddNPC("Zombie Hazmat Scientist", "npc_vj_hlrpar1_zhazmat", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
 VJ.AddNPC("Zombie Ceiling Mutant (Early)", "npc_vj_hlrpar1_zceiling_early", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar1_zscientist", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar1_zscientist_fem", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spetsnaz Soldier", "npc_vj_hlrpar1_zalpha", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant (Early V2)", "npc_vj_hlrpar1_zspider_early_v2", spawnCategory, {SubCategory = subCategory})
@@ -93,7 +95,7 @@ VJ.AddNPC("Zombie RHB Soldier", "npc_vj_hlrpar2_zrhb", spawnCategory, {SubCatego
 VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar2_zscientist", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar2_zscientist_fem", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Scientist (Female) (1.0)", "npc_vj_hlrpar2_zscientist_fem_v1", spawnCategory, {SubCategory = subCategory})
-VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar2_zspider", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Spider", "npc_vj_hlrpar2_zspider", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory, {SubCategory = subCategory})
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar2_rat", spawnCategory)
