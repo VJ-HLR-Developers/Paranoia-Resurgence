@@ -55,7 +55,6 @@ ENT.OnCollideSoundLevel = 100
 ENT.Rocket_AirMissile = false
 ENT.Rocket_HelicopterMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ20 = Vector(0, 0, 40)
 local colorTrail = Color(224, 224, 255, 255)
 --
 function ENT:Init()
@@ -122,7 +121,7 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("scale", "2")
     spr:SetPos(self:GetPos() + vecZ80)
     spr:Spawn()
-    spr:Fire("Kill", "", 1)
+    spr:Fire("Kill", nil, 1)
     timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
     local expLight = ents.Create("light_dynamic")
@@ -134,7 +133,7 @@ function ENT:OnDestroy(data, phys)
     //expLight:SetParent(self)
     expLight:Spawn()
     expLight:Activate()
-    expLight:Fire("TurnOn", "", 0)
-    expLight:Fire("Kill", "", 0.1)
+    expLight:Fire("TurnOn")
+    expLight:Fire("Kill", nil, 0.1)
     //self:DeleteOnRemove(expLight)
 end

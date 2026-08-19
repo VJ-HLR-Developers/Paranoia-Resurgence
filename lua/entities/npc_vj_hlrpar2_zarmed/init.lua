@@ -98,7 +98,7 @@ function ENT:DeathShoot()
         muz:SetAngles(Angle(math_random(-100, 100), math_random(-100, 100), math_random(-100, 100)))
         muz:Spawn()
         muz:Activate()
-        muz:Fire("Kill", "", 0.08)
+        muz:Fire("Kill", nil, 0.08)
 
         local muzLight = ents.Create("light_dynamic")
         muzLight:SetKeyValue("brightness", "4")
@@ -110,7 +110,7 @@ function ENT:DeathShoot()
         muzLight:Spawn()
         muzLight:Activate()
         muzLight:Fire("TurnOn", "" , 0)
-        muzLight:Fire("Kill", "", 0.07)
+        muzLight:Fire("Kill", nil, 0.07)
         //self:DeleteOnRemove(muzLight)
     end
 end
