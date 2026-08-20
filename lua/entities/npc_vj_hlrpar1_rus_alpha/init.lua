@@ -293,7 +293,7 @@ function ENT:Init()
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 2
         if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
-    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
+    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2

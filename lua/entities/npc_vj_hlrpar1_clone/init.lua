@@ -2,7 +2,7 @@ include("entities/npc_vj_hlrpar1_rus_alpha/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 
-ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl"}
+ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl", "models/vj_parr/par1/soldier_clon2.mdl", "models/vj_parr/par1/soldier_clon_bio2.mdl"}
 ENT.StartHealth = 200
 ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.AlliedWithPlayerAllies = false
@@ -36,8 +36,12 @@ function ENT:Soldier_Voice()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
-    if self:GetModel() != "models/vj_parr/par1/early/soldier_colba.mdl" then
+    local myMDL = self:GetModel()
+    if myMDL != "models/vj_parr/par1/early/soldier_colba.mdl" then
         self:SetBodygroup(1, math_random(0, 1))
+    end
+    if myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" then
+        self:SetBodygroup(3, math_random(0, 1))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
