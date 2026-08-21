@@ -37,6 +37,11 @@ ENT.RangeAttackMinDistance = 256
 ENT.LimitChaseDistance = "OnlyRange"
 ENT.LimitChaseDistance_Max = "UseRangeDistance"
 ENT.LimitChaseDistance_Min = "UseRangeDistance"
+
+ENT.CanTurnWhileMoving = false
+ENT.CanFlinch = true
+ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
+
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIESIMPLE, ACT_DIEFORWARD}
 ENT.DisableFootStepSoundTimer = true
@@ -118,6 +123,16 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackKnockbackVelocity(ent)
     return self:GetForward() * 55 + self:GetUp() * 255
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if dmginfo:GetDamage() > 30 then
+            self.AnimTbl_Flinch = ACT_BIG_FLINCH
+        else
+            self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)

@@ -248,10 +248,8 @@ end
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         if dmginfo:GetDamage() > 30 then
-            self.FlinchChance = 8
             self.AnimTbl_Flinch = ACT_BIG_FLINCH
         else
-            self.FlinchChance = 16
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
     end
