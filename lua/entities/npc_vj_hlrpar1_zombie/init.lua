@@ -158,6 +158,93 @@ function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+--
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+    if ent.VJ_ID_Undead or !ent.IsVJBaseSNPC_Human then return end
+    if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
+        local findPos = ent:GetPos()
+        local findMDL = ent:GetModel()
+        timer.Simple(0, function()
+            for _, v in pairs(ents.FindInSphere(findPos, 1)) do
+                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL /*&& !v.IsVJBaseCorpse*/ then
+                    v:Remove()
+                end
+            end
+        end)
+        if ent.IsVJBaseSNPC then
+            ent.HasDeathCorpse = false
+            ent.HasDeathAnimation = false
+            ent.CanGib = false
+        end
+        if ent.IsDrGNextbot then
+            ent.RagdollOnDeath = false
+        end
+        if ent:IsPlayer() then
+            local plyRag = ent:GetRagdollEntity()
+            if IsValid(plyRag) then
+                plyRag:Remove()
+            end
+        end
+        if ent:IsNPC() or ent:IsNextBot() then
+            if ent:IsNPC() then
+                local wep = ent:GetActiveWeapon()
+                if IsValid(wep) then
+                    wep:Remove()
+                end
+            end
+            ent.HasRagdoll = false
+            ent:Remove()
+        end
+        local zomList = VJ.PICK({"npc_vj_hlrpar1_zombie", "npc_vj_hlrpar1_zombie_early", "npc_vj_hlrpar1_z3h", "npc_vj_hlrpar1_z3h_early", "npc_vj_hlrpar1_z4h", "npc_vj_hlrpar1_z4h_early"})
+        local zombie = ents.Create(zomList)
+        if ent.VJ_ID_Living then
+            zombie:SetPos(ent:GetPos())
+            zombie:SetAngles(ent:GetAngles())
+            zombie.GodMode = true
+            zombie:Spawn()
+            undo.ReplaceEntity(ent, zombie)
+        end
+        if ent:IsPlayer() then
+            ent:Spectate(OBS_MODE_CHASE)
+            ent:SpectateEntity(zombie)
+        end
+        self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
+        if self.HasGibOnDeathEffects then
+            local effectData = EffectData()
+            effectData:SetOrigin(ent:GetPos() + ent:OBBCenter())
+            effectData:SetColor(colorRed)
+            effectData:SetScale(80)
+            util.Effect("VJ_Blood1", effectData)
+            effectData:SetScale(8)
+            effectData:SetFlags(3)
+            effectData:SetColor(0)
+            util.Effect("bloodspray", effectData)
+            util.Effect("bloodspray", effectData)
+        end
+        /*if VJ_CVAR_AI_ENABLED then
+            local pickAnim = {"tantrum", "releasecrab"}
+            timer.Simple(0, function()
+                if IsValid(zombie) then
+                    zombie:PlayAnim(VJ.PICK(pickAnim), true, false)
+                    zombie:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                end
+            end)
+            timer.Simple(VJ.AnimDuration(zombie, VJ.PICK(pickAnim)), function()
+                if IsValid(zombie) then
+                    zombie:SetState()
+                end
+            end)
+        end*/
+        timer.Simple(1, function()
+            if IsValid(zombie) then
+                zombie.GodMode = false
+                if timer.Exists("timer_melee_bleed" .. zombie:EntIndex()) then timer.Remove("timer_melee_bleed" .. zombie:EntIndex()) end
+            end
+        end)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         if dmginfo:GetDamage() > 30 then
@@ -186,7 +273,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)

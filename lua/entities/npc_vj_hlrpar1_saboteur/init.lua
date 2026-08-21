@@ -57,11 +57,11 @@ function ENT:Soldier_Voice()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
-    self:SetBodygroup(2, math_random(0, 4))
+    self:SetBodygroup(2, math_random(0, 5))
     self:SetBodygroup(4, math_random(0, 1))
 
     local myBG = self:GetBodygroup(2)
-    if myBG == 0 or myBG == 3 then
+    if myBG == 0 or myBG == 4 then
         self:SetBodygroup(5, 0)
     else
         self:SetBodygroup(5, 1)
