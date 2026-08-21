@@ -105,7 +105,7 @@ game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/de
 game.AddDecal("VJ_PARR1_Blood_Red_Large", {"vj_parr/decals/parr1_bloodbigsplat", "vj_parr/decals/parr1_bloodbigsplat2"})
 game.AddDecal("VJ_PARR1_Impact", "vj_parr/decals/parr1_shot")
 game.AddDecal("VJ_PARR1_Scorch", {"vj_parr/decals/parr1_scorch1", "vj_parr/decals/parr1_scorch2", "vj_parr/decals/parr1_scorch3"})
-game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/decals/parr2_blood2"})
+game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/decals/parr2_blood2", "vj_parr/decals/parr2_blood3", "vj_parr/decals/parr2_blood4", "vj_parr/decals/parr2_blood5", "vj_parr/decals/parr2_blood6", "vj_parr/decals/parr2_blood7"})
 game.AddDecal("VJ_PARR2_Impact", {"vj_parr/decals/parr2_shot1", "vj_parr/decals/parr2_shot2", "vj_parr/decals/parr2_shot3"})
 game.AddDecal("VJ_PARR2_Scorch", {"vj_parr/decals/parr2_scorch1", "vj_parr/decals/parr2_scorch2", "vj_parr/decals/parr2_scorch3"})
 

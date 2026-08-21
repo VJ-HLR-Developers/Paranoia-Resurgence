@@ -98,7 +98,7 @@ function ENT:Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ80 = Vector(0, 0, 80)
+local vecZ60 = Vector(0, 0, 60)
 --
 function ENT:OnDestroy(data, phys)
     util.ScreenShake(data.HitPos, 16, 200, 1, 3000)
@@ -119,7 +119,7 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("framerate", "15.0")
     spr:SetKeyValue("spawnflags", "0")
     spr:SetKeyValue("scale", "2")
-    spr:SetPos(self:GetPos() + vecZ80)
+    spr:SetPos(self:GetPos() + vezZ60)
     spr:Spawn()
     spr:Fire("Kill", nil, 1)
     timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)

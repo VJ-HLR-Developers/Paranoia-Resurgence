@@ -33,7 +33,7 @@ function ENT:OnCollision(data, phys)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vezZ90 = Vector(0, 0, 90)
+local vezZ60 = Vector(0, 0, 60)
 local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)
 --
@@ -53,7 +53,7 @@ function ENT:OnDestroy()
     spr:SetKeyValue("framerate", "15.0")
     spr:SetKeyValue("spawnflags", "0")
     spr:SetKeyValue("scale", "2")
-    spr:SetPos(myPos + vezZ90)
+    spr:SetPos(myPos + vezZ60)
     spr:Spawn()
     spr:Fire("Kill", nil, 1)
     timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)

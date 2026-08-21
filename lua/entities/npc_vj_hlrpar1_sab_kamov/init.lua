@@ -410,7 +410,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 end
             end
 
-            local expPos2 = myPos + Vector(0, 0, math_rand(150, 150))
+            local expPos2 = myPos + Vector(0, 0, math_rand(-150, 150))
             local spr = ents.Create("env_sprite")
             spr:SetKeyValue("model", "vj_parr/sprites/fexplo1.vmt")
             spr:SetKeyValue("GlowProxySize", "2.0")
