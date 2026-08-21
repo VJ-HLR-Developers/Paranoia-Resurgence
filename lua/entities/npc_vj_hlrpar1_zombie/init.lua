@@ -1,6 +1,10 @@
 AddCSLuaFile("shared.lua")
 include("shared.lua")
-
+/*-----------------------------------------------
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/zombie_slow.mdl"
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
@@ -160,14 +164,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
-function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+/*function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if ent.VJ_ID_Undead or !ent.IsVJBaseSNPC_Human then return end
     if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
         local findMDL = ent:GetModel()
         timer.Simple(0, function()
             for _, v in pairs(ents.FindInSphere(findPos, 1)) do
-                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL /*&& !v.IsVJBaseCorpse*/ then
+                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL then
                     v:Remove()
                 end
             end
@@ -222,20 +226,6 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             util.Effect("bloodspray", effectData)
             util.Effect("bloodspray", effectData)
         end
-        /*if VJ_CVAR_AI_ENABLED then
-            local pickAnim = {"tantrum", "releasecrab"}
-            timer.Simple(0, function()
-                if IsValid(zombie) then
-                    zombie:PlayAnim(VJ.PICK(pickAnim), true, false)
-                    zombie:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-                end
-            end)
-            timer.Simple(VJ.AnimDuration(zombie, VJ.PICK(pickAnim)), function()
-                if IsValid(zombie) then
-                    zombie:SetState()
-                end
-            end)
-        end*/
         timer.Simple(1, function()
             if IsValid(zombie) then
                 zombie.GodMode = false
@@ -243,7 +233,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             end
         end)
     end
-end
+end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then

@@ -41,6 +41,8 @@ function ENT:InitPhys()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ60 = Vector(0, 0, 60)
+--
 function ENT:OnDestroy(data, phys)
     local myPos = self:GetPos()
 
@@ -57,10 +59,9 @@ function ENT:OnDestroy(data, phys)
     spr:SetKeyValue("framerate", "15.0")
     spr:SetKeyValue("spawnflags", "0")
     spr:SetKeyValue("scale", "2")
-    spr:SetPos(myPos + Vector(0, 0, 60))
+    spr:SetPos(myPos + vecZ60)
     spr:Spawn()
     spr:Fire("Kill", nil, 1)
-    //timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
     VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 80, 100)
     util.ScreenShake(myPos, 100, 200, 1, 2500)
