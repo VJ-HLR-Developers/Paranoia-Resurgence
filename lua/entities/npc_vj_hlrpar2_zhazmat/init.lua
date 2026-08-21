@@ -12,7 +12,8 @@ function ENT:Zombie_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if act == ACT_IDLE && self.Alerted then
+    local npcState = self:GetNPCState()
+    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)

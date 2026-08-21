@@ -344,10 +344,9 @@ function ENT:TranslateActivity(act)
             end
         end
     end
-    if act == ACT_IDLE then
-        if self.Alerted && self:GetWeaponState() != VJ.WEP_STATE_HOLSTERED && IsValid(self:GetActiveWeapon()) then
-            return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
-        end
+    local npcState = self:GetNPCState()
+    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+        return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)
 end

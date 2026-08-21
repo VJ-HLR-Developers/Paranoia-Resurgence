@@ -7,10 +7,10 @@ ENT.Model = "models/vj_parr/par2/monster_soldiershooter.mdl"
 ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
-ENT.Weapon_RetreatDistance = 0
-ENT.Weapon_FindCoverOnReload = false
+//ENT.Weapon_RetreatDistance = 0
+//ENT.Weapon_FindCoverOnReload = false
 
-ENT.CombatDamageResponse = false
+//ENT.CombatDamageResponse = false
 ENT.AnimTbl_DamageAllyResponse = false
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.AnimTbl_TakingCover = false
@@ -44,10 +44,9 @@ function ENT:Zombie_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    if act == ACT_IDLE then
-        if self.Alerted && self:GetWeaponState() != VJ.WEP_STATE_HOLSTERED && IsValid(self:GetActiveWeapon()) then
-            return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
-        end
+    local npcState = self:GetNPCState()
+    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+        return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
@@ -104,14 +103,13 @@ function ENT:DeathShoot()
         muzLight:SetKeyValue("brightness", "4")
         muzLight:SetKeyValue("distance", "120")
         muzLight:SetPos(attMuz.Pos)
-        muzLight:SetLocalAngles(wep:GetAngles())
         muzLight:Fire("Color", "255 150 60")
-        //muzLight:SetParent(self)
+        muzLight:SetParent(self)
         muzLight:Spawn()
         muzLight:Activate()
         muzLight:Fire("TurnOn", "" , 0)
         muzLight:Fire("Kill", nil, 0.07)
-        //self:DeleteOnRemove(muzLight)
+        self:DeleteOnRemove(muzLight)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
