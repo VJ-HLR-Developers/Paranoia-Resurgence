@@ -111,7 +111,7 @@ function ENT:DeathShoot()
         muzLight:SetParent(self)
         muzLight:Spawn()
         muzLight:Activate()
-        muzLight:Fire("TurnOn", "" , 0)
+        muzLight:Fire("TurnOn")
         muzLight:Fire("Kill", nil, 0.07)
         self:DeleteOnRemove(muzLight)
     end
