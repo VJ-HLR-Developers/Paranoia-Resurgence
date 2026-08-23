@@ -46,3 +46,26 @@ function ENT:OnTouch(ent)
         VJ.EmitSound(self, "vj_parr/par1/roach/rch_smash.wav", 60, 80 + math_random(0, 39))
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local colorRed = VJ.Color2Byte(Color(130, 19, 10))
+local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
+--
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
+    self.HasDeathSounds = false
+    if self.HasGibOnDeathEffects then
+        local effectData = EffectData()
+        effectData:SetOrigin(self:GetPos() + self:OBBCenter())
+        effectData:SetColor(colorRed)
+        effectData:SetScale(30)
+        util.Effect("VJ_Blood1", effectData)
+    end
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd})
+    self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
+    return true, {AllowSound = false}
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl"}
+--
+function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_parr/par1/shared/bodysplat.wav", SplatDecal = "VJ_PARR1_Blood_Red_Large"})
+end
