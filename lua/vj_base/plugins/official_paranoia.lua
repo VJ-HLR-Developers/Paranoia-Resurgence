@@ -11,8 +11,8 @@ VJ.HLR_VERSION = parVersion
 
 local spawnCategory = "HL Resurgence: Paranoia"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia.png"})
--- Civilians
 local subCategory = "Russians"
+-- Civilians
 VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory, {SubCategory = subCategory})
@@ -72,8 +72,11 @@ VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 
 spawnCategory = "HL Resurgence: Paranoia 2"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
--- Russian Military
 subCategory = "Russians"
+-- Civilians
+VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar2_paulina", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Professor Pirogov", "npc_vj_hlrpar2_pirogov", spawnCategory, {SubCategory = subCategory})
+-- Russian Military
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar2_rus_alpha", spawnCategory, {SubCategory = subCategory})
 -- Clones

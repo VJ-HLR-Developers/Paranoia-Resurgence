@@ -48,7 +48,7 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
-ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female
+ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female,  2= Par2 Paulina, 3 = Pirogov
 ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
@@ -116,7 +116,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    if self.Civilian_Type != 0 then return end
+    if self.Civilian_Type != 0 or self.Civilian_Type != 2 then return end
     ply:ChatPrint("RELOAD: Toggle scared animations")
     ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
 
@@ -156,7 +156,7 @@ end
 function ENT:TranslateActivity(act)
     -- Scared animations
     local npcState = self:GetNPCState()
-    if self.Civilian_Type == 0 && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
+    if (self.Civilian_Type == 0 or self.Civilian_Type == 2) && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
         if act == ACT_IDLE then
             return ACT_CROUCHIDLE
         elseif act == ACT_WALK then
@@ -164,7 +164,7 @@ function ENT:TranslateActivity(act)
         elseif act == ACT_RUN then
             return ACT_RUN_SCARED
         end
-    elseif self.Civilian_Type == 1 && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    elseif (self.Civilian_Type == 1 or self.Civilian_Type == 3) && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         if act == ACT_IDLE then
             return ACT_IDLE
         end

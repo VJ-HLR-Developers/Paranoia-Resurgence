@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/pirogov/geo_hazmat2"
+    "$bumpmap" "models/vj_parr/par2/zombie/hazmat/geo_hazmat_norm"
+
+    "$phong" "1"
+    "$phongalbedotint" "1"
+    "$phongboost" ".1"
+    "$phongfresnelranges" "[.3 .6 .9]"
+    "$phongexponenttexture" "models/vj_parr/par2/zombie/hazmat/geo_hazmat_gloss"
+}
