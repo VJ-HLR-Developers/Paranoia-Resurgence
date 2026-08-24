@@ -48,7 +48,7 @@ ENT.Weapon_SecondaryFireTime = false
 ENT.CanTurnWhileMoving = false
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
+ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shar
 ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Custom
-ENT.Soldier_Type = 0 -- 0 = Spetsnaz, 1 = Army, 2 = Terrorist, 3 = Clone, 4 = Saboteur
+ENT.Soldier_Type = 0 -- 0 = Spetsnaz, 1 = Soldier, 2 = Terrorist, 3 = Clone, 4 = Saboteur
 ENT.Soldier_WepBG = 0
 ENT.Soldier_WepBGRemove = 0
 ENT.Soldier_PistolAnims = false
@@ -360,11 +360,8 @@ function ENT:SetAnimationTranslations(wepHoldType)
 
     self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
     self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
-    self.AnimationTranslations[ACT_COVER_LOW] = ACT_CROUCHIDLE
     self.AnimationTranslations[ACT_WALK_AGITATED] = ACT_WALK_AGITATED
-    self.AnimationTranslations[ACT_WALK_CROUCH] = ACT_WALK_AGITATED
     self.AnimationTranslations[ACT_RUN_AGITATED] = VJ.PICK({ACT_RUN, ACT_RUN_AGITATED})
-    self.AnimationTranslations[ACT_RUN_CROUCH] = VJ.PICK({ACT_RUN, ACT_RUN_AGITATED})
 
     if self.Soldier_Type == 0 then -- Spetsnaz
         if !self.Soldier_PistolAnims then
@@ -392,7 +389,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
                 self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_PISTOL_LOW
             end
         end
-    elseif self.Soldier_Type == 1 then -- Army
+    elseif self.Soldier_Type == 1 then -- Soldier
         if bodyGroup == 0 then -- AK-74
             self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
             self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
@@ -498,7 +495,7 @@ function ENT:OnThink()
                     wep:Remove()
                 end
             end
-        elseif self.Soldier_Type == 1 then -- Army
+        elseif self.Soldier_Type == 1 then -- Soldier
             if bodyGroup == 0 then -- AK-74
                 if myMDL == "models/vj_parr/par2/soldier.mdl" then
                     self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
@@ -579,6 +576,14 @@ function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
             self.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK1
             self.GrenadeAttackAttachment = "rhand"
         end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+    -- Play an animation upon killing a single known enemy
+    if !VJ.AnimExists(self, "radio-nod") then return end
+    if wasLast && math_random(1, 3) == 1 then
+        self:PlayAnim("radio-nod", "LetAttacks", false, false, 0)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
