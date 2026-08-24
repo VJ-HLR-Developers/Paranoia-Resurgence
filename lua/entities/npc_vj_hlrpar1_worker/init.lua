@@ -213,6 +213,20 @@ function ENT:OnCreateSound(sdData, sdFile)
     self.Civilian_NextMouthMove = curTime + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "Init" then
+        -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
+        local myMDL = self:GetModel()
+        if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && self:GetBodygroup(1) == 3)
+            or myMDL == "models/vj_parr/par1/npc_himik.mdl"
+            or myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
+            if dmginfo:IsDamageType(DMG_NERVEGAS) then
+                dmginfo:SetDamage(0)
+            end
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then

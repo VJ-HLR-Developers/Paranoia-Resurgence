@@ -69,8 +69,12 @@ VJ.AddNPC("Zombie Spider Mutant (Early V2)", "npc_vj_hlrpar1_zspider_early_v2", 
 VJ.AddNPC("Zombie Spider Mutant (Early)", "npc_vj_hlrpar1_zspider_early", spawnCategory, {SubCategory = subCategory})
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
+-- Spawners
+VJ.AddNPC("Random Zombie", "sent_vj_hlrpar1_zombie", spawnCategory)
+VJ.AddNPC("Random Zombie Spawner", "sent_vj_hlrpar1_zsp", spawnCategory)
+VJ.AddNPC("Random Zombie Spawner (Single)", "sent_vj_hlrpar1_zsin", spawnCategory)
 
-spawnCategory = "HL Resurgence: Paranoia 2"
+spawnCategory = "HL Resurgence: Paranoia 2: Savior"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 subCategory = "Russians"
 -- Civilians
@@ -102,10 +106,15 @@ VJ.AddNPC("Zombie Spider", "npc_vj_hlrpar2_zspider", spawnCategory, {SubCategory
 VJ.AddNPC("Zombie Striker Mutant", "npc_vj_hlrpar2_zstriker", spawnCategory, {SubCategory = subCategory})
 -- Animals
 VJ.AddNPC("Rat", "npc_vj_hlrpar2_rat", spawnCategory)
+-- Spawners
+VJ.AddNPC("Random Zombie", "sent_vj_hlrpar2_zombie", spawnCategory)
+VJ.AddNPC("Random Zombie Spawner", "sent_vj_hlrpar2_zsp", spawnCategory)
+VJ.AddNPC("Random Zombie Spawner (Single)", "sent_vj_hlrpar2_zsin", spawnCategory)
 
 -- Decals --
 game.AddDecal("VJ_PARR1_Blood_Red", {"vj_parr/decals/parr1_blood01", "vj_parr/decals/parr1_blood02", "vj_parr/decals/parr1_blood03", "vj_parr/decals/parr1_blood04", "vj_parr/decals/parr1_blood05", "vj_parr/decals/parr1_blood06", "vj_parr/decals/parr1_blood07"})
 game.AddDecal("VJ_PARR1_Blood_Red_Large", {"vj_parr/decals/parr1_bloodbigsplat", "vj_parr/decals/parr1_bloodbigsplat2"})
+game.AddDecal("VJ_PARR1_Brains", "vj_parr/decals/parr1_brains")
 game.AddDecal("VJ_PARR1_Impact", "vj_parr/decals/parr1_shot")
 game.AddDecal("VJ_PARR1_Scorch", {"vj_parr/decals/parr1_scorch1", "vj_parr/decals/parr1_scorch2", "vj_parr/decals/parr1_scorch3"})
 game.AddDecal("VJ_PARR2_Blood_Red", {"vj_parr/decals/parr2_blood1", "vj_parr/decals/parr2_blood2", "vj_parr/decals/parr2_blood3", "vj_parr/decals/parr2_blood4", "vj_parr/decals/parr2_blood5", "vj_parr/decals/parr2_blood6", "vj_parr/decals/parr2_blood7"})
@@ -124,8 +133,11 @@ VJ.AddParticle("particles/vj_parr_blood.pcf", {
 -- Add to paint tool
 list.Add("PaintMaterials", "VJ_PARR1_Blood_Red")
 list.Add("PaintMaterials", "VJ_PARR1_Blood_Red_Large")
+list.Add("PaintMaterials", "VJ_PARR1_Brains")
+list.Add("PaintMaterials", "VJ_PARR1_Impact")
 list.Add("PaintMaterials", "VJ_PARR1_Scorch")
 list.Add("PaintMaterials", "VJ_PARR2_Blood_Red")
+list.Add("PaintMaterials", "VJ_PARR2_Impact")
 list.Add("PaintMaterials", "VJ_PARR2_Scorch")
 
 -- Weapon Sounds

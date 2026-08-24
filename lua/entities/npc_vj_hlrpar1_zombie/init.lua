@@ -105,23 +105,44 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
-    self.SoundTbl_Alert = {
-        "vj_parr/par1/zombie/zo_alert10.wav",
-        "vj_parr/par1/zombie/zo_alert20.wav",
-        "vj_parr/par1/zombie/zo_alert30.wav"
-    }
-    self.SoundTbl_BeforeMeleeAttack = {
-        "vj_parr/par1/zombie/zo_attack1.wav",
-        "vj_parr/par1/zombie/zo_attack2.wav"
-    }
-    self.SoundTbl_Death = {
-        "vj_parr/par1/zombie/zo_pain1.wav",
-        "vj_parr/par1/zombie/zo_pain2.wav"
-    }
-    self.SoundTbl_Pain = {
-        "vj_parr/par1/zombie/zo_pain1.wav",
-        "vj_parr/par1/zombie/zo_pain2.wav"
-    }
+    local pickVoice = math_random(1,2)
+    if pickVoice == 1 then
+        self.SoundTbl_Alert = {
+            "vj_parr/par1/zombie/zo_alert10.wav",
+            "vj_parr/par1/zombie/zo_alert20.wav",
+            "vj_parr/par1/zombie/zo_alert30.wav"
+        }
+        self.SoundTbl_BeforeMeleeAttack = {
+            "vj_parr/par1/zombie/zo_attack1.wav",
+            "vj_parr/par1/zombie/zo_attack2.wav"
+        }
+        self.SoundTbl_Death = {
+            "vj_parr/par1/zombie/zo_pain1.wav",
+            "vj_parr/par1/zombie/zo_pain2.wav"
+        }
+        self.SoundTbl_Pain = {
+            "vj_parr/par1/zombie/zo_pain1.wav",
+            "vj_parr/par1/zombie/zo_pain2.wav"
+        }
+    elseif pickVoice == 2 then
+        self.SoundTbl_Alert = {
+            "vj_parr/par1/zombie/savior/zo_alert10.wav",
+            "vj_parr/par1/zombie/savior/zo_alert20.wav",
+            "vj_parr/par1/zombie/savior/zo_alert30.wav"
+        }
+        self.SoundTbl_BeforeMeleeAttack = {
+            "vj_parr/par1/zombie/savior/zo_attack1.wav",
+            "vj_parr/par1/zombie/savior/zo_attack2.wav"
+        }
+        self.SoundTbl_Death = {
+            "vj_parr/par1/zombie/savior/zo_pain1.wav",
+            "vj_parr/par1/zombie/savior/zo_pain2.wav"
+        }
+        self.SoundTbl_Pain = {
+            "vj_parr/par1/zombie/savior/zo_pain1.wav",
+            "vj_parr/par1/zombie/savior/zo_pain2.wav"
+        }
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
@@ -247,9 +268,19 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "Init" then
+        -- Make zombies immune to DMG_NERVEGAS, based on source code
+        if dmginfo:IsDamageType(DMG_NERVEGAS) then
+            dmginfo:SetDamage(0)
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if self.Zombie_Type == 5 then -- Have armed zombie drop pistol on death
+        -- Have armed zombie drop pistol on death
+        if self.Zombie_Type == 5 then
             self:SetBodygroup(1, 1)
             self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
         end

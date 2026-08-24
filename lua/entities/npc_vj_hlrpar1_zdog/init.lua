@@ -137,6 +137,15 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "Init" then
+        -- Make zombies immune to DMG_NERVEGAS, based on source code
+        if dmginfo:IsDamageType(DMG_NERVEGAS) then
+            dmginfo:SetDamage(0)
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
         self.DeathAnimationDecreaseLengthAmount = -1

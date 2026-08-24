@@ -585,18 +585,31 @@ end
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-	if status == "Init" then
-		if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
-			self.HasBloodParticle = false
-			local rico = EffectData()
-			rico:SetOrigin(dmginfo:GetDamagePosition())
-			rico:SetScale(4)
-			rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-			util.Effect("VJ_HLR_Rico", rico)
-		else
-			self.HasBloodParticle = true
-		end
-	end
+    if status == "Init" then
+        if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
+            self.HasBloodParticle = false
+            local rico = EffectData()
+            rico:SetOrigin(dmginfo:GetDamagePosition())
+            rico:SetScale(4)
+            rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+            util.Effect("VJ_HLR_Rico", rico)
+        else
+            self.HasBloodParticle = true
+        end
+        -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
+        local myMDL = self:GetModel()
+        local myBG = self:GetBodygroup(1)
+        if (myMDL == "models/vj_parr/par1/soldier_alpha.mdl" && (myBG == 8 or myBG == 9))
+            or (myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" && (myBG == 7 or myBG == 8))
+            or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") && myBG == 5)
+            or ((myMDL == "models/vj_parr/par1/terror.mdl" or myMDL == "models/vj_parr/par1/early/terror_old.mdl") && myBG == 3)
+            or (myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl")
+            or ((myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl") && myBG == 1) then
+            if dmginfo:IsDamageType(DMG_NERVEGAS) then
+                dmginfo:SetDamage(0)
+            end
+        end
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
