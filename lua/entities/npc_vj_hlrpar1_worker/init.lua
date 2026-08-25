@@ -116,7 +116,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    if self.Civilian_Type != 0 or self.Civilian_Type != 2 then return end
+    if self.Civilian_Type != 0 && self.Civilian_Type != 2 then return end
     ply:ChatPrint("RELOAD: Toggle scared animations")
     ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
 
