@@ -39,11 +39,29 @@ function ENT:Init()
     self.HasDeathSounds = math_random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local vecZ50 = Vector(0, 0, -50)
+--
 function ENT:OnTouch(ent)
     if ent.VJ_ID_Living then
         self:TakeDamage(self:Health() + 1, ent, ent)
         -- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0, 39) );
         VJ.EmitSound(self, "vj_parr/par1/roach/rch_smash.wav", 60, 80 + math_random(0, 39))
+        -- Spawn a unique decal if stepped on, based on source code
+        local myPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({start = myPos, endpos = myPos + vecZ50, filter = self})
+        util.Decal("VJ_PARR1_Brains", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDeath(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+            self.DeathAnimationDecreaseLengthAmount = -1
+            self.DeathCorpseEntityClass = "prop_vj_animatable"
+        end
+        if hitgroup == HITGROUP_HEAD then
+            VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

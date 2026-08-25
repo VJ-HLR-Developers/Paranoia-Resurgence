@@ -20,6 +20,8 @@ ENT.LimitChaseDistance_Min = "UseRangeDistance"
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Init() return end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:FireFX()
     local attShell = self:GetAttachment(self:LookupAttachment("shell"))
 

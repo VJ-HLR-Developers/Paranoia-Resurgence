@@ -126,121 +126,200 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
-    self.SoundTbl_Idle = {
-        "vj_parr/par1/alpha/alpha_clear0.wav",
-        "vj_parr/par1/alpha/alpha_clear1.wav",
-        "vj_parr/par1/alpha/alpha_clear2.wav",
-        "vj_parr/par1/alpha/alpha_clear3.wav",
-        "vj_parr/par1/alpha/alpha_clear4.wav"
-    }
-    self.SoundTbl_IdleDialogue = {
-        "vj_parr/par1/alpha/alpha_idle0.wav",
-        "vj_parr/par1/alpha/alpha_idle1.wav",
-        "vj_parr/par1/alpha/alpha_idle2.wav",
-        "vj_parr/par1/alpha/alpha_idle3.wav",
-        "vj_parr/par1/alpha/alpha_idle4.wav",
-        "vj_parr/par1/alpha/alpha_idle5.wav",
-        "vj_parr/par1/alpha/alpha_idle6.wav",
-        "vj_parr/par1/alpha/alpha_idle7.wav",
-        "vj_parr/par1/alpha/alpha_idle8.wav",
-        "vj_parr/par1/alpha/alpha_idle9.wav"
-    }
-    self.SoundTbl_IdleDialogueAnswer = {
-        "vj_parr/par1/alpha/alpha_ok0.wav",
-        "vj_parr/par1/alpha/alpha_ok1.wav",
-        "vj_parr/par1/alpha/alpha_ok3.wav",
-        "vj_parr/par1/alpha/alpha_ok4.wav",
-        "vj_parr/par1/alpha/alpha_ok5.wav",
-        "vj_parr/par1/alpha/alpha_ok6.wav",
-        "vj_parr/par1/alpha/alpha_yes0.wav",
-        "vj_parr/par1/alpha/alpha_yes1.wav",
-        "vj_parr/par1/alpha/alpha_yes2.wav",
-        "vj_parr/par1/alpha/alpha_yes3.wav"
-    }
-    self.SoundTbl_CombatIdle = {
-        "vj_parr/par1/npc/bunk/kulak_gogogo.wav",
-        "vj_parr/par1/npc/bunk/kulak_wtf1.wav",
-        "vj_parr/par1/npc/indust/7shluz_cover_me.wav",
-        "vj_parr/par1/npc/indust/7shluz_go.wav",
-        "vj_parr/par1/npc/indust/7shluz_underfire.wav"
-    }
-    self.SoundTbl_ReceiveOrder = {
-        "vj_parr/par1/alpha/alpha_ok0.wav",
-        "vj_parr/par1/alpha/alpha_ok1.wav",
-        "vj_parr/par1/alpha/alpha_ok3.wav",
-        "vj_parr/par1/alpha/alpha_ok4.wav",
-        "vj_parr/par1/alpha/alpha_ok5.wav",
-        "vj_parr/par1/alpha/alpha_ok6.wav",
-        "vj_parr/par1/alpha/alpha_yes0.wav",
-        "vj_parr/par1/alpha/alpha_yes1.wav",
-        "vj_parr/par1/alpha/alpha_yes2.wav",
-        "vj_parr/par1/alpha/alpha_yes3.wav"
-    }
-    self.SoundTbl_Investigate = {
-        "vj_parr/par1/alpha/alpha_wait0.wav",
-        "vj_parr/par1/npc/indust/7shluz_get_ready.wav"
-    }
-    self.SoundTbl_Alert = {
-        "vj_parr/par1/alpha/alpha_enemy1.wav",
-        "vj_parr/par1/alpha/alpha_enemy2.wav",
-        "vj_parr/par1/alpha/alpha_enemy3.wav"
-    }
-    self.SoundTbl_OnPlayerSight = {
-        "vj_parr/par1/npc/bunk/kulak_introlab1.wav",
-        "vj_parr/par1/npc/bunk/kulak_mayor!.wav",
-        "vj_parr/par1/npc/indust/mayor!.wav"
-    }
-    self.SoundTbl_YieldToPlayer = {
-        "vj_parr/par1/alpha/alpha_blocked0.wav",
-        "vj_parr/par1/alpha/alpha_blocked1.wav",
-        "vj_parr/par1/alpha/alpha_blocked2.wav",
-        "vj_parr/par1/alpha/alpha_blocked3.wav",
-        "vj_parr/par1/alpha/alpha_blocked4.wav"
-    }
-    self.SoundTbl_KilledEnemy = {
-        "vj_parr/par1/alpha/alpha_enemydown0.wav",
-        "vj_parr/par1/alpha/alpha_enemydown1.wav",
-        "vj_parr/par1/alpha/alpha_enemydown2.wav",
-        "vj_parr/par1/alpha/alpha_enemydown3.wav",
-        "vj_parr/par1/alpha/alpha_enemydown4.wav"
-    }
-    self.SoundTbl_GrenadeAttack = {
-        "vj_parr/par1/alpha/alpha_grenade0.wav",
-        "vj_parr/par1/alpha/alpha_grenade1.wav",
-        "vj_parr/par1/alpha/alpha_grenade2.wav",
-        "vj_parr/par1/alpha/alpha_grenade3.wav",
-        "vj_parr/par1/alpha/alpha_grenade4.wav"
-    }
-    self.SoundTbl_GrenadeSight = {
-        "vj_parr/par1/alpha/alpha_grenade0.wav",
-        "vj_parr/par1/alpha/alpha_grenade1.wav",
-        "vj_parr/par1/alpha/alpha_grenade2.wav",
-        "vj_parr/par1/alpha/alpha_grenade3.wav",
-        "vj_parr/par1/alpha/alpha_grenade4.wav"
-    }
-    self.SoundTbl_AllyDeath = {
-        "vj_parr/par1/alpha/alpha_teammatedown1.wav",
-        "vj_parr/par1/alpha/alpha_teammatedown2.wav",
-        "vj_parr/par1/alpha/alpha_teammatedown3.wav"
-    }
-    self.SoundTbl_Death = {
-        "vj_parr/par1/alpha/alpha_die1.wav",
-        "vj_parr/par1/alpha/alpha_die2.wav",
-        "vj_parr/par1/alpha/alpha_die3.wav",
-        "vj_parr/par1/alpha/alpha_die4.wav",
-        "vj_parr/par1/alpha/alpha_die5.wav"
-    }
-    self.SoundTbl_Pain = {
-        "vj_parr/par1/alpha/alpha_pain1.wav",
-        "vj_parr/par1/alpha/alpha_pain2.wav",
-        "vj_parr/par1/alpha/alpha_pain3.wav",
-        "vj_parr/par1/alpha/alpha_pain4.wav",
-        "vj_parr/par1/alpha/alpha_pain5.wav",
-        "vj_parr/par1/alpha/alpha_pain6.wav",
-        "vj_parr/par1/alpha/alpha_wounded1.wav",
-        "vj_parr/par1/alpha/alpha_wounded2.wav",
-        "vj_parr/par1/alpha/alpha_wounded3.wav"
-    }
+    local pickVoice = math_random(1, 2)
+    if pickVoice == 1 then
+        self.SoundTbl_Idle = {
+            "vj_parr/par1/alpha/alpha_clear0.wav",
+            "vj_parr/par1/alpha/alpha_clear1.wav",
+            "vj_parr/par1/alpha/alpha_clear2.wav",
+            "vj_parr/par1/alpha/alpha_clear3.wav",
+            "vj_parr/par1/alpha/alpha_clear4.wav"
+        }
+        self.SoundTbl_IdleDialogue = {
+            "vj_parr/par1/alpha/alpha_idle0.wav",
+            "vj_parr/par1/alpha/alpha_idle1.wav",
+            "vj_parr/par1/alpha/alpha_idle2.wav",
+            "vj_parr/par1/alpha/alpha_idle3.wav",
+            "vj_parr/par1/alpha/alpha_idle4.wav",
+            "vj_parr/par1/alpha/alpha_idle5.wav",
+            "vj_parr/par1/alpha/alpha_idle6.wav",
+            "vj_parr/par1/alpha/alpha_idle7.wav",
+            "vj_parr/par1/alpha/alpha_idle8.wav",
+            "vj_parr/par1/alpha/alpha_idle9.wav"
+        }
+        self.SoundTbl_IdleDialogueAnswer = {
+            "vj_parr/par1/alpha/alpha_ok0.wav",
+            "vj_parr/par1/alpha/alpha_ok1.wav",
+            "vj_parr/par1/alpha/alpha_ok3.wav",
+            "vj_parr/par1/alpha/alpha_ok4.wav",
+            "vj_parr/par1/alpha/alpha_ok5.wav",
+            "vj_parr/par1/alpha/alpha_ok6.wav",
+            "vj_parr/par1/alpha/alpha_yes0.wav",
+            "vj_parr/par1/alpha/alpha_yes1.wav",
+            "vj_parr/par1/alpha/alpha_yes2.wav",
+            "vj_parr/par1/alpha/alpha_yes3.wav"
+        }
+        self.SoundTbl_CombatIdle = {
+            "vj_parr/par1/npc/bunk/kulak_gogogo.wav",
+            "vj_parr/par1/npc/bunk/kulak_wtf1.wav",
+            "vj_parr/par1/npc/indust/7shluz_cover_me.wav",
+            "vj_parr/par1/npc/indust/7shluz_go.wav",
+            "vj_parr/par1/npc/indust/7shluz_underfire.wav"
+        }
+        self.SoundTbl_ReceiveOrder = {
+            "vj_parr/par1/alpha/alpha_ok0.wav",
+            "vj_parr/par1/alpha/alpha_ok1.wav",
+            "vj_parr/par1/alpha/alpha_ok3.wav",
+            "vj_parr/par1/alpha/alpha_ok4.wav",
+            "vj_parr/par1/alpha/alpha_ok5.wav",
+            "vj_parr/par1/alpha/alpha_ok6.wav",
+            "vj_parr/par1/alpha/alpha_yes0.wav",
+            "vj_parr/par1/alpha/alpha_yes1.wav",
+            "vj_parr/par1/alpha/alpha_yes2.wav",
+            "vj_parr/par1/alpha/alpha_yes3.wav"
+        }
+        self.SoundTbl_Investigate = {
+            "vj_parr/par1/alpha/alpha_wait0.wav",
+            "vj_parr/par1/npc/indust/7shluz_get_ready.wav"
+        }
+        self.SoundTbl_Alert = {
+            "vj_parr/par1/alpha/alpha_enemy1.wav",
+            "vj_parr/par1/alpha/alpha_enemy2.wav",
+            "vj_parr/par1/alpha/alpha_enemy3.wav"
+        }
+        self.SoundTbl_OnPlayerSight = {
+            "vj_parr/par1/npc/bunk/kulak_introlab1.wav",
+            "vj_parr/par1/npc/bunk/kulak_mayor!.wav",
+            "vj_parr/par1/npc/indust/mayor!.wav"
+        }
+        self.SoundTbl_YieldToPlayer = {
+            "vj_parr/par1/alpha/alpha_blocked0.wav",
+            "vj_parr/par1/alpha/alpha_blocked1.wav",
+            "vj_parr/par1/alpha/alpha_blocked2.wav",
+            "vj_parr/par1/alpha/alpha_blocked3.wav",
+            "vj_parr/par1/alpha/alpha_blocked4.wav"
+        }
+        self.SoundTbl_KilledEnemy = {
+            "vj_parr/par1/alpha/alpha_enemydown0.wav",
+            "vj_parr/par1/alpha/alpha_enemydown1.wav",
+            "vj_parr/par1/alpha/alpha_enemydown2.wav",
+            "vj_parr/par1/alpha/alpha_enemydown3.wav",
+            "vj_parr/par1/alpha/alpha_enemydown4.wav"
+        }
+        self.SoundTbl_GrenadeAttack = {
+            "vj_parr/par1/alpha/alpha_grenade0.wav",
+            "vj_parr/par1/alpha/alpha_grenade1.wav",
+            "vj_parr/par1/alpha/alpha_grenade2.wav",
+            "vj_parr/par1/alpha/alpha_grenade3.wav",
+            "vj_parr/par1/alpha/alpha_grenade4.wav"
+        }
+        self.SoundTbl_GrenadeSight = {
+            "vj_parr/par1/alpha/alpha_grenade0.wav",
+            "vj_parr/par1/alpha/alpha_grenade1.wav",
+            "vj_parr/par1/alpha/alpha_grenade2.wav",
+            "vj_parr/par1/alpha/alpha_grenade3.wav",
+            "vj_parr/par1/alpha/alpha_grenade4.wav"
+        }
+        self.SoundTbl_AllyDeath = {
+            "vj_parr/par1/alpha/alpha_teammatedown1.wav",
+            "vj_parr/par1/alpha/alpha_teammatedown2.wav",
+            "vj_parr/par1/alpha/alpha_teammatedown3.wav"
+        }
+        self.SoundTbl_Death = {
+            "vj_parr/par1/alpha/alpha_die1.wav",
+            "vj_parr/par1/alpha/alpha_die2.wav",
+            "vj_parr/par1/alpha/alpha_die3.wav",
+            "vj_parr/par1/alpha/alpha_die4.wav",
+            "vj_parr/par1/alpha/alpha_die5.wav"
+        }
+        self.SoundTbl_Pain = {
+            "vj_parr/par1/alpha/alpha_pain1.wav",
+            "vj_parr/par1/alpha/alpha_pain2.wav",
+            "vj_parr/par1/alpha/alpha_pain3.wav",
+            "vj_parr/par1/alpha/alpha_pain4.wav",
+            "vj_parr/par1/alpha/alpha_pain5.wav",
+            "vj_parr/par1/alpha/alpha_pain6.wav",
+            "vj_parr/par1/alpha/alpha_wounded1.wav",
+            "vj_parr/par1/alpha/alpha_wounded2.wav",
+            "vj_parr/par1/alpha/alpha_wounded3.wav"
+        }
+    elseif pickVoice == 2 then
+        self.SoundTbl_Idle = {
+            "vj_parr/par1/npc/army/afgan.wav",
+            "vj_parr/par1/npc/army/fix.wav",
+            "vj_parr/par1/npc/army/pentagon_hack.wav",
+            "vj_parr/par1/alpha/monologue7.wav"
+        }
+        self.SoundTbl_IdleDialogue = {
+            "vj_parr/par1/alpha/monologue1.wav",
+            "vj_parr/par1/alpha/monologue2.wav",
+            "vj_parr/par1/alpha/monologue3.wav",
+            "vj_parr/par1/alpha/monologue4.wav",
+            "vj_parr/par1/alpha/monologue5.wav",
+            "vj_parr/par1/alpha/monologue6.wav",
+            "vj_parr/par1/alpha/monologue8.wav"
+        }
+        self.SoundTbl_IdleDialogueAnswer = {
+            "vj_parr/par1/alpha/no1.wav",
+            "vj_parr/par1/alpha/no2.wav",
+            "vj_parr/par1/alpha/ok1.wav",
+            "vj_parr/par1/alpha/ok2.wav",
+            "vj_parr/par1/alpha/ok3.wav",
+            "vj_parr/par1/alpha/ok4.wav",
+            "vj_parr/par1/alpha/work1.wav",
+            "vj_parr/par1/alpha/work2.wav",
+            "vj_parr/par1/alpha/work3.wav",
+            "vj_parr/par1/alpha/work4.wav",
+            "vj_parr/par1/alpha/work5.wav"
+        }
+        self.SoundTbl_CombatIdle = {
+            "vj_parr/par1/npc/army/zapalil1.wav",
+            "vj_parr/par1/npc/army/zapalil2.wav",
+            "vj_parr/par1/npc/army/zapalil3.wav",
+            "vj_parr/par1/npc/army/zapalil4.wav"
+        }
+        self.SoundTbl_ReceiveOrder = {
+            "vj_parr/par1/alpha/ok1.wav",
+            "vj_parr/par1/alpha/ok2.wav",
+            "vj_parr/par1/alpha/ok3.wav",
+            "vj_parr/par1/alpha/ok4.wav",
+        }
+        self.SoundTbl_Alert = {
+            "vj_parr/par1/npc/army/karaul1.wav",
+            "vj_parr/par1/npc/army/karaul2.wav",
+            "vj_parr/par1/npc/army/karaul3.wav",
+            "vj_parr/par1/npc/army/karaul4.wav"
+        }
+        self.SoundTbl_OnPlayerSight = {
+            "vj_parr/par1/alpha/hello1.wav",
+            "vj_parr/par1/alpha/hello2.wav",
+            "vj_parr/par1/alpha/hello3.wav",
+            "vj_parr/par1/alpha/hello4.wav",
+            "vj_parr/par1/alpha/hello5.wav"
+        }
+        self.SoundTbl_YieldToPlayer = {
+            "vj_parr/par1/soldier/cantgo1.wav",
+            "vj_parr/par1/soldier/cantgo2.wav",
+            "vj_parr/par1/soldier/cantgo3.wav"
+        }
+        self.SoundTbl_Death = {
+            "vj_parr/par1/military/mil_die1.wav",
+            "vj_parr/par1/military/mil_die2.wav",
+            "vj_parr/par1/military/mil_die3.wav"
+        }
+        self.SoundTbl_Pain = {
+            "vj_parr/par1/alpha/hit1.wav",
+            "vj_parr/par1/alpha/hit2.wav",
+            "vj_parr/par1/alpha/hit3.wav",
+            "vj_parr/par1/alpha/hit4.wav",
+            "vj_parr/par1/alpha/hit5.wav",
+            "vj_parr/par1/military/mil_pain1.wav",
+            "vj_parr/par1/military/mil_pain2.wav",
+            "vj_parr/par1/military/mil_pain3.wav",
+            "vj_parr/par1/military/mil_pain4.wav",
+            "vj_parr/par1/military/mil_pain5.wav"
+        }
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()

@@ -18,6 +18,7 @@ end
 if !SERVER then return end
 
 ENT.Model = "models/vj_parr/par2/weapons/w_grenade.mdl"
+ENT.RadiusDamage = 100
 ENT.CollisionDecal = "VJ_PARR2_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_parr/par1/weapons/grenade_hit1.wav", "vj_parr/par1/weapons/grenade_hit2.wav", "vj_parr/par1/weapons/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = "VJ.PARR2_Explosion.Single"

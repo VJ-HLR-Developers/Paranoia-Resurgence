@@ -258,7 +258,7 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-        if dmginfo:GetDamage() > 30 then
+        if dmginfo:GetDamage() > 30 && VJ.AnimExists(self, ACT_BIG_FLINCH) then
             self.FlinchChance = 6
             self.AnimTbl_Flinch = ACT_BIG_FLINCH
         else
@@ -274,6 +274,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
         end
+        -- Make zombies spawn a unique decal from headshots, based on source code
+        /*if hitgroup == HITGROUP_HEAD then
+            self.BloodDecal = "VJ_PARR1_Brains"
+        else
+            self.BloodDecal = "VJ_PARR1_Blood_Red"
+        end*/
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

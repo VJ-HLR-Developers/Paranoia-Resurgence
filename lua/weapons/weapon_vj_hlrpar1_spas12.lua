@@ -25,7 +25,7 @@ SWEP.WorldModelOffsetParams = {
     Ang = Angle(0, 15, -90)
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 5
+SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 5
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"

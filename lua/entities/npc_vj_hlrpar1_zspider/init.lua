@@ -18,6 +18,11 @@ ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/p
 ENT.Spider_EyeOpen = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
+    self.SoundTbl_Alert = {
+        "vj_parr/par1/spider/zo_alert10.wav",
+        "vj_parr/par1/spider/zo_alert20.wav",
+        "vj_parr/par1/spider/zo_alert30.wav"
+    }
     self.SoundTbl_BeforeMeleeAttack = {
         "vj_parr/par1/spider/zo_attack1.wav",
         "vj_parr/par1/spider/zo_attack2.wav"

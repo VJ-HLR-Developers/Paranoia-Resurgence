@@ -22,7 +22,7 @@ SWEP.WorldModelOffsetParams = {
     Ang = Angle(0, 17, -90)
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 14
+SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 20
 SWEP.Primary.Ammo = "SMG1"
 SWEP.Primary.Sound = "VJ.PARR1_VAL.Single"
