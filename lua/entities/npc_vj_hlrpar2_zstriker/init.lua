@@ -36,6 +36,15 @@ function ENT:Zombie_Init()
     self:SetCollisionBounds(Vector(35, 35, 110), Vector(-35, -35, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" then
+        -- Take 30% of bullet damage, based on source code
+        if dmginfo:IsBulletDamage() then
+            dmginfo:ScaleDamage(0.3)
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --

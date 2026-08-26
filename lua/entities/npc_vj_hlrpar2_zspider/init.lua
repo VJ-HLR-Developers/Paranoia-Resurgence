@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/monster_spidermutant.mdl"
-ENT.StartHealth = 50
+ENT.StartHealth = 25
 ENT.SightAngle = 120
 ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
@@ -23,7 +23,7 @@ ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 ENT.HasMeleeAttack = false
 
 ENT.HasLeapAttack = true
-ENT.LeapAttackDamage = 10
+ENT.LeapAttackDamage = 20
 ENT.AnimTbl_LeapAttack = ACT_SPECIAL_ATTACK1
 ENT.LeapAttackMaxDistance = 256
 ENT.LeapAttackMinDistance = 1

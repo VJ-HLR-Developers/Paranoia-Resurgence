@@ -46,3 +46,12 @@ function ENT:Zombie_Init()
     end
     self:SetCollisionBounds(Vector(20, 20, 75), Vector(-20, -20, 0))
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
+    if status == "PreDamage" then
+        -- Take 30% of bullet damage, based on source code
+        if dmginfo:IsBulletDamage() then
+            dmginfo:ScaleDamage(0.3)
+        end
+    end
+end

@@ -269,6 +269,7 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if self.Zombie_OnDamaged then self:Zombie_OnDamaged(dmginfo, hitgroup, status) end
     if status == "Init" then
         -- Make zombies immune to DMG_NERVEGAS, based on source code
         if dmginfo:IsDamageType(DMG_NERVEGAS) then

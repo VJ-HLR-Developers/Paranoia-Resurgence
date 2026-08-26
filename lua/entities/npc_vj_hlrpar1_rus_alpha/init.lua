@@ -180,7 +180,8 @@ function ENT:Soldier_Voice()
         }
         self.SoundTbl_Investigate = {
             "vj_parr/par1/alpha/alpha_wait0.wav",
-            "vj_parr/par1/npc/indust/7shluz_get_ready.wav"
+            "vj_parr/par1/npc/indust/7shluz_get_ready.wav",
+            "vj_parr/par1/npc/indust/kulak_mozg3.wav"
         }
         self.SoundTbl_Alert = {
             "vj_parr/par1/alpha/alpha_enemy1.wav",
@@ -629,7 +630,7 @@ function ENT:OnThink()
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local sdAlertMonster = {"vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav", "vj_parr/par1/npc/bunk/kulak_wtf2.wav"}
+local sdAlertMonster = {"vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav", "vj_parr/par1/npc/bunk/kulak_boss2.wav", "vj_parr/par1/npc/bunk/kulak_wtf2.wav"}
 --
 function ENT:OnAlert(ent)
     if math_random(1, 3) == 1 then
