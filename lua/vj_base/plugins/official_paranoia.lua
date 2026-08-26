@@ -90,6 +90,7 @@ VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory, {SubC
 -- Zombies
 subCategory = "Zombies"
 VJ.AddNPC("Zombie", "npc_vj_hlrpar2_zombie", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie (Early)", "npc_vj_hlrpar2_zombie_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone Soldier", "npc_vj_hlrpar2_zclone", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Elite Shooter", "npc_vj_hlrpar2_zarmed_elite", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Elite Officer Shooter", "npc_vj_hlrpar2_zarmed_officer", spawnCategory, {SubCategory = subCategory})

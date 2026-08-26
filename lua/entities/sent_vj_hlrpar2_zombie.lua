@@ -17,6 +17,7 @@ if !SERVER then return end
 ENT.SingleSpawner = true
 local entsList = {
     "npc_vj_hlrpar2_zombie",
+    "npc_vj_hlrpar2_zombie_early",
     "npc_vj_hlrpar2_zclone:20",
     "npc_vj_hlrpar2_zarmed_elite:15",
     "npc_vj_hlrpar2_zarmed_officer:15",
