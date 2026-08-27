@@ -26,6 +26,11 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/npc/bunk/polina01.wav",
         "vj_parr/par1/npc/bunk/polina02.wav"
     }
+    self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/polina/blocked1.wav",
+        "vj_parr/par1/polina/blocked2.wav",
+        "vj_parr/par1/polina/blocked3.wav"
+    }
     self.SoundTbl_Death =
         "vj_parr/par1/polina/scream.wav"
 end
