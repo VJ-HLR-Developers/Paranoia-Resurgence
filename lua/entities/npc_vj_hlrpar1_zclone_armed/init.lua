@@ -84,7 +84,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             Spread = Vector(0.1, 0.1, 0),
             TracerName = "VJ_PARR_Tracer",
             Tracer = 1,
-            Damage = self:ScaleByDifficulty(8),
+            Damage = self:ScaleByDifficulty(5),
             Force = 5,
             AmmoType = "Pistol",
             Distance = 2048,

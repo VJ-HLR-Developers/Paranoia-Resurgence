@@ -47,6 +47,9 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
+            if self:GetOwner():GetModel() == "models/vj_parr/par1/early/soldier_alpha.mdl" then
+                self.Primary.Sound = "VJ.PARR1_AKS_Sup.Single"
+            end
         end
     end)
 end
