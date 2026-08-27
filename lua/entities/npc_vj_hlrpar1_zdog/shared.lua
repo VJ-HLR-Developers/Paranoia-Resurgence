@@ -4,3 +4,5 @@ ENT.PrintName = "Zombie Dog Mutant"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Paranoia Resurgence"
+
+ENT.VJ_ID_Undead = true

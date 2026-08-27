@@ -55,7 +55,7 @@ ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LE
 
 ENT.DropDeathLoot = false
 ENT.HasDeathAnimation = true
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 
 -- Sounds
 ENT.DisableFootStepSoundTimer = true
@@ -677,7 +677,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             rico:SetOrigin(dmginfo:GetDamagePosition())
             rico:SetScale(4)
             rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-            util.Effect("VJ_HLR_Rico", rico)
+            util.Effect("VJ_PARR_Rico", rico)
         else
             self.HasBloodParticle = true
         end
@@ -707,6 +707,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
     elseif status == "DeathAnim" then
+        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
+            self.AnimTbl_Death = ACT_DIE_HEADSHOT
+        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
+            self.AnimTbl_Death = ACT_DIE_GUTSHOT
+        end
         self:DeathWeaponDrop(dmginfo, hitgroup)
         self:OnDeath(dmginfo, hitgroup, "Finish")
         local activeWep = self:GetActiveWeapon()
