@@ -15,10 +15,12 @@ local subCategory = "Russians"
 -- Civilians
 VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Rammstein Fan", "npc_vj_hlrpar1_rammfan", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Scientist (Female)", "npc_vj_hlrpar1_sci_fem", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_sci_haz", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Worker", "npc_vj_hlrpar1_worker", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Worker (Early)", "npc_vj_hlrpar1_worker_early", spawnCategory, {SubCategory = subCategory})
 -- Russian Military
 VJ.AddNPC("Russian General", "npc_vj_hlrpar1_rus_general", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory, {SubCategory = subCategory})

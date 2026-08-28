@@ -18,18 +18,26 @@ ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
 ENT.BloodDecal = "VJ_PARR1_Blood_Red"
 ENT.HasBloodPool = false
+
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE
-ENT.DropDeathLoot = false
+
 ENT.HasMeleeAttack = false
+ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
+ENT.MeleeAttackDamage = 25
+ENT.TimeUntilMeleeAttackDamage = false
+
 ENT.DisableFootStepSoundTimer = true
+
 ENT.DropDeathLoot = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.DeathAnimationTime = false
+
 ENT.CanTurnWhileMoving = false
 
 ENT.CanFlinch = true
@@ -37,6 +45,8 @@ ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
 ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shared/npc_step2.wav", "vj_parr/par1/shared/npc_step3.wav", "vj_parr/par1/shared/npc_step4.wav"}
+ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/shared/cbar_hitbod1.wav", "vj_parr/par1/shared/cbar_hitbod2.wav", "vj_parr/par1/shared/cbar_hitbod3.wav"}
+ENT.SoundTbl_MeleeAttackMiss = {"vj_parr/par1/weapons/melee_whoosh1.wav", "vj_parr/par1/weapons/melee_whoosh2.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
@@ -48,10 +58,12 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
-ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female,  2= Par2 Paulina, 3 = Pirogov
+ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female,  2= Par2 Paulina, 3 = Pirogov, 4 = Melee
+ENT.CIvilian_WeaponModel = false
 ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
+ENT.Civilian_NextStrafeT = 0
 ENT.Civilian_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
@@ -111,6 +123,7 @@ function ENT:Init()
     ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)
+    self.Civilian_NextStrafeT = CurTime() + 4
     if self.Civilian_Init then self:Civilian_Init() end
     if self.Civilian_Voice then self:Civilian_Voice() end
 end
@@ -146,6 +159,8 @@ function ENT:OnInput(key, activator, caller, data)
     //print(key)
     if key == "step" then
         self:PlayFootstepSound()
+    elseif key == "melee" then
+        self:ExecuteMeleeAttack()
     elseif key == "body" then
         VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 2) .. ".wav", 75, 100)
     elseif key == "body_knee" then
@@ -193,6 +208,9 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local wrenchSds = {"vj_parr/par1/shared/cbar_hitbod1.wav", "vj_parr/par1/shared/cbar_hitbod2.wav", "vj_parr/par1/shared/cbar_hitbod3.wav"}
+local axeSds = {"vj_parr/par1/weapons/machete_hit1.wav", "vj_parr/par1/weapons/machete_hit2.wav", "vj_parr/par1/weapons/machete_hit3.wav", "vj_parr/par1/weapons/machete_hit4.wav"}
+--
 function ENT:OnThink()
     -- Mouth animation when talking
     local curTime = CurTime()
@@ -206,6 +224,30 @@ function ENT:OnThink()
     else
         self:SetPoseParameter("mouth_move", 0)
     end
+    if self.Civilian_Type != 4 && self:GetModel() != "models/vj_parr/par1/early/worker2.mdl" then return end
+    -- Handle weapon body group changing
+    local bodyGroup = self:GetBodygroup(3)
+    local myMDL = self:GetModel()
+    if self.Civilian_LastBodyGroup != bodyGroup then
+        self.Civilian_LastBodyGroup = bodyGroup
+        if (self.Civilian_Type == 4 && bodyGroup == 0) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 1) then -- Axe
+            self.HasMeleeAttack = true
+            self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_axe.mdl"
+            if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
+            self.SoundTbl_MeleeAttackExtra = axeSds
+        elseif (self.Civilian_Type == 4 && bodyGroup == 1) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 2) then -- Wrench
+            self.HasMeleeAttack = true
+            self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_wrench.mdl"
+            if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
+            self.SoundTbl_MeleeAttackExtra = wrenchSds
+        elseif (self.Civilian_Type == 4 && bodyGroup == 2) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 0) then
+            self.HasMeleeAttack = false
+            self.CIvilian_WeaponModel = false
+            if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = true end
+            self.SoundTbl_MeleeAttackExtra = wrenchSds
+        end
+    end
+    if self.Civilian_OnThink then self:Civilian_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
@@ -213,11 +255,29 @@ function ENT:OnCreateSound(sdData, sdFile)
     self.Civilian_NextMouthMove = curTime + SoundDuration(sdFile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
+--
+function ENT:Civilian_OnThink()
+    if self.IsGuard or self.Dead or self.Civilian_Type != 4 then return end
+    local curTime = CurTime()
+    if IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && !self.VJ_IsBeingControlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 300 then
+        self:StopMoving()
+        self:PlayAnim(animStrafing, true, false, false)
+        self.Civilian_NextStrafeT = curTime + 8
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:MeleeAttackTraceDirection()
+    return self:GetForward()
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
         local myMDL = self:GetModel()
         if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && self:GetBodygroup(1) == 3)
+            or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && self:GetBodygroup(1) == 2)
+            or (myMDL == "models/vj_parr/par1/early/npc_worker_old.mdl" && self:GetBodygroup(1) == 0)
             or myMDL == "models/vj_parr/par1/npc_himik.mdl"
             or myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
@@ -233,10 +293,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
         end
+        local myMDL = self:GetModel()
+        if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/worker2.mdl") && self.CIvilian_WeaponModel then
+            if myMDL == "models/vj_parr/par1/early/worker2.mdl" then
+                self:SetBodygroup(3, 0)
+            else
+                self:SetBodygroup(3, 2)
+            end
+            self:CreateGibEntity("obj_vj_gib", self.CIvilian_WeaponModel, {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("rhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
+        end
     elseif status == "DeathAnim" then
-        if hitgroup == HITGROUP_HEAD then
+        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
-        elseif hitgroup == HITGROUP_STOMACH then
+        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
     end

@@ -515,7 +515,7 @@ end
 local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:Soldier_OnThink()
-    if self.VJ_IsBeingControlled or self.IsGuard or self.Soldier_PistolAnims then return end
+    if self.VJ_IsBeingControlled or self.IsGuard or self.Dead or self.Soldier_PistolAnims then return end
     local curTime = CurTime()
     if IsValid(self:GetEnemy()) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_IsBeingControlled && curTime > self.Soldier_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 1400 then
         self:StopMoving()
