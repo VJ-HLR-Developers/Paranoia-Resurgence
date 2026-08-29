@@ -9,6 +9,9 @@ SWEP.Category = "Paranoia Resurgence"
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
+SWEP.NPC_HasSecondaryFire = true
+SWEP.NPC_SecondaryFireEnt = "obj_vj_hlrpar2_grenade_40mm"
+SWEP.NPC_SecondaryFireSound = "vj_parr/par2/weapons/groza/grenadelauncher_groza-outside.wav"
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_groza.mdl"
@@ -76,4 +79,25 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:Activate()
     muz:Fire("Kill", nil, 0.08)
     self.BaseClass.PrimaryAttackEffects(self, owner)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function SWEP:NPC_SecondaryFire()
+    local owner = self:GetOwner()
+    local spawnPos = self:GetAttachment(self:LookupAttachment("muzzle_launcher")).Pos
+    local projectile = ents.Create(self.NPC_SecondaryFireEnt)
+    projectile:SetPos(spawnPos)
+    projectile:SetAngles(owner:GetAngles())
+    projectile:SetOwner(owner)
+    projectile:Spawn()
+    projectile:Activate()
+    local phys = projectile:GetPhysicsObject()
+    if IsValid(phys) then
+        phys:Wake()
+        if phys:IsGravityEnabled() then
+            phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Curve", projectile:GetPos(), 1, 1))
+        else
+            phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", projectile:GetPos(), 1, 2000))
+        end
+        projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+    end
 end

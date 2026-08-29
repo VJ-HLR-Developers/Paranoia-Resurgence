@@ -98,7 +98,7 @@ function ENT:Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ60 = Vector(0, 0, 60)
+local vecZ60 = Vector(0, 0, 50)
 --
 function ENT:OnDestroy(data, phys)
     util.ScreenShake(data.HitPos, 16, 200, 1, 3000)

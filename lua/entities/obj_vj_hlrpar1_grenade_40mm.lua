@@ -10,7 +10,6 @@ ENT.Base = "obj_vj_projectile_base"
 ENT.PrintName = "40mm Grenade"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Category = "VJ Base"
 
 ENT.VJ_ID_Danger = true
 
@@ -41,7 +40,7 @@ function ENT:InitPhys()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ60 = Vector(0, 0, 60)
+local vecZ60 = Vector(0, 0, 50)
 --
 function ENT:OnDestroy(data, phys)
     local myPos = self:GetPos()

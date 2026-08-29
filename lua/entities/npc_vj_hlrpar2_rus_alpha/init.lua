@@ -10,7 +10,10 @@ ENT.Model = "models/vj_parr/par2/soldier_alpha.mdl"
 ENT.ControllerParams.FirstP_Bone = "bip01_head"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
+
 ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
+
+ENT.Weapon_SecondaryFireTime = 0.2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {

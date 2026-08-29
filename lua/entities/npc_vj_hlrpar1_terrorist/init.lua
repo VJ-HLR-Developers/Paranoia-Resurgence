@@ -29,7 +29,9 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/idle5.wav",
         "vj_parr/par1/terror/vrag1.wav",
         "vj_parr/par1/terror/vrag2.wav",
-        "vj_parr/par1/terror/vrag3.wav"
+        "vj_parr/par1/terror/vrag3.wav",
+        "vj_parr/par1/terror/ykritie1.wav",
+        "vj_parr/par1/terror/ykritie2.wav"
     }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/terror/allah_akbar1.wav",
@@ -79,10 +81,6 @@ function ENT:Soldier_Voice()
     self.SoundTbl_GrenadeSight = {
         "vj_parr/par1/terror/granata1.wav",
         "vj_parr/par1/terror/granata2.wav"
-    }
-    self.SoundTbl_DangerSight = {
-        "vj_parr/par1/terror/ykritie1.wav",
-        "vj_parr/par1/terror/ykritie2.wav"
     }
     self.SoundTbl_Death = {
         "vj_parr/par1/terror/ter_die1.wav",

@@ -43,7 +43,7 @@ ENT.Weapon_IgnoreSpawnMenu = true
 ENT.Weapon_Strafe = false
 ENT.AnimTbl_WeaponAttackGesture = false
 ENT.AnimTbl_WeaponAttackSecondary = ACT_RANGE_ATTACK2
-ENT.Weapon_SecondaryFireTime = false
+ENT.Weapon_SecondaryFireTime = 0.7
 
 ENT.CanTurnWhileMoving = false
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
@@ -94,11 +94,11 @@ function ENT:OnInput(key, activator, caller, data)
         if IsValid(wep) then
             wep:NPCShoot_Primary()
         end
-    elseif key == "shoot_grenade" then -- Event-based secondary attack
+    /*elseif key == "shoot_grenade" then -- Event-based secondary attack
         local wep = self:GetActiveWeapon()
         if IsValid(wep) then
             wep:NPC_SecondaryFire()
-        end
+        end*/
     elseif key == "body_knee" then
         VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
     elseif key == "body" then
