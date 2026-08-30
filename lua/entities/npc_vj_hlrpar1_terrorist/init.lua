@@ -29,9 +29,7 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/idle5.wav",
         "vj_parr/par1/terror/vrag1.wav",
         "vj_parr/par1/terror/vrag2.wav",
-        "vj_parr/par1/terror/vrag3.wav",
-        "vj_parr/par1/terror/ykritie1.wav",
-        "vj_parr/par1/terror/ykritie2.wav"
+        "vj_parr/par1/terror/vrag3.wav"
     }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/terror/allah_akbar1.wav",
@@ -42,6 +40,13 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/sdavaysa1.wav",
         "vj_parr/par1/terror/sdavaysa2.wav",
         "vj_parr/par1/terror/sdavaysa3.wav",
+        "vj_parr/par1/terror/taunt1.wav",
+        "vj_parr/par1/terror/taunt2.wav",
+        "vj_parr/par1/terror/taunt3.wav",
+        "vj_parr/par1/terror/taunt4.wav",
+        "vj_parr/par1/terror/taunt5.wav",
+        "vj_parr/par1/terror/taunt6.wav",
+        "vj_parr/par1/terror/taunt8.wav",
         "vj_parr/par1/terror/yruss1.wav",
         "vj_parr/par1/terror/yruss2.wav"
     }
@@ -61,18 +66,6 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/yruss1.wav",
         "vj_parr/par1/terror/yruss2.wav"
     }
-    self.SoundTbl_KilledEnemy =
-        "vj_parr/par1/terror/yahoo.wav"
-
-    self.SoundTbl_LostEnemy = {
-        "vj_parr/par1/terror/taunt1.wav",
-        "vj_parr/par1/terror/taunt2.wav",
-        "vj_parr/par1/terror/taunt3.wav",
-        "vj_parr/par1/terror/taunt4.wav",
-        "vj_parr/par1/terror/taunt5.wav",
-        "vj_parr/par1/terror/taunt6.wav",
-        "vj_parr/par1/terror/taunt8.wav"
-    }
     self.SoundTbl_GrenadeAttack = {
         "vj_parr/par1/terror/brosokgranata1.wav",
         "vj_parr/par1/terror/brosokgranata2.wav",
@@ -81,6 +74,11 @@ function ENT:Soldier_Voice()
     self.SoundTbl_GrenadeSight = {
         "vj_parr/par1/terror/granata1.wav",
         "vj_parr/par1/terror/granata2.wav"
+    }
+    self.SoundTbl_DangerSight = {
+        "vj_parr/par1/terror/yahoo.wav",
+        "vj_parr/par1/terror/ykritie1.wav",
+        "vj_parr/par1/terror/ykritie2.wav"
     }
     self.SoundTbl_Death = {
         "vj_parr/par1/terror/ter_die1.wav",
