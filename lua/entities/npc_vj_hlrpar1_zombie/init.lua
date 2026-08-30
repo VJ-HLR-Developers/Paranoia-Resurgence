@@ -275,12 +275,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
         end
-        -- Make zombies spawn a unique decal from headshots, based on source code
-        /*if hitgroup == HITGROUP_HEAD then
+        -- Spawn a unique decal from headshots, based on source code
+        if hitgroup == HITGROUP_HEAD then
             self.BloodDecal = "VJ_PARR1_Brains"
         else
-            self.BloodDecal = "VJ_PARR1_Blood_Red"
-        end*/
+            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -304,6 +304,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
+    elseif status == "Finish" then
+        -- Reset the blood decals to default if hit in head
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

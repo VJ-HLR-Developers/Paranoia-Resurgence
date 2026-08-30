@@ -667,19 +667,13 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vec = Vector()
---
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
-        if hitgroup == HITGROUP_GEAR && dmginfo:GetDamagePosition() != vec then
-            self.HasBloodParticle = false
-            local rico = EffectData()
-            rico:SetOrigin(dmginfo:GetDamagePosition())
-            rico:SetScale(4)
-            rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
-            util.Effect("VJ_PARR_Rico", rico)
+        -- Spawn a unique decal from headshots, based on source code
+        if hitgroup == HITGROUP_HEAD then
+            self.BloodDecal = "VJ_PARR1_Brains"
         else
-            self.HasBloodParticle = true
+            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
         end
         -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
         local myMDL = self:GetModel()
@@ -719,6 +713,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
     elseif status == "Finish" then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Soldier_WepBG, self.Soldier_WepBGRemove)
+        -- Reset the blood decals to default if hit in head
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -8,3 +8,4 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/early/z_3h.mdl"
 ENT.ControllerParams.FirstP_Bone = "Bip01 Head"
+ENT.HasDeathAnimation = false

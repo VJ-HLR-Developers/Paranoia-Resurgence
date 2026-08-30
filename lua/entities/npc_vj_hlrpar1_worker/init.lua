@@ -284,6 +284,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                 dmginfo:SetDamage(0)
             end
         end
+        -- Spawn a unique decal from headshots, based on source code
+        if hitgroup == HITGROUP_HEAD then
+            self.BloodDecal = "VJ_PARR1_Brains"
+        else
+            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -292,6 +298,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
+        end
+        if hitgroup == HITGROUP_HEAD then
+            VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
         local myMDL = self:GetModel()
         if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/worker2.mdl") && self.CIvilian_WeaponModel then
@@ -308,6 +317,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
+    elseif status == "Finish" then
+        -- Reset the blood decals to default if hit in head
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
