@@ -3,7 +3,7 @@
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local parVersion = "0.7.0-Beta"
+local parVersion = "0.8.0-Beta"
 
 VJ.AddPlugin("Paranoia Resurgence", "NPC", parVersion)
 
@@ -32,6 +32,7 @@ VJ.AddNPC("Russian Soldier (Early V2)", "npc_vj_hlrpar1_rus_soldier_early_v2", s
 VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_rus_alpha", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_rus_alpha_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_rus_alpha_early_v2", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz Soldier (Savior)", "npc_vj_hlrpar1_rus_alpha_savior", spawnCategory, {SubCategory = subCategory})
 -- Terrorists
 subCategory = "Terrorists"
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory, {SubCategory = subCategory})

@@ -335,6 +335,8 @@ function ENT:Soldier_Init()
     elseif myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" then
         self:SetBodygroup(0, math_random(0, 1))
         self:SetBodygroup(1, math_random(0, 9))
+    elseif myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
+        self:SetBodygroup(1, math_random(0, 4))
     elseif myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self:SetBodygroup(1, math_random(0, 2))
     else
@@ -344,7 +346,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
+    if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 3
