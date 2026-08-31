@@ -10,7 +10,7 @@ ENT.Model = "models/vj_parr/par2/monster_boss.mdl"
 ENT.VJ_ID_Boss = true
 ENT.StartHealth = 800
 ENT.ControllerParams.FirstP_Bone = "Bip02 Head"
-ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_HEADSHOT, ACT_DIESIMPLE}
+ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
