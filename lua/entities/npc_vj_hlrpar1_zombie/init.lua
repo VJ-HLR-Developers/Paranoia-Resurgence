@@ -69,9 +69,6 @@ function ENT:OnInput(key, activator, caller, data)
         self:ExecuteRangeAttack()
     elseif key == "shoot" then
         local wep = self:GetActiveWeapon()
-        if !IsValid(wep) then
-            self:ExecuteRangeAttack()
-        end
         if IsValid(wep) then
             wep:NPCShoot_Primary()
             if self.DeathAnimationCodeRan && self.DeathShoot then

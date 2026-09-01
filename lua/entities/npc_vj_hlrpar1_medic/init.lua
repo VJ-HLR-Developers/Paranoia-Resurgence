@@ -12,9 +12,7 @@ ENT.AnimTbl_Medic_GiveHealth = false
 ENT.Medic_HealAmount = 50
 ENT.Medic_TimeUntilHeal = 0
 ENT.Medic_SpawnPropOnHeal = false
-
 ENT.HasDeathAnimation = false
-	-- ====== Sound Paths ====== --
 ENT.SoundTbl_MedicOnHeal = {"vj_parr/par1/shared/smallmedkit1.wav", "vj_parr/par1/shared/smallmedkit2.wav"}
 -- Custom
 ENT.Civilian_Type = 1

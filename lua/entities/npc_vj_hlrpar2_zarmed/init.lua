@@ -19,6 +19,8 @@ ENT.AnimTbl_DamageAllyResponse = false
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.AnimTbl_TakingCover = false
 
+ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
+
 -- Custom
 ENT.Zombie_WepBG = 0
 
@@ -162,6 +164,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "DeathAnim" then
+        if math_random(1, 2) == 1 then
+            self:DeathWeaponDrop(dmginfo, hitgroup)
+            self:OnDeath(dmginfo, hitgroup, "Finish")
+            return
+        end
         timer.Simple(0.5, function()
             if IsValid(self) then
                 self:DeathWeaponDrop(dmginfo, hitgroup)

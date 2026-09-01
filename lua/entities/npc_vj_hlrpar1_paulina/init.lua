@@ -8,7 +8,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/npc_fsceint.mdl"
 ENT.IsMedic = false
-
 ENT.MainSoundPitch = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()

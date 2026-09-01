@@ -8,6 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/cut/monster_himtrooper.mdl"
 ENT.StartHealth = 250
+ENT.FlinchHitGroupMap = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

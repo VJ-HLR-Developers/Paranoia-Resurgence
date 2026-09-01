@@ -9,11 +9,8 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par2/char_polina.mdl"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
-
 ENT.IsMedic = false
-
 ENT.HasDeathAnimation = true
-
 ENT.MainSoundPitch = 100
 -- Custom
 ENT.Civilian_Type = 2

@@ -1,6 +1,6 @@
 ENT.Base = "npc_vj_human_base"
 ENT.Type = "ai"
-ENT.PrintName = "Zombie Shooter (1.0)"
+ENT.PrintName = "Zombie Soldier (1.0)"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Paranoia Resurgence"

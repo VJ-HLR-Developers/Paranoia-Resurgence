@@ -7,6 +7,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/moster_scientist_male.mdl"
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()

@@ -7,6 +7,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/monster_soldier_rhb.mdl"
+ENT.FlinchHitGroupMap = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
