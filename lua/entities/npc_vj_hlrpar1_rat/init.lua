@@ -32,6 +32,9 @@ ENT.SoundTbl_FootStep = "vj_parr/par1/roach/rch_walk.wav"
 ENT.SoundTbl_Death = "vj_parr/par1/roach/rch_die.wav"
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
+-- Custom
+ENT.Rat_SteppedOn = false
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -39,17 +42,23 @@ function ENT:Init()
     self.HasDeathSounds = math_random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local vecZ50 = Vector(0, 0, -50)
---
 function ENT:OnTouch(ent)
-    if ent.VJ_ID_Living then
+    if ent.VJ_ID_Living && !self.GodMode then
+        self.Rat_SteppedOn = true
         self:TakeDamage(self:Health() + 1, ent, ent)
         -- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0, 39) );
         VJ.EmitSound(self, "vj_parr/par1/roach/rch_smash.wav", 60, 80 + math_random(0, 39))
-        -- Spawn a unique decal if stepped on, based on source code
-        local myPos = self:GetPos() + self:OBBCenter()
-        local tr = util.TraceLine({start = myPos, endpos = myPos + vecZ50, filter = self})
-        util.Decal("VJ_PARR1_Brains", tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal, self)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "Init" then
+        -- Spawn a unique decal from headshots or being stepped on, based on source code
+        if hitgroup == HITGROUP_HEAD or self.Rat_SteppedOn then
+            self.BloodDecal = "VJ_PARR1_Brains"
+        else
+            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -62,6 +71,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
+    elseif status == "Finish" then
+        -- Reset the blood decals to default if hit in head
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
