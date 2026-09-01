@@ -99,6 +99,6 @@ function SWEP:NPC_SecondaryFire()
         else
             phys:SetVelocity(VJ.CalculateTrajectory(owner, owner:GetEnemy(), "Line", projectile:GetPos(), 1, 2000))
         end
-        projectile:SetAngles(projectile:GetVelocity():GetNormal():Angle())
+        projectile:SetAngles(projectile:GetVelocity():GetNormalized():Angle())
     end
 end
