@@ -1,4 +1,5 @@
 "VertexLitGeneric"
 {
     "$basetexture" "models/vj_parr/par2/weapons/ak74/weap_ak74"
+    "$bumpmap" "models/vj_parr/par2/weapons/ak74/weap_ak74_norm"
 }
