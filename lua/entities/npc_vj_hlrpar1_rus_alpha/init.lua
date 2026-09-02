@@ -693,6 +693,18 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if dmginfo:GetDamage() > 30 && VJ.AnimExists(self, ACT_BIG_FLINCH) then
+            self.FlinchChance = 6
+            self.AnimTbl_Flinch = ACT_BIG_FLINCH
+        else
+            self.FlinchChance = 14
+            self.AnimTbl_Flinch = ACT_SMALL_FLINCH
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then

@@ -42,7 +42,7 @@ ENT.CanTurnWhileMoving = false
 
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
-ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
+ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
 
 ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shared/npc_step2.wav", "vj_parr/par1/shared/npc_step3.wav", "vj_parr/par1/shared/npc_step4.wav"}
 ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/shared/cbar_hitbod1.wav", "vj_parr/par1/shared/cbar_hitbod2.wav", "vj_parr/par1/shared/cbar_hitbod3.wav"}
@@ -60,6 +60,7 @@ local math_rand = math.Rand
 -- Custom
 ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female,  2= Par2 Paulina, 3 = Pirogov, 4 = Melee
 ENT.CIvilian_WeaponModel = false
+ENT.Civilian_CanHurtWalk = false
 ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
@@ -169,6 +170,20 @@ function ENT:OnInput(key, activator, caller, data)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
+    -- Hurt Walking
+    if self.Civilian_CanHurtWalk then
+        local myHP = self:Health()
+        local myMaxHP = self:GetMaxHealth()
+        if act == ACT_WALK then
+            if myHP <= (myMaxHP / 2.2) then
+                return ACT_WALK_HURT
+            end
+        elseif act == ACT_RUN then
+            if myHP <= (myMaxHP / 2.2) then
+                return ACT_RUN_HURT
+            end
+        end
+    end
     -- Scared animations
     local npcState = self:GetNPCState()
     if (self.Civilian_Type == 0 or self.Civilian_Type == 2) && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
@@ -289,6 +304,18 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             self.BloodDecal = "VJ_PARR1_Brains"
         else
             self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnFlinch(dmginfo, hitgroup, status)
+    if status == "Init" then
+        if dmginfo:GetDamage() > 30 && VJ.AnimExists(self, ACT_BIG_FLINCH) then
+            self.FlinchChance = 6
+            self.AnimTbl_Flinch = ACT_BIG_FLINCH
+        else
+            self.FlinchChance = 14
+            self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
     end
 end

@@ -13,6 +13,8 @@ ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.Weapon_SecondaryFireTime = 0.2
+-- Custom
+ENT.Soldier_CanHurtWalk = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {

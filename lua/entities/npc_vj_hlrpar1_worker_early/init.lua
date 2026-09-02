@@ -15,6 +15,7 @@ function ENT:Civilian_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/early/npc_worker_old.mdl" then
         self.Civilian_Type = 4
+        self.Civilian_CanHurtWalk = true
         self.Weapon_UnarmedBehavior = false
         self:SetBodygroup(3, math_random(0, 1))
         self:SetSkin(math_random(0, 1))
