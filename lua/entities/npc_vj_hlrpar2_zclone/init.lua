@@ -22,17 +22,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "DeathAnim" then
-        if math_random(1, 2) == 1 then
-            self:DeathWeaponDrop(dmginfo, hitgroup)
-            self:OnDeath(dmginfo, hitgroup, "Finish")
-            return
-        end
-        timer.Simple(0.5, function()
-            if IsValid(self) then
-                self:DeathWeaponDrop(dmginfo, hitgroup)
-                self:OnDeath(dmginfo, hitgroup, "Finish")
-            end
-        end)
+        self:DeathWeaponDrop(dmginfo, hitgroup)
+        self:OnDeath(dmginfo, hitgroup, "Finish")
     elseif status == "Finish" then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)

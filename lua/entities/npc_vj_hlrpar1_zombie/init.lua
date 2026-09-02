@@ -47,7 +47,7 @@ ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shar
 ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Custom
-ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie
+ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie, 6 = Savior Zombie, 7 = Par2 Zombie, 8 = Par2 Zombie Scientist, 9 = Par2 Zombie Scientist (Female), 10 = Par2 Zombie (Early), 11 = Classic/Hazmat/Rotten Zombie, 12 = Zombie Soldiers, 13 = Zombie Officer, 13 = Zombie Striker Mutant
 
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
@@ -68,6 +68,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "range" then
         self:ExecuteRangeAttack()
     elseif key == "shoot" then
+        if self.Zombie_Type == 5 then self:ExecuteRangeAttack() end
         local wep = self:GetActiveWeapon()
         if IsValid(wep) then
             wep:NPCShoot_Primary()
@@ -171,8 +172,6 @@ function ENT:Init()
     elseif myMDL == "models/vj_parr/par2/early/soldier_soviet_guard_zombie.mdl" then
         self.Zombie_Type = 10
     elseif myMDL == "models/vj_parr/par2/monster_deadhazmat.mdl" or myMDL == "models/vj_parr/par2/monster_rotten_girl.mdl" or myMDL == "models/vj_parr/par2/custom/monster_soldierguard.mdl" then
-        self.Zombie_Type = 10
-    elseif myMDL == "models/vj_parr/par2/early/soldier_soviet_guard_zombie.mdl" then
         self.Zombie_Type = 11
     elseif myMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or myMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper2.mdl" or myMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" or myMDL == "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then
         self.Zombie_Type = 12
