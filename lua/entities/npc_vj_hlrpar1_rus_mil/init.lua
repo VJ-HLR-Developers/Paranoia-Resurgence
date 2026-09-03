@@ -26,7 +26,7 @@ ENT.ControllerParams = {
     FirstP_ShrinkBone = false,
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 
@@ -110,6 +110,8 @@ function ENT:Init()
     rotorwash:Spawn()
     rotorwash:Activate()
     self:DeleteOnRemove(rotorwash)
+
+    VJ.HLR_ApplyFactionOptions(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

@@ -18,7 +18,7 @@ ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
 ENT.BloodDecal = "VJ_PARR1_Blood_Red"
 ENT.HasBloodPool = false
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
@@ -379,6 +379,10 @@ function ENT:Init()
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 2
         if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
+    elseif myMDL == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+        self.Soldier_Type = 2
+        self.Soldier_WepBG = 1
+        self.Soldier_WepBGRemove = 1
     elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
@@ -404,6 +408,7 @@ function ENT:Init()
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
     end
+    VJ.HLR_ApplyFactionOptions(self)
     self.Soldier_NextStrafeT = CurTime() + 4
     if self.Soldier_Init then self:Soldier_Init() end
     if self.Soldier_Voice then self:Soldier_Voice() end
@@ -439,6 +444,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SetAnimationTranslations(wepHoldType)
     local bodyGroup = self.Soldier_LastBodyGroup
+    local myMDL = self:GetModel()
 
     self.AnimationTranslations[ACT_IDLE] = ACT_IDLE
     self.AnimationTranslations[ACT_IDLE_ANGRY] = ACT_IDLE_ANGRY
@@ -479,16 +485,25 @@ function ENT:SetAnimationTranslations(wepHoldType)
             self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
         end
     elseif self.Soldier_Type == 2 or self.Soldier_Type == 3 then -- Terrorist && Clone
-        if bodyGroup == 0 then -- AK-74
-            self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
-            self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
-            self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
-            self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
-        elseif bodyGroup == 1 then -- PKM
-            self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2 //VJ.PICK({ACT_RANGE_ATTACK_SMG1, ACT_RANGE_ATTACK_AR2})
-            //self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
-            self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
-            self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
+        if myMDL != "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+            if bodyGroup == 0 then -- AK-74
+                self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
+                self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+                self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
+                self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
+            elseif bodyGroup == 1 then -- PKM
+                self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_AR2 //VJ.PICK({ACT_RANGE_ATTACK_SMG1, ACT_RANGE_ATTACK_AR2})
+                //self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
+                self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
+                self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
+            end
+        elseif myMDL == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+            if bodyGroup == 0 then -- SPAS-12
+                self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
+                self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
+                self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SHOTGUN
+                self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SHOTGUN_LOW
+            end
         end
     elseif self.Soldier_Type == 4 then -- Saboteur
         if !self.Soldier_PistolAnims then
@@ -588,12 +603,20 @@ function ENT:OnThink()
                 wep:Remove()
             end
         elseif self.Soldier_Type == 2 then -- Terrorist
-            if bodyGroup == 0 then -- AK-74
-                self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
-            elseif bodyGroup == 1 then -- PKM
-                self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
-            elseif IsValid(wep) then
-                wep:Remove()
+            if myMDL != "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+                if bodyGroup == 0 then -- AK-74
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
+                elseif bodyGroup == 1 then -- PKM
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
+                elseif IsValid(wep) then
+                    wep:Remove()
+                end
+            elseif myMDL == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
+                if bodyGroup == 0 then -- SPAS-12
+                    self:DoChangeWeapon("weapon_vj_hlr1_spas12")
+                elseif IsValid(wep) then
+                    wep:Remove()
+                end
             end
         elseif self.Soldier_Type == 3 then -- Clone
             if bodyGroup == 0 then -- AK-74/AKS
@@ -648,8 +671,8 @@ function ENT:MeleeAttackTraceDirection()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
+    if !VJ.AnimExists(self, ACT_SPECIAL_ATTACK2) or self:GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then return end
     if status == "Init" then
-        if !VJ.AnimExists(self, ACT_SPECIAL_ATTACK2) then return end
         -- Play a unique animation when throwing back grenades
         if IsValid(overrideEnt) then
             self.AnimTbl_GrenadeAttack = ACT_SPECIAL_ATTACK2

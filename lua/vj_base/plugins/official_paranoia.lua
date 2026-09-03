@@ -38,6 +38,7 @@ subCategory = "Terrorists"
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_ter_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_ter_shahid", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Terrorist (Urban)", "npc_vj_hlrpar1_ter_urban", spawnCategory, {SubCategory = subCategory})
 -- Saboteurs
 subCategory = "Saboteurs"
 VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})

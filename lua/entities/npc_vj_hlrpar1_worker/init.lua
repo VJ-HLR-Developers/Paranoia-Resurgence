@@ -14,7 +14,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(3, 0, 5),
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN"}
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
