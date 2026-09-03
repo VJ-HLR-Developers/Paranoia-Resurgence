@@ -58,6 +58,8 @@ function SWEP:Init()
             elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(-9.391, 20.284, 86.549)
                 self.WorldModelOffsetParams.Pos = Vector(7.456, 1.984, 2.584)
+            elseif ownerMDL == "models/vj_parr/par2/soldier.mdl" then
+                self.WorldModelOffsetParams.Bone = "bip01_r_hand"
             end
         end
     end)
