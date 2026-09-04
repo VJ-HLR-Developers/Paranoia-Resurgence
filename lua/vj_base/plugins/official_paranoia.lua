@@ -146,6 +146,22 @@ list.Add("PaintMaterials", "VJ_PARR2_Blood_Red")
 list.Add("PaintMaterials", "VJ_PARR2_Impact")
 list.Add("PaintMaterials", "VJ_PARR2_Scorch")
 
+-- Precache
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib1.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib2.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib3.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib4.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib5.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib6.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/hgib7.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green2.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green3.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green4.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green5.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green6.mdl")
+util.PrecacheModel("models/vj_parr/par1/gibs/metalplategibs_green7.mdl")
+
 -- Weapon Sounds
 local SNDLVL_GUNFIRE = 140
 local PITCH_NORM = 100
