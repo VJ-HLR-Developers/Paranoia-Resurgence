@@ -8,5 +8,14 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/cut/vts_urban_terrorist.mdl"
 ENT.GrenadeAttackAttachment = "lhand"
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init() return end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+    -- Play an animation upon killing a single known enemy
+    if wasLast && math_random(1, 3) == 1 then
+        self:PlayAnim("victorydance", "LetAttacks", false, false, 0)
+    end
+end
