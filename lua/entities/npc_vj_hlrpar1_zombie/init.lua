@@ -35,6 +35,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 
 -- Sounds
 ENT.DisableFootStepSoundTimer = true
+//ENT.HasBreathSound = false
 ENT.HasExtraMeleeAttackSounds = true
 
 ENT.SoundTbl_FootStep = {"vj_parr/par1/shared/npc_step1.wav", "vj_parr/par1/shared/npc_step2.wav", "vj_parr/par1/shared/npc_step3.wav", "vj_parr/par1/shared/npc_step4.wav"}
@@ -51,6 +52,7 @@ ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed
 
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
+//local math_clamp = math.Clamp
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
@@ -238,7 +240,7 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
             ent.HasRagdoll = false
             ent:Remove()
         end
-        local zomList = VJ.PICK({"npc_vj_hlrpar1_zombie", "npc_vj_hlrpar1_zombie_early", "npc_vj_hlrpar1_z3h", "npc_vj_hlrpar1_z3h_early", "npc_vj_hlrpar1_z4h", "npc_vj_hlrpar1_z4h_early"})
+        local zomList = VJ.VJ.PICK({"npc_vj_hlrpar1_zombie", "npc_vj_hlrpar1_zombie_early", "npc_vj_hlrpar1_z3h", "npc_vj_hlrpar1_z3h_early", "npc_vj_hlrpar1_z4h", "npc_vj_hlrpar1_z4h_early"})
         local zombie = ents.Create(zomList)
         if ent.VJ_ID_Living then
             zombie:SetPos(ent:GetPos())
@@ -366,3 +368,49 @@ function ENT:OnFootstepSound(moveType, sdFile)
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+/*local vecZ50 = Vector(0, 0, -50)
+local isZombieFlesh = {zombieflesh = true}
+--
+function ENT:OnEat(status, statusData)
+    if status == "CheckFood" then
+        -- Only look for red-blooded corpses + ignore corpses that have zombieflesh as the surfaceprop
+        local physObj = statusData.owner:GetPhysicsObject()
+        return IsValid(physObj) && !isZombieFlesh[physObj:GetMaterial()]
+    elseif status == "BeginEating" then
+        self.AnimationTranslations[ACT_IDLE] = ACT_IDLE_RELAXED -- Eating animation
+        return select(2, self:PlayAnim(ACT_ARM, true, false))
+    elseif status == "Eat" then
+        self.HasBreathSound = true
+        -- Health changes
+        local food = self.EatingData.Target
+        local damage = 5 -- How much damage food will receive
+        local foodHP = food:Health() -- Food's health
+        local myHP = self:Health() -- NPC's current health
+        self:SetHealth(math_clamp(myHP + ((damage > foodHP and foodHP) or damage), myHP, self:GetMaxHealth() < myHP and myHP or self:GetMaxHealth())) -- Give health to the NPC
+        food:SetHealth(foodHP - damage) -- Decrease corpse health
+        -- Blood effects
+        local bloodData = food.BloodData
+        if bloodData then
+            local bloodPos = food:GetPos()
+            bloodPos:Add(food:OBBCenter())
+            local bloodParticle = VJ.PICK(bloodData.Particle)
+            if bloodParticle then
+                ParticleEffect(bloodParticle, bloodPos, self:GetAngles())
+            end
+            local bloodDecal = VJ.PICK(bloodData.Decal)
+            if bloodDecal then
+                local tr = util.TraceLine({start = bloodPos, endpos = bloodPos + vecZ50, filter = {food, self}})
+                util.Decal(bloodDecal, tr.HitPos + tr.HitNormal + Vector(math_random(-45, 45), math_random(-45, 45), 0), tr.HitPos - tr.HitNormal, food)
+            end
+        end
+        return 2 -- Eat every this seconds
+    elseif status == "StopEating" then
+        self.HasBreathSound = false
+        VJ.STOPSOUND(self.CurrentBreathSound)
+        if statusData != "Dead" && self.EatingData.AnimStatus != "None" then -- Do NOT play anim while dead or has NOT prepared to eat
+            return select(2, self:PlayAnim(ACT_DISARM, true, false))
+        end
+    end
+    return 0
+end*/

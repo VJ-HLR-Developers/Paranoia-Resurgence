@@ -14,6 +14,9 @@ ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LE
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
+    /*self.SoundTbl_Breath =
+        "vj_parr/par2/shared/hungrysoldier.wav"*/
+
     self.SoundTbl_Alert = {
         "vj_parr/par2/zombie/zo_alert10.wav",
         "vj_parr/par2/zombie/zo_alert20.wav",
@@ -34,5 +37,6 @@ function ENT:Zombie_Voice()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
+    //self.CanEat = true
     self:SetBodygroup(1, math_random(0, 3))
 end

@@ -58,7 +58,6 @@ ENT.HasDeathCorpse = false
 ENT.VJ_ID_Healable = false
 
 ENT.SoundTbl_Death = "vj_hlr/gsrc/wep/mortar/mortarhit.wav"
-local sdExplosions = "VJ.PARR1_Explosion.Single"
 
 ENT.MainSoundPitch = 100
 ENT.DeathSoundLevel = 100
@@ -291,7 +290,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorHeliExp = Color(255, 255, 192, 128)
-local sdGibCollide = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav", "vj_parr/par1/shared/metal5.wav", "vj_parr/par1/shared/metal6.wav"}
+local sdGibCollide = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local heliExpGibs = {
     "models/vj_parr/par1/gibs/metalplategibs_green.mdl",
     "models/vj_parr/par1/gibs/metalplategibs_green2.mdl",
@@ -325,7 +324,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         expSpr:Fire("Kill", nil, 1)
 
         util.BlastDamage(self, self, expPos, 300, 100)
-        VJ.EmitSound(self, sdExplosions, 100, 100)
+        VJ.EmitSound(self, "VJ.PARR1_Explosion.Single")
 
         -- Spawn a animated model of the helicopter that explodes constantly and gets destroyed when it collides with something
         -- Based on source code
@@ -378,7 +377,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 spr:Fire("Kill", nil, 1)
 
                 util.BlastDamage(self, self, expPos2, 300, 100)
-                VJ.EmitSound(self, sdExplosions, 100, 100)
+                VJ.EmitSound(self, "VJ.PARR1_Explosion.Single")
             end
 
             self:NextThink(curTime)

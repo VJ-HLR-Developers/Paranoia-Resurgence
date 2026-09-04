@@ -148,6 +148,7 @@ list.Add("PaintMaterials", "VJ_PARR2_Scorch")
 
 -- Weapon Sounds
 local SNDLVL_GUNFIRE = 140
+local PITCH_NORM = 100
 local PITCH_RANDOM = {90, 110}
 
 -- Paranoia --
@@ -276,7 +277,7 @@ sound.Add({
     channel = CHAN_WEAPON,
     volume = 1.0,
     level = SNDLVL_GUNFIRE,
-    pitch = PITCH_RANDOM,
+    pitch = PITCH_NORM,
     sound = {
         "^vj_parr/par1/weapons/explode3.wav",
         "^vj_parr/par1/weapons/explode4.wav",
@@ -336,7 +337,7 @@ sound.Add({
     channel = CHAN_WEAPON,
     volume = 1.0,
     level = SNDLVL_GUNFIRE,
-    pitch = PITCH_RANDOM,
+    pitch = PITCH_NORM,
     sound = {
         "^vj_parr/par2/weapons/explode3.wav",
         "^vj_parr/par2/weapons/explode4.wav",
