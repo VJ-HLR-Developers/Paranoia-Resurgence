@@ -408,6 +408,15 @@ function ENT:Init()
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
     end
+    -- Handle animations when it's spawned as a PKM gunner
+    if self.PKM_Gunner then
+        function self:TranslateActivity(act)
+            if act == ACT_IDLE then
+                return VJ.SequenceToActivity(self, "hunkered")
+            end
+            return self.BaseClass.TranslateActivity(self, act)
+        end
+    end
     VJ.HLR_ApplyFactionOptions(self)
     self.Soldier_NextStrafeT = CurTime() + 4
     if self.Soldier_Init then self:Soldier_Init() end
@@ -666,6 +675,18 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnMeleeAttack(status, enemy)
+    if status == "Init" then
+        -- Stop the PKM Emplacement from firing when gunner is melee attacking
+        local owner = self:GetOwner()
+        if IsValid(owner) then
+            owner:StopAttacks(true)
+            owner.AttackAnimTime = 0
+            owner.PKM_StunnedT = CurTime() + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
@@ -725,6 +746,13 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
             self.FlinchChance = 14
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
+        -- Stop the PKM Emplacement from firing when gunner is flinching
+        local owner = self:GetOwner()
+        if IsValid(owner) then
+            owner:StopAttacks(true)
+            owner.AttackAnimTime = 0
+            owner.PKM_StunnedT = CurTime() + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -736,6 +764,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
+        end
+        -- Unparent the gunner from PKM Emplacement if they died. Prevents Source from spawning them in a random location of the map
+        local owner = self:GetOwner()
+        if IsValid(owner) then
+            local doDmg = DamageInfo()
+            doDmg:SetDamage(owner:Health())
+            doDmg:SetDamageType(dmginfo:GetDamageType())
+            owner:TakeDamageInfo(doDmg)
+            local gunner = owner.PKM_Gunners
+            if IsValid(gunner) then
+                gunner:SetParent(NULL)
+                gunner:SetPos(owner:GetAttachment(owner:LookupAttachment("gunner")).Pos)
+            end
         end
     elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then

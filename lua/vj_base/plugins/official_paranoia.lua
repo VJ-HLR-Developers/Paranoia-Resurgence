@@ -26,6 +26,7 @@ VJ.AddNPC("Russian General", "npc_vj_hlrpar1_rus_general", spawnCategory, {SubCa
 VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_rus_mil", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_rus_ng", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian PKM Emplacement", "npc_vj_hlrpar1_rus_pkm", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar1_rus_soldier", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Soldier (Early)", "npc_vj_hlrpar1_rus_soldier_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Soldier (Early V2)", "npc_vj_hlrpar1_rus_soldier_early_v2", spawnCategory, {SubCategory = subCategory})
@@ -39,6 +40,7 @@ VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory, {SubCategory =
 VJ.AddNPC("Terrorist (Early)", "npc_vj_hlrpar1_ter_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Terrorist (Shahid)", "npc_vj_hlrpar1_ter_shahid", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Terrorist (Urban)", "npc_vj_hlrpar1_ter_urban", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Terrorist PKM Emplacement", "npc_vj_hlrpar1_ter_pkm", spawnCategory, {SubCategory = subCategory})
 -- Saboteurs
 subCategory = "Saboteurs"
 VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})
