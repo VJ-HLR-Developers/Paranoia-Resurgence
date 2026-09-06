@@ -5,8 +5,8 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_parr/par1/td_btr90_v2.mdl"
-ENT.StartHealth = 350
+ENT.Model = "models/vj_parr/par1/cut/td_t90.mdl"
+ENT.StartHealth = 500
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(-20, 0, 40),
     FirstP_Bone = "joint1",
@@ -19,7 +19,7 @@ ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
 
-ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/bradley_idle.wav"
+ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/abrams_idle_loop.wav"
 ENT.SoundTbl_Death = "VJ.PARR1_Explosion.Single"
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
@@ -28,14 +28,14 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
 ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
 
-ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_btr90_gun"
-ENT.Tank_CollisionBoundSize = 60
-ENT.Tank_CollisionBoundUp = 90
+ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_t90_gun"
+ENT.Tank_CollisionBoundSize = 70
+ENT.Tank_CollisionBoundUp = 75
 ENT.Tank_DeathDriverCorpse = "models/vj_parr/par1/soldier.mdl"
 ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
-ENT.BTR_DmgForce = 0
+ENT.T90_DmgForce = 0
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -86,17 +86,17 @@ function ENT:Tank_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
-    return self:GetPos() + self:GetForward() * 32 + self:GetUp() * 71 + self:GetRight() * 1.2
+    return self:GetPos() + self:GetUp() * 48
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()
-    local spawnPos = self:GetPos() + self:GetForward() * -140
+    local spawnPos = self:GetPos() + self:GetForward() * -120
     local effectData = EffectData()
     effectData:SetScale(1)
     effectData:SetEntity(self)
-    effectData:SetOrigin(spawnPos + self:GetRight() * 40)
+    effectData:SetOrigin(spawnPos + self:GetRight() * 50)
     util.Effect("VJ_VehicleMove", effectData, true, true)
-    effectData:SetOrigin(spawnPos + self:GetRight() * -40)
+    effectData:SetOrigin(spawnPos + self:GetRight() * -50)
     util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,20 +105,20 @@ function ENT:GetNearDeathSparkPositions()
     if randPos == 1 then
         self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 15 + self:GetForward() * -16 + self:GetUp() * 80)
     elseif randPos == 2 then
-        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 110 + self:GetUp() * 50)
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 90 + self:GetUp() * 50)
     elseif randPos == 3 then
-        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 110 + self:GetUp() * 50)
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 90 + self:GetUp() * 50)
     elseif randPos == 4 then
-        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 50 + self:GetForward() * -40 + self:GetUp() * 70)
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 60 + self:GetForward() * -40 + self:GetUp() * 50)
     elseif randPos == 5 then
-        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -50 + self:GetForward() * -45 + self:GetUp() * 70)
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 50)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local expPos = Vector(0, 0, 150)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
-    self.BTR_DmgForce = dmginfo:GetDamageForce()
+    self.T90_DmgForce = dmginfo:GetDamageForce()
     for i = 0, 1, 0.5 do
         timer.Simple(i, function()
             if IsValid(self) then

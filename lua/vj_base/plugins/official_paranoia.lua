@@ -35,6 +35,7 @@ VJ.AddNPC("Russian Spetsnaz Soldier", "npc_vj_hlrpar1_rus_alpha", spawnCategory,
 VJ.AddNPC("Russian Spetsnaz Soldier (Early)", "npc_vj_hlrpar1_rus_alpha_early", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz Soldier (Early V2)", "npc_vj_hlrpar1_rus_alpha_early_v2", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz Soldier (Savior)", "npc_vj_hlrpar1_rus_alpha_savior", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian T-90", "npc_vj_hlrpar1_rus_t90", spawnCategory, {SubCategory = subCategory})
 -- Terrorists
 subCategory = "Terrorists"
 VJ.AddNPC("Terrorist", "npc_vj_hlrpar1_terrorist", spawnCategory, {SubCategory = subCategory})
