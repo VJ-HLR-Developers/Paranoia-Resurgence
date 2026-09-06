@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/td_btr90_v2.mdl"
-ENT.StartHealth = 350
+ENT.StartHealth = 250
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(-20, 0, 40),
     FirstP_Bone = "joint1",
@@ -19,14 +19,20 @@ ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
 
-ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/bradley_idle.wav"
+ENT.SoundTbl_Breath = "vj_parr/par1/tanks/motor_loop.wav"
 ENT.SoundTbl_Death = "VJ.PARR1_Explosion.Single"
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Tank Base
 ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
-ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
+ENT.Tank_SoundTbl_Track = "vehicles/v8/fourth_cruise_loop2.wav"
+
+ENT.Tank_DriveAwayDistance = 500
+ENT.Tank_DriveTowardsDistance = 2000
+ENT.Tank_RanOverDistance = 400
+ENT.Tank_TurningSpeed = 2.5
+ENT.Tank_DrivingSpeed = 300
 
 ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_btr90_gun"
 ENT.Tank_CollisionBoundSize = 60
@@ -90,7 +96,7 @@ function ENT:Tank_GunnerSpawnPosition()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()
-    local spawnPos = self:GetPos() + self:GetForward() * -140
+    local spawnPos = self:GetPos() + self:GetForward() * -135
     local effectData = EffectData()
     effectData:SetScale(1)
     effectData:SetEntity(self)

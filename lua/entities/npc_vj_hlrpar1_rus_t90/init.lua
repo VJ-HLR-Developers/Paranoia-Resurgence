@@ -19,7 +19,7 @@ ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
 ENT.HasOnPlayerSight = true
 
-ENT.SoundTbl_Breath = "vj_hlr/gsrc/npc/tanks/abrams_idle_loop.wav"
+ENT.SoundTbl_Breath = "vj_parr/par1/tanks/tankidle1.wav"
 ENT.SoundTbl_Death = "VJ.PARR1_Explosion.Single"
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
@@ -86,7 +86,7 @@ function ENT:Tank_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
-    return self:GetPos() + self:GetUp() * 48
+    return self:GetPos() + self:GetUp() * 48 + self:GetRight() * 4
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()

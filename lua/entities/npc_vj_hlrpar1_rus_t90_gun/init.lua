@@ -14,12 +14,12 @@ ENT.HasOnPlayerSight = true
 ENT.HasDeathCorpse = true
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"
-ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tank_reload.wav"
+ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot2.wav"
+ENT.Tank_SoundTbl_ReloadShell = "vj_parr/par1/tanks/tank_prefire.wav"
 ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/shoot.wav"
 
-ENT.Tank_Shell_SpawnPos = Vector(152, 1.5, 9)
+ENT.Tank_Shell_SpawnPos = Vector(156, 2, 9)
 ENT.Tank_Shell_Entity = "obj_vj_hlrpar1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
-ENT.Tank_Shell_MuzzleFlashPos = Vector(200, 1.5, 9)
-ENT.Tank_Shell_ParticlePos = Vector(200, 1.5, 9)
+ENT.Tank_Shell_MuzzleFlashPos = Vector(200, 2, 9)
+ENT.Tank_Shell_ParticlePos = Vector(200, 2, 9)

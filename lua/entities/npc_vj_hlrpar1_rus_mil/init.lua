@@ -172,6 +172,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PreSpawn" then
+        projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
         projectile.Rocket_HelicopterMissile = true
     elseif status == "PostSpawn" then
         VJ.CreateSound(projectile, "vj_parr/par1/weapons/rpg/rocketfire1.wav", 100)
@@ -217,16 +218,16 @@ function ENT:OnThinkAttack(isAttacking, enemy)
         muz:Activate()
         muz:Fire("Kill", nil, 0.08)
 
-		local flash = ents.Create("light_dynamic")
-		flash:SetKeyValue("brightness", "8")
-		flash:SetKeyValue("distance", "300")
-		flash:SetPos(att.Pos)
-		flash:Fire("Color", "255 60 9 255")
-		flash:Spawn()
-		flash:Activate()
-		flash:Fire("TurnOn")
-		flash:Fire("Kill", nil, 0.07)
-		self:DeleteOnRemove(flash)
+        local flash = ents.Create("light_dynamic")
+        flash:SetKeyValue("brightness", "8")
+        flash:SetKeyValue("distance", "300")
+        flash:SetPos(att.Pos)
+        flash:Fire("Color", "255 60 9 255")
+        flash:Spawn()
+        flash:Activate()
+        flash:Fire("TurnOn")
+        flash:Fire("Kill", nil, 0.07)
+        self:DeleteOnRemove(flash)
 
         local attShell = self:GetAttachment(self:LookupAttachment("shell"))
 

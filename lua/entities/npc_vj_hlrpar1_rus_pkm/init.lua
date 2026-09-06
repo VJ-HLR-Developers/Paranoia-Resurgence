@@ -115,7 +115,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
         self.PKM_Ammo = self.PKM_Ammo - 1
-        if self.PKM_Ammo < 0 then self:Reload() end
+        if self.PKM_Ammo <= 0 then self:Reload() end
         VJ.EmitSound(self, "VJ.PARR1_PKM.Single")
         self:FireBullets({
             Attacker = self,

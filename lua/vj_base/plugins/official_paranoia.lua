@@ -293,8 +293,17 @@ sound.Add({
         "^vj_parr/par1/turret/tu_fire1.wav"
 })
 sound.Add({
+    name = "VJ.PARR1_Cannon.Single",
+    channel = CHAN_STATIC,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par1/tanks/biggun2.wav"
+})
+sound.Add({
     name = "VJ.PARR1_Explosion.Single",
-    channel = CHAN_WEAPON,
+    channel = CHAN_STATIC,
     volume = 1.0,
     level = SNDLVL_GUNFIRE,
     pitch = PITCH_NORM,
@@ -354,7 +363,7 @@ sound.Add({
 })
 sound.Add({
     name = "VJ.PARR2_Explosion.Single",
-    channel = CHAN_WEAPON,
+    channel = CHAN_STATIC,
     volume = 1.0,
     level = SNDLVL_GUNFIRE,
     pitch = PITCH_NORM,

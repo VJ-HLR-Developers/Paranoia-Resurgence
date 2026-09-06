@@ -14,33 +14,43 @@ ENT.HasOnPlayerSight = true
 ENT.HasDeathCorpse = true
 
 -- Tank Base
-ENT.Tank_SoundTbl_Turning = "vj_hlr/gsrc/npc/tanks/bradley_turret_rot.wav"
+ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot1.wav"
 ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
-ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/biggun2.wav"
+ENT.Tank_SoundTbl_FireShell = "VJ.PARR1_Cannon.Single"
 
-local vecBullet = Vector(100, 0, 10)
+local vecBullet = Vector(100, 0, 9)
 ENT.Tank_Shell_SpawnPos = Vector(100, 0, 9)
 ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(100, 0, 9)
 ENT.Tank_Shell_ParticlePos = Vector(100, 0, 9)
 
 -- CUstom
+ENT.BTR_Reload = false
 ENT.BTR_NextMGT = 0
+ENT.BTR_Ammo = 10
 
 local math_random = math.random
 local math_rand = math.Rand
 local CurTime = CurTime
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnPrepareShell()
-    self.Tank_Shell_TimeUntilFire = 0.5
-    self.HasReloadShellSound = false
-    self.Tank_Shell_NextFireTime = 0.5
+    -- If reloading then play the reload sound and delay the time until fire
+    if self.BTR_Reload then
+        self.Tank_Shell_TimeUntilFire = 3.5
+        self.HasReloadShellSound = true
+    else
+        self.Tank_Shell_TimeUntilFire = 0.5
+        self.HasReloadShellSound = false
+        self.Tank_Shell_NextFireTime = 0
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vecZ40 = Vector(0, 0, 40)
 --
 function ENT:Tank_OnFireShell(status, statusData)
     if status == "Init" then
+        self.BTR_Ammo = self.BTR_Ammo - 1
+        if self.BTR_Ammo <= 0 then self:Reload() end
         local ene = self:GetEnemy()
         local pos = self:LocalToWorld(vecBullet)
         self:FireBullets({
@@ -53,8 +63,9 @@ function ENT:Tank_OnFireShell(status, statusData)
             TracerName = "VJ_PARR_Tracer_Large",
             Callback = function(attack, tr, dmginfo)
                 local hitPos = tr.HitPos
+                local hitNorm = tr.HitNormal
                 VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
-                util.Decal("VJ_PARR1_Scorch", hitPos + tr.HitNormal, hitPos - tr.HitNormal)
+                util.Decal("VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
 
                 sound.Play("VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
                 sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
@@ -96,7 +107,7 @@ local bulletSpread = Vector(50, 50, 50)
 --
 function ENT:Tank_OnThinkActive()
     local ene = self:GetEnemy()
-    if IsValid(ene) then
+    if IsValid(ene) && ene:Visible(self) then
         local curTime = CurTime()
         if self.Tank_FacingTarget && curTime > self.BTR_NextMGT then
             local pos = self:LocalToWorld(vecBullet)
@@ -149,20 +160,18 @@ function ENT:FireFX()
     muzLight:Fire("TurnOn")
     muzLight:Fire("Kill", nil, 0.07)
     self:DeleteOnRemove(muzLight)*/
-
-    /*local startPos = self:GetPos() + self:GetUp() * 50 + self:GetForward() * 100
-    local tr = util.TraceLine({
-        start = startPos,
-        endpos = self:GetEnemy():GetPos() + self:GetEnemy():OBBCenter(),
-        filter = self
-    })
-    local beam = EffectData()
-    beam:SetStart(startPos)
-    beam:SetOrigin(tr.HitPos)
-    beam:SetEntity(self)
-    beam:SetAttachment(2)
-    util.Effect("VJ_PARR_Tracer", beam)
-    return tr.HitPos*/
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Reload()
+    if !self.BTR_Reload then
+        self.BTR_Reload = true
+    end
+    timer.Simple(3.5, function()
+        if IsValid(self) && self.BTR_Reload then
+            self.BTR_Reload = false
+            self.BTR_Ammo = self.BTR_Ammo + 10
+        end
+    end)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
