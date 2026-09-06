@@ -194,7 +194,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
             Tracer = 1,
             TracerName = "VJ_PARR_Tracer",
             Force = 3,
-            Damage = self:ScaleByDifficulty(8),
+            Damage = self:ScaleByDifficulty(12),
             AmmoType = "HelicopterGun"
         })
         VJ.EmitSound(self, "VJ.PARR1_MG.Single", 120, 100, 1, CHAN_WEAPON)
@@ -218,8 +218,8 @@ function ENT:OnThinkAttack(isAttacking, enemy)
         muz:Fire("Kill", nil, 0.08)
 
 		local flash = ents.Create("light_dynamic")
-		flash:SetKeyValue("brightness", 8)
-		flash:SetKeyValue("distance", 300)
+		flash:SetKeyValue("brightness", "8")
+		flash:SetKeyValue("distance", "300")
 		flash:SetPos(att.Pos)
 		flash:Fire("Color", "255 60 9 255")
 		flash:Spawn()
