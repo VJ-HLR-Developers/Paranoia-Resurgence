@@ -105,7 +105,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
-        return !(self.PKM_HasLOS && CurTime() > self.PKM_LockTime) or CurTime() < self.PKM_StunnedT or self.PKM_Ammo < 0
+        return !(self.PKM_HasLOS && CurTime() > self.PKM_LockTime) or CurTime() < self.PKM_StunnedT or self.PKM_Ammo <= 0
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
     end
