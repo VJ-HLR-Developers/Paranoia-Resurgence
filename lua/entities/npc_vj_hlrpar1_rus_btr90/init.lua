@@ -42,6 +42,8 @@ ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
 ENT.BTR_DmgForce = 0
+ENT.BTR_HasSpawnedSoldiers = false
+ENT.BTR_PrepDeploy = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -89,6 +91,7 @@ function ENT:Tank_Init()
         "vj_parr/par1/alpha/hello4.wav",
         "vj_parr/par1/alpha/hello5.wav"
     }
+    self.BTR_Soldiers = {}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_GunnerSpawnPosition()
@@ -104,6 +107,56 @@ function ENT:Tank_UpdateMoveParticles()
     util.Effect("VJ_VehicleMove", effectData, true, true)
     effectData:SetOrigin(spawnPos + self:GetRight() * -40)
     util.Effect("VJ_VehicleMove", effectData, true, true)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_OnThink()
+    -- If moving then close the door
+    if self.Tank_Status == 0 && self.BTR_PrepDeploy then
+        self.BTR_PrepDeploy = false
+    end
+
+    -- Deploy soldiers
+    if self.Tank_Status == 1 && !self.BTR_HasSpawnedSoldiers && !self.BTR_PrepDeploy && IsValid(self:GetEnemy()) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+        self.BTR_PrepDeploy = true
+        self.BTR_HasSpawnedSoldiers = true
+        self:SetState(VJ_STATE_FREEZE)
+        timer.Simple(0.5, function()
+            if IsValid(self) then
+                if !self.BTR_PrepDeploy then -- Door was suddenly closed, so try again later
+                    self.BTR_HasSpawnedSoldiers = false
+                    self:SetState()
+                else
+                    local ene = self:GetEnemy()
+                    for i = 1, 6 do
+                        local soldierClass = "npc_vj_hlrpar1_rus_soldier"
+                        if math_random(1, 5) == 1 then -- 20% for spetsnaz soldier to spawn
+                            soldierClass = "npc_vj_hlrpar1_rus_alpha"
+                        else
+                            soldierClass = "npc_vj_hlrpar1_rus_soldier"
+                        end
+                        local soldier = ents.Create(soldierClass)
+                        local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other soldier spawn to the opposite side
+                        soldier:SetPos(self:GetPos() + self:GetForward() * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight() * opSide + self:GetUp() * 5)
+                        soldier:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
+                        soldier.VJ_NPC_Class = self.VJ_NPC_Class
+                        soldier.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
+                        soldier:Spawn()
+                        soldier:ForceSetEnemy(ene, true)
+                        soldier:SetState(VJ_STATE_FREEZE)
+                        timer.Simple(0.2, function()
+                            if IsValid(soldier) then
+                                soldier:SetState(VJ_STATE_NONE)
+                                soldier:SetLastPosition(soldier:GetPos() + soldier:GetForward() * 150 + soldier:GetRight() * opSide)
+                                soldier:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH")
+                            end
+                        end)
+                        self.BTR_Soldiers[#self.BTR_Soldiers + 1] = soldier -- Register the soldier
+                        self:SetState()
+                    end
+                end
+            end
+        end)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:GetNearDeathSparkPositions()
@@ -222,6 +275,16 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         spr:Spawn()
         spr:Fire("Kill", nil, 0.9)
         timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+        ParticleEffectAttach("smoke_burning_engine_01", PATTACH_ABSORIGIN_FOLLOW, corpse, 0)
         return true
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    -- If the NPC was removed, then remove its children as well, but not when it's killed!
+    if !self.Dead then
+        for _, v in ipairs(self.BTR_Soldiers) do
+            if IsValid(v) then v:Remove() end
+        end
     end
 end

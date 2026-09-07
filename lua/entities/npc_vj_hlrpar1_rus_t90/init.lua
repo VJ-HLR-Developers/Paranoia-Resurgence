@@ -216,6 +216,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         spr:Spawn()
         spr:Fire("Kill", nil, 0.9)
         timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+        ParticleEffectAttach("smoke_burning_engine_01", PATTACH_ABSORIGIN_FOLLOW, corpse, 0)
         return true
     end
 end
