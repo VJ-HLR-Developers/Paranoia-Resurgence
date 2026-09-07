@@ -255,7 +255,6 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local metalCollideSD = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local vec500z = Vector(0, 0, 500)
-local firePos = Vector(0, 0, 150)
 local colorGray = Color(90, 90, 90)
 --
 function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
@@ -316,7 +315,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         fireSpr:SetKeyValue("framerate", "10.0")
         fireSpr:SetKeyValue("spawnflags", "0")
         fireSpr:SetKeyValue("scale", "4")
-        fireSpr:SetPos(myPos + myForward * 30 + firePos)
+        fireSpr:SetPos(myPos + myForward * 30 + myUp * 150)
         fireSpr:SetParent(corpse)
         fireSpr:Spawn()
         corpse:DeleteOnRemove(fireSpr)
