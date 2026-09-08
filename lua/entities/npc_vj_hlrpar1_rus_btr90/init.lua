@@ -29,9 +29,6 @@ ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
 ENT.Tank_SoundTbl_Track = "vehicles/v8/fourth_cruise_loop2.wav"
 ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
 
-ENT.Tank_DriveAwayDistance = 500
-ENT.Tank_DriveTowardsDistance = 2000
-ENT.Tank_RanOverDistance = 400
 ENT.Tank_TurningSpeed = 2.5
 ENT.Tank_DrivingSpeed = 300
 

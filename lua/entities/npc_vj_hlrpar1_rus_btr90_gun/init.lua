@@ -33,6 +33,24 @@ local math_random = math.random
 local math_rand = math.Rand
 local CurTime = CurTime
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_Init()
+    -- Spawn a dummy entity to fix bullet tracer for MG, thanks GMod
+    local dumEnt = ents.Create("prop_vj_animatable")
+    dumEnt:SetModel("models/vj_parr/par1/td_btr90_v2_gun_mg.mdl")
+    dumEnt:SetPos(self:GetPos())
+    dumEnt:SetAngles(self:GetAngles())
+    dumEnt:SetOwner(self)
+    dumEnt:SetParent(self)
+    dumEnt.PhysgunDisabled = true
+    dumEnt.DoNotDuplicate = true
+    dumEnt:Spawn()
+    dumEnt:SetNoDraw(true)
+    dumEnt:SetSolid(SOLID_NONE)
+    dumEnt:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+    self:DeleteOnRemove(dumEnt)
+    self.DumEnt = dumEnt
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_OnPrepareShell()
     -- If reloading then play the reload sound and delay the time until fire
     if self.BTR_Reload then
@@ -103,18 +121,20 @@ function ENT:Tank_OnFireShell(status, statusData)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local bulletSpread = Vector(50, 50, 50)
+local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 function ENT:Tank_OnThinkActive()
     local ene = self:GetEnemy()
-    if IsValid(ene) && ene:Visible(self) then
+    if IsValid(ene) && IsValid(self.DumEnt) then
         local curTime = CurTime()
-        if self.Tank_FacingTarget && curTime > self.BTR_NextMGT then
-            local pos = self:LocalToWorld(vecBullet)
-            self:FireBullets({
+        if self.Tank_FacingTarget && self:Visible(ene) && curTime > self.BTR_NextMGT then
+            local dumEnt = self.DumEnt
+            local att = self:GetAttachment(1)
+            dumEnt:FireBullets({
+                Attacker = self,
                 Num = 1,
-                Src = pos,
-                Dir = (ene:GetPos() + ene:OBBCenter()) - pos,
+                Src = att.Pos,
+                Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
                 Spread = bulletSpread,
                 Tracer = 1,
                 TracerName = "VJ_PARR_Tracer",
