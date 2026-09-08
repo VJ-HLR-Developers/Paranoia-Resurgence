@@ -129,7 +129,7 @@ function ENT:Tank_OnThinkActive()
         local curTime = CurTime()
         if self.Tank_FacingTarget && self:Visible(ene) && curTime > self.BTR_NextMGT then
             local dumEnt = self.DumEnt
-            local att = self:GetAttachment(1)
+            local att = dumEnt:GetAttachment(1)
             dumEnt:FireBullets({
                 Attacker = self,
                 Num = 1,

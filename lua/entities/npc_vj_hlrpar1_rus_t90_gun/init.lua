@@ -18,6 +18,7 @@ ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot2.wav"
 ENT.Tank_SoundTbl_ReloadShell = "vj_parr/par1/tanks/tank_prefire.wav"
 ENT.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/shoot.wav"
 
+ENT.Tank_Shell_TimeUntilFire = 4
 ENT.Tank_Shell_SpawnPos = Vector(156, 2, 9)
 ENT.Tank_Shell_Entity = "obj_vj_hlrpar1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
