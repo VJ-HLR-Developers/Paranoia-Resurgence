@@ -90,7 +90,7 @@ function ENT:Init()
                     local ene = self:GetOwner():GetEnemy()
                     if IsValid(phys) && IsValid(ene) then
                         phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
-                        self:SetAngles(self:GetVelocity():GetNormalized():Angle())
+                        self:SetAngles(self:GetVelocity():Angle())
                     end
                 end
             end
