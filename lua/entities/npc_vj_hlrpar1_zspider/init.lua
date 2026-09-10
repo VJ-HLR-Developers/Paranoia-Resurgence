@@ -14,6 +14,8 @@ ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/p
 
 -- Custom
 ENT.Spider_EyeOpen = false
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
@@ -37,6 +39,20 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
     local myMDL = self:GetModel()
+    -- Getting up animation
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/spider_v1.mdl" then
+        timer.Simple(0, function()
+            if IsValid(self) then
+                self:PlayAnim("s_2", true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
+        end)
+        timer.Simple(VJ.AnimDuration(self, "s_2"), function()
+            if IsValid(self) then
+                self:SetState()
+            end
+        end)
+    end
     if myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.AnimTbl_Death = ACT_DIEBACKWARD
     elseif myMDL == "models/vj_parr/par1/early/spider_v1.mdl" then

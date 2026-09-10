@@ -7,3 +7,22 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/savior/zombie_sc.mdl"
+
+local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Init()
+    -- Getting up animation
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
+        timer.Simple(0, function()
+            if IsValid(self) then
+                self:PlayAnim("slumprise_a", true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
+        end)
+        timer.Simple(VJ.AnimDuration(self, "slumprise_a"), function()
+            if IsValid(self) then
+                self:SetState()
+            end
+        end)
+    end
+end

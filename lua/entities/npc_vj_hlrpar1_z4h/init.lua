@@ -14,7 +14,22 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    if self:GetModel() == "models/vj_parr/par1/early/zombie.mdl" then
+    -- Getting up animation
+    local myMDL = self:GetModel()
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/zombie.mdl" then
+        timer.Simple(0, function()
+            if IsValid(self) then
+                self:PlayAnim("scr", true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
+        end)
+        timer.Simple(VJ.AnimDuration(self, "scr"), function()
+            if IsValid(self) then
+                self:SetState()
+            end
+        end)
+    end
+    if myMDL == "models/vj_parr/par1/early/zombie.mdl" then
         self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD}
     end
     self:SetBodygroup(1, math_random(0, 2))

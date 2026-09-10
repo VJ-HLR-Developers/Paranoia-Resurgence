@@ -12,6 +12,21 @@ ENT.FlinchHitGroupMap = false
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
+    -- Getting up animation
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
+        local anim = VJ.PICK({"fake1_rising", "fake2_rising", "fake3_rising", "fake4_rising"})
+        timer.Simple(0, function()
+            if IsValid(self) then
+                self:PlayAnim(anim, true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
+        end)
+        timer.Simple(VJ.AnimDuration(self, anim), function()
+            if IsValid(self) then
+                self:SetState()
+            end
+        end)
+    end
     self:SetSkin(math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

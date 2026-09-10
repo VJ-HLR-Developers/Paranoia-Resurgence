@@ -52,6 +52,8 @@ ENT.SoundTbl_LeapAttackDamage = "vj_parr/par2/spider/headbite.wav"
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
+
+local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
     //print(key)
@@ -79,6 +81,20 @@ function ENT:Init()
         "vj_parr/par2/spider/pain2.wav",
         "vj_parr/par2/spider/pain3.wav"
     }
+    -- Getting up animation
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
+        timer.Simple(0, function()
+            if IsValid(self) then
+                self:PlayAnim("scen_outofhole", true, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+            end
+        end)
+        timer.Simple(VJ.AnimDuration(self, "scen_outofhole"), function()
+            if IsValid(self) then
+                self:SetState()
+            end
+        end)
+    end
     self:SetCollisionBounds(Vector(10, 10, 22), Vector(-10, -10, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

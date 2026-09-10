@@ -2,5 +2,4 @@
 {
     "$basetexture" "models/vj_parr/par1/zombie/early/alpha_light1"
     "$alphatest" "1"
-    "$nocull" "1"
 }
