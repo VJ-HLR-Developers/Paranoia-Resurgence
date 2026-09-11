@@ -127,7 +127,7 @@ function ENT:Tank_OnThinkActive()
     local ene = self:GetEnemy()
     if IsValid(ene) && IsValid(self.DumEnt) then
         local curTime = CurTime()
-        if self.Tank_FacingTarget && self:Visible(ene) && curTime > self.BTR_NextMGT then
+        if self.Tank_FacingTarget && ene:Visible(self) && curTime > self.BTR_NextMGT then
             local dumEnt = self.DumEnt
             local att = dumEnt:GetAttachment(1)
             dumEnt:FireBullets({
