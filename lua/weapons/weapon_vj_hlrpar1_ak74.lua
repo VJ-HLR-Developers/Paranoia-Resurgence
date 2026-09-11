@@ -60,6 +60,10 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
+            local ownerMDL = self:GetOwner():GetModel()
+            if ownerMDL == "models/vj_parr/par1/soldier_clon.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_beret.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or ownerMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier_colba.mdl" or ownerMDL == "models/vj_parr/par1/early/terror_old.mdl" then
+                self.WorldModel = "models/vj_parr/par1/weapons/early/w_ak74.mdl"
+            end
         end
     end)
 end

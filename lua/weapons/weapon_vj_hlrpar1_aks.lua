@@ -49,6 +49,7 @@ function SWEP:Init()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             if self:GetOwner():GetModel() == "models/vj_parr/par1/early/soldier_alpha.mdl" then
+                self.WorldModel = "models/vj_parr/par1/weapons/early/w_aks.mdl"
                 self.Primary.Sound = "VJ.PARR1_AKS_Sup.Single"
             end
         end

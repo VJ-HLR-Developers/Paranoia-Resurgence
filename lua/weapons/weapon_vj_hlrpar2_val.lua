@@ -12,7 +12,7 @@ SWEP.NPC_CanBePickedUp = false
 //SWEP.NPC_CustomSpread = 0.75
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.WorldModel = "models/vj_parr/par1/weapons/w_val.mdl"
+SWEP.WorldModel = "models/vj_parr/par1/weapons/savior/w_val.mdl"
 SWEP.HoldType = "ar2"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
