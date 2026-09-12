@@ -12,7 +12,7 @@ ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(10, 0, 0),
     FirstP_Bone = "Head",
-    FirstP_Offset = Vector(2, 0, 0),
+    FirstP_Offset = Vector(2, 0, 0)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.BloodColor = VJ.BLOOD_COLOR_RED

@@ -12,7 +12,7 @@ ENT.HullType = HULL_TINY
 ENT.ControllerParams = {
     ThirdP_Offset = Vector(0, 0, 20),
     FirstP_Bone = "Dummy01",
-    FirstP_Offset = Vector(0, 0, 4),
+    FirstP_Offset = Vector(0, 0, 4)
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.CanOpenDoors = false

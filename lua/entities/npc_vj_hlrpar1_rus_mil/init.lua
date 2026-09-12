@@ -23,7 +23,7 @@ ENT.AA_MoveDecelerate = 4
 ENT.ControllerParams = {
     FirstP_Bone = "Bone04",
     FirstP_Offset = Vector(-50, 0, -40),
-    FirstP_ShrinkBone = false,
+    FirstP_ShrinkBone = false
 }
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
