@@ -121,6 +121,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    if self.DeathCorpseEntityClass != "prop_vj_animatable" then return end
     corpse:ResetSequence(self:GetSequence())
     corpse:SetCycle(1)
     corpse:SetMoveType(self:GetMoveType())
