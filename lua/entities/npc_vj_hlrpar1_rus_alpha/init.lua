@@ -247,8 +247,11 @@ function ENT:Soldier_Voice()
     elseif pickVoice == 2 then
         self.SoundTbl_Idle = {
             "vj_parr/par1/npc/army/afgan.wav",
+            "vj_parr/par1/npc/army/camesklad2.wav",
+            "vj_parr/par1/npc/army/camesklad3.wav",
             "vj_parr/par1/npc/army/fix.wav",
             "vj_parr/par1/npc/army/pentagon_hack.wav",
+            "vj_parr/par1/npc/army/zaslon.wav",
             "vj_parr/par1/alpha/monologue7.wav"
         }
         self.SoundTbl_IdleDialogue = {
@@ -284,12 +287,12 @@ function ENT:Soldier_Voice()
             "vj_parr/par1/alpha/ok2.wav",
             "vj_parr/par1/alpha/ok3.wav",
             "vj_parr/par1/alpha/ok4.wav",
+            "vj_parr/par1/npc/army/karaul4.wav"
         }
         self.SoundTbl_Alert = {
             "vj_parr/par1/npc/army/karaul1.wav",
             "vj_parr/par1/npc/army/karaul2.wav",
-            "vj_parr/par1/npc/army/karaul3.wav",
-            "vj_parr/par1/npc/army/karaul4.wav"
+            "vj_parr/par1/npc/army/karaul3.wav"
         }
         self.SoundTbl_OnPlayerSight = {
             "vj_parr/par1/alpha/hello1.wav",
