@@ -1,4 +1,4 @@
-include("entities/npc_vj_hlrpar1_worker/init.lua")
+include("entities/npc_vj_hlrpar1_rus_alpha/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
@@ -6,11 +6,10 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = "models/vj_parr/par1/npc_officer_general.mdl"
-
-local math_random = math.random
+ENT.Model = "models/vj_parr/par1/cut/general_pistol.mdl"
+ENT.StartHealth = 100
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Civilian_Voice()
+function ENT:Soldier_Voice()
     self.SoundTbl_IdleDialogue = {
         "vj_parr/par1/npc/army/dermo2.wav",
         "vj_parr/par1/npc/army/gazmask1.wav",
@@ -47,6 +46,6 @@ function ENT:Civilian_Voice()
     }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Civilian_Init()
-    self:SetSkin(1)
-end
+function ENT:Soldier_Init() return end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent) return end
