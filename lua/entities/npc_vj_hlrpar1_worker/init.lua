@@ -31,6 +31,8 @@ ENT.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1
 ENT.MeleeAttackDamage = 25
 ENT.TimeUntilMeleeAttackDamage = false
 
+ENT.Weapon_IgnoreSpawnMenu = true
+
 ENT.DisableFootStepSoundTimer = true
 
 ENT.DropDeathLoot = false
