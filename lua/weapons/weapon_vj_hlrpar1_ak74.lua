@@ -43,11 +43,11 @@ local validModels = {
     ["models/vj_parr/par1/cut/soldier_beret.mdl"] = true,
     ["models/vj_parr/par1/cut/soldier_gru.mdl"] = true,
     ["models/vj_parr/par1/cut/terror_shahid.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier.mdl"] = true,
+    ["models/vj_parr/par1/early/v1/soldier.mdl"] = true,
     ["models/vj_parr/par1/early/v2/soldier.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_clon_heavy.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_colba.mdl"] = true,
-    ["models/vj_parr/par1/early/terror_old.mdl"] = true
+    ["models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl"] = true,
+    ["models/vj_parr/par1/early/v1/soldier_colba.mdl"] = true,
+    ["models/vj_parr/par1/early/v1/terror_old.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par1/weapons/aks/AKS_OUT.WAV"
 SWEP.Reload_Middle = "vj_parr/par1/weapons/aks/AKS_IN.WAV"
@@ -61,7 +61,7 @@ function SWEP:Init()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             local ownerMDL = self:GetOwner():GetModel()
-            if ownerMDL == "models/vj_parr/par1/soldier_clon.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_beret.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or ownerMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/early/soldier_colba.mdl" or ownerMDL == "models/vj_parr/par1/early/terror_old.mdl" then
+            if ownerMDL == "models/vj_parr/par1/soldier_clon.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_beret.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or ownerMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier_colba.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/terror_old.mdl" then
                 self.WorldModel = "models/vj_parr/par1/weapons/early/w_ak74.mdl"
             end
         end

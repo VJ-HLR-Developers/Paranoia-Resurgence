@@ -16,12 +16,12 @@ if !SERVER then return end
 
 local entsList = {
     "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_early",
-    "npc_vj_hlrpar1_z4h_early:10",
+    "npc_vj_hlrpar1_zombie_v1",
+    "npc_vj_hlrpar1_z4h_v1:10",
     "npc_vj_hlrpar1_z3h:15",
-    "npc_vj_hlrpar1_z3h_early:15",
+    "npc_vj_hlrpar1_z3h_v1:15",
     "npc_vj_hlrpar1_zclone:10",
-    "npc_vj_hlrpar1_zclone_early:10",
+    "npc_vj_hlrpar1_zclone_v1:10",
     "npc_vj_hlrpar1_zclone_armed:15",
     "npc_vj_hlrpar1_zdog:20",
     "npc_vj_hlrpar1_zhazmat:5",
@@ -29,8 +29,8 @@ local entsList = {
     "npc_vj_hlrpar1_zscientist_fem:5",
     "npc_vj_hlrpar1_zalpha:10",
     "npc_vj_hlrpar1_zspider:25",
-    "npc_vj_hlrpar1_zspider_early_v2:25",
-    "npc_vj_hlrpar1_zspider_early:25"
+    "npc_vj_hlrpar1_zspider_v2:25",
+    "npc_vj_hlrpar1_zspider_v1:25"
 }
 ENT.EntitiesToSpawn = {
     {SpawnPosition = Vector(), Entities = entsList},

@@ -38,8 +38,8 @@ local validModels = {
     ["models/vj_parr/par2/cut/monster_himtrooper.mdl"] = true,
     ["models/vj_parr/par2/cut/monster_himtrooper2.mdl"] = true,
     ["models/vj_parr/par2/cut/soldier_clon_zombied.mdl"] = true,
-    ["models/vj_parr/par2/v1/monster_clonsoldier.mdl"] = true,
-    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true
+    ["models/vj_parr/par2/1.0/monster_clonsoldier.mdl"] = true,
+    ["models/vj_parr/par2/1.0/monster_soldiershooter.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/pkm/pkm_boxout.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/pkm/pkm_boxin.wav"
@@ -53,10 +53,10 @@ function SWEP:Init()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             local ownerMDL = self:GetOwner():GetModel()
-            if ownerMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or ownerMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or ownerMDL == "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then
+            if ownerMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or ownerMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or ownerMDL == "models/vj_parr/par2/1.0/monster_soldiershooter.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(1.766, -151.986, -4.061)
                 self.WorldModelOffsetParams.Pos = Vector(7.026, 4.179, -5.237)
-            elseif ownerMDL == "models/vj_parr/par2/v1/monster_clonsoldier.mdl" then
+            elseif ownerMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(0, -157.2, 0)
                 self.WorldModelOffsetParams.Pos = Vector(10.14, 4.263, -4.8)
             elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then

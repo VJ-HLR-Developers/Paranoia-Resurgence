@@ -166,15 +166,15 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2a.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2b.mdl" or myMDL == "models/vj_parr/par1/savior/zombie_him.mdl" or myMDL == "models/vj_parr/par1/early/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/early/zombie_slow2.mdl" then
+    if myMDL == "models/vj_parr/par1/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2a.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2b.mdl" or myMDL == "models/vj_parr/par1/savior/zombie_him.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie_slow2.mdl" then
         self.Zombie_Type = 0
-    elseif myMDL == "models/vj_parr/par1/zombie.mdl" or myMDL == "models/vj_parr/par1/early/zombie.mdl" then
+    elseif myMDL == "models/vj_parr/par1/zombie.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie.mdl" then
         self.Zombie_Type = 1
-    elseif myMDL == "models/vj_parr/par1/z_3h.mdl" or myMDL == "models/vj_parr/par1/early/z_3h.mdl" then
+    elseif myMDL == "models/vj_parr/par1/z_3h.mdl" or myMDL == "models/vj_parr/par1/early/v1/z_3h.mdl" then
         self.Zombie_Type = 2
-    elseif myMDL == "models/vj_parr/par1/spider.mdl" or myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
+    elseif myMDL == "models/vj_parr/par1/spider.mdl" or myMDL == "models/vj_parr/par1/early/v1/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.Zombie_Type = 3
-    elseif myMDL == "models/vj_parr/par1/zombie_c.mdl" or myMDL == "models/vj_parr/par1/early/zombie_c.mdl" then
+    elseif myMDL == "models/vj_parr/par1/zombie_c.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie_c.mdl" then
         self.Zombie_Type = 4
     elseif myMDL == "models/vj_parr/par1/cut/zombie_slow_armed.mdl" then
         self.Zombie_Type = 5
@@ -184,13 +184,13 @@ function ENT:Init()
         self.Zombie_Type = 7
     elseif myMDL == "models/vj_parr/par2/moster_scientist_male.mdl" then
         self.Zombie_Type = 8
-    elseif myMDL == "models/vj_parr/par2/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/scientist_female_zombie_fresh.mdl" or myMDL == "models/vj_parr/par2/v1/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/v1/scientist_female_zombie_fresh.mdl" then
+    elseif myMDL == "models/vj_parr/par2/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/scientist_female_zombie_fresh.mdl" or myMDL == "models/vj_parr/par2/1.0/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/1.0/scientist_female_zombie_fresh.mdl" then
         self.Zombie_Type = 9
-    elseif myMDL == "models/vj_parr/par2/early/soldier_soviet_guard_zombie.mdl" then
+    elseif myMDL == "models/vj_parr/par2/early/v1/soldier_soviet_guard_zombie.mdl" then
         self.Zombie_Type = 10
     elseif myMDL == "models/vj_parr/par2/monster_deadhazmat.mdl" or myMDL == "models/vj_parr/par2/monster_rotten_girl.mdl" or myMDL == "models/vj_parr/par2/custom/monster_soldierguard.mdl" then
         self.Zombie_Type = 11
-    elseif myMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or myMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper2.mdl" or myMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" or myMDL == "models/vj_parr/par2/v1/monster_soldiershooter.mdl" then
+    elseif myMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or myMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper.mdl" or myMDL == "models/vj_parr/par2/cut/monster_himtrooper2.mdl" or myMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_soldiershooter.mdl" then
         self.Zombie_Type = 12
     elseif myMDL == "models/vj_parr/par2/cut/monster_superofficer.mdl" then
         self.Zombie_Type = 13

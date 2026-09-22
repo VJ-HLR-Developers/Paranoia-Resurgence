@@ -38,7 +38,7 @@ local validModels = {
     ["models/vj_parr/par2/cut/monster_himtrooper.mdl"] = true,
     ["models/vj_parr/par2/cut/monster_himtrooper2.mdl"] = true,
     ["models/vj_parr/par2/cut/soldier_clon_zombied.mdl"] = true,
-    ["models/vj_parr/par2/v1/monster_soldiershooter.mdl"] = true
+    ["models/vj_parr/par2/1.0/monster_soldiershooter.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/ak74/ak74_out.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/ak74/ak74_in.wav"

@@ -10,7 +10,7 @@ ENT.Model = "models/vj_parr/par1/z_3h.mdl"
 ENT.ControllerParams.FirstP_Bone = "Bone09"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    if self:GetModel() == "models/vj_parr/par1/early/zombie.mdl" then
+    if self:GetModel() == "models/vj_parr/par1/early/v1/zombie.mdl" then
         self.CanFlinch = false
         self.HasDeathAnimation = false
     end

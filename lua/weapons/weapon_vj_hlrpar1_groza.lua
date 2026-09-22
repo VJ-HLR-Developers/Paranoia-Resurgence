@@ -33,7 +33,7 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 -- Custom
 local validModels = {
     ["models/vj_parr/par1/soldier_alpha.mdl"] = true,
-    ["models/vj_parr/par1/early/soldier_alpha.mdl"] = true,
+    ["models/vj_parr/par1/early/v1/soldier_alpha.mdl"] = true,
     ["models/vj_parr/par1/early/v2/soldier_alpha.mdl"] = true,
     ["models/vj_parr/par1/savior/soldier_alpha.mdl"] = true
 }
@@ -48,7 +48,7 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
-            if self:GetOwner():GetModel() == "models/vj_parr/par1/early/soldier_alpha.mdl" then
+            if self:GetOwner():GetModel() == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" then
                 self.WorldModel = "models/vj_parr/par1/weapons/early/w_groza.mdl"
             end
         end

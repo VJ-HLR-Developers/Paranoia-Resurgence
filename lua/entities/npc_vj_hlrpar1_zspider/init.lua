@@ -40,7 +40,7 @@ end
 function ENT:Zombie_Init()
     local myMDL = self:GetModel()
     -- Getting up animation
-    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/spider_v1.mdl" then
+    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("s_2", true, false)
@@ -53,9 +53,9 @@ function ENT:Zombie_Init()
             end
         end)
     end
-    if myMDL == "models/vj_parr/par1/early/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
+    if myMDL == "models/vj_parr/par1/early/v1/spider_v1.mdl" or myMDL == "models/vj_parr/par1/early/v2/spider_v2.mdl" then
         self.AnimTbl_Death = ACT_DIEBACKWARD
-    elseif myMDL == "models/vj_parr/par1/early/spider_v1.mdl" then
+    elseif myMDL == "models/vj_parr/par1/early/v1/spider_v1.mdl" then
         self.CanFlinch = false
     end
     self:SetCollisionBounds(Vector(20, 20, 75), Vector(-20, -20, 0))

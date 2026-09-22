@@ -6,5 +6,5 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_parr/par2/v1/scientist_female_zombie1.mdl", "models/vj_parr/par2/v1/scientist_female_zombie_fresh.mdl"}
+ENT.Model = {"models/vj_parr/par2/1.0/scientist_female_zombie1.mdl", "models/vj_parr/par2/1.0/scientist_female_zombie_fresh.mdl"}
 ENT.CanFlinch = false

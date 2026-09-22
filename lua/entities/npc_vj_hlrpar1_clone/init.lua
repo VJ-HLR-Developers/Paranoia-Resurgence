@@ -41,7 +41,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Init()
     local myMDL = self:GetModel()
-    if myMDL != "models/vj_parr/par1/early/soldier_colba.mdl" then
+    if myMDL != "models/vj_parr/par1/early/v1/soldier_colba.mdl" then
         self:SetBodygroup(1, math_random(0, 1))
     end
     if myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" then

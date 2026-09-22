@@ -1,6 +1,6 @@
 ENT.Base = "npc_vj_human_base"
 ENT.Type = "ai"
-ENT.PrintName = "Russian Spetsnaz Soldier"
+ENT.PrintName = "Russian Spetsnaz"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Paranoia Resurgence"

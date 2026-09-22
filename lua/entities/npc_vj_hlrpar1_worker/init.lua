@@ -130,7 +130,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    if self.Civilian_Type != 0 && self.Civilian_Type != 2 then return end
+    if self.Civilian_Type != 0 && self.Civilian_Type != 2 && self.Civilian_Type != 5 then return end
     ply:ChatPrint("RELOAD: Toggle scared animations")
     ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
 
@@ -186,7 +186,7 @@ function ENT:TranslateActivity(act)
     end
     -- Scared animations
     local npcState = self:GetNPCState()
-    if (self.Civilian_Type == 0 or self.Civilian_Type == 2) && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
+    if (self.Civilian_Type == 0 or self.Civilian_Type == 2 or self.Civilian_Type == 5) && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
         if act == ACT_IDLE then
             return ACT_CROUCHIDLE
         elseif act == ACT_WALK then
@@ -239,23 +239,23 @@ function ENT:OnThink()
     else
         self:SetPoseParameter("mouth_move", 0)
     end
-    if self.Civilian_Type != 4 && self:GetModel() != "models/vj_parr/par1/early/worker2.mdl" then return end
+    if self.Civilian_Type != 4 && self:GetModel() != "models/vj_parr/par1/early/v1/worker2.mdl" then return end
     -- Handle weapon body group changing
     local bodyGroup = self:GetBodygroup(3)
     local myMDL = self:GetModel()
     if self.Civilian_LastBodyGroup != bodyGroup then
         self.Civilian_LastBodyGroup = bodyGroup
-        if (self.Civilian_Type == 4 && bodyGroup == 0) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 1) then -- Axe
+        if (self.Civilian_Type == 4 && bodyGroup == 0) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 1) then -- Axe
             self.HasMeleeAttack = true
             self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_axe.mdl"
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
             self.SoundTbl_MeleeAttackExtra = axeSds
-        elseif (self.Civilian_Type == 4 && bodyGroup == 1) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 2) then -- Wrench
+        elseif (self.Civilian_Type == 4 && bodyGroup == 1) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 2) then -- Wrench
             self.HasMeleeAttack = true
             self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_wrench.mdl"
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
             self.SoundTbl_MeleeAttackExtra = wrenchSds
-        elseif (self.Civilian_Type == 4 && bodyGroup == 2) or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && bodyGroup == 0) then
+        elseif (self.Civilian_Type == 4 && bodyGroup == 2) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 0) then
             self.HasMeleeAttack = false
             self.CIvilian_WeaponModel = false
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = true end
@@ -291,8 +291,8 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
         local myMDL = self:GetModel()
         if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && self:GetBodygroup(1) == 3)
-            or (myMDL == "models/vj_parr/par1/early/worker2.mdl" && self:GetBodygroup(1) == 2)
-            or (myMDL == "models/vj_parr/par1/early/npc_worker_old.mdl" && self:GetBodygroup(1) == 0)
+            or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && self:GetBodygroup(1) == 2)
+            or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && self:GetBodygroup(1) == 0)
             or myMDL == "models/vj_parr/par1/npc_himik.mdl"
             or myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
@@ -331,8 +331,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
         local myMDL = self:GetModel()
-        if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/worker2.mdl") && self.CIvilian_WeaponModel then
-            if myMDL == "models/vj_parr/par1/early/worker2.mdl" then
+        if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl") && self.CIvilian_WeaponModel then
+            if myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" then
                 self:SetBodygroup(3, 0)
             else
                 self:SetBodygroup(3, 2)
