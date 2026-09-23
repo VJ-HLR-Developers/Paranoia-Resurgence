@@ -4,6 +4,4 @@
     "$envmapsphere" "1"
     "$envmapmode" "1"
     "$multipass" "1"
-
-    "$additive" "1"
 }
