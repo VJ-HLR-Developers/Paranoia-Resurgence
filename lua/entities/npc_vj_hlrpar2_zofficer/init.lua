@@ -33,7 +33,40 @@ ENT.FlinchHitGroupMap = false
 
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIESIMPLE}
 
+ENT.SoundTbl_RangeAttack = {"vj_parr/par1/bullchicken/bc_attack2.wav", "vj_parr/par1/bullchicken/bc_attack3.wav"}
+
 local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Zombie_Voice()
+    /*self.SoundTbl_Breath =
+        "vj_parr/par2/shared/hungrysoldier.wav"*/
+
+    self.SoundTbl_Alert = {
+        "vj_parr/par2/zombie/zo_alert10.wav",
+        "vj_parr/par2/zombie/zo_alert20.wav",
+        "vj_parr/par2/zombie/zo_alert30.wav"
+    }
+    self.SoundTbl_BeforeMeleeAttack = {
+        "vj_parr/par2/zombie/zo_attack1.wav",
+        "vj_parr/par2/zombie/zo_attack2.wav"
+    }
+    self.SoundTbl_BeforeRangeAttack = {
+        "vj_parr/par2/zombie/zo_attack1.wav",
+        "vj_parr/par2/zombie/zo_attack2.wav"
+    }
+    self.SoundTbl_LeapAttackJump = {
+        "vj_parr/par2/zombie/zo_attack1.wav",
+        "vj_parr/par2/zombie/zo_attack2.wav"
+    }
+    self.SoundTbl_Death = {
+        "vj_parr/par2/zombie/zo_pain1.wav",
+        "vj_parr/par2/zombie/zo_pain2.wav"
+    }
+    self.SoundTbl_Pain = {
+        "vj_parr/par2/zombie/zo_pain1.wav",
+        "vj_parr/par2/zombie/zo_pain2.wav"
+    }
+end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
     self:SetBodygroup(1, math_random(0, 3))
@@ -54,7 +87,23 @@ function ENT:RangeAttackProjPos(projectile)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:RangeAttackProjVel(projectile)
+    local att = self:GetAttachment(self:LookupAttachment("mouth"))
+    ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
     return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnRangeAttackExecute(status, enemy, projectile)
+    if status == "PostSpawn" then
+        projectile.RadiusDamage = 20
+        projectile.SoundTbl_Idle = {
+            "vj_parr/par1/bullchicken/bc_acid1.wav",
+            "vj_parr/par1/bullchicken/bc_acid2.wav"
+        }
+        projectile.SoundTbl_OnCollide = {
+            "vj_parr/par1/bullchicken/bc_spithit1.wav",
+            "vj_parr/par1/bullchicken/bc_spithit2.wav"
+        }
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttack(status, enemy)
@@ -65,7 +114,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-        return !self:IsOnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
+        return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
     end
     baseclass.Get("npc_vj_hlrpar1_zombie").OnFlinch(self, dmginfo, hitgroup, status)
 end
