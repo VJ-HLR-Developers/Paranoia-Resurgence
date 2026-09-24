@@ -126,7 +126,7 @@ function ENT:Init()
     ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)
-    self.Civilian_NextStrafeT = CurTime() + 4
+    self.Civilian_NextStrafeT = curTime + 4
     if self.Civilian_Init then self:Civilian_Init() end
     if self.Civilian_Voice then self:Civilian_Voice() end
 end

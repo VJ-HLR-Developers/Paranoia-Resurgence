@@ -12,6 +12,7 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
 ENT.BecomeEnemyToPlayer = false
 
+local CurTime = CurTime
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
@@ -74,7 +75,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateSound(sdData, sdFile)
     if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
-    self.Soldier_NextMouthMove = CurTime() + SoundDuration(sdFile)
+    local curTime = CurTime()
+    self.Soldier_NextMouthMove = curTime + SoundDuration(sdFile)
 
     VJ.EmitSound(self, "vj_parr/par1/diversant/radio_start.wav")
     timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/diversant/radio_end.wav") end end)
@@ -93,13 +95,14 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
     if self.VJ_IsBeingControlled or self.IsGuard then return end
-    if CurTime() > self.Soldier_NextRunT then
+    local curTime = CurTime()
+    if curTime > self.Soldier_NextRunT then
         timer.Simple(0.8, function()
             if IsValid(self) && self.AttackType != VJ.ATTACK_TYPE_GRENADE && !self:IsMoving() && !self.Dead then
                 self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
             end
         end)
-        self.Soldier_NextStrafeT = CurTime() + 8
-        self.Soldier_NextRunT = CurTime() + 12
+        self.Soldier_NextStrafeT = curTime + 8
+        self.Soldier_NextRunT = curTime + 12
     end
 end

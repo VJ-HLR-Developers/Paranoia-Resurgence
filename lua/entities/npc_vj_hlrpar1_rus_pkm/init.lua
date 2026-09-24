@@ -47,6 +47,7 @@ ENT.PKM_LockTime = 0
 ENT.PKM_StunnedT = 0
 ENT.PKM_Ammo = 100
 
+local CurTime = CurTime
 local bit_bor = bit.bor
 local math_abs = math.abs
 local math_approachangle = math.ApproachAngle
@@ -85,8 +86,9 @@ function ENT:Init()
     self.PKM_Gunners = gunner
 
     VJ.HLR_ApplyFactionOptions(self)
+    local curTime = CurTime()
     self:SetCollisionBounds(Vector(13, 13, 45), Vector(-13, -13, 0))
-    self.PKM_LockTime = CurTime() + 0.3 -- Prevent spawn-killing
+    self.PKM_LockTime = curTime + 0.3 -- Prevent spawn-killing
     self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +107,8 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
-        return !(self.PKM_HasLOS && CurTime() > self.PKM_LockTime) or CurTime() < self.PKM_StunnedT or self.PKM_Ammo <= 0
+        local curTime = CurTime()
+        return !(self.PKM_HasLOS && curTime > self.PKM_LockTime) or curTime < self.PKM_StunnedT or self.PKM_Ammo <= 0
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
     end

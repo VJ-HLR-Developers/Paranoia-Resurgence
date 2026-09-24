@@ -330,7 +330,7 @@ function ENT:Soldier_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
-        self:SetBodygroup(1, math_random(0, 8))
+        self:SetBodygroup(1, math_random(0, 9))
     elseif myMDL == "models/vj_parr/par1/early/v1/soldier_alpha_pistol.mdl" then
         self:SetSkin(math_random(0, 2))
         self:SetBodygroup(0, math_random(0, 1))
@@ -343,7 +343,7 @@ function ENT:Soldier_Init()
     elseif myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self:SetBodygroup(1, math_random(0, 2))
     else
-        self:SetBodygroup(1, math_random(0, 9))
+        self:SetBodygroup(1, math_random(0, 10))
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -411,7 +411,7 @@ function ENT:Init()
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
     end
-    -- Handle animations when it's spawned as a PKM gunner
+    -- Handle animations when it's spawned as a PKM Emplacement gunner
     if self.PKM_Gunner then
         function self:TranslateActivity(act)
             if act == ACT_IDLE then
@@ -421,7 +421,8 @@ function ENT:Init()
         end
     end
     VJ.HLR_ApplyFactionOptions(self)
-    self.Soldier_NextStrafeT = CurTime() + 4
+    local curTime = CurTime()
+    self.Soldier_NextStrafeT = curTime + 4
     if self.Soldier_Init then self:Soldier_Init() end
     if self.Soldier_Voice then self:Soldier_Voice() end
 end
@@ -682,10 +683,11 @@ function ENT:OnMeleeAttack(status, enemy)
     if status == "Init" then
         -- Stop the PKM Emplacement from firing when gunner is melee attacking
         local owner = self:GetOwner()
+        local curTime = CurTime()
         if IsValid(owner) then
             owner:StopAttacks(true)
             owner.AttackAnimTime = 0
-            owner.PKM_StunnedT = CurTime() + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
+            owner.PKM_StunnedT = curTime + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
         end
     end
 end
@@ -751,10 +753,11 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
         end
         -- Stop the PKM Emplacement from firing when gunner is flinching
         local owner = self:GetOwner()
+        local curTime = CurTime()
         if IsValid(owner) then
             owner:StopAttacks(true)
             owner.AttackAnimTime = 0
-            owner.PKM_StunnedT = CurTime() + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
+            owner.PKM_StunnedT = curTime + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
         end
     end
 end
