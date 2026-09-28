@@ -48,7 +48,7 @@ ENT.PKM_StunnedT = 0
 ENT.PKM_Ammo = 100
 
 local CurTime = CurTime
-local bit_bor = bit.bor
+//local bit_bor = bit.bor
 local math_abs = math.abs
 local math_approachangle = math.ApproachAngle
 local math_angledifference = math.AngleDifference
@@ -59,13 +59,14 @@ function ENT:Init()
     self.PKM_Gunners = {}
 
     -- Spawn the gunner
-    local gunner = ents.Create(self:GetClass() == "npc_vj_hlrpar1_ter_pkm" && "npc_vj_hlrpar1_terrorist" or "npc_vj_hlrpar1_rus_soldier")
+    local gunner = ents.Create((self:GetClass() == "npc_vj_hlrpar1_ter_pkm" && "npc_vj_hlrpar1_terrorist") or "npc_vj_hlrpar1_rus_soldier")
     local att = self:GetAttachment(self:LookupAttachment("gunner"))
     gunner:SetPos(att.Pos)
     gunner:SetAngles(att.Ang)
     gunner:SetOwner(self)
     gunner:SetParent(self)
     gunner.MovementType = VJ_MOVETYPE_STATIONARY
+    gunner.PoseParameterLooking_TurningSpeed = 5
     gunner.PKM_Gunner = true
     gunner.Weapon_Disabled = true
     gunner.HasGrenadeAttack = false
@@ -74,7 +75,6 @@ function ENT:Init()
     gunner.AnimTbl_TakingCover = false
     gunner.CanTurnWhileStationary = false
     gunner.Weapon_UnarmedBehavior = false
-    //gunner.HasDeathAnimation = false
     gunner.PhysgunDisabled = true
     gunner.VJ_NPC_Class = self.VJ_NPC_Class
     gunner.DoNotDuplicate = true -- Otherwise you will have double gunners
@@ -107,10 +107,12 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
+        self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
         local curTime = CurTime()
         return !(self.PKM_HasLOS && curTime > self.PKM_LockTime) or curTime < self.PKM_StunnedT or self.PKM_Ammo <= 0
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
+        self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -121,7 +123,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         if self.PKM_Ammo <= 0 then self:Reload() end
         VJ.EmitSound(self, "VJ.PARR1_PKM.Single")
         self:FireBullets({
-            Attacker = self,
+            Attacker = self.PKM_Gunners,
             Num = 1,
             Src = attPos,
             Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
@@ -132,7 +134,10 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
             Force = 5,
             AmmoType = "SMG",
             Distance = 2048,
-            HullSize = 1
+            HullSize = 1,
+            /*Callback = function(attack, tr, dmginfo)
+                dmginfo:SetDamageType(bit_bor(DMG_BULLET, DMG_AIRBOAT))
+            end*/
         })
         self:FireFX()
         return true
@@ -183,6 +188,7 @@ function ENT:Reload()
     if !self.PKM_Reload then
         self.PKM_Reload = true
         self:PlayAnim(ACT_RANGE_ATTACK1, true, false, false)
+        self:RemoveAllGestures()
         VJ.EmitSound(self, "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
     end
     timer.Simple(1.5, function() if IsValid(self) then VJ.EmitSound(self, "vj_parr/par1/weapons/pkm/pkm_boxin.wav", 60, 100) end end)
