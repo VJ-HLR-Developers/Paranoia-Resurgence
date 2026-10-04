@@ -2,7 +2,7 @@ AddCSLuaFile()
 
 SWEP.Base = "weapon_vj_base"
 SWEP.PrintName = "SPAS-12"
-SWEP.Author = "DrVrej"
+SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -26,7 +26,7 @@ SWEP.WorldModelOffsetParams = {
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.Primary.Damage = 10
-SWEP.Primary.NumberOfShots = 5
+SWEP.Primary.NumberOfShots = 6
 SWEP.Primary.ClipSize = 8
 SWEP.Primary.Ammo = "Buckshot"
 SWEP.Primary.Sound = "VJ.PARR1_SPAS12.Single"

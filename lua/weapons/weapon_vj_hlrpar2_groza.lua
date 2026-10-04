@@ -35,7 +35,8 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
-    ["models/vj_parr/par2/soldier_alpha.mdl"] = true
+    ["models/vj_parr/par2/soldier_alpha.mdl"] = true,
+    ["models/vj_parr/par2/early/v1/soldier_alpha.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/groza/groza-out.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/groza/groza-in.wav"

@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par2/soldier/alpha_early/alpha_body"
+    "$bumpmap" "models/vj_parr/par2/soldier/alpha/alpha_body_norm"
+}
+

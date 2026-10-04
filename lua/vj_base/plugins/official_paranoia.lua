@@ -103,7 +103,9 @@ VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar2_paulina", spawnCategory, {SubCatego
 VJ.AddNPC("Professor Pirogov", "npc_vj_hlrpar2_pirogov", spawnCategory, {SubCategory = subCategory})
 -- Russian Military
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Soldier (V1)", "npc_vj_hlrpar2_rus_soldier_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz", "npc_vj_hlrpar2_rus_alpha", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz (V1)", "npc_vj_hlrpar2_rus_alpha_v1", spawnCategory, {SubCategory = subCategory})
 -- Clones
 subCategory = "Clones"
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory, {SubCategory = subCategory})
@@ -357,6 +359,15 @@ sound.Add({
     pitch = PITCH_RANDOM,
     sound =
         "^vj_parr/par2/weapons/groza/groza-inside.wav"
+})
+sound.Add({
+    name = "VJ.PARR2_KS23.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par2/weapons/ks23/ks-23-outside.wav"
 })
 sound.Add({
     name = "VJ.PARR2_PKM.Single",

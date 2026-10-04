@@ -1,45 +1,46 @@
 AddCSLuaFile()
 
 SWEP.Base = "weapon_vj_base"
-SWEP.PrintName = "AKS"
+SWEP.PrintName = "KS-23"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
+SWEP.NPC_CustomSpread = 2.5
+SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
+SWEP.NPC_ExtraFireSound = "vj_parr/par2/weapons/ks23/ks-23_pump.wav"
+SWEP.NPC_ExtraFireSoundTime = 0.2
 SWEP.NPC_CanBePickedUp = false
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
-SWEP.WorldModel = "models/vj_parr/par2/weapons/world_aks.mdl"
-SWEP.HoldType = "ar2"
+SWEP.WorldModel = "models/vj_parr/par2/weapons/world_shotgun.mdl"
+SWEP.HoldType = "shotgun"
     -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
-    Bone = "Bip01 R Hand",
+    Bone = "bip01_r_hand",
     Pos = Vector(11.229, 4.6, 3.392),
     Ang = Angle(9.055, -154.662, -95.738)
 }
     -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
-SWEP.Primary.Damage = 12
-SWEP.Primary.ClipSize = 30
-SWEP.Primary.Ammo = "SMG1"
-SWEP.Primary.Sound = "VJ.PARR2_AKS.Single"
+SWEP.Primary.Damage = 10
+SWEP.Primary.NumberOfShots = 8
+SWEP.Primary.ClipSize = 100
+SWEP.Primary.Ammo = "Buckshot"
+SWEP.Primary.Sound = "VJ.PARR2_KS23.Single"
+SWEP.PrimaryEffects_ShellType = "ShotgunShellEject"
 SWEP.Primary.TracerType = "VJ_PARR_Tracer"
-SWEP.PrimaryEffects_ShellType = "RifleShellEject"
 SWEP.PrimaryEffects_MuzzleFlash = false
 SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
-    ["models/vj_parr/par2/monster_clonsoldier.mdl"] = true,
-    ["models/vj_parr/par2/soldier_alpha.mdl"] = true,
-    ["models/vj_parr/par2/1.0/monster_clonsoldier.mdl"] = true,
     ["models/vj_parr/par2/early/v1/soldier_alpha.mdl"] = true
 }
-SWEP.Reload_Start = "vj_parr/par2/weapons/aks/aks_out.wav"
-SWEP.Reload_Middle = "vj_parr/par2/weapons/aks/aks_in.wav"
-SWEP.Reload_Finish = "vj_parr/par2/weapons/aks/aks_boltpull.wav"
+SWEP.Reload_Start = "vj_parr/par2/weapons/ks23/ks-23_insertshell.wav"
+SWEP.Reload_Finish = SWEP.NPC_ExtraFireSound
 
 local math_random = math.random
 local math_rand = math.Rand
@@ -48,13 +49,6 @@ function SWEP:Init()
     timer.Simple(0.1, function()
         if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
-            local ownerMDL = self:GetOwner():GetModel()
-            if ownerMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
-                self.WorldModelOffsetParams.Ang = Angle(9.198, -156.683, -91.059)
-                self.WorldModelOffsetParams.Pos = Vector(12.651, 5.161, 3.22)
-            elseif ownerMDL == "models/vj_parr/par2/soldier_alpha.mdl" or ownerMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
-                self.WorldModelOffsetParams.Bone = "bip01_r_hand"
-            end
         end
     end)
 end
