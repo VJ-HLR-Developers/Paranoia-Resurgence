@@ -8,6 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/soldier.mdl"
 ENT.StartHealth = 100
+ENT.MeleeAttackDamageType = DMG_SLASH
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
