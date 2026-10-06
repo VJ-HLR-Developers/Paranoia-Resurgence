@@ -66,7 +66,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
-        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 150 - self:GetUp() * 15
+        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos(), 1) + self:GetForward() * 150 - self:GetUp() * 15
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

@@ -12,7 +12,7 @@ ENT.FlinchHitGroupMap = false
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    -- Getting up animation
+    -- Spawn animation
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
         local anim = VJ.PICK({"fake1_rising", "fake2_rising", "fake3_rising", "fake4_rising"})
         timer.Simple(0, function()

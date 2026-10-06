@@ -11,7 +11,7 @@ ENT.Model = "models/vj_parr/par1/savior/zombie_girl.mdl"
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    -- Getting up animation
+    -- Spawn animation
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
         timer.Simple(0, function()
             if IsValid(self) then

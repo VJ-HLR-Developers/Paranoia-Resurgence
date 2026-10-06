@@ -67,7 +67,7 @@ function ENT:Tank_OnFireShell(status, statusData)
     if status == "Init" then
         self.BTR_Ammo = self.BTR_Ammo - 1
         if self.BTR_Ammo <= 0 then self:Reload() end
-        local ene = self:GetEnemy()
+        local ene = self.EnemyData.Target
         local pos = self:LocalToWorld(vecBullet)
         self:FireBullets({
             Damage = 1,
@@ -122,7 +122,7 @@ end
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 function ENT:Tank_OnThinkActive()
-    local ene = self:GetEnemy()
+    local ene = self.EnemyData.Target
     if IsValid(ene) && IsValid(self.DumEnt) then
         local curTime = CurTime()
         if self.Tank_FacingTarget && ene:Visible(self) && curTime > self.BTR_NextMGT then

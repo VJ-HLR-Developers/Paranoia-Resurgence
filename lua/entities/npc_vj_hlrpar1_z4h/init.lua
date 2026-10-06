@@ -14,7 +14,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    -- Getting up animation
+    -- Spawn animation
     local myMDL = self:GetModel()
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/v1/zombie.mdl" then
         timer.Simple(0, function()

@@ -39,7 +39,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
     local myMDL = self:GetModel()
-    -- Getting up animation
+    -- Spawn animation
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then

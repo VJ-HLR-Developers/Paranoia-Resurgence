@@ -89,7 +89,7 @@ end
 function ENT:RangeAttackProjVel(projectile)
     local att = self:GetAttachment(self:LookupAttachment("mouth"))
     ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
-    return VJ.CalculateTrajectory(self, self:GetEnemy(), "Curve", projectile:GetPos(), 1, 10)
+    return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Curve", projectile:GetPos(), 1, 10)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

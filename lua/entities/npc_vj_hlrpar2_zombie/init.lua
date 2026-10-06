@@ -37,7 +37,7 @@ function ENT:Zombie_Voice()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    -- Getting up animation
+    -- Spawn animation
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
         local anim = VJ.PICK({"scen_eating_out", "scen_holeoff"})
         timer.Simple(0, function()

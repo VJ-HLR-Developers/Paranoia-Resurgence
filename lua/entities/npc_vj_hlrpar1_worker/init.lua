@@ -277,7 +277,8 @@ local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 function ENT:Civilian_OnThink()
     if self.IsGuard or self.Dead or self.Civilian_Type != 4 then return end
     local curTime = CurTime()
-    if IsValid(self:GetEnemy()) && self.AttackAnimTime < curTime && !self.VJ_IsBeingControlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(self:GetEnemy():GetPos()) < 300 then
+    local ene = self.EnemyData.Target
+    if IsValid(ene) && self.AttackAnimTime < curTime && !self.VJ_IsBeingControlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 300 then
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false, false)
         self.Civilian_NextStrafeT = curTime + 8
@@ -296,6 +297,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && self:GetBodygroup(1) == 2)
             or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && self:GetBodygroup(1) == 0)
             or myMDL == "models/vj_parr/par1/npc_himik.mdl"
+            or ((myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl") && myBG == 8)
             or myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)

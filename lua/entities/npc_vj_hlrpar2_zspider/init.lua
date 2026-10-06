@@ -81,7 +81,7 @@ function ENT:Init()
         "vj_parr/par2/spider/pain2.wav",
         "vj_parr/par2/spider/pain3.wav"
     }
-    -- Getting up animation
+    -- Spawn animation
     if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
         timer.Simple(0, function()
             if IsValid(self) then
@@ -117,13 +117,13 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
-        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self:GetEnemy():EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
+        return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
-        -- Make zombies immune to DMG_NERVEGAS, based on source code
+        -- Make spider immune to DMG_NERVEGAS, based on source code
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
         end
