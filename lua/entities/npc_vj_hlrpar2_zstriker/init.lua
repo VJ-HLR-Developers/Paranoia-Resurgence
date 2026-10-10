@@ -13,6 +13,7 @@ ENT.ControllerParams.FirstP_Bone = "Bip02 Head"
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 ENT.HasSoundTrack = true
+ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 ENT.SoundTbl_SoundTrack = "vj_parr/par2/monsters/boss/mus_03.mp3"
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()

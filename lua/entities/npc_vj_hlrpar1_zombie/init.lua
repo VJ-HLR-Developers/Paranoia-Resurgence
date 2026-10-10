@@ -59,6 +59,7 @@ function ENT:OnInput(key, activator, caller, data)
     //print(key)
     if key == "step" then
         self:PlayFootstepSound()
+        if self.Zombie_Type == 14 then util.ScreenShake(self:GetPos(), 10, 100, 0.4, 300) end
     elseif key == "hand" then
         self:PlayFootstepSound(woodSd)
     elseif key == "melee" then
