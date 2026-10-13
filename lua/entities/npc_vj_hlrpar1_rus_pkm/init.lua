@@ -43,7 +43,6 @@ ENT.AnimTbl_Death = ACT_RANGE_ATTACK1
 ENT.PKM_HasLOS = false
 ENT.PKM_Shooting = false
 ENT.PKM_Reload = false
-ENT.PKM_LostGunner = false
 ENT.PKM_LockTime = 0
 ENT.PKM_StunnedT = 0
 ENT.PKM_Ammo = 100
