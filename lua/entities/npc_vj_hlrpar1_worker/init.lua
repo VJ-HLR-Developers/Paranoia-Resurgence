@@ -303,6 +303,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                 dmginfo:SetDamage(0)
             end
         end
+    elseif status == "PreDamage" then
         -- Spawn a unique decal from headshots, based on source code
         if hitgroup == HITGROUP_HEAD then
             self.BloodDecal = "VJ_PARR1_Brains"
