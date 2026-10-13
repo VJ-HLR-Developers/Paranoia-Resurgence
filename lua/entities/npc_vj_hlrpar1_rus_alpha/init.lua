@@ -417,15 +417,6 @@ function ENT:Init()
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
     end
-    -- Handle animations when it's spawned as a PKM Emplacement gunner
-    if self.PKM_Gunner then
-        function self:TranslateActivity(act)
-            if act == ACT_IDLE then
-                return VJ.SequenceToActivity(self, "hunkered")
-            end
-            return self.BaseClass.TranslateActivity(self, act)
-        end
-    end
     VJ.HLR_ApplyFactionOptions(self)
     local curTime = CurTime()
     self.Soldier_NextStrafeT = curTime + 4
@@ -455,7 +446,9 @@ function ENT:TranslateActivity(act)
         end
     end
     local npcState = self:GetNPCState()
-    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    if act == ACT_IDLE && self.PKM_Gunner then
+        return VJ.SequenceToActivity(self, "hunkered")
+    elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)
@@ -738,6 +731,25 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Unmount()
+    self.PoseParameterLooking_TurningSpeed = 20
+    self.PKM_Gunner = false
+    self.Weapon_Disabled = false
+    self.HasGrenadeAttack = true
+    self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
+    self.AnimTbl_CallForHelp = ACT_SIGNAL1
+    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
+    self.CanTurnWhileStationary = true
+    self.Weapon_UnarmedBehavior = true
+    self.PhysgunDisabled = false
+    self:SetOwner(NULL)
+    self:SetParent(NULL)
+    self:SetBodygroup(self.Soldier_WepBG, 0)
+    self:PlayAnim("vjseq_hunkered2idle", true, false, false)
+    timer.Simple(VJ.AnimDuration(self, "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
+    self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Spawn a unique decal from headshots, based on source code
@@ -861,5 +873,15 @@ function ENT:OnFootstepSound(moveType, sdFile)
     local watLevel = self:WaterLevel()
     if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootStepPitch1, self.FootStepPitch2))
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove()
+    -- Remove the PKM Emplacement but NOT when the gunner is killed
+    if !self.Dead then
+        local owner = self:GetOwner()
+        if IsValid(owner) then
+            owner:Remove()
+        end
     end
 end

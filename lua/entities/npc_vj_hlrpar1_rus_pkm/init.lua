@@ -43,6 +43,7 @@ ENT.AnimTbl_Death = ACT_RANGE_ATTACK1
 ENT.PKM_HasLOS = false
 ENT.PKM_Shooting = false
 ENT.PKM_Reload = false
+ENT.PKM_LostGunner = false
 ENT.PKM_LockTime = 0
 ENT.PKM_StunnedT = 0
 ENT.PKM_Ammo = 100
@@ -220,22 +221,24 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if self:IsGibDamage(dmginfo:GetDamageType()) then self.HasDeathAnimation = false end
-        -- Kill the gunner if the PKM Emplacement is killed
-        -- Unparent them due to Source spawning them on a random part of the map
+        -- Unmount the gunner if the PKM Emplacement is killed
+        -- Unparent them due to Source spawning them in a random part of the map
         local gunner = self.PKM_Gunners
         if IsValid(gunner) then
-            gunner:SetParent(NULL)
+            undo.ReplaceEntity(self, gunner)
+            gunner:Unmount()
+            /*gunner:SetParent(NULL)
             gunner:SetPos(self:GetAttachment(self:LookupAttachment("gunner")).Pos)
             local doDmg = DamageInfo()
             doDmg:SetDamage(gunner:Health())
             doDmg:SetDamageType(dmginfo:GetDamageType())
-            gunner:TakeDamageInfo(doDmg)
+            gunner:TakeDamageInfo(doDmg)*/
         end
-    elseif status == "DeathAnim" then
+    /*elseif status == "DeathAnim" then
         gunner = self.PKM_Gunners
         if IsValid(gunner) then
-            self.DeathAnimationTime = VJ.AnimDuration(gunner, gunner:GetSequenceActivity(gunner:GetIdealSequence()))
-        end
+            self.DeathAnimationTime = VJ.AnimDuration(gunner, gunner:GetSequenceName(gunner:GetSequence()))
+        end*/
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
