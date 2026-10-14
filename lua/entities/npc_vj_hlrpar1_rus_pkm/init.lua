@@ -30,7 +30,7 @@ ENT.HasMeleeAttack = false
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 6000
-ENT.RangeAttackMinDistance = 100
+ENT.RangeAttackMinDistance = 50
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = 0.1
 
@@ -44,7 +44,6 @@ ENT.PKM_HasLOS = false
 ENT.PKM_Shooting = false
 ENT.PKM_Reload = false
 ENT.PKM_LockTime = 0
-ENT.PKM_StunnedT = 0
 ENT.PKM_Ammo = 100
 
 local CurTime = CurTime
@@ -69,7 +68,6 @@ function ENT:Init()
     gunner.PoseParameterLooking_TurningSpeed = 5
     gunner.PKM_Gunner = true
     gunner.Weapon_Disabled = true
-    gunner.HasGrenadeAttack = false
     gunner.AnimTbl_DamageAllyResponse = false
     gunner.AnimTbl_CallForHelp = false
     gunner.AnimTbl_TakingCover = false
@@ -82,7 +80,6 @@ function ENT:Init()
     gunner:SetBodygroup(gunner.Soldier_WepBG, gunner.Soldier_WepBGRemove) -- Remove weapon bodygroups
     self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
     gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
-    gunner:SetState(VJ_STATE_ONLY_ANIMATION)
     self.PKM_Gunners = gunner
 
     VJ.HLR_ApplyFactionOptions(self)
@@ -107,9 +104,10 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
-        self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
+        local gunner = self.PKM_Gunners
+        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
         local curTime = CurTime()
-        return !(self.PKM_HasLOS && curTime > self.PKM_LockTime) or curTime < self.PKM_StunnedT or self.PKM_Ammo <= 0
+        return !(self.PKM_HasLOS && curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or gunner:IsBusy() or gunner.Flinching
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
         self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
@@ -220,8 +218,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if self:IsGibDamage(dmginfo:GetDamageType()) then self.HasDeathAnimation = false end
-        -- Unmount the gunner if the PKM Emplacement is killed
-        -- Unparent them due to Source spawning them in a random part of the map
+        -- Unmount the gunner if the PKM Emplacement is killed.
         local gunner = self.PKM_Gunners
         if IsValid(gunner) then
             undo.ReplaceEntity(self, gunner)

@@ -8,10 +8,12 @@ SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
-SWEP.NPC_CanBePickedUp = false
+SWEP.NPC_ExtraFireSound = "vj_parr/par1/weapons/mp5/hks_02.wav"
+SWEP.NPC_ExtraFireSoundTime = 0
 SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlrpar1_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = "vj_parr/par1/weapons/mp5/hks_pinpull.wav"
+SWEP.NPC_CanBePickedUp = false
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_9mmar.mdl"

@@ -692,19 +692,6 @@ function ENT:OnAlert(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnMeleeAttack(status, enemy)
-    if status == "Init" then
-        -- Stop the PKM Emplacement from firing when gunner is melee attacking
-        local owner = self:GetOwner()
-        local curTime = CurTime()
-        if IsValid(owner) then
-            owner:StopAttacks(true)
-            owner.AttackAnimTime = 0
-            owner.PKM_StunnedT = curTime + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
@@ -732,22 +719,22 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Unmount()
-    self.PoseParameterLooking_TurningSpeed = 20
     self.PKM_Gunner = false
+    self.PoseParameterLooking_TurningSpeed = 20
     self.Weapon_Disabled = false
-    self.HasGrenadeAttack = true
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
     self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
-    self.CanTurnWhileStationary = true
     self.Weapon_UnarmedBehavior = true
     self.PhysgunDisabled = false
     self:SetOwner(NULL)
     self:SetParent(NULL)
     self:SetBodygroup(self.Soldier_WepBG, 0)
     self:PlayAnim("vjseq_hunkered2idle", true, false, false)
+    self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
     timer.Simple(VJ.AnimDuration(self, "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+    self:SetPos(self:GetPos() + self:GetUp() * 1) -- So we don't sink into the ground
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
@@ -783,14 +770,6 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
         else
             self.FlinchChance = 14
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
-        end
-        -- Stop the PKM Emplacement from firing when gunner is flinching
-        local owner = self:GetOwner()
-        local curTime = CurTime()
-        if IsValid(owner) then
-            owner:StopAttacks(true)
-            owner.AttackAnimTime = 0
-            owner.PKM_StunnedT = curTime + VJ.AnimDuration(self, self:GetSequenceActivity(self:GetIdealSequence()))
         end
     end
 end

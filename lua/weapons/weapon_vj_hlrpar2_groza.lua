@@ -8,10 +8,10 @@ SWEP.Category = "Paranoia Resurgence"
     -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
-SWEP.NPC_CanBePickedUp = false
 SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlrpar2_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = "vj_parr/par2/weapons/groza/grenadelauncher_groza-outside.wav"
+SWEP.NPC_CanBePickedUp = false
     -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_groza.mdl"
