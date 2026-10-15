@@ -146,10 +146,10 @@ function ENT:Controller_Initialize(ply, controlEnt)
         if key == IN_RELOAD then
             if npc.Civilian_ControllerAnim == 0 then
                 npc.Civilian_ControllerAnim = 1
-                self.VJCE_Player:ChatPrint("I am scared!")
+                self:GetPlayer():ChatPrint("I am scared!")
             else
                 npc.Civilian_ControllerAnim = 0
-                self.VJCE_Player:ChatPrint("Calming down...")
+                self:GetPlayer():ChatPrint("Calming down...")
             end
         elseif key == IN_ATTACK && curTime > npc.Civilian_NextTieAnnoyanceT then
             npc:PlayAnim(ACT_VM_IDLE_1, true, false)
