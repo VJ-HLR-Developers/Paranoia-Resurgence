@@ -140,7 +140,7 @@ function ENT:Controller_Initialize(ply, controlEnt)
     self.Civilian_NextTieAnnoyanceT = 0
 
     function controlEnt:OnKeyBindPressed(key)
-        local npc = self.VJCE_NPC
+        local npc = self:GetNPC()
         local curTime = CurTime()
         -- Toggle behavior setting (Idle / Alert)
         if key == IN_RELOAD then
