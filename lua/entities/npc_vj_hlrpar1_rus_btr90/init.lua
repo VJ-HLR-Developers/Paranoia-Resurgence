@@ -26,7 +26,7 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Tank Base
 ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
-ENT.Tank_SoundTbl_Track = "vehicles/v8/fourth_cruise_loop2.wav"
+ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
 ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
 
 ENT.Tank_TurningSpeed = 2.5
