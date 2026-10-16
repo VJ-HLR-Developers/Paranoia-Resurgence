@@ -8,5 +8,23 @@
     "$phongboost" ".1"
     "$phongfresnelranges" "[.3 .6 .9]"
     "$phongexponenttexture" "models/vj_parr/par2/weapons/pkm/weapon_pecheneg_gloss"
+
+    "$envmap" "env_cubemap"
+    "$normalmapalphaenvmapmask" "1"
+    "$envmaptint" "[.05 .05 .05]"
+
+    "$DEM_TintScale" "[.05 .05 .05]"
+    "$DEM_Multiplier" "1"
+    "$DEM_ClampMin" "[0 0 0]"
+    "$DEM_ClampMax" "[1 1 1]"
+    "$DEM_Color" "[1 1 1]"
+
+    "Proxies"
+    {
+        "DynamicEnvMap"
+        {
+            resultVar "$envmaptint"
+        }
+    }
 }
 

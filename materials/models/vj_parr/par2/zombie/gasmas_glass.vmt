@@ -9,6 +9,24 @@
     "$phongfresnelranges" "[.3 .6 .9]"
     "$phongexponenttexture" "models/vj_parr/par2/zombie/gasmas_glass_gloss"
 
+    "$envmap" "env_cubemap"
+    "$normalmapalphaenvmapmask" "1"
+    "$envmaptint" "[.5 .5 .5]"
+
     "$additive" "1"
+
+    "$DEM_TintScale" "[.5 .5 .5]"
+    "$DEM_Multiplier" "1"
+    "$DEM_ClampMin" "[0 0 0]"
+    "$DEM_ClampMax" "[1 1 1]"
+    "$DEM_Color" "[1 1 1]"
+
+    "Proxies"
+    {
+        "DynamicEnvMap"
+        {
+            resultVar "$envmaptint"
+        }
+    }
 }
 
