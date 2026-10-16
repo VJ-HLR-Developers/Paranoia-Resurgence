@@ -392,50 +392,55 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.Dead = true
 
             -- Create gibs
-            local gibTbl = heliExpGibs
-            for _ = 1, 50 do
-                local gib = ents.Create("obj_vj_gib")
-                gib:SetModel(VJ.PICK(gibTbl))
-                gib:SetPos(myPos + Vector(math_random(-100, 100), math_random(-100, 100), math_random(20, 150)))
-                gib:SetAngles(Angle(math_rand(-180, 180), math_rand(-180, 180), math_rand(-180, 180)))
-                gib.CollisionDecal = false
-                gib.CollisionSound = sdGibCollide
-                gib:Spawn()
-                gib:Activate()
-                local myPhys = gib:GetPhysicsObject()
-                if IsValid(myPhys) then
-                    myPhys:SetMass(10)
-                    myPhys:AddVelocity(Vector(math_rand(-300, 300), math_rand(-300, 300), math_rand(150, 250)))
-                    myPhys:AddAngleVelocity(Vector(math_rand(-200, 200), math_rand(-200, 200), math_rand(-200, 200)))
-                end
-                if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
-                    timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
-                end
-            end
+            -- Avoids "Changing collision rules within a callback is likely to cause crashes!"
+            timer.Simple(0, function()
+                if IsValid(self) then
+                    local gibTbl = heliExpGibs
+                    for _ = 1, 50 do
+                        local gib = ents.Create("obj_vj_gib")
+                        gib:SetModel(VJ.PICK(gibTbl))
+                        gib:SetPos(myPos + Vector(math_random(-100, 100), math_random(-100, 100), math_random(20, 150)))
+                        gib:SetAngles(Angle(math_rand(-180, 180), math_rand(-180, 180), math_rand(-180, 180)))
+                        gib.CollisionDecal = false
+                        gib.CollisionSound = sdGibCollide
+                        gib:Spawn()
+                        gib:Activate()
+                        local myPhys = gib:GetPhysicsObject()
+                        if IsValid(myPhys) then
+                            myPhys:SetMass(10)
+                            myPhys:AddVelocity(Vector(math_rand(-300, 300), math_rand(-300, 300), math_rand(150, 250)))
+                            myPhys:AddAngleVelocity(Vector(math_rand(-200, 200), math_rand(-200, 200), math_rand(-200, 200)))
+                        end
+                        if GetConVar("vj_npc_gib_fade"):GetInt() == 1 then
+                            timer.Simple(GetConVar("vj_npc_gib_fadetime"):GetInt(), function() SafeRemoveEntity(gib) end)
+                        end
+                    end
 
-            local expPos2 = myPos + Vector(0, 0, math_rand(-150, 150))
-            local spr = ents.Create("env_sprite")
-            spr:SetKeyValue("model", "vj_parr/sprites/fexplo1.vmt")
-            spr:SetKeyValue("GlowProxySize", "2.0")
-            spr:SetKeyValue("HDRColorScale", "1.0")
-            spr:SetKeyValue("renderfx", "14")
-            spr:SetKeyValue("rendermode", "5")
-            spr:SetKeyValue("renderamt", "255")
-            spr:SetKeyValue("disablereceiveshadows", "0")
-            spr:SetKeyValue("mindxlevel", "0")
-            spr:SetKeyValue("maxdxlevel", "0")
-            spr:SetKeyValue("framerate", "15.0")
-            spr:SetKeyValue("spawnflags", "0")
-            spr:SetKeyValue("scale", "10")
-            spr:SetPos(expPos2)
-            spr:Spawn()
-            spr:Fire("Kill", nil, 1)
-            util.BlastDamage(self, self, expPos2, 600, 200)
-            VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
-            VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
-            -- flags 0 = No fade!
-            effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
-            self:Remove()
+                    local expPos2 = myPos + Vector(0, 0, math_rand(-150, 150))
+                    local spr = ents.Create("env_sprite")
+                    spr:SetKeyValue("model", "vj_parr/sprites/fexplo1.vmt")
+                    spr:SetKeyValue("GlowProxySize", "2.0")
+                    spr:SetKeyValue("HDRColorScale", "1.0")
+                    spr:SetKeyValue("renderfx", "14")
+                    spr:SetKeyValue("rendermode", "5")
+                    spr:SetKeyValue("renderamt", "255")
+                    spr:SetKeyValue("disablereceiveshadows", "0")
+                    spr:SetKeyValue("mindxlevel", "0")
+                    spr:SetKeyValue("maxdxlevel", "0")
+                    spr:SetKeyValue("framerate", "15.0")
+                    spr:SetKeyValue("spawnflags", "0")
+                    spr:SetKeyValue("scale", "10")
+                    spr:SetPos(expPos2)
+                    spr:Spawn()
+                    spr:Fire("Kill", nil, 1)
+                    util.BlastDamage(self, self, expPos2, 600, 200)
+                    VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
+                    VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
+                    -- flags 0 = No fade!
+                    effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
+                    self:Remove()
+                end
+            end)
         end
     end
 end
