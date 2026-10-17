@@ -3,7 +3,7 @@
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 --------------------------------------------------*/
-local parVersion = "0.9.0-Beta"
+local parVersion = "1.0.0-Beta"
 
 VJ.AddPlugin("Paranoia Resurgence", "NPC", parVersion)
 
