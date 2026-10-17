@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl", "models/vj_parr/par1/soldier_clon2.mdl", "models/vj_parr/par1/soldier_clon_bio2.mdl"}
+ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldier_clon_bio.mdl", "models/vj_parr/par1/custom/soldier_clon2.mdl", "models/vj_parr/par1/custom/soldier_clon_bio2.mdl"}
 ENT.StartHealth = 200
 ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.AlliedWithPlayerAllies = false
@@ -44,7 +44,7 @@ function ENT:Soldier_Init()
     if myMDL != "models/vj_parr/par1/early/v1/soldier_colba.mdl" then
         self:SetBodygroup(1, math_random(0, 1))
     end
-    if myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" then
+    if myMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_bio2.mdl" then
         self:SetBodygroup(3, math_random(0, 1))
     end
 end

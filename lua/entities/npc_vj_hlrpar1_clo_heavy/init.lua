@@ -6,5 +6,5 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_parr/par1/soldier_clon_heavy.mdl", "models/vj_parr/par1/soldier_clon_heavy2.mdl"}
+ENT.Model = {"models/vj_parr/par1/soldier_clon_heavy.mdl", "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl"}
 ENT.StartHealth = 350

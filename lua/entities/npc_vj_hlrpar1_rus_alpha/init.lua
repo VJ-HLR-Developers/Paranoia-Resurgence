@@ -392,7 +392,7 @@ function ENT:Init()
         self.Soldier_Type = 2
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 1
-    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
+    elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_bio2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
@@ -746,7 +746,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             or (myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" && (myBG == 8 or myBG == 9))
             or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") && myBG == 5)
             or ((myMDL == "models/vj_parr/par1/terror.mdl" or myMDL == "models/vj_parr/par1/early/v1/terror_old.mdl") && myBG == 3)
-            or (myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl")
+            or (myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl")
             or ((myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl") && myBG == 1) then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)
