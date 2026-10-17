@@ -730,9 +730,9 @@ function ENT:Unmount()
     self:SetOwner(NULL)
     self:SetParent(NULL)
     self:SetBodygroup(self.Soldier_WepBG, 0)
-    self:PlayAnim("vjseq_hunkered2idle", true, false, false)
+    self:PlayAnim((self.VJ_PARR2_NPC && "vjseq_flinch") or "vjseq_hunkered2idle", true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-    timer.Simple(VJ.AnimDuration(self, "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
+    timer.Simple(VJ.AnimDuration(self, (self.VJ_PARR2_NPC && "flinch") or "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     self:SetPos(self:GetPos() + self:GetUp() * 1) -- So we don't sink into the ground
 end
