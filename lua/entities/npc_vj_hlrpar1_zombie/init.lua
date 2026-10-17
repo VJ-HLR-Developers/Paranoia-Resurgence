@@ -183,7 +183,7 @@ function ENT:Init()
         self.Zombie_Type = 6
     elseif myMDL == "models/vj_parr/par2/monster_soldierguard.mdl" then
         self.Zombie_Type = 7
-    elseif myMDL == "models/vj_parr/par2/moster_scientist_male.mdl" then
+    elseif myMDL == "models/vj_parr/par2/monster_scientist_male.mdl" then
         self.Zombie_Type = 8
     elseif myMDL == "models/vj_parr/par2/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/scientist_female_zombie_fresh.mdl" or myMDL == "models/vj_parr/par2/1.0/scientist_female_zombie1.mdl" or myMDL == "models/vj_parr/par2/1.0/scientist_female_zombie_fresh.mdl" then
         self.Zombie_Type = 9
