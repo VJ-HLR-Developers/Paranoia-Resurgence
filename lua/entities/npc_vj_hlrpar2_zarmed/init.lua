@@ -163,7 +163,7 @@ function ENT:OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "DeathAnim" && self.DropWeaponOnDeath then
         if math_random(1, 2) == 1 then
             self:DeathWeaponDrop(dmginfo, hitgroup)
             self:OnDeath(dmginfo, hitgroup, "Finish")
@@ -175,7 +175,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 self:OnDeath(dmginfo, hitgroup, "Finish")
             end
         end)
-    elseif status == "Finish" then
+    elseif status == "Finish" && self.DropWeaponOnDeath then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end

@@ -15,7 +15,7 @@ ENT.BecomeEnemyToPlayer = false
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if GetConVar("VJ_HLRPAR_Terrorist_Hostile"):GetInt() == 1 then
+    if GetConVar("VJ_PARR_Hostile_Terrorists"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_TERRORIST"}
     end
 end

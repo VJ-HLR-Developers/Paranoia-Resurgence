@@ -15,7 +15,7 @@ ENT.BecomeEnemyToPlayer = false
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
-    if GetConVar("VJ_HLRPAR_Clone_Ally"):GetInt() == 1 then
+    if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
         self.AlliedWithPlayerAllies = true
         self.BecomeEnemyToPlayer = 2

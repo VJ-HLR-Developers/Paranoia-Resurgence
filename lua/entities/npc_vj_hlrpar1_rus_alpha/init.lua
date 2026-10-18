@@ -777,6 +777,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+            if GetConVar("VJ_PARR_DropWeapon"):GetInt() == 0 then self.DropWeaponOnDeath = false end
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
@@ -809,7 +810,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if IsValid(activeWep) then activeWep:Remove() end
     elseif status == "Finish" then
         -- Remove the weapon body groups and other objects
-        self:SetBodygroup(self.Soldier_WepBG, self.Soldier_WepBGRemove)
+        if self.DropWeaponOnDeath then self:SetBodygroup(self.Soldier_WepBG, self.Soldier_WepBGRemove) end
         -- Reset the blood decals to default if hit in head
         self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end

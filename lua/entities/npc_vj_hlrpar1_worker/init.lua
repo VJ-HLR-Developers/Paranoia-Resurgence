@@ -328,6 +328,7 @@ end
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+            if GetConVar("VJ_PARR_DropWeapon"):GetInt() == 0 then self.CIvilian_WeaponModel = false end
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
@@ -342,7 +343,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             else
                 self:SetBodygroup(3, 2)
             end
-            self:CreateGibEntity("obj_vj_gib", self.CIvilian_WeaponModel, {BloodDecal = "", Pos = self:GetAttachment(self:LookupAttachment("rhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = ""}, function(gib) gib.PhysicsSounds = true end)
+            self:CreateGibEntity("obj_vj_gib", self.CIvilian_WeaponModel, {Pos = self:GetAttachment(self:LookupAttachment("rhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
         end
     elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then

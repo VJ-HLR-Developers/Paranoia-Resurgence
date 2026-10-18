@@ -441,8 +441,9 @@ end
 local bit_bor = bit.bor
 
 -- ConVars
-VJ.AddConVar("VJ_HLRPAR_Clone_Ally", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
-VJ.AddConVar("VJ_HLRPAR_Terrorist_Hostile", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_Friendly_Clones", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_Hostile_Terrorists", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_DropWeapon", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
 -- Configure Menu
 if CLIENT then
@@ -455,10 +456,12 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_HLRPAR_Clone_Ally 0\nVJ_HLRPAR_Terrorist_Hostile 0"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Friendly_Clones 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_DropWeapon 1"})
             panel:Help("Server-Side Options:")
-            panel:CheckBox("Clones Are Allies?", "VJ_HLRPAR_Clone_Ally")
-            panel:CheckBox("Terrorists Have Their Own Faction?", "VJ_HLRPAR_Terrorist_Hostile")
+            panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones")
+            panel:CheckBox("Terrorists Are Hostile?", "VJ_PARR_Hostile_Terrorists")
+            panel:CheckBox("Weapons Drop On Death?", "VJ_PARR_DropWeapon")
+            panel:ControlHelp("Note: Will only apply if static corpses are enabled.")
         end)
     end)
 end

@@ -21,10 +21,10 @@ function ENT:Zombie_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "DeathAnim" then
+    if status == "DeathAnim" && self.DropWeaponOnDeath then
         self:DeathWeaponDrop(dmginfo, hitgroup)
         self:OnDeath(dmginfo, hitgroup, "Finish")
-    elseif status == "Finish" then
+    elseif status == "Finish" && self.DropWeaponOnDeath then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end

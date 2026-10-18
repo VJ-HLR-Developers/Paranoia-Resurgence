@@ -49,6 +49,7 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Custom
 ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie, 6 = Savior Zombie, 7 = Par2 Zombie, 8 = Par2 Zombie Scientist, 9 = Par2 Zombie Scientist (Female), 10 = Par2 Zombie (Early), 11 = Classic/Hazmat/Rotten Zombie, 12 = Zombie Soldiers, 13 = Zombie Officer, 13 = Zombie Striker Mutant
+ENT.Zombie_DropPistol = true
 
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
@@ -322,18 +323,19 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        -- Have armed zombie drop pistol on death
-        if self.Zombie_Type == 5 then
-            self:SetBodygroup(1, 1)
-            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
-        end
         if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+            if GetConVar("VJ_PARR_DropWeapon"):GetInt() == 0 then self.DropWeaponOnDeath = false self.Zombie_DropPistol = false end
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
         end
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
+        end
+        -- Have armed zombie drop pistol on death
+        if self.Zombie_Type == 5 && self.Zombie_DropPistol then
+            self:SetBodygroup(1, 1)
+            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
         end
     elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
