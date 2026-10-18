@@ -71,6 +71,7 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 ENT.Soldier_Type = 0 -- 0 = Spetsnaz, 1 = Soldier, 2 = Terrorist, 3 = Clone, 4 = Saboteur
 ENT.Soldier_WepBG = 0
 ENT.Soldier_WepBGRemove = 0
+//ENT.Soldier_AmmoType = NULL
 ENT.Soldier_PistolAnims = false
 ENT.Soldier_CanHurtWalk = true
 ENT.PKM_Gunner = false
@@ -587,92 +588,115 @@ function ENT:OnThink()
         if self.Soldier_Type == 0 then -- Spetsnaz
             if !self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- AKS
+                    //self.Soldier_AmmoType = "SMG1"
                     if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_aks")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_aks")
                     end
                 elseif bodyGroup == 1 then -- VAL
+                    //self.Soldier_AmmoType = "SMG1"
                     if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_val")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_val")
                     end
                 elseif bodyGroup == 2 then -- Groza
+                    //self.Soldier_AmmoType = "SMG1"
                     if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_groza")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
                     end
                 elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- PKM
+                    //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
                 elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- KS-23
+                    //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_ks23")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             elseif self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- APS
+                    //self.Soldier_AmmoType = "Pistol"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_aps")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             end
         elseif self.Soldier_Type == 1 then -- Soldier
             if bodyGroup == 0 then -- AK-74
+                //self.Soldier_AmmoType = "SMG1"
                 if myMDL == "models/vj_parr/par2/soldier.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier.mdl" then
                     self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
                 else
                     self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
                 end
             elseif IsValid(wep) then
+                //self.Soldier_AmmoType = NULL
                 wep:Remove()
             end
         elseif self.Soldier_Type == 2 then -- Terrorist
             if myMDL != "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
                 if bodyGroup == 0 then -- AK-74
+                    //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
                 elseif bodyGroup == 1 then -- PKM
+                    //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             elseif myMDL == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
                 if bodyGroup == 0 then -- SPAS-12
+                    //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlr1_spas12")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             end
         elseif self.Soldier_Type == 3 then -- Clone
             if bodyGroup == 0 then -- AK-74/AKS
+                //self.Soldier_AmmoType = "SMG1"
                 if myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
                     self:DoChangeWeapon("weapon_vj_hlrpar2_aks")
                 else
                     self:DoChangeWeapon("weapon_vj_hlrpar1_ak74")
                 end
             elseif bodyGroup == 1 then -- PKM
+                //self.Soldier_AmmoType = "SMG1"
                 if myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
                     self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
                 else
                     self:DoChangeWeapon("weapon_vj_hlrpar1_pkm")
                 end
             elseif IsValid(wep) then
+                //self.Soldier_AmmoType = NULL
                 wep:Remove()
             end
         elseif self.Soldier_Type == 4 then -- Saboteur
             if !self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- MP5
+                    //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_mp5")
                 elseif bodyGroup == 1 && myMDL != "models/vj_parr/par1/cut/blackop.mdl" then -- Shotgun
+                    //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_spas12")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             elseif self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- Glock 17
+                    //self.Soldier_AmmoType = "Pistol"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_glock17")
                 elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
                     wep:Remove()
                 end
             end
@@ -846,6 +870,17 @@ end
 local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    -- Allow player to pick up ammo
+    /*corpse.Soldier_AmmoType = self.Soldier_AmmoType
+    function corpse:AcceptInput(key, activator, caller, data)
+        if self.Soldier_PickedUpAmmo then return end
+        if key == "Use" && self.Soldier_AmmoType && !self.Soldier_PickedUpAmmo then
+            self.Soldier_PickedUpAmmo = true
+            self:EmitSound("vj_parr/par1/shared/ammopickup" .. math_random(1, 2) .. ".wav", 75, 100)
+            activator:GiveAmmo(15, self.Soldier_AmmoType)
+            //activator:PrintMessage(HUD_PRINTTALK, "Picked up ammo.")
+        end
+    end*/
     VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_parr/par1/shared/bodysplat.wav", SplatDecal = "VJ_PARR1_Blood_Red_Large"})
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

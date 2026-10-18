@@ -233,6 +233,10 @@ local colorRed = VJ.Color2Byte(Color(130, 19, 10))
                 end
             end
         end)
+        if IsValid(ent:GetParent()) then
+            ent:SetPos(ent:GetParent():GetAttachment(ent:GetParentAttachment()).Pos)
+            ent:SetParent(NULL)
+        end
         if ent.IsVJBaseSNPC then
             ent.HasDeathCorpse = false
             ent.HasDeathAnimation = false
