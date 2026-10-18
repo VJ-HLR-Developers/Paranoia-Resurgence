@@ -14,6 +14,7 @@
     "$envmaptint" "[.5 .5 .5]"
 
     "$additive" "1"
+    "$nocull" "1"
 
     "$DEM_TintScale" "[.5 .5 .5]"
     "$DEM_Multiplier" "1"
