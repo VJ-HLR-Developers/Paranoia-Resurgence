@@ -121,13 +121,14 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-    if self.DeathCorpseEntityClass != "prop_vj_animatable" then return end
-    corpse:ResetSequence(self:GetSequence())
-    corpse:SetCycle(1)
-    corpse:SetMoveType(self:GetMoveType())
-    corpse:SetCollisionGroup(self.DeathCorpseCollisionType)
-    local minBounds, maxBounds = self:GetCollisionBounds()
-    corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
-    corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
+    if self.DeathCorpseEntityClass == "prop_vj_animatable" then
+        corpse:ResetSequence(self:GetSequence())
+        corpse:SetCycle(1)
+        corpse:SetMoveType(self:GetMoveType())
+        corpse:SetCollisionGroup(self.DeathCorpseCollisionType)
+        local minBounds, maxBounds = self:GetCollisionBounds()
+        corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
+        corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
+    end
     baseclass.Get("npc_vj_hlrpar1_zombie").OnCreateDeathCorpse(self, dmginfo, hitgroup, corpse)
 end

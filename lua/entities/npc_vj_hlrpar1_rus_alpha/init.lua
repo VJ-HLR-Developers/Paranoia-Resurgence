@@ -736,9 +736,9 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
-    if !VJ.AnimExists(self, "radio-nod") or self.PKM_Gunner then return end
+    if (!VJ.AnimExists(self, "radio-nod") && !VJ.AnimExists(self, "victorydance")) or self.PKM_Gunner then return end
     if wasLast && math_random(1, 3) == 1 then
-        self:PlayAnim("radio-nod", "LetAttacks", false, false, 0)
+        self:PlayAnim((self.Soldier_PistolAnims && "victorydance") or "radio-nod", "LetAttacks", false, false, 0)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
