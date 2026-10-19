@@ -207,7 +207,7 @@ end
 function ENT:OnMeleeAttack(status, enemy)
     if !VJ.AnimExists(self, ACT_MELEE_ATTACK2) then return end
     if status == "Init" && self.Zombie_Type == 0 then
-        if self.MeleeAttack_IsPropAttack or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_ATTACK2)) then
+        if self.MeleeAttack_IsPropAttack or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK2)) then
             self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK2
         else
             self.AnimTbl_MeleeAttack = ACT_MELEE_ATTACK1

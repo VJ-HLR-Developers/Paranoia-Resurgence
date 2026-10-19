@@ -94,7 +94,7 @@ function ENT:OnAlert(ent)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnWeaponAttack()
-    if self.VJ_IsBeingControlled or self.IsGuard then return end
+    if self.VJ_Controlled or self.IsGuard then return end
     local curTime = CurTime()
     if curTime > self.Soldier_NextRunT then
         timer.Simple(0.8, function()

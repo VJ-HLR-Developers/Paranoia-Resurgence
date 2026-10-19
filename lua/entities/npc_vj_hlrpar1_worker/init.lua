@@ -188,7 +188,7 @@ function ENT:TranslateActivity(act)
     end
     -- Scared animations
     local npcState = self:GetNPCState()
-    if (self.Civilian_Type == 0 or self.Civilian_Type == 2 or self.Civilian_Type == 5) && ((!self.VJ_IsBeingControlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_IsBeingControlled && self.Civilian_ControllerAnim == 1)) then
+    if (self.Civilian_Type == 0 or self.Civilian_Type == 2 or self.Civilian_Type == 5) && ((!self.VJ_Controlled && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_Controlled && self.Civilian_ControllerAnim == 1)) then
         if act == ACT_IDLE then
             return ACT_CROUCHIDLE
         elseif act == ACT_WALK then
@@ -219,7 +219,7 @@ function ENT:SCHEDULE_IDLE_STAND()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
-    if self.VJ_IsBeingControlled or self.Civilian_Type != 0 then return end
+    if self.VJ_Controlled or self.Civilian_Type != 0 then return end
     if math_random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
         self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
     end
@@ -278,7 +278,7 @@ function ENT:Civilian_OnThink()
     if self.IsGuard or self.Dead or self.Civilian_Type != 4 then return end
     local curTime = CurTime()
     local ene = self.EnemyData.Target
-    if IsValid(ene) && self.AttackAnimTime < curTime && !self.VJ_IsBeingControlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 300 then
+    if IsValid(ene) && self.AttackAnimTime < curTime && !self.VJ_Controlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 300 then
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false, false)
         self.Civilian_NextStrafeT = curTime + 8

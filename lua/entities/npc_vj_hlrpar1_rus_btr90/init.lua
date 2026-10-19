@@ -115,7 +115,7 @@ function ENT:Tank_OnThink()
     end
 
     -- Deploy soldiers
-    if self.Tank_Status == 1 && !self.BTR_HasSpawnedSoldiers && !self.BTR_PrepDeploy && IsValid(self.EnemyData.Target) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_IsBeingControlled) or (self.VJ_IsBeingControlled && self.VJ_TheController:KeyDown(IN_JUMP))) then
+    if self.Tank_Status == 1 && !self.BTR_HasSpawnedSoldiers && !self.BTR_PrepDeploy && IsValid(self.EnemyData.Target) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
         self.BTR_PrepDeploy = true
         self.BTR_HasSpawnedSoldiers = true
         self:SetState(VJ_STATE_FREEZE)
