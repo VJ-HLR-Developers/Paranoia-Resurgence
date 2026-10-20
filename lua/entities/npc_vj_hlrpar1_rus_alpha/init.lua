@@ -761,6 +761,15 @@ function ENT:Unmount()
     self:SetPos(self:GetPos() + self:GetUp() * 1) -- So we don't sink into the ground
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnBleed(dmginfo, hitgroup)
+    -- Spawn a unique decal from headshots, based on source code
+    if hitgroup == HITGROUP_HEAD then
+        self.BloodDecal = "VJ_PARR1_Brains"
+    else
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
@@ -775,13 +784,6 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)
             end
-        end
-    elseif status == "PreDamage" then
-        -- Spawn a unique decal from headshots, based on source code
-        if hitgroup == HITGROUP_HEAD then
-            self.BloodDecal = "VJ_PARR1_Brains"
-        else
-            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
         end
     end
 end

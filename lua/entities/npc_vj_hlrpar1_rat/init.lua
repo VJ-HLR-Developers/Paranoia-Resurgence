@@ -51,14 +51,12 @@ function ENT:OnTouch(ent)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "PreDamage" then
-        -- Spawn a unique decal from headshots or being stepped on, based on source code
-        if hitgroup == HITGROUP_HEAD or self.Rat_SteppedOn then
-            self.BloodDecal = "VJ_PARR1_Brains"
-        else
-            self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
-        end
+function ENT:OnBleed(dmginfo, hitgroup)
+    -- Spawn a unique decal from headshots, based on source code
+    if hitgroup == HITGROUP_HEAD or self.Rat_SteppedOn then
+        self.BloodDecal = "VJ_PARR1_Brains"
+    else
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
