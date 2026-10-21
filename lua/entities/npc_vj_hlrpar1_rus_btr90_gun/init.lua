@@ -69,52 +69,54 @@ function ENT:Tank_OnFireShell(status, statusData)
         if self.BTR_Ammo <= 0 then self:Reload() end
         local ene = self.EnemyData.Target
         local pos = self:LocalToWorld(vecBullet)
-        self:FireBullets({
-            Damage = 1,
-            Force = 100,
-            HullSize = 10,
-            Dir = (ene:GetPos() + ene:OBBCenter()) - pos,
-            Src = pos,
-            Spread = Vector(math_rand(-50, 50), math_rand(-50, 50), 0),
-            TracerName = "VJ_PARR_Tracer_Large",
-            Callback = function(attack, tr, dmginfo)
-                local hitPos = tr.HitPos
-                local hitNorm = tr.HitNormal
-                VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
-                util.Decal("VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
+        if IsValid(ene) then
+            self:FireBullets({
+                Damage = 1,
+                Force = 100,
+                HullSize = 10,
+                Dir = (ene:GetPos() + ene:OBBCenter()) - pos,
+                Src = pos,
+                Spread = Vector(math_rand(-50, 50), math_rand(-50, 50), 0),
+                TracerName = "VJ_PARR_Tracer_Large",
+                Callback = function(attack, tr, dmginfo)
+                    local hitPos = tr.HitPos
+                    local hitNorm = tr.HitNormal
+                    VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
+                    util.Decal("VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
 
-                sound.Play("VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
-                sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
+                    sound.Play("VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
+                    sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
 
-                local spr = ents.Create("env_sprite")
-                spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
-                spr:SetKeyValue("GlowProxySize", "2.0")
-                spr:SetKeyValue("HDRColorScale", "1.0")
-                spr:SetKeyValue("renderfx", "14")
-                spr:SetKeyValue("rendermode", "5")
-                spr:SetKeyValue("renderamt", "255")
-                spr:SetKeyValue("disablereceiveshadows", "0")
-                spr:SetKeyValue("mindxlevel", "0")
-                spr:SetKeyValue("maxdxlevel", "0")
-                spr:SetKeyValue("framerate", "15.0")
-                spr:SetKeyValue("spawnflags", "0")
-                spr:SetKeyValue("scale", "1.5")
-                spr:SetPos(hitPos + vecZ40)
-                spr:Spawn()
-                spr:Fire("Kill", nil, 0.9)
-                timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
+                    local spr = ents.Create("env_sprite")
+                    spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+                    spr:SetKeyValue("GlowProxySize", "2.0")
+                    spr:SetKeyValue("HDRColorScale", "1.0")
+                    spr:SetKeyValue("renderfx", "14")
+                    spr:SetKeyValue("rendermode", "5")
+                    spr:SetKeyValue("renderamt", "255")
+                    spr:SetKeyValue("disablereceiveshadows", "0")
+                    spr:SetKeyValue("mindxlevel", "0")
+                    spr:SetKeyValue("maxdxlevel", "0")
+                    spr:SetKeyValue("framerate", "15.0")
+                    spr:SetKeyValue("spawnflags", "0")
+                    spr:SetKeyValue("scale", "1.5")
+                    spr:SetPos(hitPos + vecZ40)
+                    spr:Spawn()
+                    spr:Fire("Kill", nil, 0.9)
+                    timer.Simple(0.9, function() if IsValid(spr) then spr:Remove() end end)
 
-                local expLight = ents.Create("light_dynamic")
-                expLight:SetKeyValue("brightness", "4")
-                expLight:SetKeyValue("distance", "300")
-                expLight:SetPos(hitPos)
-                expLight:Fire("Color", "255 150 0")
-                expLight:Spawn()
-                expLight:Activate()
-                expLight:Fire("TurnOn")
-                expLight:Fire("Kill", nil, 0.1)
-            end
-        })
+                    local expLight = ents.Create("light_dynamic")
+                    expLight:SetKeyValue("brightness", "4")
+                    expLight:SetKeyValue("distance", "300")
+                    expLight:SetPos(hitPos)
+                    expLight:Fire("Color", "255 150 0")
+                    expLight:Spawn()
+                    expLight:Activate()
+                    expLight:Fire("TurnOn")
+                    expLight:Fire("Kill", nil, 0.1)
+                end
+            })
+        end
         return true
     end
 end
