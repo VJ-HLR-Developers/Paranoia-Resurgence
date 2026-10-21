@@ -92,9 +92,9 @@ end
 local threshold = 3
 --
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
+    -- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
     local poseYaw = self:GetPoseParameter("aim_yaw")
     local posePitch = self:GetPoseParameter("aim_pitch")
-    -- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
     if (math_abs(math_angledifference(poseYaw, math_approachangle(poseYaw, yaw, self.PoseParameterLooking_TurningSpeed))) >= threshold) or (math_abs(math_angledifference(posePitch, math_approachangle(posePitch, pitch, self.PoseParameterLooking_TurningSpeed))) >= threshold) then
         self.PKM_HasLOS = false
     else

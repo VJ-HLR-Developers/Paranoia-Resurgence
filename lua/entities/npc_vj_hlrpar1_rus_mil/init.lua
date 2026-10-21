@@ -120,7 +120,9 @@ end
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
     -- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
     -- Using 20 for "aim_pitch" to make it a little more forgiving
-    if (math_abs(math_angledifference(self:GetPoseParameter("aim_yaw"), math_approachangle(self:GetPoseParameter("aim_yaw"), yaw, self.PoseParameterLooking_TurningSpeed))) >= self.PoseParameterLooking_TurningSpeed) or (math_abs(math_angledifference(self:GetPoseParameter("aim_pitch"), math_approachangle(self:GetPoseParameter("aim_pitch"), pitch, 20))) >= 20) then
+    local poseYaw = self:GetPoseParameter("aim_yaw")
+    local posePitch = self:GetPoseParameter("aim_pitch")
+    if (math_abs(math_angledifference(poseYaw, math_approachangle(poseYaw, yaw, self.PoseParameterLooking_TurningSpeed))) >= self.PoseParameterLooking_TurningSpeed) or (math_abs(math_angledifference(posePitch, math_approachangle(posePitch, pitch, 20))) >= 20) then
         self.Heli_HasLOS = false
     else
         self.Heli_HasLOS = true
