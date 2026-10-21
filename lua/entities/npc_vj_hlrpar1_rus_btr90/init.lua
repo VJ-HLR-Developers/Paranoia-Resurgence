@@ -39,7 +39,6 @@ ENT.Tank_DeathDriverCorpse = "models/vj_parr/par1/soldier.mdl"
 ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
-ENT.BTR_DmgForce = 0
 ENT.BTR_HasSpawnedSoldiers = false
 ENT.BTR_PrepDeploy = false
 
@@ -176,7 +175,6 @@ end
 local expPos = Vector(0, 0, 100)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
-    self.BTR_DmgForce = dmginfo:GetDamageForce()
     for i = 0, 1, 0.5 do
         timer.Simple(i, function()
             if IsValid(self) then
