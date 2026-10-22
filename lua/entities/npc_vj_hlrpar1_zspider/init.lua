@@ -40,7 +40,7 @@ end
 function ENT:Zombie_Init()
     local myMDL = self:GetModel()
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
+    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) && myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("s_2", true, false)

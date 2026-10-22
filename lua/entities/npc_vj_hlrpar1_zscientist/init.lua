@@ -12,7 +12,7 @@ local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 then
+    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("slumprise_a", true, false)

@@ -16,7 +16,7 @@ local math_random = math.random
 function ENT:Zombie_Init()
     -- Spawn animation
     local myMDL = self:GetModel()
-    if VJ_CVAR_AI_ENABLED && math_random(1, 3) == 1 && myMDL != "models/vj_parr/par1/early/v1/zombie.mdl" then
+    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) && myMDL != "models/vj_parr/par1/early/v1/zombie.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("scr", true, false)

@@ -112,9 +112,11 @@ function ENT:OnLeapAttack(status, enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnFlinch = ENT.OnFlinch
+--
 function ENT:OnFlinch(dmginfo, hitgroup, status)
+    baseOnFlinch(self, dmginfo, hitgroup, status)
     if status == "Init" then
         return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
     end
-    baseclass.Get("npc_vj_hlrpar1_zombie").OnFlinch(self, dmginfo, hitgroup, status)
 end

@@ -61,7 +61,10 @@ function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR2_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnKilledEnemy = ENT.OnKilledEnemy
+--
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
+    baseOnKilledEnemy(self, ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
     if !VJ.AnimExists(self, "victorydance") then return end
     if wasLast && math_random(1, 3) == 1 then
@@ -162,7 +165,10 @@ function ENT:OnThink()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnDeath = ENT.OnDeath
+--
 function ENT:OnDeath(dmginfo, hitgroup, status)
+    baseOnDeath(self, dmginfo, hitgroup, status)
     if status == "DeathAnim" && self.DropWeaponOnDeath then
         if math_random(1, 2) == 1 then
             self:DeathWeaponDrop(dmginfo, hitgroup)
@@ -179,5 +185,4 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end
-    baseclass.Get("npc_vj_hlrpar1_zombie").OnDeath(self, dmginfo, hitgroup, status)
 end

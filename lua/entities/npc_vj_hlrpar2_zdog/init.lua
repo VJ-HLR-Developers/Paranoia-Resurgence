@@ -27,9 +27,11 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 ENT.SoundTbl_LeapAttackDamageMiss = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseInit = ENT.Init
+--
 function ENT:Init()
+    baseInit(self)
     self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
-    baseclass.Get("npc_vj_hlrpar1_zombie").Init(self)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Voice()
@@ -70,11 +72,13 @@ function ENT:OnLeapAttack(status, enemy)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnFlinch = ENT.OnFlinch
+--
 function ENT:OnFlinch(dmginfo, hitgroup, status)
+    baseOnFlinch(self, dmginfo, hitgroup, status)
     if status == "Init" then
         return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
     end
-    baseclass.Get("npc_vj_hlrpar1_zombie").OnFlinch(self, dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
@@ -120,7 +124,10 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     return true, {AllowSound = false}
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnCreateDeathCorpse = ENT.OnCreateDeathCorpse
+--
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
+    baseOnCreateDeathCorpse(self, dmginfo, hitgroup, corpse)
     if self.DeathCorpseEntityClass == "prop_vj_animatable" then
         corpse:ResetSequence(self:GetSequence())
         corpse:SetCycle(1)
@@ -130,5 +137,4 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
         corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
         corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
     end
-    baseclass.Get("npc_vj_hlrpar1_zombie").OnCreateDeathCorpse(self, dmginfo, hitgroup, corpse)
 end

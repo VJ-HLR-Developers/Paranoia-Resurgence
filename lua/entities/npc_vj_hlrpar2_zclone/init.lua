@@ -20,7 +20,10 @@ function ENT:Zombie_Init()
     if math_random(1, 2) == 1 then self:SetBodygroup(self.Zombie_WepBG, math_random(0, 1)) end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local baseOnDeath = ENT.OnDeath
+--
 function ENT:OnDeath(dmginfo, hitgroup, status)
+    baseOnDeath(self, dmginfo, hitgroup, status)
     if status == "DeathAnim" && self.DropWeaponOnDeath then
         self:DeathWeaponDrop(dmginfo, hitgroup)
         self:OnDeath(dmginfo, hitgroup, "Finish")
@@ -28,5 +31,4 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end
-    baseclass.Get("npc_vj_hlrpar1_zombie").OnDeath(self, dmginfo, hitgroup, status)
 end

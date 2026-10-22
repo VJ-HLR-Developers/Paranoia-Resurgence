@@ -443,6 +443,7 @@ local bit_bor = bit.bor
 -- ConVars
 VJ.AddConVar("VJ_PARR_Friendly_Clones", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_Hostile_Terrorists", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_Zombie_Infection", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_DropWeapon", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
 -- Configure Menu
@@ -460,6 +461,8 @@ if CLIENT then
             panel:Help("Server-Side Options:")
             panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones")
             panel:CheckBox("Terrorists Are Hostile?", "VJ_PARR_Hostile_Terrorists")
+            panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection")
+            panel:ControlHelp("Note: Will only apply to valid biped models.")
             panel:CheckBox("Weapons Drop On Death?", "VJ_PARR_DropWeapon")
             panel:ControlHelp("Note: Will only apply if static corpses are enabled.")
         end)
