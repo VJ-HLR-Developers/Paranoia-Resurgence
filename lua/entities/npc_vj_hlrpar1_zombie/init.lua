@@ -277,7 +277,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
                 local zombie = ents.Create(
                     (cloneList[entClass] && zomCloneList) or (spetsnazList[entClass] && "npc_vj_hlrpar1_zalpha")
-                    or (self.VJ_PARR1_NPC && (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar1_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar1_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar1_zhazmat") or zomList)
+                    or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar1_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar1_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar1_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
                     zombie:SetPos(entPos)
