@@ -228,8 +228,8 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
-    if ent.VJ_ID_Undead or !ent.IsVJBaseSNPC_Human or (self.IsVJBaseSNPC_Human && self.WeaponAttackState != VJ.WEP_ATTACK_STATE_NONE) or (self.AttackType != VJ.ATTACK_TYPE_MELEE && self.AttackType != VJ.ATTACK_TYPE_LEAP) or (self.AttackType == VJ.ATTACK_TYPE_RANGE && self.Zombie_Type == 5) then return end
-    if math_random(1, 3) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
+    if ent.VJ_ID_Undead or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) or (self.IsVJBaseSNPC_Human && self.WeaponAttackState != VJ.WEP_ATTACK_STATE_NONE) or (self.AttackType != VJ.ATTACK_TYPE_MELEE && self.AttackType != VJ.ATTACK_TYPE_LEAP) or (self.AttackType == VJ.ATTACK_TYPE_RANGE && self.Zombie_Type == 5) then return end
+    if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
         local findMDL = ent:GetModel()
         timer.Simple(0, function()
@@ -245,7 +245,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
         end
         if ent.IsVJBaseSNPC then
             ent.HasDeathCorpse = false
-            ent.DeathAnimationTime = 5
+            ent.DeathAnimationTime = 99
             //ent.DeathDelayTime = 5
             ent.CanGib = false
         end
@@ -266,13 +266,15 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 end
             end
             ent.HasRagdoll = false
+            if !ent.IsVJBaseSNPC then ent:Remove() end
         end
         local entDeath = VJ.PICK(ent.AnimTbl_Death)
-        timer.Simple(0, function() if IsValid(ent) then ent:PlayAnim(entDeath, true, false) end end)
+        if ent.IsVJBaseSNPC then
+            timer.Simple(0, function() if IsValid(ent) then ent:PlayAnim(entDeath, true, false) end end)
+        end
         timer.Simple(VJ.AnimDuration(ent, entDeath), function()
             if IsValid(ent) then
                 local entClass = ent:GetClass()
-                local entPos = ent:GetPos()
                 local zomList = VJ.PICK({"npc_vj_hlrpar1_zombie", "npc_vj_hlrpar1_zombie_v1"})
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
                 local zombie = ents.Create(
@@ -280,7 +282,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                     or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar1_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar1_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar1_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
-                    zombie:SetPos(entPos)
+                    zombie:SetPos(ent:GetPos())
                     zombie:SetAngles(ent:GetAngles())
                     zombie.Zombie_Turned = true
                     zombie.GodMode = true
@@ -291,10 +293,10 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                     ent:Spectate(OBS_MODE_CHASE)
                     ent:SpectateEntity(zombie)
                 end
-                ent:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
-                if ent.HasGibOnDeathEffects then
+                zombie:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
+                if zombie.HasGibOnDeathEffects then
                     local effectData = EffectData()
-                    effectData:SetOrigin(entPos + ent:OBBCenter())
+                    effectData:SetOrigin(zombie:GetPos() + zombie:OBBCenter())
                     effectData:SetColor(colorRed)
                     effectData:SetScale(80)
                     util.Effect("VJ_Blood1", effectData)
