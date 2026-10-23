@@ -30,7 +30,7 @@ ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
 ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
 
 ENT.Tank_TurningSpeed = 2.5
-ENT.Tank_DrivingSpeed = 300
+ENT.Tank_DrivingSpeed = 250
 
 ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_btr90_gun"
 ENT.Tank_CollisionBoundSize = 60
@@ -254,11 +254,40 @@ local colorGray = Color(90, 90, 90)
 --
 function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
     if status == "Override" then
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 71)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 72)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 73)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 74)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green6.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 75)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green7.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 76)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 77)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 78)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 79)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 81)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 82)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 83)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 84)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 85)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green6.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 86)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green7.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 87)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 88)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 0, 89)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(31, 0, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(31, 1, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 1, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 2, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_rib.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 3, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 4, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 5, 80)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(30, 6, 80)), CollisionSound = metalCollideSD})
+
         local myPos = self:GetPos()
         local myForward = self:GetForward()
         local myUp = self:GetUp()
         VJ.EmitSound(self, self.SoundTbl_Death)
-        util.BlastDamage(self, self, myPos + myForward * 30 + myUp * 80, 200, 10)
+        util.BlastDamage(self, self, myPos + myForward * 30 + myUp * 70, 200, 10)
         util.ScreenShake(myPos, 100, 200, 1, 2500)
         local tr = util.TraceLine({
             start = myPos + myUp * 4,
@@ -270,7 +299,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         if math_random(1, self.Tank_DeathDriverCorpseChance) == 1 then
             local soldierMDL = VJ.PICK(self.Tank_DeathDriverCorpse)
             if soldierMDL then
-                self:CreateExtraDeathCorpse("prop_ragdoll", soldierMDL, {Pos = myPos + myForward * 30 + myUp * 90 + self:GetRight() * -30, Vel = Vector(math_rand(-600, 600), math_rand(-600, 600), 500)}, function(ent)
+                self:CreateExtraDeathCorpse("prop_ragdoll", soldierMDL, {Pos = myPos + myForward * 30 + myUp * 70 + self:GetRight() * -30, Vel = Vector(math_rand(-600, 600), math_rand(-600, 600), 500)}, function(ent)
                     ent:SetColor(colorGray)
                     ent:SetBodygroup(1, math_random(0, 5))
                     ent:SetBodygroup(2, 1)

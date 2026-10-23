@@ -9,7 +9,7 @@ ENT.Model = "models/vj_parr/par1/cut/td_t90_gun.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
-ENT.HasDeathCorpse = true
+ENT.HasDeathCorpse = false
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot2.wav"

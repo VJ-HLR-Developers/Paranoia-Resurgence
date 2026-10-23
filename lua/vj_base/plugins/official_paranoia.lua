@@ -301,13 +301,22 @@ sound.Add({
     }
 })
 sound.Add({
-    name = "VJ.PARR1_MG.Single",
+    name = "VJ.PARR1_Turret.Single",
     channel = CHAN_WEAPON,
     volume = 1.0,
     level = SNDLVL_GUNFIRE,
     pitch = PITCH_RANDOM,
     sound =
         "^vj_parr/par1/turret/tu_fire1.wav"
+})
+sound.Add({
+    name = "VJ.PARR1_MG.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound =
+        "^vj_parr/par1/weapons/machinegun_fire.wav"
 })
 sound.Add({
     name = "VJ.PARR1_Cannon.Single",

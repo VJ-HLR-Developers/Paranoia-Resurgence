@@ -9,7 +9,7 @@ ENT.Model = "models/vj_parr/par1/td_btr90_v2_gun.mdl"
 ENT.StartHealth = 0
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
-ENT.HasDeathCorpse = true
+ENT.HasDeathCorpse = false
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot1.wav"
@@ -22,7 +22,7 @@ ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(100, 0, 9)
 ENT.Tank_Shell_ParticlePos = Vector(100, 0, 9)
 
--- CUstom
+-- Custom
 ENT.BTR_Reload = false
 ENT.BTR_NextMGT = 0
 ENT.BTR_Ammo = 10
@@ -169,17 +169,17 @@ function ENT:FireFX()
     muz:Activate()
     muz:Fire("Kill", nil, 0.08)
 
-    /*local muzLight = ents.Create("light_dynamic")
+    local muzLight = ents.Create("light_dynamic")
     muzLight:SetKeyValue("brightness", "4")
     muzLight:SetKeyValue("distance", "120")
-    muzLight:SetPos(self:GetAttachment(self:LookupAttachment("mg")).Pos)
     muzLight:Fire("Color", "255 150 60")
     muzLight:SetParent(self)
+    muzLight:Fire("SetParentAttachment", "mg")
     muzLight:Spawn()
     muzLight:Activate()
     muzLight:Fire("TurnOn")
     muzLight:Fire("Kill", nil, 0.07)
-    self:DeleteOnRemove(muzLight)*/
+    self:DeleteOnRemove(muzLight)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Reload()
