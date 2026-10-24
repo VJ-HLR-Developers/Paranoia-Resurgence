@@ -1,0 +1,6 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par1/zombie/brain/legs"
+    "$alphatest" "1"
+    "$nocull" "1"
+}

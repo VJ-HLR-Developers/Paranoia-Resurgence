@@ -67,5 +67,10 @@ function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
         if dmginfo:IsBulletDamage() then
             dmginfo:ScaleDamage(0.3)
         end
+    elseif status == "PreDamage" && self.Zombie_Buffed then
+        -- Take 30% of bullet damage, based on source code
+        if dmginfo:IsBulletDamage() then
+            dmginfo:ScaleDamage(0.3)
+        end
     end
 end

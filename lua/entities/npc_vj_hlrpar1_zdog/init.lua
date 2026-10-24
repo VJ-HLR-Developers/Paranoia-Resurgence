@@ -56,6 +56,10 @@ ENT.SoundTbl_Pain = {"vj_parr/par1/bullchicken/bc_pain1.wav", "vj_parr/par1/bull
 ENT.SoundTbl_Death = {"vj_parr/par1/bullchicken/bc_die1.wav", "vj_parr/par1/bullchicken/bc_die2.wav", "vj_parr/par1/bullchicken/bc_die3.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
+-- Custom
+ENT.Zombie_Buffed = false
+ENT.Brain_Ent = NULL
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
@@ -241,6 +245,11 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         -- Make zombies immune to DMG_NERVEGAS, based on source code
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
+        end
+    elseif status == "PreDamage" && self.Zombie_Buffed then
+        -- Take 30% of bullet damage, based on source code
+        if dmginfo:IsBulletDamage() then
+            dmginfo:ScaleDamage(0.3)
         end
     end
 end

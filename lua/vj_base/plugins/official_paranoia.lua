@@ -74,6 +74,7 @@ VJ.AddNPC("Zombie 4-Armed Mutant", "npc_vj_hlrpar1_z4h", spawnCategory, {SubCate
 VJ.AddNPC("Zombie 4-Armed Mutant (V1)", "npc_vj_hlrpar1_z4h_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie 3-Armed Mutant", "npc_vj_hlrpar1_z3h", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie 3-Armed Mutant (V1)", "npc_vj_hlrpar1_z3h_v1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Zombie Brain Tree", "npc_vj_hlrpar1_zbrain", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone (V1)", "npc_vj_hlrpar1_zclone_v1", spawnCategory, {SubCategory = subCategory})

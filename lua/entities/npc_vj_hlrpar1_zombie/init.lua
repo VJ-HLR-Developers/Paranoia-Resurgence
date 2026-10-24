@@ -51,6 +51,8 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed Mutant, 3 = Zombie Spider Mutant, 4 = Zombie Ceiling Mutant, 5 = Armed Zombie, 6 = Savior Zombie, 7 = Par2 Zombie, 8 = Par2 Zombie Scientist, 9 = Par2 Zombie Scientist (Female), 10 = Par2 Zombie (Early), 11 = Classic/Hazmat/Rotten Zombie, 12 = Zombie Soldiers, 13 = Zombie Officer, 13 = Zombie Striker Mutant
 ENT.Zombie_DropPistol = true
 ENT.Zombie_Turned = false
+ENT.Zombie_Buffed = false
+ENT.Brain_Ent = NULL
 
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
@@ -336,6 +338,11 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
         end
+    elseif status == "PreDamage" && self.Zombie_Buffed then
+        -- Take 30% of bullet damage, based on source code
+        if dmginfo:IsBulletDamage() then
+            dmginfo:ScaleDamage(0.3)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -358,6 +365,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
+        end
+        if IsValid(self.Brain_Ent) then
+            self.Brain_Ent:Brain_ZombieDeath()
         end
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)

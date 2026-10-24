@@ -53,6 +53,10 @@ ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shar
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
 
+-- Custom
+ENT.Zombie_Buffed = false
+ENT.Brain_Ent = NULL
+
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
