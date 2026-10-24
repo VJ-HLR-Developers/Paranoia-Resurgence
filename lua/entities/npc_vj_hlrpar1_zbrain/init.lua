@@ -178,6 +178,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorRed = Color(130, 19, 10)
 local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
+local ignoreNPCs = {["npc_vj_hlrpar1_zbrain"] = true, ["npc_vj_hlrpar1_zbrain_body"] = true, ["npc_vj_hlrpar1_zbrain_tree"] = true}
 --
 function ENT:OnThinkActive()
     if self.Dead then return end
@@ -221,7 +222,7 @@ function ENT:OnThinkActive()
     -- Buff nearby zombies within valid distance
     if curTime > self.Brain_NextBuffT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) && v:Visible(self) && VJ.GetNearestDistance(self, v) <= 1000 && !v.Zombie_Buffed && !v.IsVJBaseBullseye then
+            if IsValid(v) && v:Visible(self) && VJ.GetNearestDistance(self, v) <= 1000 && !v.Zombie_Buffed && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
                 if VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") then
                     self.Brain_Buffing = true
                     v.Zombie_Buffed = true

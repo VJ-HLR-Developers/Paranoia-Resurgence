@@ -5,6 +5,9 @@ ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Paranoia Resurgence"
 
+ENT.VJ_ID_Undead = true
+ENT.VJ_PARR1_NPC = true
+
 if CLIENT then
     VJ.AddKillIcon("npc_vj_hlrpar1_zbrain_tree", ENT.PrintName)
 end

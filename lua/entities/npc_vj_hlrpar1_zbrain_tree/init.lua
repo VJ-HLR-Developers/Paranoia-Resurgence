@@ -29,7 +29,6 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 
-ENT.SoundTbl_Breath = "vj_parr/par1/brain/deadsignal_goaway.wav"
 ENT.SoundTbl_Death = {"vj_parr/par1/brain/brain_dead1.wav", "vj_parr/par1/brain/brain_dead2.wav", "vj_parr/par1/brain/brain_dead3.wav", "vj_parr/par1/brain/brain_dead4.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
@@ -42,6 +41,8 @@ ENT.DeathSoundLevel = 80
 ENT.Brain_Ent = NULL
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    self.SoundTbl_Breath = "vj_parr/par1/brain/deadsignal_goaway.wav"
+
     self:SetName("Zombie Brain Tree")
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(50, 50, 320), Vector(-50, -50, 0))
