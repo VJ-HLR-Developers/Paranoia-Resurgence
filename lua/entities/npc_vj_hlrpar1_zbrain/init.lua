@@ -42,6 +42,12 @@ local zombieList = {
     "npc_vj_hlrpar1_zombie_v1",
     "npc_vj_hlrpar1_zombie",
     "npc_vj_hlrpar1_zombie_v1",
+    "npc_vj_hlrpar1_zombie",
+    "npc_vj_hlrpar1_zombie_v1",
+    "npc_vj_hlrpar1_zombie",
+    "npc_vj_hlrpar1_zombie_v1",
+    "npc_vj_hlrpar1_zombie",
+    "npc_vj_hlrpar1_zombie_v1",
     "npc_vj_hlrpar1_z3h",
     "npc_vj_hlrpar1_z3h_v1",
     "npc_vj_hlrpar1_z3h",
@@ -62,12 +68,12 @@ local math_rand = math.Rand
 function ENT:Init()
     self.Zombies = {}
 
-    -- Spawn the body parts
     local myPos = self:GetPos()
     local myAng = self:GetAngles()
     local myForward = self:GetForward()
     local myRight = self:GetRight()
 
+    -- Alternative solution to fixing hitboxes on bodies not working correctly due to model size from the tree
     local brainTree = ents.Create("npc_vj_hlrpar1_zbrain_tree")
     brainTree:SetPos(myPos)
     brainTree:SetAngles(myAng)
@@ -76,7 +82,7 @@ function ENT:Init()
     brainTree.PhysgunDisabled = true
     brainTree.VJ_NPC_Class = self.VJ_NPC_Class
     brainTree.Brain_Ent = self
-    brainTree.DoNotDuplicate = true -- Otherwise you will have double body parts
+    brainTree.DoNotDuplicate = true -- Otherwise you will have double trees
     brainTree:Spawn()
     self:SetRelationshipMemory(brainTree, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
     brainTree:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
@@ -91,7 +97,7 @@ function ENT:Init()
     brainBody.PhysgunDisabled = true
     brainBody.VJ_NPC_Class = self.VJ_NPC_Class
     brainBody.Brain_Ent = self
-    brainBody.DoNotDuplicate = true -- Otherwise you will have double body parts
+    brainBody.DoNotDuplicate = true -- Otherwise you will have double bodies
     brainBody:Spawn()
     self.Brain_BodyCount = self.Brain_BodyCount + 1
     self:SetRelationshipMemory(brainBody, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
@@ -107,7 +113,7 @@ function ENT:Init()
     brainBody2.PhysgunDisabled = true
     brainBody2.VJ_NPC_Class = self.VJ_NPC_Class
     brainBody2.Brain_Ent = self
-    brainBody2.DoNotDuplicate = true -- Otherwise you will have double body parts
+    brainBody2.DoNotDuplicate = true -- Otherwise you will have double bodies
     brainBody2:Spawn()
     self.Brain_BodyCount = self.Brain_BodyCount + 1
     self:SetRelationshipMemory(brainBody2, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
@@ -123,7 +129,7 @@ function ENT:Init()
     brainBody3.PhysgunDisabled = true
     brainBody3.VJ_NPC_Class = self.VJ_NPC_Class
     brainBody3.Brain_Ent = self
-    brainBody3.DoNotDuplicate = true -- Otherwise you will have double body parts
+    brainBody3.DoNotDuplicate = true -- Otherwise you will have double bodies
     brainBody3:Spawn()
     self.Brain_BodyCount = self.Brain_BodyCount + 1
     self:SetRelationshipMemory(brainBody3, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
@@ -139,7 +145,7 @@ function ENT:Init()
     brainBody4.PhysgunDisabled = true
     brainBody4.VJ_NPC_Class = self.VJ_NPC_Class
     brainBody4.Brain_Ent = self
-    brainBody4.DoNotDuplicate = true -- Otherwise you will have double body parts
+    brainBody4.DoNotDuplicate = true -- Otherwise you will have double bodies
     brainBody4:Spawn()
     self.Brain_BodyCount = self.Brain_BodyCount + 1
     self:SetRelationshipMemory(brainBody4, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
@@ -180,6 +186,7 @@ function ENT:OnThinkActive()
     local ene = eneData.Target
     local controlled = self.VJ_Controlled
     local ply = self.VJ_Controlled && self.VJ_Controller:GetPlayer()
+    -- Spawn zombies during combat
     if IsValid(ene) && curTime > self.Brain_NextZombieSpawnT && ((!controlled) or (controlled && ply:KeyDown(IN_JUMP))) then
         for i = 1, 4 do
             if self.Brain_ZombieCount < self.Brain_ZombieLimit then
@@ -211,6 +218,7 @@ function ENT:OnThinkActive()
             end
         end
     end
+    -- Buff nearby zombies within valid distance
     if curTime > self.Brain_NextBuffT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
             if IsValid(v) && v:Visible(self) && VJ.GetNearestDistance(self, v) <= 1000 && !v.Zombie_Buffed && !v.IsVJBaseBullseye then
