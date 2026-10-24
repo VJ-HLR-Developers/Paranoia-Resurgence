@@ -448,7 +448,7 @@ function ENT:TranslateActivity(act)
     end
     local npcState = self:GetNPCState()
     if act == ACT_IDLE && self.PKM_Gunner then
-        return VJ.SequenceToActivity(self, "hunkered")
+        return (self.VJ_PARR2_NPC && VJ.SequenceToActivity(self, "hunkered")) or ACT_IDLE_MANNEDGUN
     elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     end
@@ -754,7 +754,7 @@ function ENT:Unmount()
     self:SetOwner(NULL)
     self:SetParent(NULL)
     self:SetBodygroup(self.Soldier_WepBG, 0)
-    self:PlayAnim((self.VJ_PARR2_NPC && "vjseq_flinch") or "vjseq_hunkered2idle", true, false, false)
+    self:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_GET_UP_STAND, true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
     timer.Simple(VJ.AnimDuration(self, (self.VJ_PARR2_NPC && "flinch") or "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
