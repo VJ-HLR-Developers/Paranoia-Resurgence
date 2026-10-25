@@ -111,8 +111,9 @@ end
 local sdAlertMonster = {"vj_parr/par1/terror/shaitan1.wav", "vj_parr/par1/terror/shaitan2.wav", "vj_parr/par1/terror/shaitan3.wav"}
 --
 function ENT:OnAlert(ent)
+    -- Monster callouts
     if math_random(1, 3) == 1 then
-        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
+        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
             self:PlaySoundSystem("Alert", sdAlertMonster)
             return
         end

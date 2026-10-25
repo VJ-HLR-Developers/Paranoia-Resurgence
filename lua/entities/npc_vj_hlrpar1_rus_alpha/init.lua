@@ -190,6 +190,11 @@ function ENT:Soldier_Voice()
             "vj_parr/par1/alpha/alpha_enemy2.wav",
             "vj_parr/par1/alpha/alpha_enemy3.wav"
         }
+        self.SoundTbl_AlertMonster = {
+            "vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav",
+            "vj_parr/par1/npc/bunk/kulak_boss2.wav",
+            "vj_parr/par1/npc/bunk/kulak_wtf2.wav"
+        }
         self.SoundTbl_OnPlayerSight = {
             "vj_parr/par1/npc/bunk/kulak_introlab1.wav",
             "vj_parr/par1/npc/bunk/kulak_mayor!.wav",
@@ -708,12 +713,12 @@ function ENT:OnThink()
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local sdAlertMonster = {"vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav", "vj_parr/par1/npc/bunk/kulak_boss2.wav", "vj_parr/par1/npc/bunk/kulak_wtf2.wav"}
---
 function ENT:OnAlert(ent)
+    -- Monster callouts
+    if !self.SoundTbl_AlertMonster then return end
     if math_random(1, 3) == 1 then
-        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then -- Monster sounds
-            self:PlaySoundSystem("Alert", sdAlertMonster)
+        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+            self:PlaySoundSystem("Alert", self.SoundTbl_AlertMonster)
             return
         end
     end
