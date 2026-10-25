@@ -32,6 +32,8 @@ ENT.SoundTbl_FootStep = "vj_parr/par1/roach/rch_walk.wav"
 ENT.SoundTbl_Death = "vj_parr/par1/roach/rch_die.wav"
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
+ENT.MainSoundPitch = VJ.SET(95, 105)
+
 -- Custom
 ENT.Rat_SteppedOn = false
 

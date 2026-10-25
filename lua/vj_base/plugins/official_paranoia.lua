@@ -89,6 +89,7 @@ VJ.AddNPC("Zombie Spider Mutant", "npc_vj_hlrpar1_zspider", spawnCategory, {SubC
 VJ.AddNPC("Zombie Spider Mutant (V1)", "npc_vj_hlrpar1_zspider_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Spider Mutant (V2)", "npc_vj_hlrpar1_zspider_v2", spawnCategory, {SubCategory = subCategory})
 -- Animals
+VJ.AddNPC("Crow", "npc_vj_hlrpar1_crow", spawnCategory)
 VJ.AddNPC("Rat", "npc_vj_hlrpar1_rat", spawnCategory)
 -- Spawners
 VJ.AddNPC("Random Zombie", "sent_vj_hlrpar1_zombie", spawnCategory)
