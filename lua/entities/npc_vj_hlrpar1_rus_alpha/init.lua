@@ -418,9 +418,12 @@ function ENT:Init()
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
     end
+
     VJ.HLR_ApplyFactionOptions(self)
+
     local curTime = CurTime()
     self.Soldier_NextStrafeT = curTime + 4
+    self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
     if self.Soldier_Init then self:Soldier_Init() end
     if self.Soldier_Voice then self:Soldier_Voice() end
 end

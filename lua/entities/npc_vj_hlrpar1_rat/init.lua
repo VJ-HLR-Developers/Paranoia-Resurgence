@@ -39,6 +39,7 @@ local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetCollisionBounds(Vector(5, 5, 5), Vector(-5, -5, 0))
+    self:SetSurroundingBounds(Vector(15, 15, 30), Vector(-15, -15, 0))
     self.HasDeathSounds = math_random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

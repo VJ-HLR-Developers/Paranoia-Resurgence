@@ -58,6 +58,7 @@ ENT.HasDeathCorpse = false
 ENT.VJ_ID_Healable = false
 
 ENT.SoundTbl_Death = "vj_hlr/gsrc/wep/mortar/mortarhit.wav"
+ENT.SoundTbl_SoundTrack = "vj_parr/par1/apache/track16.mp3"
 
 ENT.MainSoundPitch = 100
 ENT.DeathSoundLevel = 100
@@ -92,7 +93,6 @@ function ENT:Init()
     self:SetNW2Int("Heli_SmokeLevel", 0)
     self.ConstantlyFaceEnemy_MinDistance = self:GetMaxLookDistance()
 
-    self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
     self:SetPos(self:GetPos() + spawnPos)
 
     local offset = math_rand(0, math_pi * 0.25)
@@ -111,6 +111,9 @@ function ENT:Init()
     self:DeleteOnRemove(rotorwash)
 
     VJ.HLR_ApplyFactionOptions(self)
+
+    self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
+    self:SetSurroundingBounds(Vector(600, 600, 250), Vector(-600, -600, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)

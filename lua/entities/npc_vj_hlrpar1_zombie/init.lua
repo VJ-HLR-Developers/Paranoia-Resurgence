@@ -202,7 +202,7 @@ function ENT:Init()
     elseif myMDL == "models/vj_parr/par2/monster_boss.mdl" then
         self.Zombie_Type = 14
     end
-    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
+    self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
     if self.Zombie_Init then self:Zombie_Init() end
     if self.Zombie_Voice then self:Zombie_Voice() end
 end

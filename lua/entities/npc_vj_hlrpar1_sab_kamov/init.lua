@@ -7,6 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/apache.mdl"
+//ENT.StartHealth = 600
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
 ENT.BecomeEnemyToPlayer = false
+//ENT.HasSoundTrack = true

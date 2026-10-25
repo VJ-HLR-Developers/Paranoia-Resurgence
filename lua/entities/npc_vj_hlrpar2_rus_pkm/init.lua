@@ -42,10 +42,12 @@ function ENT:Init()
     self.PKM_Gunners = gunner
 
     VJ.HLR_ApplyFactionOptions(self)
+
     local curTime = CurTime()
-    self:SetCollisionBounds(Vector(13, 13, 45), Vector(-13, -13, 0))
     self.PKM_LockTime = curTime + 0.3 -- Prevent spawn-killing
     self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
+    self:SetCollisionBounds(Vector(13, 13, 45), Vector(-13, -13, 0))
+    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnRangeAttackExecute(status, enemy, projectile)

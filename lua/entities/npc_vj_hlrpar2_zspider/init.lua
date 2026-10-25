@@ -100,6 +100,7 @@ function ENT:Init()
         end)
     end
     self:SetCollisionBounds(Vector(10, 10, 22), Vector(-10, -10, 0))
+    self:SetSurroundingBounds(Vector(40, 40, 80), Vector(-40, -40, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()

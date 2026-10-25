@@ -36,7 +36,7 @@ function ENT:Zombie_Voice()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_Init()
-    self:SetCollisionBounds(Vector(35, 35, 110), Vector(-35, -35, 0))
+    self:SetCollisionBounds(Vector(25, 25, 110), Vector(-25, -25, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
