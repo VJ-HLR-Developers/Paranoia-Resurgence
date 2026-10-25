@@ -10,6 +10,10 @@ ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 ENT.Bleeds = false
+ENT.BloodColor = VJ.BLOOD_COLOR_RED
+ENT.BloodParticle = "vj_parr1_blood_red"
+ENT.BloodDecal = "VJ_PARR1_Blood_Red"
+ENT.HasBloodPool = false
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 
 ENT.HasMeleeAttack = false
@@ -206,7 +210,7 @@ function ENT:OnThinkActive()
                 self:PlaySoundSystem("Alert", self.SoundTbl_SpawnZombies)
                 -- Fewer bodies, the faster it spawns zombies
                 if self.Brain_BodyCount <= 0 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(2, 6)
+                    self.Brain_NextZombieSpawnT = curTime + math_rand(3, 6)
                 elseif self.Brain_BodyCount <= 1 then
                     self.Brain_NextZombieSpawnT = curTime + math_rand(4, 8)
                 elseif self.Brain_BodyCount <= 2 then
@@ -249,6 +253,15 @@ function ENT:Brain_BodyDeath()
     self.Brain_BodyCount = self.Brain_BodyCount - 1
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnBleed(dmginfo, hitgroup)
+    -- Spawn a unique decal from headshots, based on source code
+    if hitgroup == HITGROUP_HEAD then
+        self.BloodDecal = "VJ_PARR1_Brains"
+    else
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 /*function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make it immune to DMG_NERVEGAS, based on source code
@@ -288,6 +301,7 @@ end*/
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
+        self.Bleeds = true
         -- Reset buff stats for zombies when killed
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
             if IsValid(v) && v.Zombie_Buffed then
@@ -299,33 +313,26 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
-    corpse:ResetSequence(self:GetSequence())
+    corpse:SetModel("models/vj_parr/par1/brain_tree.mdl")
+    corpse:ResetSequence("die")
     corpse:SetCycle(1)
     corpse:SetMoveType(self:GetMoveType())
     corpse:SetCollisionGroup(self.DeathCorpseCollisionType)
     local minBounds, maxBounds = self:GetCollisionBounds()
-    corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, 5), Vector(-minBounds.x, -maxBounds.y, 0))
+    corpse:SetCollisionBounds(Vector(minBounds.x, maxBounds.y, maxBounds.z), Vector(-minBounds.x, -maxBounds.y, 0))
     corpse:SetSurroundingBounds(Vector(minBounds.x * 100, maxBounds.y * 100, 5 * 100), Vector(-minBounds.x * 100, -maxBounds.y * 100, 0))
 
     local myPos = corpse:GetPos()
     local myAng = corpse:GetAngles()
     local myForward = corpse:GetForward()
     local myRight = corpse:GetRight()
+    local myUp = corpse:GetUp()
 
-    local brainTree = ents.Create("prop_vj_animatable")
-    brainTree:SetModel("models/vj_parr/par1/brain_tree.mdl")
-    brainTree:SetPos(myPos)
-    brainTree:SetAngles(myAng)
-    brainTree:SetParent(corpse)
-    brainTree.PhysgunDisabled = true
-    brainTree:SetCollisionGroup(self.DeathCorpseCollisionType)
-    brainTree:Spawn()
-    brainTree:ResetSequence("die")
-    brainTree:SetCycle(1)
+    corpse:SetPos(myPos + myUp * -4)
 
     local brainBody = ents.Create("prop_vj_animatable")
     brainBody:SetModel("models/vj_parr/par1/brain_trup1.mdl")
-    brainBody:SetPos(myPos + myForward * 20)
+    brainBody:SetPos(myPos + myForward * 20 + myUp * -4)
     brainBody:SetAngles(myAng)
     brainBody:SetParent(corpse)
     brainBody.PhysgunDisabled = true
@@ -336,7 +343,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 
     local brainBody2 = ents.Create("prop_vj_animatable")
     brainBody2:SetModel("models/vj_parr/par1/brain_trup2.mdl")
-    brainBody2:SetPos(myPos + myRight * -80)
+    brainBody2:SetPos(myPos + myRight * -80 + myUp * -4)
     brainBody2:SetAngles(myAng)
     brainBody2:SetParent(corpse)
     brainBody2.PhysgunDisabled = true
@@ -347,7 +354,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 
     local brainBody3 = ents.Create("prop_vj_animatable")
     brainBody3:SetModel("models/vj_parr/par1/brain_trup3.mdl")
-    brainBody3:SetPos(myPos + myRight * 180)
+    brainBody3:SetPos(myPos + myRight * 180 + myUp * -4)
     brainBody3:SetAngles(myAng)
     brainBody3:SetParent(corpse)
     brainBody3.PhysgunDisabled = true
@@ -358,7 +365,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 
     local brainBody4 = ents.Create("prop_vj_animatable")
     brainBody4:SetModel("models/vj_parr/par1/brain_trup4.mdl")
-    brainBody4:SetPos(myPos + myForward * -170)
+    brainBody4:SetPos(myPos + myForward * -170 + myUp * -4)
     brainBody4:SetAngles(myAng)
     brainBody4:SetParent(corpse)
     brainBody4.PhysgunDisabled = true
@@ -378,9 +385,3 @@ function ENT:CustomOnRemove()
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-hook.Add("AddNPCKill", "HideSpecificNPCKillfeed", function(npc, attacker, inflictor)
-    if npc:GetClass() == "npc_vj_hlrpar1_zbrain" then
-        return false
-    end
-end)

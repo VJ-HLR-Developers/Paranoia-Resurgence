@@ -49,6 +49,15 @@ function ENT:Init()
     self:SetSurroundingBounds(Vector(250, 250, 500), Vector(-250, -250, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnBleed(dmginfo, hitgroup)
+    -- Spawn a unique decal from headshots, based on source code
+    if hitgroup == HITGROUP_HEAD then
+        self.BloodDecal = "VJ_PARR1_Brains"
+    else
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make it immune to DMG_NERVEGAS, based on source code
