@@ -60,7 +60,7 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
-ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Base Personnel
+ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Spetsnaz
 ENT.CIvilian_WeaponModel = false
 ENT.Civilian_CanHurtWalk = false
 ENT.Civilian_NextMouthMove = 0
@@ -123,6 +123,20 @@ function ENT:Civilian_Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
+    local myMDL = self:GetModel()
+    if myMDL == "models/vj_parr/par1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_himik.mdl" or myMDL == "models/vj_parr/par1/npc_officer.mdl" or myMDL == "models/vj_parr/par1/npc_officer_general.mdl" or myMDL == "models/vj_parr/par1/npc_scientist.mdl" or myMDL == "models/vj_parr/par1/npc_signal.mdl" or myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/npc_svarka.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" or myMDL == "models/vj_parr/par1/cut/rammfan.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl" then
+        self.Civilian_Type = 0
+    elseif myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_medic.mdl" then
+        self.Civilian_Type = 1
+    elseif myMDL == "models/vj_parr/par2/char_polina.mdl" then
+        self.Civilian_Type = 2
+    elseif myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
+        self.Civilian_Type = 3
+    elseif myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" then
+        self.Civilian_Type = 4
+    elseif myMDL == "models/vj_parr/par1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier_alpha.mdl" then
+        self.Civilian_Type = 5
+    end
     ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)

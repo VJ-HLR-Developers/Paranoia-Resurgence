@@ -12,8 +12,6 @@ ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.IsMedic = false
 ENT.HasDeathAnimation = true
 ENT.MainSoundPitch = 100
--- Custom
-ENT.Civilian_Type = 2
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {

@@ -10,6 +10,30 @@ ENT.Model = "models/vj_parr/par1/npc_himik.mdl"
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Civilian_Voice()
+    self.SoundTbl_Idle = {
+        "vj_parr/par1/npc/bunk/suit0.wav",
+        "vj_parr/par1/npc/bunk/suit1.wav",
+        "vj_parr/par1/npc/bunk/suit2.wav",
+        "vj_parr/par1/npc/bunk/suit3.wav",
+        "vj_parr/par1/npc/bunk/suit4.wav",
+        "vj_parr/par1/npc/bunk/suit5.wav",
+        "vj_parr/par1/npc/bunk/suit6.wav"
+    }
+    self.SoundTbl_Death = {
+        "vj_parr/par1/military/mil_die1.wav",
+        "vj_parr/par1/military/mil_die2.wav",
+        "vj_parr/par1/military/mil_die3.wav"
+    }
+    self.SoundTbl_Pain = {
+        "vj_parr/par1/military/mil_pain1.wav",
+        "vj_parr/par1/military/mil_pain2.wav",
+        "vj_parr/par1/military/mil_pain3.wav",
+        "vj_parr/par1/military/mil_pain4.wav",
+        "vj_parr/par1/military/mil_pain5.wav"
+    }
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Init()
     self:SetSkin(math_random(0, 3))
 end

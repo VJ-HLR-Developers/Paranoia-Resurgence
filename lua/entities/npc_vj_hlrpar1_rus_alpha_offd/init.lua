@@ -7,8 +7,6 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/npc_soldier_alpha.mdl"
--- Custom
-ENT.Civilian_Type = 5
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------

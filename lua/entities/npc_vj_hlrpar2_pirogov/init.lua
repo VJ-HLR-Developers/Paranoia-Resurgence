@@ -10,8 +10,6 @@ ENT.Model = "models/vj_parr/par2/char_pirogov.mdl"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.MainSoundPitch = 100
--- Custom
-ENT.Civilian_Type = 3
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
