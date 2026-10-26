@@ -243,7 +243,7 @@ function ENT:OnThinkAttack(isAttacking, enemy)
         effectData:SetAngles(attShell.Ang)
         util.Effect("RifleShellEject", effectData, true, true)
 
-        self.Heli_NextMGT = curTime + 0.1
+        self.Heli_NextMGT = curTime + 0.06
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

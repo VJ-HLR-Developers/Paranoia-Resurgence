@@ -5,6 +5,9 @@ ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Category = "Paranoia Resurgence"
 
+ENT.VJ_ID_Vehicle = true
+ENT.VJ_ID_Aircraft = true
+
 if CLIENT then
     ENT.Apache_NextSmoke = 0
     function ENT:Draw()

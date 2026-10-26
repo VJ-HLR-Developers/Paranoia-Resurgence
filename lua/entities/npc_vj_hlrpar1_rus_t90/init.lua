@@ -96,9 +96,9 @@ function ENT:Tank_UpdateMoveParticles()
     local effectData = EffectData()
     effectData:SetScale(1)
     effectData:SetEntity(self)
-    effectData:SetOrigin(spawnPos + self:GetRight() * 50)
+    effectData:SetOrigin(spawnPos + self:GetRight() * 45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
-    effectData:SetOrigin(spawnPos + self:GetRight() * -50)
+    effectData:SetOrigin(spawnPos + self:GetRight() * -45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

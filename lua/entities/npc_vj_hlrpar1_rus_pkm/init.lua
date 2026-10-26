@@ -32,7 +32,7 @@ ENT.AnimTbl_RangeAttack = false
 ENT.RangeAttackMaxDistance = 6000
 ENT.RangeAttackMinDistance = 50
 ENT.TimeUntilRangeAttackProjectileRelease = 0
-ENT.NextRangeAttackTime = 0.1
+ENT.NextRangeAttackTime = 0.06
 
 ENT.VJ_ID_Healable = false
 

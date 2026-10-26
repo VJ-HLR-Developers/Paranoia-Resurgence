@@ -142,7 +142,7 @@ function ENT:Tank_OnThinkActive()
                 Damage = self:ScaleByDifficulty(12),
                 AmmoType = "SMG"
             })
-            self.BTR_NextMGT = curTime + 0.1
+            self.BTR_NextMGT = curTime + 0.06
             VJ.EmitSound(self, "VJ.PARR1_MG.Single")
             self:FireFX()
         end

@@ -97,13 +97,13 @@ function ENT:Tank_GunnerSpawnPosition()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_UpdateMoveParticles()
-    local spawnPos = self:GetPos() + self:GetForward() * -135
+    local spawnPos = self:GetPos() + self:GetForward() * -130
     local effectData = EffectData()
     effectData:SetScale(1)
     effectData:SetEntity(self)
-    effectData:SetOrigin(spawnPos + self:GetRight() * 40)
+    effectData:SetOrigin(spawnPos + self:GetRight() * 45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
-    effectData:SetOrigin(spawnPos + self:GetRight() * -40)
+    effectData:SetOrigin(spawnPos + self:GetRight() * -45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
