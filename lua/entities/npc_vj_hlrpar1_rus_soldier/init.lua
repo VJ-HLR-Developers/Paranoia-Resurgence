@@ -13,6 +13,14 @@ local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
+        "vj_parr/par1/officer/monologue1.wav",
+        "vj_parr/par1/officer/monologue2.wav",
+        "vj_parr/par1/officer/monologue3.wav",
+        "vj_parr/par1/officer/monologue4.wav",
+        "vj_parr/par1/officer/monologue5.wav",
+        "vj_parr/par1/officer/monologue6.wav",
+        "vj_parr/par1/officer/monologue7.wav",
+        "vj_parr/par1/officer/monologue8.wav",
         "vj_parr/par1/soldier/bolnoy1.wav",
         "vj_parr/par1/soldier/bolnoy2.wav",
         "vj_parr/par1/soldier/bolnoy3.wav",
@@ -40,6 +48,11 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/alpha/monologue8.wav"
     }
     self.SoundTbl_IdleDialogueAnswer = {
+        "vj_parr/par1/officer/work1.wav",
+        "vj_parr/par1/officer/work2.wav",
+        "vj_parr/par1/officer/work3.wav",
+        "vj_parr/par1/officer/work4.wav",
+        "vj_parr/par1/officer/work5.wav",
         "vj_parr/par1/soldier/guard1.wav",
         "vj_parr/par1/soldier/guard2.wav",
         "vj_parr/par1/soldier/guard3.wav",
@@ -81,6 +94,10 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/npc/army/karaul3.wav"
     }
     self.SoundTbl_OnPlayerSight = {
+        "vj_parr/par1/officer/hello1.wav",
+        "vj_parr/par1/officer/hello2.wav",
+        "vj_parr/par1/officer/hello3.wav",
+        "vj_parr/par1/officer/hello4.wav",
         "vj_parr/par1/soldier/hello2.wav",
         "vj_parr/par1/soldier/hello3.wav",
         "vj_parr/par1/soldier/hello4.wav",
@@ -94,6 +111,9 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/npc/army/konferents_zal.wav"
     }
     self.SoundTbl_YieldToPlayer = {
+        "vj_parr/par1/officer/cantgo1.wav",
+        "vj_parr/par1/officer/cantgo2.wav",
+        "vj_parr/par1/officer/cantgo3.wav",
         "vj_parr/par1/soldier/cantgo1.wav",
         "vj_parr/par1/soldier/cantgo2.wav",
         "vj_parr/par1/soldier/cantgo3.wav"

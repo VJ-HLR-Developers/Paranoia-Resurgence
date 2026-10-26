@@ -13,6 +13,7 @@ ENT.Medic_HealAmount = 50
 ENT.Medic_TimeUntilHeal = 0
 ENT.Medic_SpawnPropOnHeal = false
 ENT.HasDeathAnimation = false
+ENT.SoundTbl_MedicBeforeHeal = "vj_parr/par1/npc/army/hosp3.wav"
 ENT.SoundTbl_MedicOnHeal = {"vj_parr/par1/shared/smallmedkit1.wav", "vj_parr/par1/shared/smallmedkit2.wav"}
 -- Custom
 ENT.Civilian_Type = 1
@@ -49,7 +50,8 @@ function ENT:Civilian_Voice()
     self.SoundTbl_OnPlayerSight = {
         "vj_parr/par1/medic/hello1.wav",
         "vj_parr/par1/medic/hello2.wav",
-        "vj_parr/par1/medic/hello3.wav"
+        "vj_parr/par1/medic/hello3.wav",
+        "vj_parr/par1/npc/army/hosp0.wav"
     }
     self.SoundTbl_YieldToPlayer = {
         "vj_parr/par1/medic/blocked1.wav",

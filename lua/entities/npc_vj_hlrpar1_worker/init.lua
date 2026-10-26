@@ -60,7 +60,7 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
-ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Spetsnaz
+ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Base Personnel
 ENT.CIvilian_WeaponModel = false
 ENT.Civilian_CanHurtWalk = false
 ENT.Civilian_NextMouthMove = 0

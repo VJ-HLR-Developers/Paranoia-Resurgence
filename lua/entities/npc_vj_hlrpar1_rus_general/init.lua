@@ -1,4 +1,4 @@
-include("entities/npc_vj_hlrpar1_worker/init.lua")
+include("entities/npc_vj_hlrpar1_rus_alpha_offd/init.lua")
 AddCSLuaFile("shared.lua")
 include("shared.lua")
 /*-----------------------------------------------
