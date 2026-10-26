@@ -74,13 +74,30 @@ function ENT:OnThink()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnBleed(dmginfo, hitgroup)
+    -- Spawn a unique decal from headshots, based on source code
+    if hitgroup == HITGROUP_HEAD then
+        self.BloodDecal = "VJ_PARR1_Brains"
+    else
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
-        self.DeathAnimationDecreaseLengthAmount = -1
-        self.DeathCorpseEntityClass = "prop_vj_animatable"
-        VJ.HLR_StaticCorpseCheck(self)
+    if status == "Init" then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+            self.DeathAnimationDecreaseLengthAmount = -1
+            self.DeathCorpseEntityClass = "prop_vj_animatable"
+            VJ.HLR_StaticCorpseCheck(self)
+        end
+        if hitgroup == HITGROUP_HEAD then
+            VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
+        end
     elseif status == "DeathAnim" then
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
+    elseif status == "Finish" then
+        -- Reset the blood decals to default if hit in head
+        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
