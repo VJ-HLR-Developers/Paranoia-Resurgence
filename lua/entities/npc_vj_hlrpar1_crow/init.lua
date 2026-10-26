@@ -6,7 +6,7 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/cut/crow.mdl"
-ENT.StartHealth = 25
+ENT.StartHealth = 1
 ENT.HullType = HULL_TINY
 ENT.TurningSpeed = 12
 ENT.TurningUseAllAxis = true
