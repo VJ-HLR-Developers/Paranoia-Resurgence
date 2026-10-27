@@ -8,5 +8,8 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/early/v1/soldier.mdl"
 ENT.GrenadeAttackAttachment = "lhand"
+ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
+ENT.AnimTbl_Flinch = false
+ENT.FlinchHitGroupMap = false
 ENT.HasDeathAnimation = false
 ENT.SoundTbl_MeleeAttackExtra = {"vj_parr/par1/weapons/machete_hit1.wav", "vj_parr/par1/weapons/machete_hit2.wav", "vj_parr/par1/weapons/machete_hit3.wav", "vj_parr/par1/weapons/machete_hit4.wav"}
