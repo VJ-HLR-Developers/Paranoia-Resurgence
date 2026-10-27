@@ -138,6 +138,7 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
+    if victim.LNR_InfectedVictim or victim.GOTDR_InfectedVictim or victim.NMRIHR_InfectedVictim or victim.CNCR_InfectedVictim or victim.ZPS_InfectedVictim or victim.OSZ_InfectedVictim then return end
     if ent.VJ_ID_Undead or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) then return end
     if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
@@ -217,8 +218,9 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 end
                 timer.Simple(1, function()
                     if IsValid(zombie) then
+                        local zomBleedTmr = "timer_melee_bleed" .. zombie:EntIndex()
                         zombie.GodMode = false
-                        if timer.Exists("timer_melee_bleed" .. zombie:EntIndex()) then timer.Remove("timer_melee_bleed" .. zombie:EntIndex()) end
+                        if timer.Exists(zomBleedTmr) then timer.Remove(zomBleedTmr) end
                     end
                 end)
                 local wepEnt = ent.WeaponEntity

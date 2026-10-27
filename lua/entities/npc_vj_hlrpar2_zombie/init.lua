@@ -64,6 +64,7 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
+    if victim.LNR_InfectedVictim or victim.GOTDR_InfectedVictim or victim.NMRIHR_InfectedVictim or victim.CNCR_InfectedVictim or victim.ZPS_InfectedVictim or victim.OSZ_InfectedVictim then return end
     if ent.VJ_ID_Undead or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) or (self.IsVJBaseSNPC_Human && self.WeaponAttackState != VJ.WEP_ATTACK_STATE_NONE) or (self.AttackType != VJ.ATTACK_TYPE_MELEE && self.AttackType != VJ.ATTACK_TYPE_LEAP) then return end
     if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
@@ -75,8 +76,9 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 end
             end
         end)
-        if IsValid(ent:GetParent()) then
-            ent:SetPos(ent:GetParent():GetAttachment(ent:GetParentAttachment()).Pos)
+        local entParent = ent:GetParent()
+        if IsValid(entParent) then
+            ent:SetPos(entParent:GetAttachment(ent:GetParentAttachment()).Pos)
             ent:SetParent(NULL)
         end
         if ent.IsVJBaseSNPC then
@@ -114,7 +116,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             if IsValid(ent) then
                 local entClass = ent:GetClass()
                 local zomList = VJ.PICK({"npc_vj_hlrpar2_zombie", "npc_vj_hlrpar2_zombie_v1", "npc_vj_hlrpar2_zclassic"})
-                local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
+                local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed", "npc_vj_hlrpar2_zclone"})
                 local zombie = ents.Create(
                     (cloneList[entClass] && zomCloneList) or (spetsnazList[entClass] && "npc_vj_hlrpar1_zalpha")
                     or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar2_zhazmat") or zomList
@@ -146,8 +148,9 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 end
                 timer.Simple(1, function()
                     if IsValid(zombie) then
+                        local zomBleedTmr = "timer_melee_bleed" .. zombie:EntIndex()
                         zombie.GodMode = false
-                        if timer.Exists("timer_melee_bleed" .. zombie:EntIndex()) then timer.Remove("timer_melee_bleed" .. zombie:EntIndex()) end
+                        if timer.Exists(zomBleedTmr) then timer.Remove(zomBleedTmr) end
                     end
                 end)
                 local wepEnt = ent.WeaponEntity
