@@ -375,16 +375,15 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
-        -- Have armed zombie drop pistol on death
-        if self.Zombie_Type == 5 && self.Zombie_DropPistol then
-            self:SetBodygroup(1, 1)
-            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
-        end
-    elseif status == "DeathAnim" then
         if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
+        end
+        -- Have armed zombie drop pistol on death
+        if self.Zombie_Type == 5 && self.Zombie_DropPistol then
+            self:SetBodygroup(1, 1)
+            self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/weapons/w_aps.mdl", {Pos = self:GetAttachment(self:LookupAttachment("lhand")).Pos, Ang = self:GetAngles() + Angle(0, 0, -90), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
         end
     elseif status == "Finish" then
         -- Reset the blood decals to default if hit in head

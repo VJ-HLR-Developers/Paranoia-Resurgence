@@ -352,6 +352,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
+        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
+            self.AnimTbl_Death = ACT_DIE_HEADSHOT
+        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
+            self.AnimTbl_Death = ACT_DIE_GUTSHOT
+        end
         local myMDL = self:GetModel()
         if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl") && self.CIvilian_WeaponModel then
             if myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" then
@@ -360,12 +365,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 self:SetBodygroup(3, 2)
             end
             self:CreateGibEntity("obj_vj_gib", self.CIvilian_WeaponModel, {Pos = self:GetAttachment(self:LookupAttachment("rhand")).Pos, Ang = self:GetAngles(), Vel = "UseDamageForce", CollideSound = "", CollisionDecal = false}, function(gib) gib.PhysicsSounds = true end)
-        end
-    elseif status == "DeathAnim" then
-        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
-            self.AnimTbl_Death = ACT_DIE_HEADSHOT
-        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
-            self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
     elseif status == "Finish" then
         -- Reset the blood decals to default if hit in head

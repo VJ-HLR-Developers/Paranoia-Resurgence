@@ -819,6 +819,11 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if hitgroup == HITGROUP_HEAD then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
+        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
+            self.AnimTbl_Death = ACT_DIE_HEADSHOT
+        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
+            self.AnimTbl_Death = ACT_DIE_GUTSHOT
+        end
         -- Unparent the gunner from PKM Emplacement if they died. Prevents Source from spawning them in a random location of the map
         local owner = self:GetOwner()
         if IsValid(owner) then
@@ -833,11 +838,6 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             end
         end
     elseif status == "DeathAnim" then
-        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
-            self.AnimTbl_Death = ACT_DIE_HEADSHOT
-        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
-            self.AnimTbl_Death = ACT_DIE_GUTSHOT
-        end
         self:DeathWeaponDrop(dmginfo, hitgroup)
         self:OnDeath(dmginfo, hitgroup, "Finish")
         local activeWep = self:GetActiveWeapon()
