@@ -216,6 +216,9 @@ function ENT:TranslateActivity(act)
             return ACT_IDLE
         end
     end
+    if act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then
+        return ACT_IDLE_RELAXED
+    end
     return self.BaseClass.TranslateActivity(self, act)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
