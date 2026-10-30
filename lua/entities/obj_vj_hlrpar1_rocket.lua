@@ -52,7 +52,6 @@ ENT.SoundTbl_OnCollide = "VJ.PARR1_Explosion.Single"
 ENT.OnCollideSoundLevel = 100
 
 -- Custom
-ENT.Rocket_AirMissile = false
 ENT.Rocket_HelicopterMissile = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local colorTrail = Color(224, 224, 255, 255)
@@ -87,7 +86,7 @@ function ENT:Init()
                 local owner = self:GetOwner()
                 if IsValid(owner) then
                     local phys = self:GetPhysicsObject()
-                    local ene = self:GetOwner():GetEnemy()
+                    local ene = owner:GetEnemy()
                     if IsValid(phys) && IsValid(ene) then
                         phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
                         self:SetAngles(self:GetVelocity():Angle())
