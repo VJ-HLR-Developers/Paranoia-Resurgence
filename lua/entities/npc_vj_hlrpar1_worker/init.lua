@@ -130,7 +130,7 @@ function ENT:Init()
         self.Civilian_Type = 1
     elseif myMDL == "models/vj_parr/par2/char_polina.mdl" then
         self.Civilian_Type = 2
-    elseif myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
+    elseif myMDL == "models/vj_parr/par2/char_pirogov.mdl" or myMDL == "models/vj_parr/par2/early/v1/hazmat.mdl" then
         self.Civilian_Type = 3
     elseif myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" then
         self.Civilian_Type = 4
