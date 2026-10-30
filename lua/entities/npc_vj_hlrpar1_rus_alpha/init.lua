@@ -68,7 +68,7 @@ ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shar
 ENT.MainSoundPitch = VJ.SET(95, 105)
 
 -- Custom
-ENT.Soldier_Type = 0 -- 0 = Spetsnaz, 1 = Soldier, 2 = Terrorist, 3 = Clone, 4 = Saboteur
+ENT.Soldier_Type = 0 -- 0 = Spetsnaz & General, 1 = Soldier, 2 = Terrorist, 3 = Clone, 4 = Saboteur
 ENT.Soldier_WepBG = 0
 ENT.Soldier_WepBGRemove = 0
 //ENT.Soldier_AmmoType = NULL
@@ -361,7 +361,7 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 3
         self:SetBodygroup(self.Soldier_WepBG, math_random(0, 2))
-    elseif myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
+    elseif myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 5
@@ -371,6 +371,10 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
+    elseif myMDL == "models/vj_parr/par2/early/v1/player2.mdl" then
+        self.Soldier_Type = 0
+        self.Soldier_WepBG = 2
+        self.Soldier_WepBGRemove = 1
     elseif myMDL == "models/vj_parr/par1/cut/general_pistol.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 1
@@ -491,12 +495,12 @@ function ENT:SetAnimationTranslations(wepHoldType)
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
                 self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
-            elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- PKM
+            elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
                 self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
                 self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
-            elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- KS-23
+            elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
                 self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SHOTGUN
@@ -599,31 +603,41 @@ function ENT:OnThink()
             if !self.Soldier_PistolAnims then
                 if bodyGroup == 0 then -- AKS
                     //self.Soldier_AmmoType = "SMG1"
-                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_aks")
+                    elseif myMDL == "models/vj_parr/par2/early/v1/player2.mdl" then
+                        self:DoChangeWeapon("weapon_vj_hlrpar2_ak74")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_aks")
                     end
                 elseif bodyGroup == 1 then -- VAL
                     //self.Soldier_AmmoType = "SMG1"
-                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_val")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_val")
                     end
                 elseif bodyGroup == 2 then -- Groza
                     //self.Soldier_AmmoType = "SMG1"
-                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
+                    if myMDL == "models/vj_parr/par2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then
                         self:DoChangeWeapon("weapon_vj_hlrpar2_groza")
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
                     end
-                elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- PKM
+                elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
                     //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
-                elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then -- KS-23
+                elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
                     //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_ks23")
+                elseif IsValid(wep) then
+                    //self.Soldier_AmmoType = NULL
+                    wep:Remove()
+                end
+            elseif self.Soldier_PistolAnims then
+                if bodyGroup == 0 then -- APS
+                    //self.Soldier_AmmoType = "Pistol"
+                    self:DoChangeWeapon("weapon_vj_hlrpar1_aps")
                 elseif IsValid(wep) then
                     //self.Soldier_AmmoType = NULL
                     wep:Remove()

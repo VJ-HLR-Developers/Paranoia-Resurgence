@@ -37,7 +37,7 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 
 -- Custom
 local validModels = {
-    ["models/vj_parr/par2/early/v1/soldier_alpha.mdl"] = true
+    ["models/vj_parr/par2/early/v2/soldier_alpha.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/ks23/ks-23_insertshell.wav"
 SWEP.Reload_Finish = SWEP.NPC_ExtraFireSound

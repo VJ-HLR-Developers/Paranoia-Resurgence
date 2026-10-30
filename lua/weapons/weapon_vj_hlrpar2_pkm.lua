@@ -40,7 +40,7 @@ local validModels = {
     ["models/vj_parr/par2/cut/soldier_clon_zombied.mdl"] = true,
     ["models/vj_parr/par2/1.0/monster_clonsoldier.mdl"] = true,
     ["models/vj_parr/par2/1.0/monster_soldiershooter.mdl"] = true,
-    ["models/vj_parr/par2/early/v1/soldier_alpha.mdl"] = true
+    ["models/vj_parr/par2/early/v2/soldier_alpha.mdl"] = true
 }
 SWEP.Reload_Start = "vj_parr/par2/weapons/pkm/pkm_boxout.wav"
 SWEP.Reload_Middle = "vj_parr/par2/weapons/pkm/pkm_boxin.wav"
@@ -63,7 +63,7 @@ function SWEP:Init()
             elseif ownerMDL == "models/vj_parr/par2/cut/soldier_clon_zombied.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(0, -160, 0)
                 self.WorldModelOffsetParams.Pos = Vector(11.687, 2.977, -2.8)
-            elseif ownerMDL == "models/vj_parr/par2/early/v1/soldier_alpha.mdl" then
+            elseif ownerMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then
                 self.WorldModel = "models/vj_parr/par2/weapons/early/world_pkm.mdl"
                 self.WorldModelOffsetParams.Bone = "bip01_r_hand"
             end

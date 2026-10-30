@@ -111,6 +111,7 @@ VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory, {SubCa
 VJ.AddNPC("Russian Soldier (V1)", "npc_vj_hlrpar2_rus_soldier_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz", "npc_vj_hlrpar2_rus_alpha", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Spetsnaz (V1)", "npc_vj_hlrpar2_rus_alpha_v1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Spetsnaz (V2)", "npc_vj_hlrpar2_rus_alpha_v2", spawnCategory, {SubCategory = subCategory})
 -- Clones
 subCategory = "Clones"
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory, {SubCategory = subCategory})
