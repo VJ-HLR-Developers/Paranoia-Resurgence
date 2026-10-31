@@ -35,5 +35,5 @@ local entsList = {
     "npc_vj_hlrpar2_zstriker:25"
 }
 ENT.EntitiesToSpawn = {
-    {SpawnPosition = Vector(0, 0, 15), Entities = entsList},
+    {SpawnPosition = Vector(0, 0, 10), Entities = entsList},
 }

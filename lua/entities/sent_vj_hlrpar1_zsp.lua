@@ -33,9 +33,9 @@ local entsList = {
     "npc_vj_hlrpar1_zspider_v1:25"
 }
 ENT.EntitiesToSpawn = {
-    {SpawnPosition = Vector(0, 0, 15), Entities = entsList},
-    {SpawnPosition = Vector(50, 50, 15), Entities = entsList},
-    {SpawnPosition = Vector(50, -50, 15), Entities = entsList},
-    {SpawnPosition = Vector(-50, 50, 15), Entities = entsList},
-    {SpawnPosition = Vector(-50, -50, 15), Entities = entsList},
+    {SpawnPosition = Vector(0, 0, 10), Entities = entsList},
+    {SpawnPosition = Vector(50, 50, 10), Entities = entsList},
+    {SpawnPosition = Vector(50, -50, 10), Entities = entsList},
+    {SpawnPosition = Vector(-50, 50, 10), Entities = entsList},
+    {SpawnPosition = Vector(-50, -50, 10), Entities = entsList},
 }
