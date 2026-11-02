@@ -87,6 +87,7 @@ function ENT:Init()
 
     local curTime = CurTime()
     self.PKM_LockTime = curTime + 0.3 -- Prevent spawn-killing
+    self:SetSolid(SOLID_VPHYSICS)
     self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 50), Vector(-60, -60, 0))
@@ -209,7 +210,7 @@ end
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "PreDamage" && dmginfo:GetDamagePosition() != vec then
+    if status == "Init" && dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
         rico:SetScale(4) -- Size
