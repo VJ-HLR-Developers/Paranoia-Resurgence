@@ -9,6 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par2/monster_clonsoldier.mdl"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
+ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 

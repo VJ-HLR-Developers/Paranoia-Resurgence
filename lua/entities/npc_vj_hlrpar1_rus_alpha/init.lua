@@ -460,7 +460,7 @@ function ENT:TranslateActivity(act)
     end
     local npcState = self:GetNPCState()
     if act == ACT_IDLE && self.PKM_Gunner then
-        return (self.VJ_PARR2_NPC && VJ.SequenceToActivity(self, "hunkered")) or ACT_IDLE_MANNEDGUN
+        return (self.VJ_PARR2_NPC && (VJ.SequenceToActivity(self, "hunkered") or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
     elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     elseif act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then

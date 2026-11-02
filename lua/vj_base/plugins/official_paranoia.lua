@@ -58,15 +58,17 @@ VJ.AddNPC("Terrorist (V1)", "npc_vj_hlrpar1_ter_v1", spawnCategory, {SubCategory
 VJ.AddNPC("Terrorist PKM Emplacement", "npc_vj_hlrpar1_ter_pkm", spawnCategory, {SubCategory = subCategory})
 -- Saboteurs
 subCategory = "Saboteurs"
-VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_sab_kamov", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Saboteur PKM Emplacement", "npc_vj_hlrpar1_sab_pkm", spawnCategory, {SubCategory = subCategory})
 -- Clones
 subCategory = "Clones"
-VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory, {SubCategory = subCategory})
-VJ.AddNPC("Clone Soldier (V1)", "npc_vj_hlrpar1_clo_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Clone Heavy Soldier", "npc_vj_hlrpar1_clo_heavy", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Clone Heavy Soldier (V1)", "npc_vj_hlrpar1_clo_heavy_v1", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone PKM Emplacement", "npc_vj_hlrpar1_clo_pkm", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar1_clone", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Clone Soldier (V1)", "npc_vj_hlrpar1_clo_v1", spawnCategory, {SubCategory = subCategory})
 -- Zombies
 subCategory = "Zombies"
 VJ.AddNPC("Zombie", "npc_vj_hlrpar1_zombie", spawnCategory, {SubCategory = subCategory})
@@ -115,6 +117,7 @@ VJ.AddNPC("Russian Spetsnaz (V1)", "npc_vj_hlrpar2_rus_alpha_v1", spawnCategory,
 VJ.AddNPC("Russian Spetsnaz (V2)", "npc_vj_hlrpar2_rus_alpha_v2", spawnCategory, {SubCategory = subCategory})
 -- Clones
 subCategory = "Clones"
+VJ.AddNPC("Clone PKM Emplacement", "npc_vj_hlrpar2_clo_pkm", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Clone Soldier", "npc_vj_hlrpar2_clone", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Clone Soldier (1.0)", "npc_vj_hlrpar2_clone_v1", spawnCategory, {SubCategory = subCategory})
 -- Zombies

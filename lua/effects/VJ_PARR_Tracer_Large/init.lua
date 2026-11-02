@@ -20,7 +20,7 @@ function EFFECT:Init(data)
     local att = data:GetAttachment()
     local locPly = LocalPlayer()
 
-    if (IsValid( ent ) && att > 0) then
+    if (IsValid(ent) && att > 0) then
         if (ent.Owner == locPly && locPly:GetViewModel() != locPly) then ent = ent.Owner:GetViewModel() end
         att = ent:GetAttachment(att)
         if (att) then

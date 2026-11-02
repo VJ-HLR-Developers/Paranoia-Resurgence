@@ -58,7 +58,8 @@ function ENT:Init()
     self.PKM_Gunners = {}
 
     -- Spawn the gunner
-    local gunner = ents.Create((self:GetClass() == "npc_vj_hlrpar1_ter_pkm" && "npc_vj_hlrpar1_terrorist") or "npc_vj_hlrpar1_rus_soldier")
+    local myClass = self:GetClass()
+    local gunner = ents.Create((myClass == "npc_vj_hlrpar1_clo_pkm" && "npc_vj_hlrpar1_clone") or (myClass == "npc_vj_hlrpar1_sab_pkm" && "npc_vj_hlrpar1_saboteur") or (myClass == "npc_vj_hlrpar1_ter_pkm" && "npc_vj_hlrpar1_terrorist") or (myClass == "npc_vj_hlrpar2_clo_pkm" && "npc_vj_hlrpar2_clone") or (myClass == "npc_vj_hlrpar2_rus_pkm" && "npc_vj_hlrpar2_rus_soldier") or "npc_vj_hlrpar1_rus_soldier")
     local att = self:GetAttachment(self:LookupAttachment("gunner"))
     gunner:SetPos(att.Pos)
     gunner:SetAngles(att.Ang)
@@ -87,8 +88,8 @@ function ENT:Init()
     local curTime = CurTime()
     self.PKM_LockTime = curTime + 0.3 -- Prevent spawn-killing
     self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
-    self:SetCollisionBounds(Vector(13, 13, 45), Vector(-13, -13, 0))
-    self:SetSurroundingBounds(Vector(60, 60, 90), Vector(-60, -60, 0))
+    self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
+    self:SetSurroundingBounds(Vector(60, 60, 50), Vector(-60, -60, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local threshold = 3
@@ -121,7 +122,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
         self.PKM_Ammo = self.PKM_Ammo - 1
         if self.PKM_Ammo <= 0 then self:Reload() end
-        VJ.EmitSound(self, "VJ.PARR1_PKM.Single")
+        VJ.EmitSound(self, (self.VJ_PARR2_NPC && "VJ.PARR2_PKM.Single") or "VJ.PARR1_PKM.Single")
         self:FireBullets({
             Attacker = self.PKM_Gunners,
             Num = 1,
@@ -154,7 +155,7 @@ function ENT:FireFX()
     util.Effect("RifleShellEject", effectData, true, true)
 
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/muzzleflash2.vmt") or "vj_parr/sprites/muzzleflash1.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")
@@ -189,10 +190,10 @@ function ENT:Reload()
         self.PKM_Reload = true
         self:PlayAnim(ACT_RANGE_ATTACK1, true, false, false)
         self:RemoveAllGestures()
-        VJ.EmitSound(self, "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
+        VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_boxout.wav") or "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
     end
-    timer.Simple(1.5, function() if IsValid(self) then VJ.EmitSound(self, "vj_parr/par1/weapons/pkm/pkm_boxin.wav", 60, 100) end end)
-    timer.Simple(2.5, function() if IsValid(self) then VJ.EmitSound(self, "vj_parr/par1/weapons/pkm/pkm_slideback1.wav", 60, 100) end end)
+    timer.Simple(1.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_boxin.wav") or "vj_parr/par1/weapons/pkm/pkm_boxin.wav", 60, 100) end end)
+    timer.Simple(2.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_slideback1.wav") or "vj_parr/par1/weapons/pkm/pkm_slideback1.wav", 60, 100) end end)
     timer.Simple(VJ.AnimDuration(self, ACT_RANGE_ATTACK1) + 3, function()
         if IsValid(self) && self.PKM_Reload && !self.Dead then
             self.PKM_Reload = false
@@ -202,7 +203,7 @@ function ENT:Reload()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DoImpactEffect(tr, damageType)
-    return VJ.PARR1_Effect_Impact(tr)
+    return (self.VJ_PARR2_NPC && VJ.PARR2_Effect_Impact(tr)) or VJ.PARR1_Effect_Impact(tr)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 local vec = Vector()
