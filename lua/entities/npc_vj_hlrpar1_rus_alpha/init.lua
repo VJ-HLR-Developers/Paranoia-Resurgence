@@ -469,7 +469,7 @@ function ENT:TranslateActivity(act)
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     elseif act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then
         return ACT_IDLE_RELAXED
-    elseif act == ACT_IDLE && self.TakingCoverT > curTime then
+    elseif act == ACT_IDLE && self.TakingCoverT > curTime && VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) && VJ.AnimExists(self, ACT_GET_UP_STAND) then
         return VJ.PICK(self.AnimTbl_TakingCover)
     end
     return self.BaseClass.TranslateActivity(self, act)
