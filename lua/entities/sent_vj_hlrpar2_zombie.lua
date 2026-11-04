@@ -26,7 +26,7 @@ local entsList = {
     "npc_vj_hlrpar2_zarmed:10",
     "npc_vj_hlrpar2_zarmed_v1:10",
     "npc_vj_hlrpar2_zrotten:5",
-    "npc_vj_hlrpar2_zofficer:20",
+    "npc_vj_hlrpar2_zgeneral:20",
     "npc_vj_hlrpar2_zhazmat:5",
     "npc_vj_hlrpar2_zrhb:10",
     "npc_vj_hlrpar2_zscientist:5",

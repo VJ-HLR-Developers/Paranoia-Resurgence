@@ -25,7 +25,7 @@ ENT.LeapAttackMinDistance = 100
 ENT.LeapAttackDamageDistance = 100
 ENT.TimeUntilLeapAttackDamage = 0.4
 ENT.TimeUntilLeapAttackVelocity = 0
-ENT.NextLeapAttackTime = 1
+ENT.NextLeapAttackTime = 3
 ENT.NextAnyAttackTime_Leap = 1
 ENT.LeapAttackStopOnHit = true
 
