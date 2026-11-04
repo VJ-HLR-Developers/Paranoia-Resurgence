@@ -74,7 +74,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:DeathShoot()
     local wep = self:GetActiveWeapon()
-    if IsValid(wep) && wep:Clip1() > 3 then
+    if IsValid(wep) && wep:Clip1() >= 3 then
         local attMuz = wep:GetAttachment(wep:LookupAttachment("muzzle"))
         local attShell = wep:GetAttachment(wep:LookupAttachment("shell"))
         VJ.EmitSound(wep, wep.Primary.Sound)
@@ -170,7 +170,8 @@ local baseOnDeath = ENT.OnDeath
 function ENT:OnDeath(dmginfo, hitgroup, status)
     baseOnDeath(self, dmginfo, hitgroup, status)
     if status == "DeathAnim" && self.DropWeaponOnDeath then
-        if math_random(1, 2) == 1 then
+        local wep = self:GetActiveWeapon()
+        if math_random(1, 2) == 1 or (IsValid(wep) && wep:Clip1() < 3) then
             self:DeathWeaponDrop(dmginfo, hitgroup)
             self:OnDeath(dmginfo, hitgroup, "Finish")
             return

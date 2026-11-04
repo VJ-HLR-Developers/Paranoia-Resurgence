@@ -87,7 +87,7 @@ function ENT:Init()
 
     local curTime = CurTime()
     self.PKM_LockTime = curTime + 0.3 -- Prevent spawn-killing
-    self:SetSolid(SOLID_VPHYSICS)
+    self:SetSolid(SOLID_VPHYSICS) -- Fixes issue where impact VFX would display on non-metal MATs due to surround bounds
     self:SetPhysicsDamageScale(0.001) -- Take minimum physics damage
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 50), Vector(-60, -60, 0))

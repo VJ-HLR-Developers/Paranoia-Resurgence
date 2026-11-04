@@ -482,8 +482,7 @@ if CLIENT then
             panel:CheckBox("Terrorists Are Hostile?", "VJ_PARR_Hostile_Terrorists")
             panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection")
             panel:ControlHelp("Note: Will only apply to valid biped models.")
-            panel:CheckBox("Weapons Drop On Death?", "VJ_PARR_DropWeapon")
-            panel:ControlHelp("Note: Will only apply if static corpses are enabled.")
+            panel:CheckBox("Weapons Drop On Death For Static Corpses?", "VJ_PARR_DropWeapon")
         end)
     end)
 end
