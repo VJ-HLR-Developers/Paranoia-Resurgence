@@ -29,7 +29,7 @@ ENT.HasMeleeAttack = false
 
 ENT.HasRangeAttack = true
 ENT.AnimTbl_RangeAttack = false
-ENT.RangeAttackMaxDistance = 6000
+ENT.RangeAttackMaxDistance = 3000
 ENT.RangeAttackMinDistance = 50
 ENT.TimeUntilRangeAttackProjectileRelease = 0
 ENT.NextRangeAttackTime = 0.06
@@ -46,6 +46,43 @@ ENT.PKM_Reload = false
 ENT.PKM_LockTime = 0
 ENT.PKM_Ammo = 100
 
+local gunnerRus = {
+    "npc_vj_hlrpar1_rus_gru",
+    "npc_vj_hlrpar1_rus_ng",
+    "npc_vj_hlrpar1_rus_soldier",
+    "npc_vj_hlrpar1_rus_soldier_v1",
+    "npc_vj_hlrpar1_rus_soldier_v2",
+    "npc_vj_hlrpar1_rus_alpha",
+    "npc_vj_hlrpar1_rus_alpha_savior",
+    "npc_vj_hlrpar1_rus_alpha_v1",
+    "npc_vj_hlrpar1_rus_alpha_v2"
+}
+local gunnerTer = {
+    "npc_vj_hlrpar1_terrorist",
+    "npc_vj_hlrpar1_ter_shahid",
+    "npc_vj_hlrpar1_ter_v1"
+}
+local gunnerClo = {
+    "npc_vj_hlrpar1_clo_heavy",
+    "npc_vj_hlrpar1_clo_heavy_v1",
+    "npc_vj_hlrpar1_clone",
+    "npc_vj_hlrpar1_clo_v1"
+}
+local gunnerSab = {
+    "npc_vj_hlrpar1_saboteur",
+    "npc_vj_hlrpar1_sab_blackops"
+}
+local gunnerRus2 = {
+    "npc_vj_hlrpar2_rus_soldier",
+    "npc_vj_hlrpar2_rus_soldier_v1",
+    "npc_vj_hlrpar2_rus_alpha",
+    "npc_vj_hlrpar2_rus_alpha_v1",
+    "npc_vj_hlrpar2_rus_alpha_v2"
+}
+local gunnerClo2 = {
+    "npc_vj_hlrpar2_clone",
+    "npc_vj_hlrpar2_clone_v1"
+}
 local CurTime = CurTime
 //local bit_bor = bit.bor
 local math_abs = math.abs
@@ -58,30 +95,35 @@ function ENT:Init()
     self.PKM_Gunners = {}
 
     -- Spawn the gunner
-    local myClass = self:GetClass()
-    local gunner = ents.Create((myClass == "npc_vj_hlrpar1_clo_pkm" && "npc_vj_hlrpar1_clone") or (myClass == "npc_vj_hlrpar1_sab_pkm" && "npc_vj_hlrpar1_saboteur") or (myClass == "npc_vj_hlrpar1_ter_pkm" && "npc_vj_hlrpar1_terrorist") or (myClass == "npc_vj_hlrpar2_clo_pkm" && "npc_vj_hlrpar2_clone") or (myClass == "npc_vj_hlrpar2_rus_pkm" && "npc_vj_hlrpar2_rus_soldier") or "npc_vj_hlrpar1_rus_soldier")
-    local att = self:GetAttachment(self:LookupAttachment("gunner"))
-    gunner:SetPos(att.Pos)
-    gunner:SetAngles(att.Ang)
-    gunner:SetOwner(self)
-    gunner:SetParent(self)
-    gunner.MovementType = VJ_MOVETYPE_STATIONARY
-    gunner.PoseParameterLooking_TurningSpeed = 5
-    gunner.PKM_Gunner = true
-    gunner.Weapon_Disabled = true
-    gunner.AnimTbl_DamageAllyResponse = false
-    gunner.AnimTbl_CallForHelp = false
-    gunner.AnimTbl_TakingCover = false
-    gunner.CanTurnWhileStationary = false
-    gunner.Weapon_UnarmedBehavior = false
-    gunner.PhysgunDisabled = true
-    gunner.VJ_NPC_Class = self.VJ_NPC_Class
-    gunner.DoNotDuplicate = true -- Otherwise you will have double gunners
-    gunner:Spawn()
-    gunner:SetBodygroup(gunner.Soldier_WepBG, gunner.Soldier_WepBGRemove) -- Remove weapon bodygroups
-    self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
-    gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
-    self.PKM_Gunners = gunner
+    timer.Simple(0, function()
+        if IsValid(self) then
+            local myClass = self:GetClass()
+            local gunner = ents.Create((myClass == "npc_vj_hlrpar1_clo_pkm" && VJ.PICK(gunnerClo)) or (myClass == "npc_vj_hlrpar1_sab_pkm" && VJ.PICK(gunnerSab)) or (myClass == "npc_vj_hlrpar1_ter_pkm" && VJ.PICK(gunnerTer)) or (myClass == "npc_vj_hlrpar2_clo_pkm" && VJ.PICK(gunnerClo2)) or (myClass == "npc_vj_hlrpar2_rus_pkm" && VJ.PICK(gunnerRus2)) or VJ.PICK(gunnerRus))
+            local gunnerClass = gunner:GetClass()
+            local att = ((gunnerClass == "npc_vj_hlrpar2_rus_soldier_v1" or gunnerClass == "npc_vj_hlrpar2_rus_alpha_v1") && self:GetAttachment(self:LookupAttachment("gunner_alt"))) or self:GetAttachment(self:LookupAttachment("gunner"))
+            gunner:SetPos(att.Pos)
+            gunner:SetAngles(att.Ang)
+            gunner:SetOwner(self)
+            gunner:SetParent(self)
+            gunner.MovementType = VJ_MOVETYPE_STATIONARY
+            gunner.PoseParameterLooking_TurningSpeed = 5
+            gunner.PKM_Gunner = true
+            gunner.Weapon_Disabled = true
+            gunner.AnimTbl_DamageAllyResponse = false
+            gunner.AnimTbl_CallForHelp = false
+            gunner.AnimTbl_TakingCover = false
+            gunner.CanTurnWhileStationary = false
+            gunner.Weapon_UnarmedBehavior = false
+            gunner.PhysgunDisabled = true
+            gunner.VJ_NPC_Class = self.VJ_NPC_Class
+            gunner.DoNotDuplicate = true -- Otherwise you will have double gunners
+            gunner:Spawn()
+            gunner:SetBodygroup(gunner.Soldier_WepBG, gunner.Soldier_WepBGRemove) -- Remove weapon bodygroups
+            self:SetRelationshipMemory(gunner, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
+            gunner:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
+            self.PKM_Gunners = gunner
+        end
+    end)
 
     VJ.HLR_ApplyFactionOptions(self)
 

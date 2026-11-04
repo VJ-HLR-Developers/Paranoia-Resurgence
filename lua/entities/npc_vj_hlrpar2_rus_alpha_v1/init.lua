@@ -7,8 +7,9 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/early/v1/player2.mdl"
+ENT.MeleeAttackDamageType = DMG_SLASH
 ENT.GrenadeAttackAttachment = "lhand"
-ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
+ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "crouching_idle"}
 ENT.AnimTbl_Flinch = false
 ENT.FlinchHitGroupMap = false
 ENT.HasDeathAnimation = false

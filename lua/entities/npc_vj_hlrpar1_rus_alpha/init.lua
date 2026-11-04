@@ -5,8 +5,6 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ACT_TWITCH = util.GetActivityIDByName("ACT_TWITCH")
-
 ENT.Model = {"models/vj_parr/par1/soldier_alpha.mdl", "models/vj_parr/par1/soldier_alpha_pistol.mdl"}
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
@@ -50,7 +48,7 @@ ENT.Weapon_SecondaryFireTime = 0.7
 ENT.CanTurnWhileMoving = false
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
+ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
@@ -374,47 +372,72 @@ function ENT:Init()
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par2/early/v1/player2.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/cut/general_pistol.mdl" then
         self.Soldier_Type = 0
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl" or myMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or myMDL == "models/vj_parr/par2/soldier.mdl" or myMDL == "models/vj_parr/par2/early/v1/soldier.mdl" then
         self.Soldier_Type = 1
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/cut/soldier_beret.mdl" then
         self.Soldier_Type = 1
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 1
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/terror.mdl" or myMDL == "models/vj_parr/par1/early/v1/terror_old.mdl" then
         self.Soldier_Type = 2
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
-        if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
+        if math_random(1, 2) == 1 then
+            self:SetBodygroup(self.Soldier_WepBG, 1)
+        else
+            self:SetBodygroup(self.Soldier_WepBG, 0)
+        end
     elseif myMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" then
         self.Soldier_Type = 2
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 2
-        if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
+        self:SetBodygroup(self.Soldier_WepBG, 0)
+        if math_random(1, 2) == 1 then
+            self:SetBodygroup(self.Soldier_WepBG, 1)
+        else
+            self:SetBodygroup(self.Soldier_WepBG, 0)
+        end
     elseif myMDL == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
         self.Soldier_Type = 2
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 1
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/soldier_clon.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_bio2.mdl" or myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 2
-        if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
+        self:SetBodygroup(self.Soldier_WepBG, 0)
+        if math_random(1, 2) == 1 then
+            self:SetBodygroup(self.Soldier_WepBG, 1)
+        else
+            self:SetBodygroup(self.Soldier_WepBG, 0)
+        end
     elseif myMDL == "models/vj_parr/par1/early/v1/soldier_colba.mdl" then
         self.Soldier_Type = 3
         self.Soldier_WepBG = 1
         self.Soldier_WepBGRemove = 2
-        if math_random(1, 2) == 1 then self:SetBodygroup(self.Soldier_WepBG, math_random(0, 1)) end
+        self:SetBodygroup(self.Soldier_WepBG, 0)
+        if math_random(1, 2) == 1 then
+            self:SetBodygroup(self.Soldier_WepBG, 1)
+        else
+            self:SetBodygroup(self.Soldier_WepBG, 0)
+        end
     elseif myMDL == "models/vj_parr/par1/diversant.mdl" then
         self.Soldier_Type = 4
         self.Soldier_WepBG = 3
@@ -424,11 +447,13 @@ function ENT:Init()
         self.Soldier_Type = 4
         self.Soldier_WepBG = 2
         self.Soldier_WepBGRemove = 1
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     elseif myMDL == "models/vj_parr/par1/diversant_pistol.mdl" then
         self.Soldier_Type = 4
         self.Soldier_WepBG = 3
         self.Soldier_WepBGRemove = 1
         self.Soldier_PistolAnims = true
+        self:SetBodygroup(self.Soldier_WepBG, 0)
     end
 
     VJ.HLR_ApplyFactionOptions(self)
@@ -444,6 +469,14 @@ function ENT:OnCreateSound(sdData, sdFile)
     if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
     local curTime = CurTime()
     self.Soldier_NextMouthMove = curTime + SoundDuration(sdFile)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnIdleDialogue(ent, status, statusInfo)
+    -- Don't talk to PKM Emplacements
+    local entClass = ent:GetClass()
+    if status == "CheckEnt" && (entClass == "npc_vj_hlrpar1_clo_pkm" or entClass == "npc_vj_hlrpar1_rus_pkm" or entClass == "npc_vj_hlrpar1_sab_pkm" or entClass == "npc_vj_hlrpar1_ter_pkm" or entClass == "npc_vj_hlrpar2_clo_pkm" or entClass == "npc_vj_hlrpar2_rus_pkm") then
+        return true
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
@@ -464,13 +497,13 @@ function ENT:TranslateActivity(act)
     local curTime = CurTime()
     local npcState = self:GetNPCState()
     if act == ACT_IDLE && self.PKM_Gunner then
-        return (self.VJ_PARR2_NPC && (ACT_TWITCH or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
+        return (self.VJ_PARR2_NPC && ((VJ.AnimExists(self, "hunkered") && VJ.SequenceToActivity(self, "hunkered")) or (VJ.AnimExists(self, "crouching_idle") && VJ.SequenceToActivity(self, "crouching_idle")) or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
     elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     elseif act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then
         return ACT_IDLE_RELAXED
     elseif act == ACT_IDLE && self.TakingCoverT > curTime && VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) && VJ.AnimExists(self, ACT_GET_UP_STAND) then
-        return VJ.PICK(self.AnimTbl_TakingCover)
+        return self:ResolveAnimation(self.AnimTbl_TakingCover)
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
@@ -778,15 +811,16 @@ function ENT:Unmount()
     self.Weapon_Disabled = false
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
-    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
+    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
     self.Weapon_UnarmedBehavior = true
     self.PhysgunDisabled = false
     self:SetOwner(NULL)
     self:SetParent(NULL)
-    self:SetBodygroup(self.Soldier_WepBG, 0)
-    self:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_GET_UP_STAND, true, false, false)
+    self:Init()
+    local pickAnim = (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_SMALL_FLINCH) && ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_COWER) && ACT_COWER) or ACT_GET_UP_STAND
+    self:PlayAnim(pickAnim, true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-    timer.Simple(VJ.AnimDuration(self, (self.VJ_PARR2_NPC && "flinch") or "hunkered2idle"), function() if IsValid(self) then self:SetState() end end)
+    timer.Simple(VJ.AnimDuration(self, pickAnim), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     self:SetPos(self:GetPos() + self:GetUp() * 1) -- So we don't sink into the ground
 end
@@ -826,7 +860,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
                         local curAct = self:GetSequenceActivity(self:GetIdealSequence())
-                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
+                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == "hunkered") then
                             self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
                         end
                     end)
