@@ -5,6 +5,8 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
+ACT_TWITCH = util.GetActivityIDByName("ACT_TWITCH")
+
 ENT.Model = {"models/vj_parr/par1/soldier_alpha.mdl", "models/vj_parr/par1/soldier_alpha_pistol.mdl"}
 ENT.StartHealth = 200
 ENT.HullType = HULL_HUMAN
@@ -48,7 +50,7 @@ ENT.Weapon_SecondaryFireTime = 0.7
 ENT.CanTurnWhileMoving = false
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
+ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
@@ -459,13 +461,16 @@ function ENT:TranslateActivity(act)
             end
         end
     end
+    local curTime = CurTime()
     local npcState = self:GetNPCState()
     if act == ACT_IDLE && self.PKM_Gunner then
-        return (self.VJ_PARR2_NPC && (VJ.SequenceToActivity(self, "hunkered") or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
+        return (self.VJ_PARR2_NPC && (ACT_TWITCH or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
     elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     elseif act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then
         return ACT_IDLE_RELAXED
+    elseif act == ACT_IDLE && self.TakingCoverT > curTime then
+        return VJ.PICK(self.AnimTbl_TakingCover)
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
@@ -773,7 +778,7 @@ function ENT:Unmount()
     self.Weapon_Disabled = false
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
-    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
+    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
     self.Weapon_UnarmedBehavior = true
     self.PhysgunDisabled = false
     self:SetOwner(NULL)
@@ -820,8 +825,8 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                 self:PlayAnim(ACT_GET_DOWN_CROUCH, true, false, false, 0, {OnFinish = function(interrupted, anim)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
-                        curTime = CurTime()
-                        if IsValid(self) && self:GetIdealActivity() != ACT_IDLE_ANGRY && !self:IsBusy() && !self:IsMoving() && !self.Flinching && self.AttackAnimTime < curTime && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_NONE then
+                        local curAct = self:GetSequenceActivity(self:GetIdealSequence())
+                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
                             self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
                         end
                     end)
