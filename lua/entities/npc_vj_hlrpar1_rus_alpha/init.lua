@@ -82,6 +82,7 @@ ENT.Soldier_NextRunT = 0
 
 local CurTime = CurTime
 local math_random = math.random
+local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnInput(key, activator, caller, data)
     //print(key)
@@ -807,6 +808,30 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             or ((myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl") && myBG == 1) then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)
+            end
+        end
+        -- Modified cover mechanic to play transition anims
+    elseif status == "PostDamage" && VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) && VJ.AnimExists(self, ACT_GET_UP_STAND) then
+        local curTime = CurTime()
+        local eneData = self.EnemyData
+        if self.CombatDamageResponse && IsValid(eneData.Target) && curTime > self.NextCombatDamageResponseT && !self.IsFollowing && !self.AttackType && !self:IsBusy() && curTime > self.TakingCoverT && eneData.Visible && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && eneData.Distance < self.Weapon_MaxDistance then
+            if self:DoCoverTrace(self:GetPos() + self:OBBCenter(), eneData.Target:EyePos()) then
+                local hideTime = math_rand(self.CombatDamageResponse_CoverTime.a, self.CombatDamageResponse_CoverTime.b)
+                self:PlayAnim(ACT_GET_DOWN_CROUCH, true, false, false, 0, {OnFinish = function(interrupted, anim)
+                    local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
+                    timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
+                        curTime = CurTime()
+                        if IsValid(self) && self:GetIdealActivity() != ACT_IDLE_ANGRY && !self:IsBusy() && !self:IsMoving() && !self.Flinching && self.AttackAnimTime < curTime && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_NONE then
+                            self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
+                        end
+                    end)
+                    if anim != ACT_INVALID then
+                        self.NextChaseTime = curTime + hideTime
+                        self.TakingCoverT = curTime + hideTime
+                        self.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
+                        self.NextCombatDamageResponseT = curTime + math_rand(self.CombatDamageResponse_Cooldown.a, self.CombatDamageResponse_Cooldown.b)
+                    end
+                end})
             end
         end
     end
