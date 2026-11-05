@@ -48,7 +48,7 @@ ENT.Weapon_SecondaryFireTime = 0.7
 ENT.CanTurnWhileMoving = false
 ENT.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
 ENT.AnimTbl_CallForHelp = ACT_SIGNAL1
-ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
+ENT.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
 ENT.CanFlinch = true
 ENT.AnimTbl_Flinch = ACT_SMALL_FLINCH
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}, {HitGroup = HITGROUP_LEFTLEG, Animation = ACT_FLINCH_LEFTLEG}, {HitGroup = HITGROUP_RIGHTLEG, Animation = ACT_FLINCH_RIGHTLEG}}
@@ -355,7 +355,7 @@ function ENT:Soldier_Init()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Init()
+function ENT:Soldier_Setup()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
         self.Soldier_Type = 0
@@ -455,13 +455,18 @@ function ENT:Init()
         self.Soldier_PistolAnims = true
         self:SetBodygroup(self.Soldier_WepBG, 0)
     end
-
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Init()
     VJ.HLR_ApplyFactionOptions(self)
+
+    ACT_TWITCH = util.GetActivityIDByName("ACT_TWITCH")
 
     local curTime = CurTime()
     self.Soldier_NextStrafeT = curTime + 4
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
     if self.Soldier_Init then self:Soldier_Init() end
+    if self.Soldier_Setup then self:Soldier_Setup() end
     if self.Soldier_Voice then self:Soldier_Voice() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -811,12 +816,12 @@ function ENT:Unmount()
     self.Weapon_Disabled = false
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
-    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, "hunkered"}
+    self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
     self.Weapon_UnarmedBehavior = true
     self.PhysgunDisabled = false
     self:SetOwner(NULL)
     self:SetParent(NULL)
-    self:Init()
+    self:Soldier_Setup() -- Call it again so gunner has a weapon
     local pickAnim = (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_SMALL_FLINCH) && ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_COWER) && ACT_COWER) or ACT_GET_UP_STAND
     self:PlayAnim(pickAnim, true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
@@ -860,7 +865,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
                         local curAct = self:GetSequenceActivity(self:GetIdealSequence())
-                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == "hunkered") then
+                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
                             self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
                         end
                     end)
@@ -979,15 +984,5 @@ function ENT:OnFootstepSound(moveType, sdFile)
     local watLevel = self:WaterLevel()
     if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    -- Remove the PKM Emplacement but NOT when the gunner is killed
-    if !self.Dead then
-        local owner = self:GetOwner()
-        if IsValid(owner) then
-            owner:Remove()
-        end
     end
 end
