@@ -461,6 +461,7 @@ end
 function ENT:Init()
     VJ.HLR_ApplyFactionOptions(self)
 
+    ACT_STUNNED = util.GetActivityIDByName("ACT_STUNNED")
     ACT_TWITCH = util.GetActivityIDByName("ACT_TWITCH")
 
     local curTime = CurTime()
@@ -486,10 +487,14 @@ function ENT:OnIdleDialogue(ent, status, statusInfo)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    -- Hurt Walking
+    -- Hurt anims
     if self.Soldier_CanHurtWalk then
         local myHP = self:Health()
         local myMaxHP = self:GetMaxHealth()
+        /*if act == ACT_IDLE then
+            if myHP <= (myMaxHP / 2.2) then
+                return ACT_IDLE_HURT
+            end*/
         if act == ACT_WALK then
             if myHP <= (myMaxHP / 2.2) then
                 return ACT_WALK_HURT
@@ -776,10 +781,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     -- Monster callouts
-    if !self.SoundTbl_AlertMonster then return end
+    //if !self.SoundTbl_AlertMonster then return end
     if math_random(1, 3) == 1 then
         if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
             self:PlaySoundSystem("Alert", self.SoundTbl_AlertMonster)
+            if math_random(1, 2) == 1 && VJ.AnimExists(self, ACT_SIGNAL_GROUP) then self:PlayAnim(ACT_SIGNAL_GROUP, true, false, true) end
             return
         end
     end
@@ -803,11 +809,13 @@ function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local victoryAnims = {"radio-nod", "victorydance"}
+--
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
     if (!VJ.AnimExists(self, "radio-nod") && !VJ.AnimExists(self, "victorydance")) or self.PKM_Gunner then return end
     if wasLast && math_random(1, 3) == 1 then
-        self:PlayAnim((self.Soldier_PistolAnims && "victorydance") or "radio-nod", "LetAttacks", false, false, 0)
+        self:PlayAnim((self.Soldier_PistolAnims && "victorydance") or victoryAnims, "LetAttacks", false, false, 0)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

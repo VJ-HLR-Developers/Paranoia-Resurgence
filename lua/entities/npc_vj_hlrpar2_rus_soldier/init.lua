@@ -86,5 +86,3 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent) return end

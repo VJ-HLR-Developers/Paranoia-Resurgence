@@ -34,8 +34,6 @@ function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 1))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent) return end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
     if !VJ.AnimExists(self, "victory") then return end

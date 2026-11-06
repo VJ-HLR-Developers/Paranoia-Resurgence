@@ -10,7 +10,6 @@ ENT.Model = {"models/vj_parr/par1/soldier_clon.mdl", "models/vj_parr/par1/soldie
 ENT.StartHealth = 200
 ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.AlliedWithPlayerAllies = false
-ENT.BecomeEnemyToPlayer = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -18,7 +17,6 @@ function ENT:PreInit()
     if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
         self.AlliedWithPlayerAllies = true
-        self.BecomeEnemyToPlayer = 2
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -48,5 +46,3 @@ function ENT:Soldier_Init()
         self:SetBodygroup(3, math_random(0, 1))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent) return end

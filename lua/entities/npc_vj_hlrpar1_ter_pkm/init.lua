@@ -9,7 +9,6 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/mgun_terror.mdl"
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
-ENT.BecomeEnemyToPlayer = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:PreInit()
     if GetConVar("VJ_PARR_Hostile_Terrorists"):GetInt() == 1 then

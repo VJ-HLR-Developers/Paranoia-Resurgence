@@ -141,5 +141,3 @@ function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 5))
     self:SetBodygroup(3, math_random(0, 1))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent) return end

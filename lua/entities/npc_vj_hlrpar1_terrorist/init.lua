@@ -10,7 +10,6 @@ ENT.Model = "models/vj_parr/par1/terror.mdl"
 ENT.StartHealth = 100
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
-ENT.BecomeEnemyToPlayer = false
 
 local math_random = math.random
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -66,6 +65,11 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/yruss1.wav",
         "vj_parr/par1/terror/yruss2.wav"
     }
+    self.SoundTbl_AlertMonster = {
+        "vj_parr/par1/terror/shaitan1.wav",
+        "vj_parr/par1/terror/shaitan2.wav",
+        "vj_parr/par1/terror/shaitan3.wav"
+    }
     self.SoundTbl_GrenadeAttack = {
         "vj_parr/par1/terror/brosokgranata1.wav",
         "vj_parr/par1/terror/brosokgranata2.wav",
@@ -106,16 +110,4 @@ function ENT:OnCreateSound(sdData, sdFile)
 
     VJ.EmitSound(self, "vj_parr/par1/terror/clik.wav")
     timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/terror/clik.wav") end end)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local sdAlertMonster = {"vj_parr/par1/terror/shaitan1.wav", "vj_parr/par1/terror/shaitan2.wav", "vj_parr/par1/terror/shaitan3.wav"}
---
-function ENT:OnAlert(ent)
-    -- Monster callouts
-    if math_random(1, 3) == 1 then
-        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
-            self:PlaySoundSystem("Alert", sdAlertMonster)
-            return
-        end
-    end
 end

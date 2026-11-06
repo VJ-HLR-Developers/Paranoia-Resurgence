@@ -30,8 +30,11 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 
+ENT.HasSoundTrack = true
+
 ENT.SoundTbl_Death = {"vj_parr/par1/brain/brain_dead1.wav", "vj_parr/par1/brain/brain_dead2.wav", "vj_parr/par1/brain/brain_dead3.wav", "vj_parr/par1/brain/brain_dead4.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
+ENT.SoundTbl_SoundTrack = "vj_parr/par1/brain/track23.mp3"
 
 ENT.MainSoundPitch = 100
 
@@ -133,11 +136,8 @@ local math_rand = math.Rand
 function ENT:Init()
     self.Zombies = {}
 
-    self.HasSoundTrack = true
-
     self.SoundTbl_Breath = "vj_parr/par1/brain/deadsignal_goaway.wav"
     self.SoundTbl_SpawnZombies = {"vj_parr/par1/brain/deadsignal1.wav", "vj_parr/par1/brain/deadsignal2.wav", "vj_parr/par1/brain/deadsignal3.wav", "vj_parr/par1/brain/deadsignal4.wav", "vj_parr/par1/brain/deadsignal5.wav", "vj_parr/par1/brain/deadsignal6.wav"}
-    self.SoundTbl_SoundTrack = "vj_parr/par1/brain/track23.mp3"
 
     local curTime = CurTime()
     self.Brain_NextSignalT = curTime + math_rand(5, 10)
@@ -148,7 +148,7 @@ function ENT:Init()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Controller_Initialize(ply, controlEnt)
-    ply:ChatPrint("RELOAD: Buff Nearby Zombies")
+    ply:ChatPrint("RELOAD: Buff Zombies/Control Clones")
     ply:ChatPrint("JUMP: Spawn Zombies")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -164,7 +164,7 @@ function ENT:OnThinkActive()
     local controlled = self.VJ_Controlled
     local ply = self.VJ_Controlled && self.VJ_Controller:GetPlayer()
     -- Spawn zombies during combat
-    if IsValid(ene) && curTime > self.Brain_NextZombieSpawnT && ((!controlled) or (controlled && ply:KeyDown(IN_JUMP))) then
+    if IsValid(ene) && !self.Dead && curTime > self.Brain_NextZombieSpawnT && ((!controlled) or (controlled && ply:KeyDown(IN_JUMP))) then
         for i = 1, 4 do
             if self.Brain_ZombieCount < self.Brain_ZombieLimit then
                 local zombie = ents.Create((GetConVar("VJ_PARR_Brain_Par2"):GetInt() == 1 && math_random(2) == 1 && VJ.PICK(zombieList2)) or VJ.PICK(zombieList))
@@ -198,31 +198,26 @@ function ENT:OnThinkActive()
             end
         end
     end
-    -- Buff nearby zombies within valid distance
+    -- Buff nearby zombies & control clones within valid distance
     if curTime > self.Brain_NextSignalT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) && !v.Dead /*&& v:Visible(self)*/ && VJ.GetNearestDistance(self, v) <= 1500 && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
+            if IsValid(v) /*&& v:Visible(self)*/ && VJ.GetNearestDistance(self, v) <= 2000 && !v.Dead && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
                 if (v.VJ_PARR_Zombie && !v.Zombie_Buffed) or (v.VJ_PARR_Clone && !v.Clone_Controlled) then
                     self.Brain_Signaling = true
                     if v.VJ_PARR_Zombie && !v.Zombie_Buffed then
                         v.Zombie_Buffed = true
                         if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
                         v:SetPlaybackRate(1.5)
-                        v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, VJ.AnimDuration(self, ACT_SMALL_FLINCH))
+                        v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                        timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
                     end
                     if v.VJ_PARR_Clone && !v.Clone_Controlled then
-                        local vOwner = v:GetOwner()
                         v.Clone_Controlled = true
                         v.VJ_NPC_Class = {"CLASS_ZOMBIE"}
                         v.AlliedWithPlayerAllies = false
-                        v.BecomeEnemyToPlayer = false
-                        if IsValid(vOwner) then
-                            vOwner.VJ_NPC_Class = v.VJ_NPC_Class
-                            vOwner.AlliedWithPlayerAllies = v.AlliedWithPlayerAllies
-                            vOwner.BecomeEnemyToPlayer = v.BecomeEnemyToPlayer
-                        end
-                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or "vjseq_stunned01", true, false, false) end
-                        v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, 3)
+                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false) end
+                        v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                        timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                     end
                 end
             end
@@ -235,7 +230,7 @@ function ENT:OnThinkActive()
             end
             effects.BeamRingPoint(myPos, 0.3, 2, 1200, 48, 0, colorRed, beamEffectTbl)
             effects.BeamRingPoint(myPos, 0.3, 2, 1600, 64, 0, colorRed, beamEffectTbl)
-            self.Brain_NextSignalT = curTime + math_rand(5, 10)
+            self.Brain_NextSignalT = curTime + math_rand(5, 20)
         end
     end
 end
@@ -277,21 +272,16 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                     v.Zombie_Buffed = false
                     if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
                     v:SetPlaybackRate(self.AnimPlaybackRate)
-                    v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, VJ.AnimDuration(self, ACT_SMALL_FLINCH))
+                    v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                    timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
                 end
                 if v.Clone_Controlled then
-                    local vOwner = v:GetOwner()
                     v.Clone_Controlled = false
                     v.VJ_NPC_Class = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}) or {"CLASS_CLONE"}
                     v.AlliedWithPlayerAllies = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && true) or false
-                    v.BecomeEnemyToPlayer = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && 2) or false
-                    if IsValid(vOwner) then
-                        vOwner.VJ_NPC_Class = v.VJ_NPC_Class
-                        vOwner.AlliedWithPlayerAllies = v.AlliedWithPlayerAllies
-                        vOwner.BecomeEnemyToPlayer = v.BecomeEnemyToPlayer
-                    end
-                    v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or "vjseq_stunned01", true, false, false)
-                    v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, 3)
+                    v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                    v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                    timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                 end
             end
         end
@@ -330,21 +320,16 @@ function ENT:CustomOnRemove()
                 v.Zombie_Buffed = false
                 if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
                 v:SetPlaybackRate(self.AnimPlaybackRate)
-                v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, VJ.AnimDuration(self, ACT_SMALL_FLINCH))
+                v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
             end
             if v.Clone_Controlled then
-                local vOwner = v:GetOwner()
                 v.Clone_Controlled = false
                 v.VJ_NPC_Class = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}) or {"CLASS_CLONE"}
                 v.AlliedWithPlayerAllies = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && true) or false
-                v.BecomeEnemyToPlayer = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && 2) or false
-                if IsValid(vOwner) then
-                    vOwner.VJ_NPC_Class = v.VJ_NPC_Class
-                    vOwner.AlliedWithPlayerAllies = v.AlliedWithPlayerAllies
-                    vOwner.BecomeEnemyToPlayer = v.BecomeEnemyToPlayer
-                end
-                v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or "vjseq_stunned01", true, false, false)
-                v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK, 3)
+                v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+                timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
             end
         end
     end

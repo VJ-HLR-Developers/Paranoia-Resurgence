@@ -5,6 +5,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/brain_trup1.mdl"
 ENT.StartHealth = 200
 ENT.GodMode = false
+ENT.HasSoundTrack = false
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     self:SetName("Zombie Brain Tree Body")

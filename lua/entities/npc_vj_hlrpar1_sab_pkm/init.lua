@@ -9,4 +9,3 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/mgun_diversant.mdl"
 ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
-ENT.BecomeEnemyToPlayer = false
