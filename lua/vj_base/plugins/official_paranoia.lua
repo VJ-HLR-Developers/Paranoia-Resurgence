@@ -462,6 +462,7 @@ local bit_bor = bit.bor
 -- ConVars
 VJ.AddConVar("VJ_PARR_Friendly_Clones", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_Hostile_Terrorists", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_Brain_Par2", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_Zombie_Infection", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_DropWeapon", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
@@ -476,10 +477,11 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Friendly_Clones 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_DropWeapon 1"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Friendly_Clones 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_Brain_Par2 0\nVJ_PARR_DropWeapon 1"})
             panel:Help("Server-Side Options:")
             panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones")
             panel:CheckBox("Terrorists Are Hostile?", "VJ_PARR_Hostile_Terrorists")
+            panel:CheckBox("Zombie Brain Tree Can Spawn Par2 Zombies?", "VJ_PARR_Brain_Par2")
             panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection")
             panel:ControlHelp("Note: Will only apply to valid biped models.")
             panel:CheckBox("Weapons Drop On Death For Static Corpses?", "VJ_PARR_DropWeapon")

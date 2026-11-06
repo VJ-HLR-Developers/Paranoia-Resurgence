@@ -75,6 +75,7 @@ ENT.Soldier_WepBGRemove = 0
 ENT.Soldier_PistolAnims = false
 ENT.Soldier_CanHurtWalk = true
 ENT.PKM_Gunner = false
+ENT.Clone_Controlled = false
 ENT.Soldier_NextMouthMove = 0
 ENT.Soldier_NextMouthDistance = 0
 ENT.Soldier_NextStrafeT = 0

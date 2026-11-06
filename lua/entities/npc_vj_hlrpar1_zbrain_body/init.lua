@@ -12,6 +12,10 @@ function ENT:Init()
     self:SetSurroundingBounds(Vector(100, 100, 90), Vector(-100, -100, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt) return end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThinkActive() return end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnDeath(dmginfo, hitgroup, status)
     local brainEnt = self.Brain_Ent
     if status == "Init" && IsValid(brainEnt) then
@@ -21,3 +25,5 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         timer.Simple(0, function() if IsValid(self) then self:SetParent(brainEnt) end end)
     end
 end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:CustomOnRemove() return end

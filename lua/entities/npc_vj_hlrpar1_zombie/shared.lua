@@ -7,3 +7,4 @@ ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_ID_Undead = true
 ENT.VJ_PARR1_NPC = true
+ENT.VJ_PARR_Zombie = true

@@ -21,57 +21,11 @@ ENT.HasMeleeAttack = false
 ENT.DeathAnimationDecreaseLengthAmount = -1
 ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 
-ENT.HasSoundTrack = true
-
-ENT.SoundTbl_SpawnZombies = {"vj_parr/par1/brain/deadsignal1.wav", "vj_parr/par1/brain/deadsignal2.wav", "vj_parr/par1/brain/deadsignal3.wav", "vj_parr/par1/brain/deadsignal4.wav", "vj_parr/par1/brain/deadsignal5.wav", "vj_parr/par1/brain/deadsignal6.wav"}
-ENT.SoundTbl_SoundTrack = "vj_parr/par1/brain/track23.mp3"
-
-ENT.MainSoundPitch = 100
-
-ENT.AlertSoundLevel = 80
-
 -- Custom
 ENT.Brain_LostBodies = false
-ENT.Brain_Buffing = false
 ENT.Brain_BodyCount = 0
-ENT.Brain_ZombieCount = 0
-ENT.Brain_ZombieLimit = 8
-ENT.Brain_NextZombieSpawnT = 0
-ENT.Brain_NextBuffT = 0
-
-local zombieList = {
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_zombie",
-    "npc_vj_hlrpar1_zombie_v1",
-    "npc_vj_hlrpar1_z3h",
-    "npc_vj_hlrpar1_z3h_v1",
-    "npc_vj_hlrpar1_z3h",
-    "npc_vj_hlrpar1_z3h_v1",
-    "npc_vj_hlrpar1_z4h",
-    "npc_vj_hlrpar1_z4h_v1",
-    "npc_vj_hlrpar1_z4h",
-    "npc_vj_hlrpar1_z4h_v1",
-    "npc_vj_hlrpar1_zdog",
-    "npc_vj_hlrpar1_zspider",
-    "npc_vj_hlrpar1_zspider_v1",
-    "npc_vj_hlrpar1_zspider_v2"
-}
-local CurTime = CurTime
-local math_random = math.random
-local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
-    self.Zombies = {}
-
     local myPos = self:GetPos()
     local myAng = self:GetAngles()
     local myForward = self:GetForward()
@@ -156,17 +110,10 @@ function ENT:Init()
     brainBody4:SetRelationshipMemory(self, VJ.MEM_OVERRIDE_DISPOSITION, D_LI) -- In case relation class is changed dynamically!
     self.BrainBody4 = brainBody4
 
-    local curTime = CurTime()
-    self.Brain_NextBuffT = curTime + math_rand(5, 10)
     self:SetNoDraw(true)
     self:AddFlags(FL_NOTARGET)
     self:SetCollisionBounds(Vector(55, 55, 320), Vector(-55, -55, 0))
     //self:SetSurroundingBounds(Vector(250, 250, 500), Vector(-250, -250, 0))
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Controller_Initialize(ply, controlEnt)
-    ply:ChatPrint("RELOAD: Buff Nearby Zombies")
-    ply:ChatPrint("JUMP: Spawn Zombies")
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
@@ -178,75 +125,6 @@ function ENT:OnThink()
         brainTree.GodMode = false
         brainTree:RemoveFlags(FL_NOTARGET)
     end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-local colorRed = Color(130, 19, 10)
-local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
-local ignoreNPCs = {["npc_vj_hlrpar1_zbrain"] = true, ["npc_vj_hlrpar1_zbrain_body"] = true, ["npc_vj_hlrpar1_zbrain_tree"] = true}
---
-function ENT:OnThinkActive()
-    if self.Dead then return end
-    local curTime = CurTime()
-    local eneData = self.EnemyData
-    local ene = eneData.Target
-    local controlled = self.VJ_Controlled
-    local ply = self.VJ_Controlled && self.VJ_Controller:GetPlayer()
-    -- Spawn zombies during combat
-    if IsValid(ene) && curTime > self.Brain_NextZombieSpawnT && ((!controlled) or (controlled && ply:KeyDown(IN_JUMP))) then
-        for i = 1, 4 do
-            if self.Brain_ZombieCount < self.Brain_ZombieLimit then
-                local zombie = ents.Create(VJ.PICK(zombieList))
-                local opSide = ((i % 2 == 0) && -150) or 150
-                zombie:SetPos(self:GetPos() + self:GetForward() * (i <= 2 && -150 or (i <= 4 && 150 or 0)) + self:GetRight() * opSide + self:GetUp() * 15)
-                zombie:SetAngles(self:GetAngles())
-                zombie.VJ_NPC_Class = self.VJ_NPC_Class
-                zombie.Brain_Ent = self
-                zombie:Spawn()
-                zombie:SetOwner(self)
-                self.Brain_ZombieCount = self.Brain_ZombieCount + 1
-                self.Zombies[#self.Zombies + 1] = zombie
-                zombie:ForceSetEnemy(ene, true)
-                self.Zombie = zombie
-                self:PlaySoundSystem("Alert", self.SoundTbl_SpawnZombies)
-                -- Fewer bodies, the faster it spawns zombies
-                if self.Brain_BodyCount <= 0 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(3, 6)
-                elseif self.Brain_BodyCount <= 1 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(4, 8)
-                elseif self.Brain_BodyCount <= 2 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(6, 12)
-                elseif self.Brain_BodyCount <= 3 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(8, 16)
-                elseif self.Brain_BodyCount <= 4 then
-                    self.Brain_NextZombieSpawnT = curTime + math_rand(10, 20)
-                end
-            end
-        end
-    end
-    -- Buff nearby zombies within valid distance
-    if curTime > self.Brain_NextBuffT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
-        for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) && v:Visible(self) && VJ.GetNearestDistance(self, v) <= 1000 && !v.Zombie_Buffed && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
-                if VJ.HasValue(v.VJ_NPC_Class, "CLASS_ZOMBIE") then
-                    self.Brain_Buffing = true
-                    v.Zombie_Buffed = true
-                    v:SetPlaybackRate(1.5)
-                end
-            end
-        end
-        if self.Brain_Buffing then
-            local myPos = self:GetPos()
-            self.Brain_Buffing = false
-            self:PlaySoundSystem("Alert", self.SoundTbl_SpawnZombies)
-            effects.BeamRingPoint(myPos, 0.3, 2, 1200, 48, 0, colorRed, beamEffectTbl)
-            effects.BeamRingPoint(myPos, 0.3, 2, 1600, 64, 0, colorRed, beamEffectTbl)
-            self.Brain_NextBuffT = curTime + math_rand(5, 10)
-        end
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:Brain_ZombieDeath()
-    self.Brain_ZombieCount = self.Brain_ZombieCount - 1
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Brain_BodyDeath()
@@ -306,7 +184,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
             if IsValid(v) && v.Zombie_Buffed then
                 v.Zombie_Buffed = false
-                v:SetPlaybackRate(self.AnimPlaybackRate)
+                v:SetPlaybackRate(v.AnimPlaybackRate)
             end
         end
     end
@@ -375,13 +253,4 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     brainBody4:SetCycle(1)
 
     VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {Gibbable = false})
-end
----------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:CustomOnRemove()
-    -- Remove zombies but not when killed
-    if !self.Dead then
-        for _, v in pairs(self.Zombies) do
-            if IsValid(v) then v:Remove() end
-        end
-    end
 end
