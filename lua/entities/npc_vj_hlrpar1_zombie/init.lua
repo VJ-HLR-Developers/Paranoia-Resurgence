@@ -173,6 +173,7 @@ function ENT:Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2a.mdl" or myMDL == "models/vj_parr/par1/zombie_slow2b.mdl" or myMDL == "models/vj_parr/par1/savior/zombie_him.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie_slow.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie_slow2.mdl" then
         self.Zombie_Type = 0
+        self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIESIMPLE}
     elseif myMDL == "models/vj_parr/par1/zombie.mdl" or myMDL == "models/vj_parr/par1/early/v1/zombie.mdl" then
         self.Zombie_Type = 1
     elseif myMDL == "models/vj_parr/par1/z_3h.mdl" or myMDL == "models/vj_parr/par1/early/v1/z_3h.mdl" then
@@ -183,6 +184,7 @@ function ENT:Init()
         self.Zombie_Type = 4
     elseif myMDL == "models/vj_parr/par1/cut/zombie_slow_armed.mdl" then
         self.Zombie_Type = 5
+        self.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIE_GUTSHOT, ACT_DIESIMPLE}
     elseif myMDL == "models/vj_parr/par1/savior/zombie_girl.mdl" or myMDL == "models/vj_parr/par1/savior/zombie_sc.mdl" then
         self.Zombie_Type = 6
     elseif myMDL == "models/vj_parr/par2/monster_soldierguard.mdl" then
