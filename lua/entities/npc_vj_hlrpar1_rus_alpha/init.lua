@@ -872,8 +872,8 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                 local hideTime = math_rand(self.CombatDamageResponse_CoverTime.a, self.CombatDamageResponse_CoverTime.b)
                 self:PlayAnim(ACT_GET_DOWN_CROUCH, true, false, false, 0, {OnFinish = function(interrupted, anim)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
+                    local curAct = self:GetSequenceActivity(self:GetIdealSequence())
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
-                        local curAct = self:GetSequenceActivity(self:GetIdealSequence())
                         if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
                             self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
                         end
