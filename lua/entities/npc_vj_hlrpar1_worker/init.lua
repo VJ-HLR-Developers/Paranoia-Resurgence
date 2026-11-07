@@ -308,7 +308,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
-    if hitgroup == HITGROUP_HEAD then
+    if hitgroup == HITGROUP_HEAD or hitgroup == 8 then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
         self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
@@ -319,14 +319,35 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make NPCs immune to DMG_NERVEGAS if they're wearing a gasmask, based on source code
         local myMDL = self:GetModel()
-        if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && self:GetBodygroup(1) == 3)
-            or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && self:GetBodygroup(1) == 2)
-            or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && self:GetBodygroup(1) == 0)
+        local myBG = self:GetBodygroup(1)
+        if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && myBG == 3)
+            or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && myBG == 2)
+            or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && myBG == 0)
             or myMDL == "models/vj_parr/par1/npc_himik.mdl"
             or ((myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl") && myBG == 8)
             or myMDL == "models/vj_parr/par2/char_pirogov.mdl" then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)
+            end
+        end
+        -- If we're wearing a helmet, create rico FX when hit
+        if ((myMDL == "models/vj_parr/par1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier_alpha.mdl") && myBG != 5)
+            or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && self:GetBodygroup(2) != 1) then
+            if hitgroup == 8 && dmginfo:GetDamagePosition() != vec then
+                self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
+                local rico = EffectData()
+                rico:SetOrigin(dmginfo:GetDamagePosition())
+                rico:SetScale(4) -- Size
+                rico:SetMagnitude(2) -- Effect type | 1 = Animated | 2 = Basic
+                util.Effect("VJ_PARR_Rico", rico)
+            else
+                self.HasBloodParticle = true
+            end
+        else
+            -- Make this custom hitgroup use same scale as head hitgroup if we're not wearing a helmet
+            if hitgroup == 8 then
+                dmginfo:SetDamage(dmginfo:GetBaseDamage())
+                dmginfo:ScaleDamage(3)
             end
         end
     end
@@ -352,10 +373,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
         end
-        if hitgroup == HITGROUP_HEAD then
+        if hitgroup == HITGROUP_HEAD or hitgroup == 8 then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
-        if hitgroup == HITGROUP_HEAD && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
+        if (hitgroup == HITGROUP_HEAD or hitgroup == 8) && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
         elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
