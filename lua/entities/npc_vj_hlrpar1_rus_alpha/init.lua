@@ -830,7 +830,7 @@ function ENT:Unmount()
     self.PhysgunDisabled = false
     self:SetOwner(NULL)
     self:SetParent(NULL)
-    self:Soldier_Setup() -- Call it again so gunner has a weapon
+    if !self.Dead then self:Soldier_Setup() end -- Call it again so gunner has a weapon
     local pickAnim = (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_SMALL_FLINCH) && ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_COWER) && ACT_COWER) or ACT_GET_UP_STAND
     self:PlayAnim(pickAnim, true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
@@ -904,7 +904,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
                     local curAct = self:GetSequenceActivity(self:GetIdealSequence())
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
-                        if IsValid(self) && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
+                        if IsValid(self) && !self.Dead && (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
                             self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
                         end
                     end)
