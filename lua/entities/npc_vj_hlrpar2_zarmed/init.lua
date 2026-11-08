@@ -77,20 +77,17 @@ function ENT:DeathShoot()
     if IsValid(wep) && wep:Clip1() >= 3 then
         local attMuz = wep:GetAttachment(wep:LookupAttachment("muzzle"))
         local attShell = wep:GetAttachment(wep:LookupAttachment("shell"))
+        local aimPos = (self:GetAimPosition(self, attMuz.Pos, 0) - attMuz.Pos):Angle():Forward()
+        local spread = self.GetAimSpread(self, self, aimPos, 1)
         VJ.EmitSound(wep, wep.Primary.Sound)
         self:FireBullets({
-            Attacker = self,
-            Num = 1,
             Src = attMuz.Pos,
             Dir = attMuz.Ang:Forward(),
-            Spread = Vector(0.1, 0.1, 0),
+            Spread = Vector(spread, spread, 0),
             TracerName = "VJ_PARR_Tracer",
-            Tracer = 1,
             Damage = self.ScaleByDifficulty(self, wep.Primary.Damage),
             Force = 5,
-            AmmoType = "SMG1",
-            Distance = 2048,
-            HullSize = 1
+            AmmoType = "SMG1"
         })
         local effectData = EffectData()
         effectData:SetEntity(wep)

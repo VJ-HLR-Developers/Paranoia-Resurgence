@@ -193,11 +193,9 @@ function ENT:OnThinkAttack(isAttacking, enemy)
     if self.Heli_HasLOS && self.Heli_NextMGT < curTime && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
         local att = self:GetAttachment(1)
         self:FireBullets({
-            Num = 1,
             Src = att.Pos,
             Dir = (enemy:GetPos() + enemy:OBBCenter() - att.Pos):Angle():Forward(),
             Spread = bulletSpread,
-            Tracer = 1,
             TracerName = "VJ_PARR_Tracer",
             Force = 3,
             Damage = self:ScaleByDifficulty(12),

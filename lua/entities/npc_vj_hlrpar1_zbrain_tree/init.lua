@@ -201,7 +201,7 @@ function ENT:OnThinkActive()
     -- Buff nearby zombies & control clones within valid distance
     if curTime > self.Brain_NextSignalT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) /*&& v:Visible(self)*/ && VJ.GetNearestDistance(self, v) <= 2000 && !v.Dead && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
+            if IsValid(v) /*&& v:Visible(self)*/ && VJ.GetNearestDistance(self, v) <= GetConVar("VJ_PARR_Brain_MaxDistance"):GetInt() && !v.Dead && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
                 if (v.VJ_PARR_Zombie && !v.Zombie_Buffed) or (v.VJ_PARR_Clone && !v.Clone_Controlled) then
                     self.Brain_Signaling = true
                     if v.VJ_PARR_Zombie && !v.Zombie_Buffed then

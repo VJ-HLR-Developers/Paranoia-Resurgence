@@ -185,7 +185,7 @@ function ENT:Soldier_Voice()
         self.SoundTbl_Investigate = {
             "vj_parr/par1/alpha/alpha_wait0.wav",
             "vj_parr/par1/npc/indust/7shluz_get_ready.wav",
-            "vj_parr/par1/npc/indust/kulak_mozg3.wav"
+            "vj_parr/par1/npc/bunk/kulak_mozg3.wav"
         }
         self.SoundTbl_Alert = {
             "vj_parr/par1/alpha/alpha_enemy1.wav",
@@ -487,7 +487,7 @@ function ENT:OnIdleDialogue(ent, status, statusInfo)
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
-    -- Hurt anims
+    -- Hurt Walking
     if self.Soldier_CanHurtWalk then
         local myHP = self:Health()
         local myMaxHP = self:GetMaxHealth()

@@ -91,20 +91,17 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
+        local aimPos = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward()
+        local spread = self.GetAimSpread(self, enemy, aimPos, 1)
         VJ.EmitSound(self, "VJ.PARR1_APS.Single")
         self:FireBullets({
-            Attacker = self,
-            Num = 1,
             Src = attPos,
-            Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-            Spread = Vector(0.1, 0.1, 0),
+            Dir = aimPos,
+            Spread = Vector(spread, spread, 0),
             TracerName = "VJ_PARR_Tracer",
-            Tracer = 1,
             Damage = self:ScaleByDifficulty(5),
             Force = 5,
-            AmmoType = "Pistol",
-            Distance = 2048,
-            HullSize = 1
+            AmmoType = "Pistol"
         })
         self:FireFX()
         return true

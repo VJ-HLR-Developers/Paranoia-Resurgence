@@ -82,8 +82,8 @@ VJ.AddNPC("Zombie Clone", "npc_vj_hlrpar1_zclone", spawnCategory, {SubCategory =
 VJ.AddNPC("Zombie Clone (Armed)", "npc_vj_hlrpar1_zclone_armed", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Clone (V1)", "npc_vj_hlrpar1_zclone_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Dog Mutant", "npc_vj_hlrpar1_zdog", spawnCategory, {SubCategory = subCategory})
-VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
-VJ.AddNPC("Zombie Ceiling Mutant (V1)", "npc_vj_hlrpar1_zceiling_v1", spawnCategory, {SubCategory = subCategory, OnCeiling = true, Offset = 0})
+VJ.AddNPC("Zombie Ceiling Mutant", "npc_vj_hlrpar1_zceiling", spawnCategory, {SubCategory = subCategory/*, OnCeiling = true, Offset = 0*/})
+VJ.AddNPC("Zombie Ceiling Mutant (V1)", "npc_vj_hlrpar1_zceiling_v1", spawnCategory, {SubCategory = subCategory/*, OnCeiling = true, Offset = 0*/})
 VJ.AddNPC("Zombie Scientist", "npc_vj_hlrpar1_zscientist", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Scientist (Female)", "npc_vj_hlrpar1_zscientist_fem", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Zombie Scientist (Hazmat)", "npc_vj_hlrpar1_zhazmat", spawnCategory, {SubCategory = subCategory})
@@ -465,6 +465,7 @@ VJ.AddConVar("VJ_PARR_Hostile_Terrorists", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIF
 VJ.AddConVar("VJ_PARR_Brain_Par2", 0, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_Zombie_Infection", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 VJ.AddConVar("VJ_PARR_DropWeapon", 1, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
+VJ.AddConVar("VJ_PARR_Brain_MaxDistance", 2000, bit_bor(FCVAR_ARCHIVE, FCVAR_NOTIFY))
 
 -- Configure Menu
 if CLIENT then
@@ -477,7 +478,7 @@ if CLIENT then
             end
             panel:Help("#vjbase.menu.general.admin.only")
             panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Friendly_Clones 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_Brain_Par2 0\nVJ_PARR_DropWeapon 1"})
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Friendly_Clones 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_Brain_Par2 0\nVJ_PARR_DropWeapon 1\nVJ_PARR_Brain_MaxDistance 2000"})
             panel:Help("Server-Side Options:")
             panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones")
             panel:CheckBox("Terrorists Are Hostile?", "VJ_PARR_Hostile_Terrorists")
@@ -485,6 +486,7 @@ if CLIENT then
             panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection")
             panel:ControlHelp("Note: Will only apply to valid biped models.")
             panel:CheckBox("Weapons Drop On Death For Static Corpses?", "VJ_PARR_DropWeapon")
+            panel:NumSlider("Max Brain Tree Signal Distance", "VJ_PARR_Brain_MaxDistance", 500, 100000, 0)
         end)
     end)
 end

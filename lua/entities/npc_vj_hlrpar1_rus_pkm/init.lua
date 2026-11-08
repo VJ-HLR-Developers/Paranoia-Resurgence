@@ -159,22 +159,20 @@ end
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
+        local aimPos = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward()
+        local spread = self.GetAimSpread(self, enemy, aimPos, 1)
         self.PKM_Ammo = self.PKM_Ammo - 1
         if self.PKM_Ammo <= 0 then self:Reload() end
         VJ.EmitSound(self, (self.VJ_PARR2_NPC && "VJ.PARR2_PKM.Single") or "VJ.PARR1_PKM.Single")
         self:FireBullets({
             Attacker = self.PKM_Gunners,
-            Num = 1,
             Src = attPos,
-            Dir = (self:GetAimPosition(enemy, attPos, 0) - attPos):Angle():Forward(),
-            Spread = Vector(0.1, 0.1, 0),
+            Dir = aimPos,
+            Spread = Vector(spread, spread, 0),
             TracerName = "VJ_PARR_Tracer",
-            Tracer = 1,
             Damage = self:ScaleByDifficulty(12),
             Force = 5,
             AmmoType = "SMG",
-            Distance = 2048,
-            HullSize = 1,
             /*Callback = function(attack, tr, dmginfo)
                 dmginfo:SetDamageType(bit_bor(DMG_BULLET, DMG_AIRBOAT))
             end*/
