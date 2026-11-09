@@ -307,6 +307,7 @@ local heliExpGibs = {
     "models/vj_hlr/gibs/rgib_screw.mdl",
     "models/vj_hlr/gibs/rgib_screw.mdl"
 }
+local vecZ350 = Vector(0, 0, 350)
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
@@ -434,17 +435,18 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                     spr:SetKeyValue("framerate", "15.0")
                     spr:SetKeyValue("spawnflags", "0")
                     spr:SetKeyValue("scale", "10")
-                    spr:SetPos(expPos2)
+                    spr:SetPos(expPos2 + vecZ350)
                     spr:Spawn()
-                    spr:Fire("Kill", nil, 1)
+                    spr:Fire("Kill", nil, 1.9)
                     util.BlastDamage(self, self, expPos2, 600, 200)
                     VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit.wav", 100, 100)
                     VJ.EmitSound(self, "vj_hlr/gsrc/wep/mortar/mortarhit_dist.wav", 140, 100)
+
                     -- flags 0 = No fade!
                     effects.BeamRingPoint(myPos, 0.4, 0, 1500, 32, 0, colorHeliExp, {material = "vj_hl/sprites/shockwave", framerate = 0, flags = 0})
-                    self:Remove()
                 end
             end)
+            self:Remove()
         end
     end
 end

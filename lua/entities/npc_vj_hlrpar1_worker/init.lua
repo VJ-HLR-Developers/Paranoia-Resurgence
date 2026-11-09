@@ -70,35 +70,6 @@ ENT.Civilian_NextStrafeT = 0
 ENT.Civilian_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
-    self.SoundTbl_Idle = {
-        "vj_parr/par1/npc/bunk/prof_idle1.wav",
-        "vj_parr/par1/npc/bunk/prof_idle2.wav",
-        "vj_parr/par1/npc/bunk/prof_idle3.wav",
-        "vj_parr/par1/npc/bunk/prof_idle4.wav",
-        "vj_parr/par1/npc/bunk/prof_idle5.wav",
-        "vj_parr/par1/npc/bunk/prof_idle6.wav"
-    }
-    self.SoundTbl_CombatIdle = {
-        "vj_parr/par1/npc/indust/worker0.wav",
-        "vj_parr/par1/npc/indust/worker1.wav",
-        "vj_parr/par1/npc/indust/worker2.wav",
-        "vj_parr/par1/npc/indust/worker3.wav",
-        "vj_parr/par1/npc/indust/worker4.wav",
-        "vj_parr/par1/npc/indust/worker5.wav"
-    }
-    self.SoundTbl_OnPlayerSight = {
-        "vj_parr/par1/npc/bunk/prof_hello1.wav",
-        "vj_parr/par1/npc/bunk/prof_hello2.wav",
-        "vj_parr/par1/npc/bunk/prof_hello3.wav"
-    }
-    self.SoundTbl_Alert = {
-        "vj_parr/par1/npc/indust/worker0.wav",
-        "vj_parr/par1/npc/indust/worker1.wav",
-        "vj_parr/par1/npc/indust/worker2.wav",
-        "vj_parr/par1/npc/indust/worker3.wav",
-        "vj_parr/par1/npc/indust/worker4.wav",
-        "vj_parr/par1/npc/indust/worker5.wav"
-    }
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",
         "vj_parr/par1/military/mil_die2.wav",
@@ -111,6 +82,46 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/military/mil_pain4.wav",
         "vj_parr/par1/military/mil_pain5.wav"
     }
+    local pickVoice = math_random(1, 2)
+    if pickVoice == 1 then
+        self.SoundTbl_Idle = {
+            "vj_parr/par1/npc/bunk/prof_idle1.wav",
+            "vj_parr/par1/npc/bunk/prof_idle2.wav",
+            "vj_parr/par1/npc/bunk/prof_idle3.wav",
+            "vj_parr/par1/npc/bunk/prof_idle4.wav",
+            "vj_parr/par1/npc/bunk/prof_idle5.wav",
+            "vj_parr/par1/npc/bunk/prof_idle6.wav"
+        }
+        self.SoundTbl_CombatIdle = {
+            "vj_parr/par1/npc/indust/worker0.wav",
+            "vj_parr/par1/npc/indust/worker1.wav",
+            "vj_parr/par1/npc/indust/worker2.wav",
+            "vj_parr/par1/npc/indust/worker3.wav",
+            "vj_parr/par1/npc/indust/worker4.wav",
+            "vj_parr/par1/npc/indust/worker5.wav"
+        }
+        self.SoundTbl_OnPlayerSight = {
+            "vj_parr/par1/npc/bunk/prof_hello1.wav",
+            "vj_parr/par1/npc/bunk/prof_hello2.wav",
+            "vj_parr/par1/npc/bunk/prof_hello3.wav"
+        }
+        self.SoundTbl_Alert = {
+            "vj_parr/par1/npc/indust/worker0.wav",
+            "vj_parr/par1/npc/indust/worker1.wav",
+            "vj_parr/par1/npc/indust/worker2.wav",
+            "vj_parr/par1/npc/indust/worker3.wav",
+            "vj_parr/par1/npc/indust/worker4.wav",
+            "vj_parr/par1/npc/indust/worker5.wav"
+        }
+    elseif pickVoice == 2 then
+        self.SoundTbl_Idle = {
+            "vj_parr/par1/npc/bunk/worker1.wav",
+            "vj_parr/par1/npc/bunk/worker2.wav",
+            "vj_parr/par1/npc/bunk/worker3.wav",
+            "vj_parr/par1/npc/bunk/worker4.wav",
+            "vj_parr/par1/npc/bunk/worker5.wav"
+        }
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Init()

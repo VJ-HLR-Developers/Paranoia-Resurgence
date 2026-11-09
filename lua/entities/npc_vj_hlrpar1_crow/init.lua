@@ -32,9 +32,9 @@ ENT.HasMeleeAttack = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_DIESIMPLE
 
-ENT.SoundTbl_Idle = "vj_parr/par1/crow/crow.wav"
-ENT.SoundTbl_Pain = "vj_parr/par1/crow/crow.wav"
-ENT.SoundTbl_Death = "vj_parr/par1/crow/crow.wav"
+ENT.SoundTbl_Idle = {"vj_parr/par1/crow/jd_voron1.wav", "vj_parr/par1/crow/jd_voron2.wav", "vj_parr/par1/crow/jd_voron3.wav"}
+ENT.SoundTbl_Pain = {"vj_parr/par1/crow/jd_voron1.wav", "vj_parr/par1/crow/jd_voron2.wav", "vj_parr/par1/crow/jd_voron3.wav"}
+ENT.SoundTbl_Death = {"vj_parr/par1/crow/jd_voron1.wav", "vj_parr/par1/crow/jd_voron2.wav", "vj_parr/par1/crow/jd_voron3.wav"}
 ENT.SoundTbl_Impact = {"vj_parr/par1/shared/bullet_hit1.wav", "vj_parr/par1/shared/bullet_hit2.wav"}
 
 ENT.MainSoundPitch = VJ.SET(95, 105)
