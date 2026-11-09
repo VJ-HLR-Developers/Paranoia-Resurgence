@@ -3,6 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Professor Pirogov"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information = "Professor of the genetic engineering project in KROT-3."
 ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_PARR1_NPC = false

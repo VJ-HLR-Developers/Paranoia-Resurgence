@@ -3,6 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Rat"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information = "Ground wildlife."
 ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_PARR1_NPC = true

@@ -3,6 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Zombie Dog Mutant"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information = "Mutated dogs by the R2D virus."
 ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_ID_Undead = true

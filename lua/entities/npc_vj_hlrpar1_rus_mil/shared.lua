@@ -3,6 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Russian Mil Mi-24"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information = "Attack helicopters of the Russian military."
 ENT.Category = "Paranoia Resurgence"
 
 ENT.VJ_ID_Vehicle = true
