@@ -45,12 +45,16 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
+    local owner = self:GetOwner()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) && IsValid(owner) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+            local ownerMDL = owner:GetModel()
             self.NPC_NextPrimaryFire = false
-            if self:GetOwner():GetModel() == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" then
+            if ownerMDL == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" then
                 self.WorldModel = "models/vj_parr/par1/weapons/early/w_aks.mdl"
                 self.Primary.Sound = "VJ.PARR1_AKS_Sup.Single"
+            elseif ownerMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" then
+                self.Primary.Sound = "VJ.PARR1_AKS_Savior.Single"
             end
         end
     end)

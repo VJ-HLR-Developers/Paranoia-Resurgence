@@ -235,6 +235,18 @@ sound.Add({
     }
 })
 sound.Add({
+    name = "VJ.PARR1_AKS_Savior.Single",
+    channel = CHAN_WEAPON,
+    volume = 1.0,
+    level = SNDLVL_GUNFIRE,
+    pitch = PITCH_RANDOM,
+    sound = {
+        "^vj_parr/par1/weapons/aks/savior/aks_fire1.wav",
+        "^vj_parr/par1/weapons/aks/savior/aks_fire2.wav",
+        "^vj_parr/par1/weapons/aks/savior/aks_fire3.wav"
+    }
+})
+sound.Add({
     name = "VJ.PARR1_APS.Single",
     channel = CHAN_WEAPON,
     volume = 1.0,

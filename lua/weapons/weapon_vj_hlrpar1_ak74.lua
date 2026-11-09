@@ -57,10 +57,11 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
+    local owner = self:GetOwner()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) && IsValid(owner) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
-            local ownerMDL = self:GetOwner():GetModel()
+            local ownerMDL = owner:GetModel()
             if ownerMDL == "models/vj_parr/par1/soldier_clon.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_bio.mdl" or ownerMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or ownerMDL == "models/vj_parr/par1/custom/soldier_clon_bio2.mdl" or ownerMDL == "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_beret.mdl" or ownerMDL == "models/vj_parr/par1/cut/soldier_gru.mdl" or ownerMDL == "models/vj_parr/par1/cut/terror_shahid.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/soldier_colba.mdl" or ownerMDL == "models/vj_parr/par1/early/v1/terror_old.mdl" then
                 self.WorldModel = "models/vj_parr/par1/weapons/early/w_ak74.mdl"
             end

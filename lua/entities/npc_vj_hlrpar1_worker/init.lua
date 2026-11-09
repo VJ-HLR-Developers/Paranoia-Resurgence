@@ -295,7 +295,7 @@ function ENT:Civilian_OnThink()
     if self.IsGuard or self.Dead or self.Civilian_Type != 4 then return end
     local curTime = CurTime()
     local ene = self.EnemyData.Target
-    if IsValid(ene) && self.AttackAnimTime < curTime && !self.VJ_Controlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 300 then
+    if IsValid(ene) && self.AttackAnimTime > curTime && !self.VJ_Controlled && curTime > self.Civilian_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 100 then
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false, false)
         self.Civilian_NextStrafeT = curTime + 8

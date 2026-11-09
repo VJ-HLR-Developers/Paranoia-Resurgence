@@ -50,10 +50,11 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
+    local owner = self:GetOwner()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) && IsValid(owner) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
-            local ownerMDL = self:GetOwner():GetModel()
+            local ownerMDL = owner:GetModel()
             if ownerMDL == "models/vj_parr/par2/monster_soldiershooter.mdl" or ownerMDL == "models/vj_parr/par2/monster_soldier_rhb.mdl" or ownerMDL == "models/vj_parr/par2/1.0/monster_soldiershooter.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(1.766, -151.986, -4.061)
                 self.WorldModelOffsetParams.Pos = Vector(7.026, 4.179, -5.237)
