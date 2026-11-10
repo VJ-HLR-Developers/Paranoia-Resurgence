@@ -35,13 +35,26 @@ ENT.Tank_DrivingSpeed = 250
 ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_btr90_gun"
 ENT.Tank_CollisionBoundSize = 60
 ENT.Tank_CollisionBoundUp = 90
-ENT.Tank_DeathDriverCorpse = "models/vj_parr/par1/soldier.mdl"
+ENT.Tank_DeathDriverCorpse = {"models/vj_parr/par1/soldier.mdl", "models/vj_parr/par1/early/v1/soldier.mdl", "models/vj_parr/par1/early/v2/soldier.mdl"}
 ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
 ENT.BTR_HasSpawnedSoldiers = false
 ENT.BTR_PrepDeploy = false
 
+local soldierList = {
+    "npc_vj_hlrpar1_rus_gru",
+    "npc_vj_hlrpar1_rus_ng",
+    "npc_vj_hlrpar1_rus_soldier",
+    "npc_vj_hlrpar1_rus_soldier_v1",
+    "npc_vj_hlrpar1_rus_soldier_v2"
+}
+local spetsnazList = {
+    "npc_vj_hlrpar1_rus_alpha",
+    "npc_vj_hlrpar1_rus_alpha_savior",
+    "npc_vj_hlrpar1_rus_alpha_v1",
+    "npc_vj_hlrpar1_rus_alpha_v2"
+}
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -126,11 +139,12 @@ function ENT:Tank_OnThink()
                 else
                     local ene = self.EnemyData.Target
                     for i = 1, 6 do
-                        local soldierClass = "npc_vj_hlrpar1_rus_soldier"
-                        if math_random(1, 5) == 1 then -- 20% for spetsnaz soldier to spawn
-                            soldierClass = "npc_vj_hlrpar1_rus_alpha"
+                        local pickSoldier = VJ.PICK(soldierList)
+                        local soldierClass = pickSoldier
+                        if math_random(1, 5) == 1 then -- 20% for spetsnaz to spawn
+                            soldierClass = VJ.PICK(spetsnazList)
                         else
-                            soldierClass = "npc_vj_hlrpar1_rus_soldier"
+                            soldierClass = pickSoldier
                         end
                         local soldier = ents.Create(soldierClass)
                         local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other soldier spawn to the opposite side

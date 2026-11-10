@@ -32,7 +32,7 @@ ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bu
 ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_t90_gun"
 ENT.Tank_CollisionBoundSize = 70
 ENT.Tank_CollisionBoundUp = 75
-ENT.Tank_DeathDriverCorpse = "models/vj_parr/par1/soldier.mdl"
+ENT.Tank_DeathDriverCorpse = {"models/vj_parr/par1/soldier.mdl", "models/vj_parr/par1/early/v1/soldier.mdl", "models/vj_parr/par1/early/v2/soldier.mdl"}
 ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
