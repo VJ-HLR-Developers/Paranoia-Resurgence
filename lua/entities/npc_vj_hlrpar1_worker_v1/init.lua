@@ -6,7 +6,7 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_parr/par1/early/v1/worker2.mdl", "models/vj_parr/par1/early/v1/npc_worker_old.mdl"}
+ENT.Model = {"models/vj_parr/par1/cut/worker2.mdl", "models/vj_parr/par1/early/v1/npc_worker_old.mdl"}
 ENT.Behavior = VJ_BEHAVIOR_AGGRESSIVE
 
 local math_random = math.random

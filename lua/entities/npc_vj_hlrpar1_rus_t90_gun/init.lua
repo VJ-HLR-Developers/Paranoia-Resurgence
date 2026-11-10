@@ -7,8 +7,6 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/cut/td_t90_gun.mdl"
 ENT.StartHealth = 0
-ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
-ENT.AlliedWithPlayerAllies = true
 ENT.HasDeathCorpse = false
 
 -- Tank Base
@@ -22,3 +20,9 @@ ENT.Tank_Shell_Entity = "obj_vj_hlrpar1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(200, 2, 9)
 ENT.Tank_Shell_ParticlePos = Vector(200, 2, 9)
+
+local math_random = math.random
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Tank_Init()
+    self:SetBodygroup(0, math_random(0, 1))
+end

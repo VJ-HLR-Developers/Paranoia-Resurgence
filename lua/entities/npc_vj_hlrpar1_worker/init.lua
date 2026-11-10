@@ -135,7 +135,7 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_himik.mdl" or myMDL == "models/vj_parr/par1/npc_officer.mdl" or myMDL == "models/vj_parr/par1/npc_officer_general.mdl" or myMDL == "models/vj_parr/par1/npc_scientist.mdl" or myMDL == "models/vj_parr/par1/npc_signal.mdl" or myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/npc_svarka.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" or myMDL == "models/vj_parr/par1/cut/rammfan.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl" then
+    if myMDL == "models/vj_parr/par1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_himik.mdl" or myMDL == "models/vj_parr/par1/npc_officer.mdl" or myMDL == "models/vj_parr/par1/npc_officer_general.mdl" or myMDL == "models/vj_parr/par1/npc_scientist.mdl" or myMDL == "models/vj_parr/par1/npc_signal.mdl" or myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/npc_svarka.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" or myMDL == "models/vj_parr/par1/cut/rammfan.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/cut/worker2.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl" then
         self.Civilian_Type = 0
     elseif myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_medic.mdl" then
         self.Civilian_Type = 1
@@ -269,23 +269,23 @@ function ENT:OnThink()
     else
         self:SetPoseParameter("mouth_move", 0)
     end
-    if self.Civilian_Type != 4 && self:GetModel() != "models/vj_parr/par1/early/v1/worker2.mdl" then return end
+    if self.Civilian_Type != 4 && self:GetModel() != "models/vj_parr/par1/cut/worker2.mdl" then return end
     -- Handle weapon body group changing
     local bodyGroup = self:GetBodygroup(3)
     local myMDL = self:GetModel()
     if self.Civilian_LastBodyGroup != bodyGroup then
         self.Civilian_LastBodyGroup = bodyGroup
-        if (self.Civilian_Type == 4 && bodyGroup == 0) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 1) then -- Axe
+        if (self.Civilian_Type == 4 && bodyGroup == 0) or (myMDL == "models/vj_parr/par1/cut/worker2.mdl" && bodyGroup == 1) then -- Axe
             self.HasMeleeAttack = true
             self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_axe.mdl"
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
             self.SoundTbl_MeleeAttackExtra = axeSds
-        elseif (self.Civilian_Type == 4 && bodyGroup == 1) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 2) then -- Wrench
+        elseif (self.Civilian_Type == 4 && bodyGroup == 1) or (myMDL == "models/vj_parr/par1/cut/worker2.mdl" && bodyGroup == 2) then -- Wrench
             self.HasMeleeAttack = true
             self.CIvilian_WeaponModel = "models/vj_parr/par1/weapons/early/w_wrench.mdl"
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = false end
             self.SoundTbl_MeleeAttackExtra = wrenchSds
-        elseif (self.Civilian_Type == 4 && bodyGroup == 2) or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && bodyGroup == 0) then
+        elseif (self.Civilian_Type == 4 && bodyGroup == 2) or (myMDL == "models/vj_parr/par1/cut/worker2.mdl" && bodyGroup == 0) then
             self.HasMeleeAttack = false
             self.CIvilian_WeaponModel = false
             if self.Civilian_Type == 4 then self.Weapon_UnarmedBehavior = true end
@@ -332,7 +332,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         local myMDL = self:GetModel()
         local myBG = self:GetBodygroup(1)
         if (myMDL == "models/vj_parr/par1/npc_worker.mdl" && myBG == 3)
-            or (myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" && myBG == 2)
+            or (myMDL == "models/vj_parr/par1/cut/worker2.mdl" && myBG == 2)
             or (myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" && myBG == 0)
             or myMDL == "models/vj_parr/par1/npc_himik.mdl"
             or ((myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl") && myBG == 8)
@@ -393,8 +393,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
         local myMDL = self:GetModel()
-        if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl") && self.CIvilian_WeaponModel then
-            if myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" then
+        if (self.Civilian_Type == 4 or myMDL == "models/vj_parr/par1/cut/worker2.mdl") && self.CIvilian_WeaponModel then
+            if myMDL == "models/vj_parr/par1/cut/worker2.mdl" then
                 self:SetBodygroup(3, 0)
             else
                 self:SetBodygroup(3, 2)
