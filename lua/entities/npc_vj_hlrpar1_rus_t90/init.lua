@@ -43,18 +43,24 @@ local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Tank_Init()
     self.SoundTbl_Idle = {
-        "vj_parr/par1/npc/army/afgan.wav",
-        "vj_parr/par1/npc/army/fix.wav",
-        "vj_parr/par1/npc/army/pentagon_hack.wav",
+        "vj_parr/par1/officer/monologue1.wav",
+        "vj_parr/par1/officer/monologue2.wav",
+        "vj_parr/par1/officer/monologue3.wav",
+        "vj_parr/par1/officer/monologue4.wav",
+        "vj_parr/par1/officer/monologue5.wav",
+        "vj_parr/par1/officer/monologue6.wav",
+        "vj_parr/par1/officer/monologue7.wav",
+        "vj_parr/par1/officer/monologue8.wav",
         "vj_parr/par1/soldier/bolnoy1.wav",
         "vj_parr/par1/soldier/bolnoy2.wav",
         "vj_parr/par1/soldier/bolnoy3.wav",
-        "vj_parr/par1/soldier/rest1.wav",
-        "vj_parr/par1/soldier/rest2.wav",
-        "vj_parr/par1/soldier/rest3.wav",
-        "vj_parr/par1/soldier/rest4.wav",
-        "vj_parr/par1/soldier/sleep.wav",
-        "vj_parr/par1/alpha/monologue7.wav"
+        "vj_parr/par1/alpha/monologue7.wav",
+        "vj_parr/par1/npc/army/afgan.wav",
+        "vj_parr/par1/npc/army/camesklad2.wav",
+        "vj_parr/par1/npc/army/camesklad3.wav",
+        "vj_parr/par1/npc/army/fix.wav",
+        "vj_parr/par1/npc/army/pentagon_hack.wav",
+        "vj_parr/par1/npc/army/zaslon.wav"
     }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/npc/army/zapalil1.wav",
@@ -66,15 +72,19 @@ function ENT:Tank_Init()
         "vj_parr/par1/soldier/ok1.wav",
         "vj_parr/par1/soldier/ok2.wav",
         "vj_parr/par1/soldier/ok3.wav",
-        "vj_parr/par1/soldier/yes1.wav"
+        "vj_parr/par1/soldier/yes1.wav",
+        "vj_parr/par1/npc/army/karaul4.wav"
     }
     self.SoundTbl_Alert = {
         "vj_parr/par1/npc/army/karaul1.wav",
         "vj_parr/par1/npc/army/karaul2.wav",
-        "vj_parr/par1/npc/army/karaul3.wav",
-        "vj_parr/par1/npc/army/karaul4.wav"
+        "vj_parr/par1/npc/army/karaul3.wav"
     }
     self.SoundTbl_OnPlayerSight = {
+        "vj_parr/par1/officer/hello1.wav",
+        "vj_parr/par1/officer/hello2.wav",
+        "vj_parr/par1/officer/hello3.wav",
+        "vj_parr/par1/officer/hello4.wav",
         "vj_parr/par1/soldier/hello2.wav",
         "vj_parr/par1/soldier/hello3.wav",
         "vj_parr/par1/soldier/hello4.wav",
@@ -83,7 +93,9 @@ function ENT:Tank_Init()
         "vj_parr/par1/alpha/hello2.wav",
         "vj_parr/par1/alpha/hello3.wav",
         "vj_parr/par1/alpha/hello4.wav",
-        "vj_parr/par1/alpha/hello5.wav"
+        "vj_parr/par1/alpha/hello5.wav",
+        "vj_parr/par1/npc/army/camesklad1.wav",
+        "vj_parr/par1/npc/army/konferents_zal.wav"
     }
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
