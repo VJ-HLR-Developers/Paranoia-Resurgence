@@ -790,6 +790,30 @@ function ENT:OnThink()
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:SelectSchedule()
+    self.BaseClass.SelectSchedule(self)
+    -- Play yield lines when friendly is in line of fire
+    if !self.SoundTbl_YieldToPlayer then return end
+    local ene = self:GetEnemy()
+    local wep = self:GetActiveWeapon()
+    if IsValid(wep) && IsValid(ene) then
+        local curTime = CurTime()
+        local eneValid = IsValid(ene)
+        local enePos_Eye = ene:EyePos()
+        local inCover, inCoverTrace = self:DoCoverTrace(myPosCentered, enePos_Eye, false, {SetLastHiddenTime = true})
+        local inCoverEnt = inCoverTrace.Entity
+        local wepInCover, wepInCoverTrace = self:DoCoverTrace(wep:GetBulletPos(), enePos_Eye, false)
+        local wepInCoverEnt = wepInCoverTrace.Entity
+        local inCoverEntLiving = false
+        if IsValid(inCoverEnt) && inCoverEnt.VJ_ID_Living then
+            inCoverEntLiving = true
+        end
+        if inCoverEntLiving && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && curTime > self.TakingCoverT && IsValid(wepInCoverEnt) && wepInCoverEnt:IsNPC() && wepInCoverEnt != self && (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) && wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
+            self:PlaySoundSystem("YieldToPlayer")
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     -- Monster callouts
     //if !self.SoundTbl_AlertMonster then return end
@@ -984,8 +1008,8 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if self.DropWeaponOnDeath then self:SetBodygroup(self.Soldier_WepBG, self.Soldier_WepBGRemove) end
         -- Reset the blood decals to default if hit in head
         self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
-		-- Fix for if blood particles were disabled from taking damage to armor
-		self.HasBloodParticle = true
+        -- Fix for if blood particles were disabled from taking damage to armor
+        self.HasBloodParticle = true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
