@@ -274,6 +274,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             ent.HasRagdoll = false
             if !ent.IsVJBaseSNPC then ent:Remove() end
         end
+        if ent:GetClass() == "npc_vj_hlrpar1_sci_haz" then ent:SetSkin(4) end
         local entDeath = VJ.PICK(ent.AnimTbl_Death)
         if ent.IsVJBaseSNPC then
             timer.Simple(0, function() if IsValid(ent) then ent:PlayAnim(entDeath, true, false) end end)
