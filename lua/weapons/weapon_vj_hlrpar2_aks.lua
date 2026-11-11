@@ -45,10 +45,10 @@ local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function SWEP:Init()
-    local owner = self:GetOwner()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(owner) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
+            local owner = self:GetOwner()
             local ownerMDL = owner:GetModel()
             if ownerMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl" then
                 self.WorldModelOffsetParams.Ang = Angle(9.198, -156.683, -91.059)
