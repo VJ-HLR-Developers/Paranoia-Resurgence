@@ -3,7 +3,7 @@ ENT.Type = "ai"
 ENT.PrintName = "Saboteur Kamov Ka-50"
 ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
-ENT.Information = "Attack helicopter from the foreign sabotage group."
+ENT.Information = "Attack helicopters from the foreign sabotage group."
 ENT.Category = "Paranoia Resurgence"
 
 if CLIENT then
