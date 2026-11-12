@@ -69,6 +69,22 @@ ENT.Civilian_NextTieAnnoyanceT = 0
 ENT.Civilian_NextStrafeT = 0
 ENT.Civilian_ControllerAnim = 0
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnInput(key, activator, caller, data)
+    //print(key)
+    if key == "step" then
+        self:PlayFootstepSound()
+    elseif key == "melee" then
+        self:ExecuteMeleeAttack()
+    elseif key == "body" then
+        VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 2) .. ".wav", 75, 100)
+    elseif key == "body_knee" then
+        VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
+    end
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && self.IsGuard /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
+        self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",
@@ -183,19 +199,6 @@ function ENT:Controller_Initialize(ply, controlEnt)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnInput(key, activator, caller, data)
-    //print(key)
-    if key == "step" then
-        self:PlayFootstepSound()
-    elseif key == "melee" then
-        self:ExecuteMeleeAttack()
-    elseif key == "body" then
-        VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 2) .. ".wav", 75, 100)
-    elseif key == "body_knee" then
-        VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:TranslateActivity(act)
     -- Hurt Walking
     if self.Civilian_CanHurtWalk then
@@ -257,6 +260,12 @@ local wrenchSds = {"vj_parr/par1/shared/cbar_hitbod1.wav", "vj_parr/par1/shared/
 local axeSds = {"vj_parr/par1/weapons/machete_hit1.wav", "vj_parr/par1/weapons/machete_hit2.wav", "vj_parr/par1/weapons/machete_hit3.wav", "vj_parr/par1/weapons/machete_hit4.wav"}
 --
 function ENT:OnThink()
+    -- If we're guarding then don't follow player
+    if !self.IsGuard && !self.FollowPlayer then
+        self.FollowPlayer = true
+    elseif self.IsGuard && self.FollowPlayer then
+        self.FollowPlayer = false
+    end
     -- Mouth animation when talking
     local curTime = CurTime()
     if curTime < self.Civilian_NextMouthMove then

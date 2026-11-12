@@ -30,6 +30,22 @@ function ENT:Soldier_Voice()
         "vj_parr/par2/alpha/soldier/soldier_use13.wav",
         "vj_parr/par2/alpha/soldier/soldier_use14.wav"
     }
+    self.SoundTbl_Busy = {
+        "vj_parr/par2/alpha/soldier/soldier_use1.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use2.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use6.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use7.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use8.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use3.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use4.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use5.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use9.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use10.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use11.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use12.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use13.wav",
+        "vj_parr/par2/alpha/soldier/soldier_use14.wav"
+    }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par2/alpha/soldier/soldier_enemy11.wav",
         "vj_parr/par2/alpha/soldier/soldier_enemy12.wav",

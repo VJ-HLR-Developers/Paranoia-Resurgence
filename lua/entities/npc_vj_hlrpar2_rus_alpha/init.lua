@@ -43,6 +43,18 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/alpha/alpha_yes2.wav",
         "vj_parr/par1/alpha/alpha_yes3.wav"
     }
+    self.SoundTbl_Busy = {
+        "vj_parr/par2/alpha/kulak/kulak_stare1.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use1.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use2.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use3.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use4.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use5.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use6.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use7.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use8.wav",
+        "vj_parr/par2/alpha/kulak/kulak_use9.wav"
+    }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par2/alpha/kulak/kulak_enemy11.wav",
         "vj_parr/par2/alpha/kulak/kulak_enemy12.wav",

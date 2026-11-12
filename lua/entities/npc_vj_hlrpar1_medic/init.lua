@@ -38,6 +38,13 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/medic/work4.wav",
         "vj_parr/par1/medic/work5.wav"
     }
+    self.SoundTbl_Busy = {
+        "vj_parr/par1/medic/work1.wav",
+        "vj_parr/par1/medic/work2.wav",
+        "vj_parr/par1/medic/work3.wav",
+        "vj_parr/par1/medic/work4.wav",
+        "vj_parr/par1/medic/work5.wav"
+    }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/medic/fear1.wav",
         "vj_parr/par1/medic/fear2.wav",

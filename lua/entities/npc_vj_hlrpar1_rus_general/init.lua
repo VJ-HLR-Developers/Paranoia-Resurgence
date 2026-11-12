@@ -26,6 +26,13 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/general/work4.wav",
         "vj_parr/par1/general/work5.wav"
     }
+    self.SoundTbl_Busy = {
+        "vj_parr/par1/general/work1.wav",
+        "vj_parr/par1/general/work2.wav",
+        "vj_parr/par1/general/work3.wav",
+        "vj_parr/par1/general/work4.wav",
+        "vj_parr/par1/general/work5.wav"
+    }
     self.SoundTbl_Alert =
         "vj_parr/par1/npc/army/dermo1.wav"
 

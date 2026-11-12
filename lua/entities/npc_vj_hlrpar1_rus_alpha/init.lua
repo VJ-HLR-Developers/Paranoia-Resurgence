@@ -127,6 +127,9 @@ function ENT:OnInput(key, activator, caller, data)
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && self.IsGuard /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
+        self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
@@ -167,6 +170,18 @@ function ENT:Soldier_Voice()
             "vj_parr/par1/alpha/alpha_yes1.wav",
             "vj_parr/par1/alpha/alpha_yes2.wav",
             "vj_parr/par1/alpha/alpha_yes3.wav"
+        }
+        self.SoundTbl_Busy = {
+            "vj_parr/par1/alpha/alpha_idle0.wav",
+            "vj_parr/par1/alpha/alpha_idle1.wav",
+            "vj_parr/par1/alpha/alpha_idle2.wav",
+            "vj_parr/par1/alpha/alpha_idle3.wav",
+            "vj_parr/par1/alpha/alpha_idle4.wav",
+            "vj_parr/par1/alpha/alpha_idle5.wav",
+            "vj_parr/par1/alpha/alpha_idle6.wav",
+            "vj_parr/par1/alpha/alpha_idle7.wav",
+            "vj_parr/par1/alpha/alpha_idle8.wav",
+            "vj_parr/par1/alpha/alpha_idle9.wav"
         }
         self.SoundTbl_CombatIdle = {
             "vj_parr/par1/npc/bunk/kulak_atakuem.wav",
@@ -290,6 +305,13 @@ function ENT:Soldier_Voice()
             "vj_parr/par1/alpha/ok2.wav",
             "vj_parr/par1/alpha/ok3.wav",
             "vj_parr/par1/alpha/ok4.wav",
+            "vj_parr/par1/alpha/work1.wav",
+            "vj_parr/par1/alpha/work2.wav",
+            "vj_parr/par1/alpha/work3.wav",
+            "vj_parr/par1/alpha/work4.wav",
+            "vj_parr/par1/alpha/work5.wav"
+        }
+        self.SoundTbl_Busy = {
             "vj_parr/par1/alpha/work1.wav",
             "vj_parr/par1/alpha/work2.wav",
             "vj_parr/par1/alpha/work3.wav",
@@ -641,6 +663,12 @@ function ENT:Soldier_OnThink()
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
+    -- If we're guarding then don't follow player
+    if !self.IsGuard && !self.FollowPlayer then
+        self.FollowPlayer = true
+    elseif self.IsGuard && self.FollowPlayer then
+        self.FollowPlayer = false
+    end
     -- Mouth movement
     local curTime = CurTime()
     if curTime < self.Soldier_NextMouthMove then

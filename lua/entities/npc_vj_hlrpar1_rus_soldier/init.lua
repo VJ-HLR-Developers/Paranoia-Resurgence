@@ -75,6 +75,22 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/npc/army/postclear5.wav",
         "vj_parr/par1/npc/army/postclear6.wav"
     }
+    self.SoundTbl_Busy = {
+        "vj_parr/par1/officer/work1.wav",
+        "vj_parr/par1/officer/work2.wav",
+        "vj_parr/par1/officer/work3.wav",
+        "vj_parr/par1/officer/work4.wav",
+        "vj_parr/par1/officer/work5.wav",
+        "vj_parr/par1/soldier/guard1.wav",
+        "vj_parr/par1/soldier/guard2.wav",
+        "vj_parr/par1/soldier/guard3.wav",
+        "vj_parr/par1/soldier/work1.wav",
+        "vj_parr/par1/soldier/rest1.wav",
+        "vj_parr/par1/soldier/rest2.wav",
+        "vj_parr/par1/soldier/rest3.wav",
+        "vj_parr/par1/soldier/rest4.wav",
+        "vj_parr/par1/soldier/sleep.wav"
+    }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/npc/army/zapalil1.wav",
         "vj_parr/par1/npc/army/zapalil2.wav",
