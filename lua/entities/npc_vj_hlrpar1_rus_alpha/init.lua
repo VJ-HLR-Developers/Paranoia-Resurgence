@@ -127,8 +127,8 @@ function ENT:OnInput(key, activator, caller, data)
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
-    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ then
-        if self.CanChatMessage then
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or self.PKM_Gunner or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ then
+        if self.CanChatMessage && !self.PKM_Gunner then
             activator:PrintMessage(HUD_PRINTTALK, VJ.GetName(self) .. " is busy and won't follow you.")
         end
         if self.SoundTbl_Busy then
