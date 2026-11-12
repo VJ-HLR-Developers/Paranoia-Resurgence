@@ -5,3 +5,5 @@ ENT.Author = "Darkborn"
 ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 ENT.Information = "Armored transport vehicles of the Russian military."
 ENT.Category = "Paranoia Resurgence"
+
+ENT.VJ_PARR1_NPC = true

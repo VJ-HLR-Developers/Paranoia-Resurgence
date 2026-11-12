@@ -15,6 +15,7 @@ ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
 ENT.Tank_SoundTbl_FireShell = "VJ.PARR1_Cannon.Single"
 
 local vecBullet = Vector(100, 0, 9)
+local vecBullet2 = Vector(56, 0, 7)
 ENT.Tank_Shell_SpawnPos = Vector(100, 0, 9)
 ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(100, 0, 9)
@@ -66,7 +67,7 @@ function ENT:Tank_OnFireShell(status, statusData)
         self.BTR_Ammo = self.BTR_Ammo - 1
         if self.BTR_Ammo <= 0 then self:Reload() end
         local ene = self.EnemyData.Target
-        local pos = self:LocalToWorld(vecBullet)
+        local pos = self:LocalToWorld((self.VJ_PARR2_NPC && vecBullet2) or vecBullet)
         if IsValid(ene) then
             self:FireBullets({
                 Damage = 1,
@@ -80,13 +81,13 @@ function ENT:Tank_OnFireShell(status, statusData)
                     local hitPos = tr.HitPos
                     local hitNorm = tr.HitNormal
                     VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
-                    util.Decal("VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
+                    util.Decal((self.VJ_PARR2_NPC && "VJ_PARR2_Scorch") or "VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
 
-                    sound.Play("VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
+                    sound.Play((self.VJ_PARR2_NPC && "VJ.PARR2_Explosion.Single") or "VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
                     sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
 
                     local spr = ents.Create("env_sprite")
-                    spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+                    spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
                     spr:SetKeyValue("GlowProxySize", "2.0")
                     spr:SetKeyValue("HDRColorScale", "1.0")
                     spr:SetKeyValue("renderfx", "14")

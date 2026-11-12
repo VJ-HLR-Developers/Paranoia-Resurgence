@@ -109,6 +109,7 @@ VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar2_paulina", spawnCategory, {SubCatego
 VJ.AddNPC("Professor Pirogov", "npc_vj_hlrpar2_pirogov", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Professor Pirogov (V1)", "npc_vj_hlrpar2_pirogov_v1", spawnCategory, {SubCategory = subCategory})
 -- Russian Military
+VJ.AddNPC("Russian BTR-80", "npc_vj_hlrpar2_rus_btr80", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian PKM Emplacement", "npc_vj_hlrpar2_rus_pkm", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Soldier", "npc_vj_hlrpar2_rus_soldier", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Soldier (V1)", "npc_vj_hlrpar2_rus_soldier_v1", spawnCategory, {SubCategory = subCategory})

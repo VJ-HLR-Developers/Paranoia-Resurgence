@@ -55,6 +55,15 @@ local spetsnazList = {
     "npc_vj_hlrpar1_rus_alpha_v1",
     "npc_vj_hlrpar1_rus_alpha_v2"
 }
+local soldierList2 = {
+    "npc_vj_hlrpar2_rus_soldier",
+    "npc_vj_hlrpar2_rus_soldier_v1"
+}
+local spetsnazList2 = {
+    "npc_vj_hlrpar2_rus_alpha",
+    "npc_vj_hlrpar2_rus_alpha_v1",
+    "npc_vj_hlrpar2_rus_alpha_v2"
+}
 local math_random = math.random
 local math_rand = math.Rand
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -151,16 +160,22 @@ function ENT:Tank_OnThink()
                 else
                     local ene = self.EnemyData.Target
                     for i = 1, 6 do
-                        local pickSoldier = VJ.PICK(soldierList)
+                        local pickSoldier = VJ.PICK((self.VJ_PARR2_NPC && soldierList2) or soldierList)
                         local soldierClass = pickSoldier
                         if math_random(1, 5) == 1 then -- 20% for spetsnaz to spawn
-                            soldierClass = VJ.PICK(spetsnazList)
+                            soldierClass = VJ.PICK((self.VJ_PARR2_NPC && spetsnazList2) or spetsnazList)
                         else
                             soldierClass = pickSoldier
                         end
                         local soldier = ents.Create(soldierClass)
-                        local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other soldier spawn to the opposite side
-                        soldier:SetPos(self:GetPos() + self:GetForward() * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + self:GetRight() * opSide + self:GetUp() * 5)
+                        local opSide = ((i % 2 == 0) && -25) or 25 -- Make every other soldier spawn to the opposite side
+                        local myPos = self:GetPos()
+                        local myForward = self:GetForward()
+                        local myRight = self:GetRight()
+                        local myUp = self:GetUp()
+                        local pos = myPos + myForward * (i <= 2 && -160 or (i <= 4 && -220 or -290)) + myRight * opSide + myUp * 5
+                        local pos2 = myPos + myForward * (i <= 2 && -180 or (i <= 4 && -240 or -310)) + myRight * opSide + myUp * 5
+                        soldier:SetPos((self.VJ_PARR2_NPC && pos2) or pos)
                         soldier:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
                         soldier.VJ_NPC_Class = self.VJ_NPC_Class
                         soldier.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
@@ -212,7 +227,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
                 util.ScreenShake(myPos, 100, 200, 1, 2500)
 
                 local spr = ents.Create("env_sprite")
-                spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+                spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
                 spr:SetKeyValue("GlowProxySize", "2.0")
                 spr:SetKeyValue("HDRColorScale", "1.0")
                 spr:SetKeyValue("renderfx", "14")
@@ -251,7 +266,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
             VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 100)
 
             local spr = ents.Create("env_sprite")
-            spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+            spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
             spr:SetKeyValue("GlowProxySize", "2.0")
             spr:SetKeyValue("HDRColorScale", "1.0")
             spr:SetKeyValue("renderfx", "14")
@@ -355,7 +370,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         end
 
         local spr = ents.Create("env_sprite")
-        spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+        spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
         spr:SetKeyValue("GlowProxySize", "2.0")
         spr:SetKeyValue("HDRColorScale", "1.0")
         spr:SetKeyValue("renderfx", "14")
@@ -394,7 +409,11 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         fireSpr:SetKeyValue("framerate", "10.0")
         fireSpr:SetKeyValue("spawnflags", "0")
         fireSpr:SetKeyValue("scale", "2")
-        fireSpr:SetPos(myPos + myForward * 35 + myUp * 125)
+        if self.VJ_PARR2_NPC then
+            fireSpr:SetPos(myPos + myForward * 25 + myUp * 125)
+        else
+            fireSpr:SetPos(myPos + myForward * 35 + myUp * 125)
+        end
         fireSpr:SetParent(corpse)
         fireSpr:Spawn()
         corpse:DeleteOnRemove(fireSpr)
