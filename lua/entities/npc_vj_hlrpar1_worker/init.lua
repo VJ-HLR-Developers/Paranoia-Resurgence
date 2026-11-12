@@ -80,8 +80,13 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "body_knee" then
         VJ.EmitSound(self, "vj_parr/par1/shared/body_knee.wav", 75, 100)
     end
-    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
-        self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ then
+        if self.CanChatMessage then
+            activator:PrintMessage(HUD_PRINTTALK, VJ.GetName(self) .. " is busy and won't follow you.")
+        end
+        if self.SoundTbl_Busy then
+            self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -164,7 +169,9 @@ function ENT:Init()
     elseif myMDL == "models/vj_parr/par1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier_alpha.mdl" then
         self.Civilian_Type = 5
     end
+
     ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
+
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)
     self.Civilian_NextStrafeT = curTime + 4
@@ -249,10 +256,16 @@ function ENT:SCHEDULE_IDLE_STAND()
     return true
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnAlert(ent)
-    if self.VJ_Controlled or self.Civilian_Type != 0 then return end
-    if math_random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
-        self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
+function ENT:OnCreateSound(sdData, sdFile)
+    local curTime = CurTime()
+    self.Civilian_NextMouthMove = curTime + SoundDuration(sdFile)
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnIdleDialogue(ent, status, statusInfo)
+    -- Don't talk to PKM Emplacements
+    local entClass = ent:GetClass()
+    if status == "CheckEnt" && (entClass == "npc_vj_hlrpar1_clo_pkm" or entClass == "npc_vj_hlrpar1_rus_pkm" or entClass == "npc_vj_hlrpar1_sab_pkm" or entClass == "npc_vj_hlrpar1_ter_pkm" or entClass == "npc_vj_hlrpar2_clo_pkm" or entClass == "npc_vj_hlrpar2_rus_pkm") then
+        return true
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -265,6 +278,7 @@ function ENT:OnThink()
         self.FollowPlayer = true
     elseif self.IsGuard && self.FollowPlayer then
         self.FollowPlayer = false
+        self:ResetFollowBehavior()
     end
     -- Mouth animation when talking
     local curTime = CurTime()
@@ -304,11 +318,6 @@ function ENT:OnThink()
     if self.Civilian_OnThink then self:Civilian_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-function ENT:OnCreateSound(sdData, sdFile)
-    local curTime = CurTime()
-    self.Civilian_NextMouthMove = curTime + SoundDuration(sdFile)
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:Civilian_OnThink()
@@ -319,6 +328,13 @@ function ENT:Civilian_OnThink()
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false, false)
         self.Civilian_NextStrafeT = curTime + 8
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnAlert(ent)
+    if self.VJ_Controlled or self.Civilian_Type != 0 then return end
+    if math_random(1, 2) == 1 && ent:GetPos():Distance(self:GetPos()) >= 300 then
+        self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------

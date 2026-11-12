@@ -77,11 +77,14 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/alpha/alpha_yes0.wav",
         "vj_parr/par1/alpha/alpha_yes1.wav",
         "vj_parr/par1/alpha/alpha_yes2.wav",
-        "vj_parr/par1/alpha/alpha_yes3.wav"
+        "vj_parr/par1/alpha/alpha_yes3.wav",
+        "vj_parr/par1/npc/bunk/kulak_za_mnoy.wav",
+        "vj_parr/par1/npc/indust/7shluz_meet4.wav"
     }
     self.SoundTbl_Investigate = {
         "vj_parr/par1/alpha/alpha_wait0.wav",
-        "vj_parr/par1/npc/indust/7shluz_get_ready.wav"
+        "vj_parr/par1/npc/indust/7shluz_get_ready.wav",
+        "vj_parr/par1/npc/bunk/kulak_mozg3.wav"
     }
     self.SoundTbl_Alert = {
         "vj_parr/par2/alpha/kulak/kulak_enemy1.wav",
@@ -94,6 +97,11 @@ function ENT:Soldier_Voice()
         "vj_parr/par2/alpha/kulak/kulak_enemy8.wav",
         "vj_parr/par2/alpha/kulak/kulak_enemy9.wav",
         "vj_parr/par2/alpha/kulak/kulak_enemy10.wav"
+    }
+    self.SoundTbl_AlertMonster = {
+        "vj_parr/par1/npc/bunk/kulak_ih_mnogo.wav",
+        "vj_parr/par1/npc/bunk/kulak_boss2.wav",
+        "vj_parr/par1/npc/bunk/kulak_wtf2.wav"
     }
     self.SoundTbl_OnPlayerSight = {
         "vj_parr/par1/npc/bunk/kulak_introlab1.wav",
@@ -123,7 +131,8 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/alpha/alpha_grenade1.wav",
         "vj_parr/par1/alpha/alpha_grenade2.wav",
         "vj_parr/par1/alpha/alpha_grenade3.wav",
-        "vj_parr/par1/alpha/alpha_grenade4.wav"
+        "vj_parr/par1/alpha/alpha_grenade4.wav",
+        "vj_parr/par1/npc/indust/7shluz_underfire.wav"
     }
     self.SoundTbl_GrenadeSight = {
         "vj_parr/par1/alpha/alpha_grenade0.wav",

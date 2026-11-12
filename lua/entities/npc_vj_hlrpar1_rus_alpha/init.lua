@@ -127,8 +127,13 @@ function ENT:OnInput(key, activator, caller, data)
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
-    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
-        self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ then
+        if self.CanChatMessage then
+            activator:PrintMessage(HUD_PRINTTALK, VJ.GetName(self) .. " is busy and won't follow you.")
+        end
+        if self.SoundTbl_Busy then
+            self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
+        end
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -648,26 +653,13 @@ function ENT:SetAnimationTranslations(wepHoldType)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
-local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
---
-function ENT:Soldier_OnThink()
-    if self.VJ_Controlled or self.IsGuard or self.Dead or self.Soldier_PistolAnims then return end
-    local curTime = CurTime()
-    local ene = self.EnemyData.Target
-    if IsValid(ene) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_Controlled && curTime > self.Soldier_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 1400 then
-        self:StopMoving()
-        self:PlayAnim(animStrafing, true, false, false)
-        self.Soldier_NextRunT = curTime + 2
-        self.Soldier_NextStrafeT = curTime + 8
-    end
-end
----------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThink()
     -- If we're guarding then don't follow player
     if !self.IsGuard && !self.FollowPlayer then
         self.FollowPlayer = true
     elseif self.IsGuard && self.FollowPlayer then
         self.FollowPlayer = false
+        self:ResetFollowBehavior()
     end
     -- Mouth movement
     local curTime = CurTime()
@@ -818,6 +810,20 @@ function ENT:OnThink()
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
+--
+function ENT:Soldier_OnThink()
+    if self.VJ_Controlled or self.IsGuard or self.Dead or self.Soldier_PistolAnims then return end
+    local curTime = CurTime()
+    local ene = self.EnemyData.Target
+    if IsValid(ene) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_Controlled && curTime > self.Soldier_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 1400 then
+        self:StopMoving()
+        self:PlayAnim(animStrafing, true, false, false)
+        self.Soldier_NextRunT = curTime + 2
+        self.Soldier_NextStrafeT = curTime + 8
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:SelectSchedule()
     self.BaseClass.SelectSchedule(self)
     -- Play yield lines when friendly is in line of fire
@@ -844,10 +850,11 @@ end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnAlert(ent)
     -- Monster callouts
-    //if !self.SoundTbl_AlertMonster then return end
     if math_random(1, 3) == 1 then
         if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
-            self:PlaySoundSystem("Alert", self.SoundTbl_AlertMonster)
+            if self.SoundTbl_AlertMonster then
+                self:PlaySoundSystem("Alert", self.SoundTbl_AlertMonster)
+            end
             if math_random(1, 2) == 1 && VJ.AnimExists(self, ACT_SIGNAL_GROUP) then self:PlayAnim(ACT_SIGNAL_GROUP, true, false, true) end
             return
         end
