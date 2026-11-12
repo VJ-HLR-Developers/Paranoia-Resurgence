@@ -127,7 +127,7 @@ function ENT:OnInput(key, activator, caller, data)
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
-    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && self.IsGuard /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
+    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ && self.SoundTbl_Busy then
         self:PlaySoundSystem("Speech", self.SoundTbl_Busy)
     end
 end
