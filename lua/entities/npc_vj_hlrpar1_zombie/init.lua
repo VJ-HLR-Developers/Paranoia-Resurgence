@@ -52,13 +52,29 @@ ENT.Zombie_Type = 0 -- 0 = Zombie, 1 = Zombie 4-Armed Mutant, 2 = Zombie 3-Armed
 ENT.Zombie_DropPistol = true
 ENT.Zombie_Turned = false
 ENT.Zombie_Buffed = false
+ENT.Zombie_AttackingDoor = false
+ENT.Zombie_NextDoorAttackAnimT = 0
+ENT.Zombie_DoorEnt = NULL
 ENT.Brain_Ent = NULL
 
+local doorEnts = {
+    prop_door = true,
+    prop_door_rotating = true,
+    func_door = true,
+    func_door_rotating = true
+}
 local woodSd = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 
 //local math_clamp = math.Clamp
 local math_random = math.random
+local string_lower = string.lower
+local string_find = string.find
 ---------------------------------------------------------------------------------------------------------------------------------------------
+local doorPound = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
+local doorPound2 = {"vj_parr/par2/shared/metal1.wav", "vj_parr/par2/shared/metal2.wav", "vj_parr/par2/shared/metal3.wav", "vj_parr/par2/shared/metal4.wav"}
+local doorBreak = {"vj_parr/par1/shared/bustmetal1.wav", "vj_parr/par1/shared/bustmetal2.wav"}
+local doorBreak2 = {"vj_parr/par2/shared/bustmetal1.wav", "vj_parr/par2/shared/bustmetal2.wav"}
+--
 function ENT:OnInput(key, activator, caller, data)
     //print(key)
     if key == "step" then
@@ -106,6 +122,29 @@ function ENT:OnInput(key, activator, caller, data)
         elseif key == "reload_finish" then
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
+    end
+    if key == "melee" or key == "melee_both" then
+        if IsValid(self.Zombie_DoorEnt) then
+            VJ.EmitSound(self, (self.VJ_PARR2_NPC && doorPound2) or doorPound, 75, 100)
+            local doorDmg = self.MeleeAttackDamage
+            local door = self.Zombie_DoorEnt
+            if door.doorHP == nil then
+                door.doorHP = 200 - doorDmg
+            elseif door.doorHP <= 0 then
+                return
+            else
+                door.doorHP = door.doorHP - doorDmg
+            end
+            if doorEnts[door:GetClass()] && door.doorHP <= 0 then
+                self:BreakDoor(door)
+            end
+        end
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 1 then
+        self.CanOpenDoors = false
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
@@ -207,6 +246,53 @@ function ENT:Init()
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
     if self.Zombie_Init then self:Zombie_Init() end
     if self.Zombie_Voice then self:Zombie_Voice() end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:OnThinkActive()
+    if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 0 then return end
+    if self.Dead or self.Flinching or self:GetState() == VJ_STATE_ONLY_ANIMATION_NOATTACK then self.Zombie_DoorEnt = NULL return end
+    if !IsValid(self.Zombie_DoorEnt) && !self.Zombie_AttackingDoor && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK))) then
+        for _, v in pairs(ents.FindInSphere(self:GetPos(), 35)) do
+            local vClass = v:GetClass()
+            if IsValid(v) && doorEnts[vClass] && v:Visible(self) then
+                local anim = string_lower(v:GetSequenceName(v:GetSequence()))
+                if vClass == "prop_door_rotating" && !string_find(anim, "locked") then
+                    self.Zombie_AttackingDoor = true
+                end
+                self.Zombie_AttackingDoor = true
+                self.Zombie_DoorEnt = v
+                break
+            end
+        end
+    else
+        if IsValid(self.Zombie_DoorEnt) then
+            local curTime = CurTime()
+            local door = self.Zombie_DoorEnt
+            local dist = VJ.GetNearestDistance(self, door)
+            if IsValid(door) && self.Zombie_AttackingDoor && (self.AttackAnimTime > curTime /*or !door:Visible(self)*/ or dist > 35) then self.Zombie_AttackingDoor = false self.Zombie_DoorEnt = NULL self:SetState() return end
+            if IsValid(door) && self.Zombie_NextDoorAttackAnimT < curTime && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK1 then
+                self:SetTurnTarget(door, 1)
+                self:PlaySoundSystem("BeforeMeleeAttack")
+                self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false)
+                self:SetState(VJ_STATE_ONLY_ANIMATION)
+                self.Zombie_NextDoorAttackAnimT = curTime + VJ.AnimDuration(self, ACT_MELEE_ATTACK1)
+            end
+        end
+    end
+    if !IsValid(self.Zombie_DoorEnt) && self.Zombie_AttackingDoor then
+        self.Zombie_AttackingDoor = false
+        self:SetState()
+        /*if self.CurrentSchedule then
+            self.CurrentSchedule = nil
+            self.CurrentTask = nil
+            self.CurrentTaskID = nil
+        end
+        self.NextIdleStandTime = 0
+        self.NextIdleTime = 0
+        self.NextChaseTime = 0
+        self.AnimLockTime = 0
+        self.PauseAttacks = false*/
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnMeleeAttack(status, enemy)
@@ -431,6 +517,35 @@ function ENT:OnFootstepSound(moveType, sdFile)
     local watLevel = self:WaterLevel()
     if watLevel > 0 && watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:BreakDoor(door)
+    local doorPos = door:GetPos()
+    local doorAng = door:GetAngles()
+    if IsValid(door) && doorEnts[door:GetClass()] then
+        //VJ.EmitSound(door, (self.VJ_PARR2_NPC && doorPound2) or doorPound, 75, 100)
+        VJ.EmitSound(door, (self.VJ_PARR2_NPC && doorBreak2) or doorBreak, 75, 100)
+        ParticleEffect("door_pound_core", doorPos, doorAng, nil)
+        ParticleEffect("door_explosion_chunks", doorPos, doorAng, nil)
+        local doorGib = ents.Create("prop_physics")
+        doorGib:SetPos(doorPos)
+        doorGib:SetAngles(doorAng)
+        doorGib:SetModel(door:GetModel())
+        doorGib:SetSkin(door:GetSkin())
+        for i = 0, door:GetNumBodyGroups() - 1 do
+            doorGib:SetBodygroup(i, door:GetBodygroup(i))
+        end
+        doorGib:Spawn()
+        doorGib:Activate()
+        doorGib:SetCollisionGroup(COLLISION_GROUP_DEBRIS)
+        local dir = (doorGib:GetPos() - self:GetPos()):GetNormalized()
+        local phys = doorGib:GetPhysicsObject()
+        if IsValid(phys) then
+            phys:ApplyForceCenter(dir * 8000)
+        end
+        SafeRemoveEntityDelayed(doorGib, 30)
+        door:Remove()
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
