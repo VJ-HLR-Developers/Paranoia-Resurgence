@@ -128,6 +128,10 @@ function ENT:Init()
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:Controller_Initialize(ply, controlEnt)
+    if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 1 then ply:ChatPrint("DUCK: Attack Door") end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:OnThinkActive()
     if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 0 then return end
     if self.Dead or self.Flinching or self:GetState() == VJ_STATE_ONLY_ANIMATION_NOATTACK then self.Zombie_DoorEnt = NULL return end
