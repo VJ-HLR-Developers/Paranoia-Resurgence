@@ -16,7 +16,7 @@ ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/p
 ENT.Spider_EyeOpen = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
         "vj_parr/par1/spider/zo_alert10.wav",
@@ -36,11 +36,11 @@ function ENT:Zombie_Voice()
         "vj_parr/par1/spider/zo_pain2.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     local myMDL = self:GetModel()
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) && myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
+    if VJ_CVAR_AI_ENABLED and (math_random(1, 3) == 1 or self.Zombie_Turned) and myMDL != "models/vj_parr/par1/early/v1/spider_v1.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("s_2", true, false)
@@ -60,14 +60,14 @@ function ENT:Zombie_Init()
     end
     self:SetCollisionBounds(Vector(20, 20, 75), Vector(-20, -20, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         -- Take 30% of bullet damage, based on source code
         if dmginfo:IsBulletDamage() then
             dmginfo:ScaleDamage(0.3)
         end
-    elseif status == "PreDamage" && self.Zombie_Buffed then
+    elseif status == "PreDamage" and self.Zombie_Buffed then
         -- Take 30% of bullet damage, based on source code
         if dmginfo:IsBulletDamage() then
             dmginfo:ScaleDamage(0.3)

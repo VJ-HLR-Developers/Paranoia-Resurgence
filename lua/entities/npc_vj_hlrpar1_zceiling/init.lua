@@ -11,7 +11,7 @@ ENT.StartHealth = 300
 ENT.ControllerParams.FirstP_Bone = "Bip01 Head"
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
         "vj_parr/par1/potolo4nik/zo_alert10.wav",
@@ -31,7 +31,7 @@ function ENT:Zombie_Voice()
         "vj_parr/par1/potolo4nik/zo_pain2.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self:SetCollisionBounds(Vector(18, 18, 80), Vector(-18, -18, 0))
 end

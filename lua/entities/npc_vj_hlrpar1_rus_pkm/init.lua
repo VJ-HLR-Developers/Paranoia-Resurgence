@@ -20,7 +20,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(0, 0, 50),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
@@ -90,15 +90,15 @@ local math_approachangle = math.ApproachAngle
 local math_angledifference = math.AngleDifference
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self.PKM_Gunners = {}
 
     -- Spawn the gunner
     local myClass = self:GetClass()
-    local gunner = ents.Create((myClass == "npc_vj_hlrpar1_clo_pkm" && VJ.PICK(gunnerClo)) or (myClass == "npc_vj_hlrpar1_sab_pkm" && VJ.PICK(gunnerSab)) or (myClass == "npc_vj_hlrpar1_ter_pkm" && VJ.PICK(gunnerTer)) or (myClass == "npc_vj_hlrpar2_clo_pkm" && VJ.PICK(gunnerClo2)) or (myClass == "npc_vj_hlrpar2_rus_pkm" && VJ.PICK(gunnerRus2)) or VJ.PICK(gunnerRus))
+    local gunner = ents.Create((myClass == "npc_vj_hlrpar1_clo_pkm" and VJ.PICK(gunnerClo)) or (myClass == "npc_vj_hlrpar1_sab_pkm" and VJ.PICK(gunnerSab)) or (myClass == "npc_vj_hlrpar1_ter_pkm" and VJ.PICK(gunnerTer)) or (myClass == "npc_vj_hlrpar2_clo_pkm" and VJ.PICK(gunnerClo2)) or (myClass == "npc_vj_hlrpar2_rus_pkm" and VJ.PICK(gunnerRus2)) or VJ.PICK(gunnerRus))
     local gunnerClass = gunner:GetClass()
-    local att = ((gunnerClass == "npc_vj_hlrpar2_rus_soldier_v1" or gunnerClass == "npc_vj_hlrpar2_rus_alpha_v1") && self:GetAttachment(self:LookupAttachment("gunner_alt"))) or self:GetAttachment(self:LookupAttachment("gunner"))
+    local att = ((gunnerClass == "npc_vj_hlrpar2_rus_soldier_v1" or gunnerClass == "npc_vj_hlrpar2_rus_alpha_v1") and self:GetAttachment(self:LookupAttachment("gunner_alt"))) or self:GetAttachment(self:LookupAttachment("gunner"))
     gunner:SetPos(att.Pos)
     gunner:SetAngles(att.Ang)
     gunner:SetOwner(self)
@@ -130,7 +130,7 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(13, 13, 35), Vector(-13, -13, 0))
     self:SetSurroundingBounds(Vector(60, 60, 50), Vector(-60, -60, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local threshold = 3
 --
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
@@ -143,19 +143,19 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
         self.PKM_HasLOS = true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
         local gunner = self.PKM_Gunners
         gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
         local curTime = CurTime()
-        return !(self.PKM_HasLOS && curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or gunner:IsBusy() or gunner.Flinching
+        return !(self.PKM_HasLOS and curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or gunner:IsBusy() or gunner.Flinching
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
         self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos
@@ -163,7 +163,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         local spread = self.GetAimSpread(self, enemy, aimPos, 1)
         self.PKM_Ammo = self.PKM_Ammo - 1
         if self.PKM_Ammo <= 0 then self:Reload() end
-        VJ.EmitSound(self, (self.VJ_PARR2_NPC && "VJ.PARR2_PKM.Single") or "VJ.PARR1_PKM.Single")
+        VJ.EmitSound(self, (self.VJ_PARR2_NPC and "VJ.PARR2_PKM.Single") or "VJ.PARR1_PKM.Single")
         self:FireBullets({
             Attacker = self.PKM_Gunners,
             Src = attPos,
@@ -181,7 +181,7 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         return true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:FireFX()
     local attShell = self:GetAttachment(self:LookupAttachment("shell"))
 
@@ -192,7 +192,7 @@ function ENT:FireFX()
     util.Effect("RifleShellEject", effectData, true, true)
 
     local muz = ents.Create("env_sprite")
-    muz:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/muzzleflash2.vmt") or "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("model", (self.VJ_PARR2_NPC and "vj_parr/sprites/muzzleflash2.vmt") or "vj_parr/sprites/muzzleflash1.vmt")
     muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
     muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
     muz:SetKeyValue("HDRColorScale", "1.0")
@@ -221,32 +221,32 @@ function ENT:FireFX()
     muzLight:Fire("Kill", nil, 0.07)
     self:DeleteOnRemove(muzLight)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Reload()
     if !self.PKM_Reload then
         self.PKM_Reload = true
         self:PlayAnim(ACT_RANGE_ATTACK1, true, false, false)
         self:RemoveAllGestures()
-        VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_boxout.wav") or "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
+        VJ.EmitSound(self, (self.VJ_PARR2_NPC and "vj_parr/par2/weapons/pkm/pkm_boxout.wav") or "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
     end
-    timer.Simple(1.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_boxin.wav") or "vj_parr/par1/weapons/pkm/pkm_boxin.wav", 60, 100) end end)
-    timer.Simple(2.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC && "vj_parr/par2/weapons/pkm/pkm_slideback1.wav") or "vj_parr/par1/weapons/pkm/pkm_slideback1.wav", 60, 100) end end)
+    timer.Simple(1.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC and "vj_parr/par2/weapons/pkm/pkm_boxin.wav") or "vj_parr/par1/weapons/pkm/pkm_boxin.wav", 60, 100) end end)
+    timer.Simple(2.5, function() if IsValid(self) then VJ.EmitSound(self, (self.VJ_PARR2_NPC and "vj_parr/par2/weapons/pkm/pkm_slideback1.wav") or "vj_parr/par1/weapons/pkm/pkm_slideback1.wav", 60, 100) end end)
     timer.Simple(VJ.AnimDuration(self, ACT_RANGE_ATTACK1) + 3, function()
-        if IsValid(self) && self.PKM_Reload && !self.Dead then
+        if IsValid(self) and self.PKM_Reload and !self.Dead then
             self.PKM_Reload = false
             self.PKM_Ammo = self.PKM_Ammo + 100
         end
     end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
-    return (self.VJ_PARR2_NPC && VJ.PARR2_Effect_Impact(tr)) or VJ.PARR1_Effect_Impact(tr)
+    return (self.VJ_PARR2_NPC and VJ.PARR2_Effect_Impact(tr)) or VJ.PARR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "Init" && dmginfo:GetDamagePosition() != vec then
+    if status == "Init" and dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
         rico:SetScale(4) -- Size
@@ -254,7 +254,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         util.Effect("VJ_PARR_Rico", rico)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         if self:IsGibDamage(dmginfo:GetDamageType()) then self.HasDeathAnimation = false end
@@ -277,7 +277,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end*/
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
     -- Remove the gunner but NOT when the PKM Emplacement is killed
     if !self.Dead then

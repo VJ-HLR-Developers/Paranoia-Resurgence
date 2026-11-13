@@ -11,5 +11,5 @@ ENT.ControllerParams.FirstP_Bone = "bip01_head"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init() return end

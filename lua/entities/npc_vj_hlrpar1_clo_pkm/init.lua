@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/mgun_clone.mdl"
 ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.AlliedWithPlayerAllies = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
     if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}

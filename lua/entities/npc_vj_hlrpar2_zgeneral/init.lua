@@ -36,7 +36,7 @@ ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIESIMPLE}
 ENT.SoundTbl_RangeAttack = {"vj_parr/par1/bullchicken/bc_attack2.wav", "vj_parr/par1/bullchicken/bc_attack3.wav"}
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     /*self.SoundTbl_Breath =
         "vj_parr/par2/shared/hungrysoldier.wav"*/
@@ -67,11 +67,11 @@ function ENT:Zombie_Voice()
         "vj_parr/par2/zombie/zo_pain2.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self:SetBodygroup(1, math_random(0, 3))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
     -- Hurt Walking
     if act == ACT_WALK then
@@ -81,17 +81,17 @@ function ENT:TranslateActivity(act)
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
     return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
     local att = self:GetAttachment(self:LookupAttachment("mouth"))
     ParticleEffect("vj_hlr_spit_red_spawn", att.Pos, att.Ang, self)
     return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Curve", projectile:GetPos(), 1, 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
         projectile.RadiusDamage = 20
@@ -105,13 +105,13 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         }
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
         return VJ.CalculateTrajectory(self, enemy, "Curve", self:GetPos() + self:OBBCenter(), enemy:GetPos() + enemy:OBBCenter(), 25) + self:GetForward() * 80
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnFlinch = ENT.OnFlinch
 --
 function ENT:OnFlinch(dmginfo, hitgroup, status)

@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par2/1.0/monster_soldiershooter.mdl"
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2

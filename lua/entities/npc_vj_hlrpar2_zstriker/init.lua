@@ -15,7 +15,7 @@ ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LE
 ENT.HasSoundTrack = true
 ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 ENT.SoundTbl_SoundTrack = "vj_parr/par2/monsters/boss/mus_03.mp3"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
         "vj_parr/par2/monsters/boss/striker_alert1.wav",
@@ -34,11 +34,11 @@ function ENT:Zombie_Voice()
         "vj_parr/par2/monsters/boss/striker_pain3.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self:SetCollisionBounds(Vector(25, 25, 110), Vector(-25, -25, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
     if status == "PreDamage" then
         -- Take 30% of bullet damage, based on source code
@@ -47,7 +47,7 @@ function ENT:Zombie_OnDamaged(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
@@ -92,7 +92,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local extraGibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl", "models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl", "models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl", "models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

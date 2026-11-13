@@ -12,11 +12,11 @@ ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LE
 ENT.AnimTbl_Death = {ACT_DIEBACKWARD, ACT_DIEFORWARD, ACT_DIESIMPLE}
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     -- Spawn animation
     local myMDL = self:GetModel()
-    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) && myMDL != "models/vj_parr/par1/early/v1/zombie.mdl" then
+    if VJ_CVAR_AI_ENABLED and (math_random(1, 3) == 1 or self.Zombie_Turned) and myMDL != "models/vj_parr/par1/early/v1/zombie.mdl" then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("scr", true, false)

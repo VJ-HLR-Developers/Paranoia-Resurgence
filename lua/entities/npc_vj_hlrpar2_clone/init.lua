@@ -14,7 +14,7 @@ ENT.AnimTbl_CallForHelp = ACT_SIGNAL2
 ENT.GrenadeAttackEntity = "obj_vj_hlrpar2_grenade"
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par2/clone/cl_die1.wav",
@@ -29,15 +29,15 @@ function ENT:Soldier_Voice()
         "vj_parr/par2/clone/cl_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 1))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
     if !VJ.AnimExists(self, "victory") then return end
-    if wasLast && math_random(1, 3) == 1 then
+    if wasLast and math_random(1, 3) == 1 then
         self:PlayAnim("victory", "LetAttacks", false, false, 0)
     end
 end

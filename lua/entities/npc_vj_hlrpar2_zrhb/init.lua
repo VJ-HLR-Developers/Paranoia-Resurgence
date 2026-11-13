@@ -10,7 +10,7 @@ ENT.Model = "models/vj_parr/par2/monster_soldier_rhb.mdl"
 ENT.FlinchHitGroupMap = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2

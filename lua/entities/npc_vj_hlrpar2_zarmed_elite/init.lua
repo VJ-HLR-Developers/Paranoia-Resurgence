@@ -11,7 +11,7 @@ ENT.StartHealth = 250
 ENT.FlinchHitGroupMap = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2

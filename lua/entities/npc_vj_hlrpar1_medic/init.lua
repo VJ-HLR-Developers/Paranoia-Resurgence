@@ -15,7 +15,7 @@ ENT.Medic_SpawnPropOnHeal = false
 ENT.HasDeathAnimation = false
 ENT.SoundTbl_MedicBeforeHeal = "vj_parr/par1/npc/army/hosp3.wav"
 ENT.SoundTbl_MedicOnHeal = {"vj_parr/par1/shared/smallmedkit1.wav", "vj_parr/par1/shared/smallmedkit2.wav"}
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/medic/monologue1.wav",

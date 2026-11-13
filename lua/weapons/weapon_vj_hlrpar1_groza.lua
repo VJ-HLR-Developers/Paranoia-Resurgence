@@ -5,22 +5,22 @@ SWEP.PrintName = "Groza"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_groza.mdl"
 SWEP.HoldType = "smg"
-    -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- World Model 
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
     Pos = Vector(3.864, 1.035, -0.5),
     Ang = Angle(0, 15, -90)
 }
-    -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- Primary Fire 
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
@@ -43,10 +43,10 @@ SWEP.Reload_Finish = "vj_parr/par1/weapons/mp5/hks_01.wav"
 
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
             if self:GetOwner():GetModel() == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" then
                 self.WorldModel = "models/vj_parr/par1/weapons/early/w_groza.mdl"
@@ -54,15 +54,15 @@ function SWEP:Init()
         end
     end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:DoImpactEffect(tr, damageType)
     return VJ.PARR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnDrawWorldModel()
     return !IsValid(self:GetOwner())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")

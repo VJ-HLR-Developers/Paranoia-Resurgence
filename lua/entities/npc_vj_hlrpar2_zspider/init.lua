@@ -14,7 +14,7 @@ ENT.ControllerParams = {
     FirstP_Bone = "Head",
     FirstP_Offset = Vector(2, 0, 0)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
@@ -58,14 +58,14 @@ ENT.Zombie_Buffed = false
 ENT.Brain_Ent = NULL
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
     //print(key)
     if key == "step" then
         self:PlayFootstepSound()
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self.SoundTbl_Alert =
         "vj_parr/par2/spider/alert1.wav"
@@ -86,7 +86,7 @@ function ENT:Init()
         "vj_parr/par2/spider/pain3.wav"
     }
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) then
+    if VJ_CVAR_AI_ENABLED and (math_random(1, 3) == 1 or self.Zombie_Turned) then
         timer.Simple(0, function()
             if IsValid(self) then
                 self:PlayAnim("scen_outofhole", true, false)
@@ -102,7 +102,7 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(10, 10, 22), Vector(-10, -10, 0))
     self:SetSurroundingBounds(Vector(40, 40, 80), Vector(-40, -40, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
     -- When in deep water, drown by slowly taking damage
     if self:WaterLevel() > 2 then
@@ -113,19 +113,19 @@ function ENT:OnThink()
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
         return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos(), 1) + self:GetForward() * 80 - self:GetUp() * 30
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local cloneList = {["npc_vj_hlrpar1_clone"] = true, ["npc_vj_hlrpar1_clo_v1"] = true, ["npc_vj_hlrpar1_clo_heavy"] = true, ["npc_vj_hlrpar1_clo_heavy_v1"] = true, ["npc_vj_hlrpar2_clone"] = true, ["npc_vj_hlrpar2_clone_v1"] = true}
 local hazmatSciList = {["npc_vj_hlrpar1_sci_haz"] = true, ["npc_vj_hlrpar2_pirogov"] = true}
@@ -135,13 +135,13 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
     if ent.LNR_InfectedVictim or ent.GOTDR_InfectedVictim or ent.NMRIHR_InfectedVictim or ent.CNCR_InfectedVictim or ent.ZPS_InfectedVictim or ent.OSZ_InfectedVictim then return end
-    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) then return end
-    if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
+    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human and ent.BloodColor != VJ.BLOOD_COLOR_RED) then return end
+    if math_random(1, 2) == 1 and (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
         local findMDL = ent:GetModel()
         timer.Simple(0, function()
             for _, v in pairs(ents.FindInSphere(findPos, 1)) do
-                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL then
+                if IsValid(v) and GetConVar("ai_serverragdolls"):GetInt() == 1 and v:GetClass() == "prop_ragdoll" and v:GetModel() == findMDL then
                     v:Remove()
                 end
             end
@@ -166,7 +166,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             end
         end
         if ent:IsNPC() or ent:IsNextBot() then
-            if ent:IsNPC() && !ent.IsVJBaseSNPC then
+            if ent:IsNPC() and !ent.IsVJBaseSNPC then
                 local wep = ent:GetActiveWeapon()
                 if IsValid(wep) then
                     wep:Remove()
@@ -185,8 +185,8 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 local zomList = VJ.PICK({"npc_vj_hlrpar2_zombie", "npc_vj_hlrpar2_zombie_v1", "npc_vj_hlrpar2_zclassic"})
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
                 local zombie = ents.Create(
-                    (cloneList[entClass] && zomCloneList) or (spetsnazList[entClass] && "npc_vj_hlrpar1_zalpha")
-                    or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar2_zhazmat") or zomList
+                    (cloneList[entClass] and zomCloneList) or (spetsnazList[entClass] and "npc_vj_hlrpar1_zalpha")
+                    or (entClass == "npc_vj_hlrpar1_scientist" and "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] and "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] and "npc_vj_hlrpar2_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
                     zombie:SetPos(ent:GetPos())
@@ -227,7 +227,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
         end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make spider immune to DMG_NERVEGAS, based on source code
@@ -236,17 +236,17 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -272,7 +272,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local extraGibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

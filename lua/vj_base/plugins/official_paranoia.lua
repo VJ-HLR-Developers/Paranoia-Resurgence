@@ -432,7 +432,7 @@ sound.Add({
         "^vj_parr/par2/weapons/explode5.wav"
     }
 })
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local excludedMats = {
     [MAT_ANTLION] = true,
     [MAT_ALIENFLESH] = true,
@@ -486,7 +486,7 @@ VJ.AddConVar("VJ_PARR_Brain_MaxDistance", 2000, bit_bor(FCVAR_ARCHIVE, FCVAR_NOT
 if CLIENT then
     hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLRPAR", function()
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Paranoia Resurgence", "Paranoia Resurgence", "", "", function(panel)
-            if !game.SinglePlayer() && !LocalPlayer():IsAdmin() then
+            if !game.SinglePlayer() and !LocalPlayer():IsAdmin() then
                 panel:Help("#vjbase.menu.general.admin.not")
                 panel:Help("#vjbase.menu.general.admin.only")
                 return

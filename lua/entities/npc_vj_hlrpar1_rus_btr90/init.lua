@@ -13,7 +13,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(00, 0, 130),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
@@ -66,7 +66,7 @@ local spetsnazList2 = {
 }
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
     self.SoundTbl_Idle = {
         "vj_parr/par1/officer/monologue1.wav",
@@ -125,11 +125,11 @@ function ENT:Tank_Init()
     }
     self.BTR_Soldiers = {}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
     return self:GetPos() + self:GetForward() * 32 + self:GetUp() * 71 + self:GetRight() * 1.2
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateMoveParticles()
     local spawnPos = self:GetPos() + self:GetForward() * -130
     local effectData = EffectData()
@@ -140,15 +140,15 @@ function ENT:Tank_UpdateMoveParticles()
     effectData:SetOrigin(spawnPos + self:GetRight() * -45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnThink()
     -- If moving then close the door
-    if self.Tank_Status == 0 && self.BTR_PrepDeploy then
+    if self.Tank_Status == 0 and self.BTR_PrepDeploy then
         self.BTR_PrepDeploy = false
     end
 
     -- Deploy soldiers
-    if self.Tank_Status == 1 && !self.BTR_HasSpawnedSoldiers && !self.BTR_PrepDeploy && IsValid(self.EnemyData.Target) && GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
+    if self.Tank_Status == 1 and !self.BTR_HasSpawnedSoldiers and !self.BTR_PrepDeploy and IsValid(self.EnemyData.Target) and GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
         self.BTR_PrepDeploy = true
         self.BTR_HasSpawnedSoldiers = true
         self:SetState(VJ_STATE_FREEZE)
@@ -160,22 +160,22 @@ function ENT:Tank_OnThink()
                 else
                     local ene = self.EnemyData.Target
                     for i = 1, 6 do
-                        local pickSoldier = VJ.PICK((self.VJ_PARR2_NPC && soldierList2) or soldierList)
+                        local pickSoldier = VJ.PICK((self.VJ_PARR2_NPC and soldierList2) or soldierList)
                         local soldierClass = pickSoldier
                         if math_random(1, 5) == 1 then -- 20% for spetsnaz to spawn
-                            soldierClass = VJ.PICK((self.VJ_PARR2_NPC && spetsnazList2) or spetsnazList)
+                            soldierClass = VJ.PICK((self.VJ_PARR2_NPC and spetsnazList2) or spetsnazList)
                         else
                             soldierClass = pickSoldier
                         end
                         local soldier = ents.Create(soldierClass)
-                        local opSide = ((i % 2 == 0) && -25) or 25 -- Make every other soldier spawn to the opposite side
+                        local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other soldier spawn to the opposite side
                         local myPos = self:GetPos()
                         local myForward = self:GetForward()
                         local myRight = self:GetRight()
                         local myUp = self:GetUp()
-                        local pos = myPos + myForward * (i <= 2 && -160 or (i <= 4 && -220 or -290)) + myRight * opSide + myUp * 5
-                        local pos2 = myPos + myForward * (i <= 2 && -180 or (i <= 4 && -240 or -310)) + myRight * opSide + myUp * 5
-                        soldier:SetPos((self.VJ_PARR2_NPC && pos2) or pos)
+                        local pos = myPos + myForward * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + myRight * opSide + myUp * 5
+                        local pos2 = myPos + myForward * (i <= 2 and -180 or (i <= 4 and -240 or -310)) + myRight * opSide + myUp * 5
+                        soldier:SetPos((self.VJ_PARR2_NPC and pos2) or pos)
                         soldier:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
                         soldier.VJ_NPC_Class = self.VJ_NPC_Class
                         soldier.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
@@ -197,7 +197,7 @@ function ENT:Tank_OnThink()
         end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetNearDeathSparkPositions()
     local randPos = math_random(1, 5)
     if randPos == 1 then
@@ -212,7 +212,7 @@ function ENT:GetNearDeathSparkPositions()
         self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -50 + self:GetForward() * -45 + self:GetUp() * 70)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local expPos = Vector(0, 0, 100)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
@@ -227,7 +227,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
                 util.ScreenShake(myPos, 100, 200, 1, 2500)
 
                 local spr = ents.Create("env_sprite")
-                spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
+                spr:SetKeyValue("model", (self.VJ_PARR2_NPC and "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
                 spr:SetKeyValue("GlowProxySize", "2.0")
                 spr:SetKeyValue("HDRColorScale", "1.0")
                 spr:SetKeyValue("renderfx", "14")
@@ -266,7 +266,7 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
             VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 100)
 
             local spr = ents.Create("env_sprite")
-            spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
+            spr:SetKeyValue("model", (self.VJ_PARR2_NPC and "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
             spr:SetKeyValue("GlowProxySize", "2.0")
             spr:SetKeyValue("HDRColorScale", "1.0")
             spr:SetKeyValue("renderfx", "14")
@@ -295,11 +295,11 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
     end)
     return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "Init" && dmginfo:GetDamagePosition() != vec then
+    if status == "Init" and dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
         rico:SetScale(5) -- Size
@@ -308,7 +308,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     end
     self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local metalCollideSD = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local vec500z = Vector(0, 0, 500)
 local colorGray = Color(90, 90, 90)
@@ -370,7 +370,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         end
 
         local spr = ents.Create("env_sprite")
-        spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
+        spr:SetKeyValue("model", (self.VJ_PARR2_NPC and "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
         spr:SetKeyValue("GlowProxySize", "2.0")
         spr:SetKeyValue("HDRColorScale", "1.0")
         spr:SetKeyValue("renderfx", "14")
@@ -422,7 +422,7 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         return true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
     -- If the NPC was removed, then remove its children as well, but not when it's killed!
     if !self.Dead then

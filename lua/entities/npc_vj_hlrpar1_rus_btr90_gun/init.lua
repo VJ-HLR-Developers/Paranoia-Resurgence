@@ -29,7 +29,7 @@ ENT.BTR_Ammo = 10
 local math_random = math.random
 local math_rand = math.Rand
 local CurTime = CurTime
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
     -- Spawn a dummy entity to fix bullet tracer for MG, thanks GMod
     local dumEnt = ents.Create("prop_vj_animatable")
@@ -47,7 +47,7 @@ function ENT:Tank_Init()
     self:DeleteOnRemove(dumEnt)
     self.DumEnt = dumEnt
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnPrepareShell()
     -- If reloading then play the reload sound and delay the time until fire
     if self.BTR_Reload then
@@ -59,7 +59,7 @@ function ENT:Tank_OnPrepareShell()
         self.Tank_Shell_NextFireTime = 0
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ40 = Vector(0, 0, 40)
 --
 function ENT:Tank_OnFireShell(status, statusData)
@@ -67,7 +67,7 @@ function ENT:Tank_OnFireShell(status, statusData)
         self.BTR_Ammo = self.BTR_Ammo - 1
         if self.BTR_Ammo <= 0 then self:Reload() end
         local ene = self.EnemyData.Target
-        local pos = self:LocalToWorld((self.VJ_PARR2_NPC && vecBullet2) or vecBullet)
+        local pos = self:LocalToWorld((self.VJ_PARR2_NPC and vecBullet2) or vecBullet)
         if IsValid(ene) then
             self:FireBullets({
                 Damage = 1,
@@ -81,13 +81,13 @@ function ENT:Tank_OnFireShell(status, statusData)
                     local hitPos = tr.HitPos
                     local hitNorm = tr.HitNormal
                     VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
-                    util.Decal((self.VJ_PARR2_NPC && "VJ_PARR2_Scorch") or "VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
+                    util.Decal((self.VJ_PARR2_NPC and "VJ_PARR2_Scorch") or "VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
 
-                    sound.Play((self.VJ_PARR2_NPC && "VJ.PARR2_Explosion.Single") or "VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
+                    sound.Play((self.VJ_PARR2_NPC and "VJ.PARR2_Explosion.Single") or "VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
                     sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
 
                     local spr = ents.Create("env_sprite")
-                    spr:SetKeyValue("model", (self.VJ_PARR2_NPC && "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
+                    spr:SetKeyValue("model", (self.VJ_PARR2_NPC and "vj_parr/sprites/fexplo.vmt") or "vj_parr/sprites/zerogxplode.vmt")
                     spr:SetKeyValue("GlowProxySize", "2.0")
                     spr:SetKeyValue("HDRColorScale", "1.0")
                     spr:SetKeyValue("renderfx", "14")
@@ -118,14 +118,14 @@ function ENT:Tank_OnFireShell(status, statusData)
         return true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 function ENT:Tank_OnThinkActive()
     local ene = self.EnemyData.Target
-    if IsValid(ene) && IsValid(self.DumEnt) then
+    if IsValid(ene) and IsValid(self.DumEnt) then
         local curTime = CurTime()
-        if self.Tank_FacingTarget && ene:Visible(self) && curTime > self.BTR_NextMGT then
+        if self.Tank_FacingTarget and ene:Visible(self) and curTime > self.BTR_NextMGT then
             local dumEnt = self.DumEnt
             local att = dumEnt:GetAttachment(1)
             dumEnt:FireBullets({
@@ -147,7 +147,7 @@ function ENT:Tank_OnThinkActive()
     end
     return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:FireFX()
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
@@ -179,19 +179,19 @@ function ENT:FireFX()
     muzLight:Fire("Kill", nil, 0.07)
     self:DeleteOnRemove(muzLight)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Reload()
     if !self.BTR_Reload then
         self.BTR_Reload = true
     end
     timer.Simple(3.5, function()
-        if IsValid(self) && self.BTR_Reload then
+        if IsValid(self) and self.BTR_Reload then
             self.BTR_Reload = false
             self.BTR_Ammo = self.BTR_Ammo + 10
         end
     end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR1_Effect_Impact(tr)
 end

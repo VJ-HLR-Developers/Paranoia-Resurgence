@@ -10,7 +10,7 @@ ENT.Model = "models/vj_parr/par2/char_pirogov.mdl"
 ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "^vj_parr/par2/npc/pirogov/npc_pirogov_1.wav",
@@ -33,7 +33,7 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init()
     self:SetSkin(3)
 end

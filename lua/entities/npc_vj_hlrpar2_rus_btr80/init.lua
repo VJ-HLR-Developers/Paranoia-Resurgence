@@ -12,7 +12,7 @@ ENT.SoundTbl_Death = "VJ.PARR2_Explosion.Single"
 ENT.Tank_GunnerENT = "npc_vj_hlrpar2_rus_btr80_gun"
 ENT.Tank_DeathDriverCorpse = {"models/vj_parr/par2/soldier.mdl", "models/vj_parr/par2/early/v1/soldier.mdl"}
 ENT.Tank_DeathDecal = "VJ_PARR2_Scorch"
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
     self.SoundTbl_Idle = {
         "vj_parr/par2/alpha/soldier/soldier_use1.wav",
@@ -66,7 +66,7 @@ function ENT:Tank_Init()
     }
     self.BTR_Soldiers = {}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
     return self:GetPos() + self:GetForward() * 27 + self:GetUp() * 75 + self:GetRight() * 0.5
 end

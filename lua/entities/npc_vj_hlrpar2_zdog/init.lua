@@ -26,14 +26,14 @@ ENT.AnimTbl_Death = ACT_DIESIMPLE
 
 ENT.SoundTbl_FootStep = {"vj_parr/par1/player/pl_wood_scr1.wav", "vj_parr/par1/player/pl_wood_scr2.wav", "vj_parr/par1/player/pl_wood_scr3.wav", "vj_parr/par1/player/pl_wood_scr4.wav"}
 ENT.SoundTbl_LeapAttackDamageMiss = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseInit = ENT.Init
 --
 function ENT:Init()
     baseInit(self)
     self:SetCollisionBounds(Vector(13, 13, 40), Vector(-13, -13, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     self.SoundTbl_Alert = {
         "vj_parr/par2/zombie/zo_alert10.wav",
@@ -57,21 +57,21 @@ function ENT:Zombie_Voice()
         "vj_parr/par2/zombie/zo_pain2.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
     local npcState = self:GetNPCState()
-    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    if act == ACT_IDLE and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnLeapAttack(status, enemy)
     if status == "Jump" then
         return VJ.CalculateTrajectory(self, NULL, "Curve", self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos(), 1) + self:GetForward() * 150 - self:GetUp() * 15
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnFlinch = ENT.OnFlinch
 --
 function ENT:OnFlinch(dmginfo, hitgroup, status)
@@ -80,10 +80,10 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
         return !self:OnGround() -- If it's not on ground, then don't play flinch so it won't cut off leap attacks mid air!
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+        if VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
@@ -93,10 +93,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end
     elseif status == "Finish" then
         -- Reset the blood decals to default if hit in head
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 --
@@ -114,16 +114,16 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
     end
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 20))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 20))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 20))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 20))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 20))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 3, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 20))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 3, 20))})
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnCreateDeathCorpse = ENT.OnCreateDeathCorpse
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

@@ -26,7 +26,7 @@ ENT.Zombie_WepBG = 0
 
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par2/clone/cl_die1.wav",
@@ -41,40 +41,40 @@ function ENT:Zombie_Voice()
         "vj_parr/par2/clone/cl_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2
     self:SetBodygroup(1, math_random(0, 1))
     if math_random(1, 2) == 1 then self:SetBodygroup(self.Zombie_WepBG, math_random(0, 1)) end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
     local npcState = self:GetNPCState()
-    if act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    if act == ACT_IDLE and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR2_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnKilledEnemy = ENT.OnKilledEnemy
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     baseOnKilledEnemy(self, ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
     if !VJ.AnimExists(self, "victorydance") then return end
-    if wasLast && math_random(1, 3) == 1 then
+    if wasLast and math_random(1, 3) == 1 then
         self:PlayAnim("victorydance", "LetAttacks", false, false, 0)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DeathShoot()
     local wep = self:GetActiveWeapon()
-    if IsValid(wep) && wep:Clip1() >= 3 then
+    if IsValid(wep) and wep:Clip1() >= 3 then
         local attMuz = wep:GetAttachment(wep:LookupAttachment("muzzle"))
         local attShell = wep:GetAttachment(wep:LookupAttachment("shell"))
         local aimPos = (self:GetAimPosition(self, attMuz.Pos, 0) - attMuz.Pos):Angle():Forward()
@@ -126,7 +126,7 @@ function ENT:DeathShoot()
         self:DeleteOnRemove(muzLight)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
     local bodyGroup = self.Zombie_LastBodyGroup
 
@@ -145,7 +145,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
         self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
     -- Handle weapon body group changing
     local bodyGroup = self:GetBodygroup(self.Zombie_WepBG)
@@ -161,14 +161,14 @@ function ENT:OnThink()
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnDeath = ENT.OnDeath
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
     baseOnDeath(self, dmginfo, hitgroup, status)
-    if status == "DeathAnim" && self.DropWeaponOnDeath then
+    if status == "DeathAnim" and self.DropWeaponOnDeath then
         local wep = self:GetActiveWeapon()
-        if math_random(1, 2) == 1 or (IsValid(wep) && wep:Clip1() < 3) then
+        if math_random(1, 2) == 1 or (IsValid(wep) and wep:Clip1() < 3) then
             self:DeathWeaponDrop(dmginfo, hitgroup)
             self:OnDeath(dmginfo, hitgroup, "Finish")
             return
@@ -179,7 +179,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 self:OnDeath(dmginfo, hitgroup, "Finish")
             end
         end)
-    elseif status == "Finish" && self.DropWeaponOnDeath then
+    elseif status == "Finish" and self.DropWeaponOnDeath then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end

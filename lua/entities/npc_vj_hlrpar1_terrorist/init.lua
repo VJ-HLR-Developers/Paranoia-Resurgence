@@ -12,13 +12,13 @@ ENT.VJ_NPC_Class = {"CLASS_UNITED_STATES"}
 ENT.AlliedWithPlayerAllies = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
     if GetConVar("VJ_PARR_Hostile_Terrorists"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_TERRORIST"}
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/terror/idle1.wav",
@@ -99,15 +99,15 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/terror/ter_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 4))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
     if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
     self.Soldier_NextMouthMove = CurTime() + SoundDuration(sdFile)
 
     VJ.EmitSound(self, "vj_parr/par1/terror/clik.wav")
-    timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/terror/clik.wav") end end)
+    timer.Simple(SoundDuration(sdFile), function() if IsValid(self) and sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/terror/clik.wav") end end)
 end

@@ -12,22 +12,22 @@ ENT.AnimTbl_CallForHelp = false
 ENT.AnimTbl_TakingCover = ACT_CROUCHIDLE
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     self.Zombie_WepBG = 2
     self.Zombie_WepBGRemove = 2
     self:SetBodygroup(1, math_random(0, 1))
     if math_random(1, 2) == 1 then self:SetBodygroup(self.Zombie_WepBG, math_random(0, 1)) end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local baseOnDeath = ENT.OnDeath
 --
 function ENT:OnDeath(dmginfo, hitgroup, status)
     baseOnDeath(self, dmginfo, hitgroup, status)
-    if status == "DeathAnim" && self.DropWeaponOnDeath then
+    if status == "DeathAnim" and self.DropWeaponOnDeath then
         self:DeathWeaponDrop(dmginfo, hitgroup)
         self:OnDeath(dmginfo, hitgroup, "Finish")
-    elseif status == "Finish" && self.DropWeaponOnDeath then
+    elseif status == "Finish" and self.DropWeaponOnDeath then
         -- Remove the weapon body groups and other objects
         self:SetBodygroup(self.Zombie_WepBG, self.Zombie_WepBGRemove)
     end

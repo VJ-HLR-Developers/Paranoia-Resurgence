@@ -13,7 +13,7 @@ ENT.ControllerParams = {
     FirstP_Bone = "Bip01 Head",
     FirstP_Offset = Vector(3, 0, 5)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
 ENT.BloodDecal = "VJ_PARR1_Blood_Red"
@@ -84,7 +84,7 @@ ENT.Soldier_NextRunT = 0
 local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnInput(key, activator, caller, data)
     //print(key)
     if key == "step" then
@@ -108,7 +108,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "body" then
         VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 4) .. ".wav", 75, 100)
         local watLevel = self:WaterLevel()
-        if watLevel > 0 && watLevel < 3 then
+        if watLevel > 0 and watLevel < 3 then
             ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_parr/par1/shared/splash_impact1.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -127,8 +127,8 @@ function ENT:OnInput(key, activator, caller, data)
             VJ.EmitSound(wep, wep.Reload_Finish, 60)
         end
     end
-    if key == "Use" && IsValid(activator) && self:Disposition(activator) == D_LI && (self.IsGuard or self.PKM_Gunner or !self.FollowPlayer) /*&& self:GetNPCState() == NPC_STATE_IDLE*/ then
-        if self.CanChatMessage && !self.PKM_Gunner then
+    if key == "Use" and IsValid(activator) and self:Disposition(activator) == D_LI and (self.IsGuard or self.PKM_Gunner or !self.FollowPlayer) /*and self:GetNPCState() == NPC_STATE_IDLE*/ then
+        if self.CanChatMessage and !self.PKM_Gunner then
             activator:PrintMessage(HUD_PRINTTALK, VJ.GetName(self) .. " is busy and won't follow you.")
         end
         if self.SoundTbl_Busy then
@@ -136,14 +136,14 @@ function ENT:OnInput(key, activator, caller, data)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
-    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && self.VJ_NPC_Class[1] == "CLASS_PLAYER_ALLY" && self.VJ_NPC_Class[2] == "CLASS_RUSSIAN_FRIENDLY" then
+    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 and self.VJ_NPC_Class[1] == "CLASS_PLAYER_ALLY" and self.VJ_NPC_Class[2] == "CLASS_RUSSIAN_FRIENDLY" then
         self.VJ_NPC_Class = {"CLASS_RUSSIAN"}
         self.AlliedWithPlayerAllies = false
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     local pickVoice = math_random(1, 2)
     if pickVoice == 1 then
@@ -379,7 +379,7 @@ function ENT:Soldier_Voice()
         }
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl" then
@@ -400,7 +400,7 @@ function ENT:Soldier_Init()
         self:SetBodygroup(1, math_random(0, 10))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Setup()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl" or myMDL == "models/vj_parr/par2/soldier_alpha.mdl" then
@@ -502,7 +502,7 @@ function ENT:Soldier_Setup()
         self:SetBodygroup(self.Soldier_WepBG, 0)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     VJ.HLR_ApplyFactionOptions(self)
 
@@ -516,21 +516,21 @@ function ENT:Init()
     if self.Soldier_Setup then self:Soldier_Setup() end
     if self.Soldier_Voice then self:Soldier_Voice() end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
     if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
     local curTime = CurTime()
     self.Soldier_NextMouthMove = curTime + SoundDuration(sdFile)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnIdleDialogue(ent, status, statusInfo)
     -- Don't talk to PKM Emplacements
     local entClass = ent:GetClass()
-    if status == "CheckEnt" && (entClass == "npc_vj_hlrpar1_clo_pkm" or entClass == "npc_vj_hlrpar1_rus_pkm" or entClass == "npc_vj_hlrpar1_sab_pkm" or entClass == "npc_vj_hlrpar1_ter_pkm" or entClass == "npc_vj_hlrpar2_clo_pkm" or entClass == "npc_vj_hlrpar2_rus_pkm") then
+    if status == "CheckEnt" and (entClass == "npc_vj_hlrpar1_clo_pkm" or entClass == "npc_vj_hlrpar1_rus_pkm" or entClass == "npc_vj_hlrpar1_sab_pkm" or entClass == "npc_vj_hlrpar1_ter_pkm" or entClass == "npc_vj_hlrpar2_clo_pkm" or entClass == "npc_vj_hlrpar2_rus_pkm") then
         return true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
     -- Hurt Walking
     if self.Soldier_CanHurtWalk then
@@ -552,18 +552,18 @@ function ENT:TranslateActivity(act)
     end
     local curTime = CurTime()
     local npcState = self:GetNPCState()
-    if act == ACT_IDLE && self.PKM_Gunner then
-        return (self.VJ_PARR2_NPC && ((VJ.AnimExists(self, "hunkered") && VJ.SequenceToActivity(self, "hunkered")) or (VJ.AnimExists(self, "crouching_idle") && VJ.SequenceToActivity(self, "crouching_idle")) or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
-    elseif act == ACT_IDLE && (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    if act == ACT_IDLE and self.PKM_Gunner then
+        return (self.VJ_PARR2_NPC and ((VJ.AnimExists(self, "hunkered") and VJ.SequenceToActivity(self, "hunkered")) or (VJ.AnimExists(self, "crouching_idle") and VJ.SequenceToActivity(self, "crouching_idle")) or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
+    elseif act == ACT_IDLE and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
-    elseif act == ACT_IDLE && self.IsGuard && npcState == NPC_STATE_IDLE && VJ.AnimExists(self, ACT_IDLE_RELAXED) then
+    elseif act == ACT_IDLE and self.IsGuard and npcState == NPC_STATE_IDLE and VJ.AnimExists(self, ACT_IDLE_RELAXED) then
         return ACT_IDLE_RELAXED
-    elseif act == ACT_IDLE && timer.Exists("VJ_PARR_CrouchStand" .. self:EntIndex()) && VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) && VJ.AnimExists(self, ACT_GET_UP_STAND) then
+    elseif act == ACT_IDLE and timer.Exists("VJ_PARR_CrouchStand" .. self:EntIndex()) and VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) and VJ.AnimExists(self, ACT_GET_UP_STAND) then
         return self:ResolveAnimation(self.AnimTbl_TakingCover)
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SetAnimationTranslations(wepHoldType)
     local bodyGroup = self.Soldier_LastBodyGroup
     local myMDL = self:GetModel()
@@ -590,12 +590,12 @@ function ENT:SetAnimationTranslations(wepHoldType)
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
                 self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
-            elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
+            elseif bodyGroup == 3 and myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
                 self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SMG1_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
                 self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
-            elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
+            elseif bodyGroup == 4 and myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
                 self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SHOTGUN
                 self.AnimationTranslations[ACT_RANGE_ATTACK1_LOW] = ACT_RANGE_ATTACK_SHOTGUN_LOW
                 self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SHOTGUN
@@ -615,7 +615,7 @@ function ENT:SetAnimationTranslations(wepHoldType)
             self.AnimationTranslations[ACT_RELOAD] = ACT_RELOAD_SMG1
             self.AnimationTranslations[ACT_RELOAD_LOW] = ACT_RELOAD_SMG1_LOW
         end
-    elseif self.Soldier_Type == 2 or self.Soldier_Type == 3 then -- Terrorist && Clone
+    elseif self.Soldier_Type == 2 or self.Soldier_Type == 3 then -- Terrorist and Clone
         if myMDL != "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then
             if bodyGroup == 0 then -- AK-74
                 self.AnimationTranslations[ACT_RANGE_ATTACK1] = ACT_RANGE_ATTACK_SMG1
@@ -659,12 +659,12 @@ function ENT:SetAnimationTranslations(wepHoldType)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
     -- If we're guarding then don't follow player
-    if !self.IsGuard && !self.FollowPlayer then
+    if !self.IsGuard and !self.FollowPlayer then
         self.FollowPlayer = true
-    elseif self.IsGuard && self.FollowPlayer then
+    elseif self.IsGuard and self.FollowPlayer then
         self.FollowPlayer = false
         self:ResetFollowBehavior()
     end
@@ -712,10 +712,10 @@ function ENT:OnThink()
                     else
                         self:DoChangeWeapon("weapon_vj_hlrpar1_groza")
                     end
-                elseif bodyGroup == 3 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
+                elseif bodyGroup == 3 and myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- PKM
                     //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_pkm")
-                elseif bodyGroup == 4 && myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
+                elseif bodyGroup == 4 and myMDL == "models/vj_parr/par2/early/v2/soldier_alpha.mdl" then -- KS-23
                     //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlrpar2_ks23")
                 elseif IsValid(wep) then
@@ -796,7 +796,7 @@ function ENT:OnThink()
                 if bodyGroup == 0 then -- MP5
                     //self.Soldier_AmmoType = "SMG1"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_mp5")
-                elseif bodyGroup == 1 && myMDL != "models/vj_parr/par1/cut/blackop.mdl" then -- Shotgun
+                elseif bodyGroup == 1 and myMDL != "models/vj_parr/par1/cut/blackop.mdl" then -- Shotgun
                     //self.Soldier_AmmoType = "Buckshot"
                     self:DoChangeWeapon("weapon_vj_hlrpar1_spas12")
                 elseif IsValid(wep) then
@@ -816,28 +816,28 @@ function ENT:OnThink()
     end
     if self.Soldier_OnThink then self:Soldier_OnThink() end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local animStrafing = {ACT_STRAFE_RIGHT, ACT_STRAFE_LEFT}
 --
 function ENT:Soldier_OnThink()
     if self.VJ_Controlled or self.IsGuard or self.Dead or self.Soldier_PistolAnims then return end
     local curTime = CurTime()
     local ene = self.EnemyData.Target
-    if IsValid(ene) && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && !self.VJ_Controlled && curTime > self.Soldier_NextStrafeT && !self:IsMoving() && self:GetPos():Distance(ene:GetPos()) < 1400 then
+    if IsValid(ene) and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and !self.VJ_Controlled and curTime > self.Soldier_NextStrafeT and !self:IsMoving() and self:GetPos():Distance(ene:GetPos()) < 1400 then
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false, false)
         self.Soldier_NextRunT = curTime + 2
         self.Soldier_NextStrafeT = curTime + 8
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:SelectSchedule()
     self.BaseClass.SelectSchedule(self)
     -- Play yield lines when friendly is in line of fire
     if !self.SoundTbl_YieldToPlayer then return end
     local ene = self:GetEnemy()
     local wep = self:GetActiveWeapon()
-    if IsValid(wep) && IsValid(ene) then
+    if IsValid(wep) and IsValid(ene) then
         local curTime = CurTime()
         local eneValid = IsValid(ene)
         local enePos_Eye = ene:EyePos()
@@ -846,32 +846,32 @@ function ENT:SelectSchedule()
         local wepInCover, wepInCoverTrace = self:DoCoverTrace(wep:GetBulletPos(), enePos_Eye, false)
         local wepInCoverEnt = wepInCoverTrace.Entity
         local inCoverEntLiving = false
-        if IsValid(inCoverEnt) && inCoverEnt.VJ_ID_Living then
+        if IsValid(inCoverEnt) and inCoverEnt.VJ_ID_Living then
             inCoverEntLiving = true
         end
-        if inCoverEntLiving && self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND && curTime > self.TakingCoverT && IsValid(wepInCoverEnt) && wepInCoverEnt:IsNPC() && wepInCoverEnt != self && (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) && wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
+        if inCoverEntLiving and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
             self:PlaySoundSystem("YieldToPlayer")
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
     -- Monster callouts
     if math_random(1, 3) == 1 then
-        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) && !ent.VJ_ID_Vehicle && !ent.VJ_ID_Aircraft then
+        if (ent.IsVJBaseSNPC_Creature or ent.VJ_ID_Undead) and !ent.VJ_ID_Vehicle and !ent.VJ_ID_Aircraft then
             if self.SoundTbl_AlertMonster then
                 self:PlaySoundSystem("Alert", self.SoundTbl_AlertMonster)
             end
-            if math_random(1, 2) == 1 && VJ.AnimExists(self, ACT_SIGNAL_GROUP) then self:PlayAnim(ACT_SIGNAL_GROUP, true, false, true) end
+            if math_random(1, 2) == 1 and VJ.AnimExists(self, ACT_SIGNAL_GROUP) then self:PlayAnim(ACT_SIGNAL_GROUP, true, false, true) end
             return
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
     if !VJ.AnimExists(self, ACT_SPECIAL_ATTACK2) or self:GetModel() == "models/vj_parr/par1/cut/vts_urban_terrorist.mdl" then return end
     if status == "Init" then
@@ -885,17 +885,17 @@ function ENT:OnGrenadeAttack(status, overrideEnt, landDir)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local victoryAnims = {"radio-nod", "victorydance"}
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     -- Play an animation upon killing a single known enemy
-    if (!VJ.AnimExists(self, "radio-nod") && !VJ.AnimExists(self, "victorydance")) or self.PKM_Gunner then return end
-    if wasLast && math_random(1, 3) == 1 then
-        self:PlayAnim((self.Soldier_PistolAnims && "victorydance") or victoryAnims, "LetAttacks", false, false, 0)
+    if (!VJ.AnimExists(self, "radio-nod") and !VJ.AnimExists(self, "victorydance")) or self.PKM_Gunner then return end
+    if wasLast and math_random(1, 3) == 1 then
+        self:PlayAnim((self.Soldier_PistolAnims and "victorydance") or victoryAnims, "LetAttacks", false, false, 0)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Unmount()
     self.PKM_Gunner = false
     self.PoseParameterLooking_TurningSpeed = 20
@@ -908,23 +908,23 @@ function ENT:Unmount()
     self:SetOwner(NULL)
     self:SetParent(NULL)
     if !self.Dead then self:Soldier_Setup() end -- Call it again so gunner has a weapon
-    local pickAnim = (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_SMALL_FLINCH) && ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC && VJ.AnimExists(self, ACT_COWER) && ACT_COWER) or ACT_GET_UP_STAND
+    local pickAnim = (self.VJ_PARR2_NPC and VJ.AnimExists(self, ACT_SMALL_FLINCH) and ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC and VJ.AnimExists(self, ACT_COWER) and ACT_COWER) or ACT_GET_UP_STAND
     self:PlayAnim(pickAnim, true, false, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
     timer.Simple(VJ.AnimDuration(self, pickAnim), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     self:SetPos(self:GetPos() + self:GetUp() * 1) -- So we don't sink into the ground
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
     if hitgroup == HITGROUP_HEAD or hitgroup == 8 then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
@@ -933,27 +933,27 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         local myMDL = self:GetModel()
         local myBG = self:GetBodygroup(1)
         local myBG2 = self:GetBodygroup(2)
-        if (myMDL == "models/vj_parr/par1/soldier_alpha.mdl" && (myBG == 9 or myBG == 10))
-            or (myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" && (myBG == 8 or myBG == 9))
-            or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") && myBG == 5)
-            or ((myMDL == "models/vj_parr/par1/terror.mdl" or myMDL == "models/vj_parr/par1/early/v1/terror_old.mdl") && myBG == 3)
+        if (myMDL == "models/vj_parr/par1/soldier_alpha.mdl" and (myBG == 9 or myBG == 10))
+            or (myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" and (myBG == 8 or myBG == 9))
+            or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") and myBG == 5)
+            or ((myMDL == "models/vj_parr/par1/terror.mdl" or myMDL == "models/vj_parr/par1/early/v1/terror_old.mdl") and myBG == 3)
             or (myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon_heavy2.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl")
-            or ((myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl") && myBG == 1) then
+            or ((myMDL == "models/vj_parr/par2/monster_clonsoldier.mdl" or myMDL == "models/vj_parr/par2/1.0/monster_clonsoldier.mdl") and myBG == 1) then
             if dmginfo:IsDamageType(DMG_NERVEGAS) then
                 dmginfo:SetDamage(0)
             end
         end
         -- If we're wearing a helmet, create rico FX when hit
-        if ((myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl") && myBG != 7)
-            or ((myMDL == "models/vj_parr/par1/early/v1/soldier_alpha.mdl") && myBG != 1 && myBG != 9)
-            or ((myMDL == "models/vj_parr/par1/early/v1/soldier_alpha_pistol.mdl") && myBG != 2 && myBG != 7)
+        if ((myMDL == "models/vj_parr/par1/soldier_alpha.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha.mdl") and myBG != 7)
+            or ((myMDL == "models/vj_parr/par1/early/v1/soldier_alpha.mdl") and myBG != 1 and myBG != 9)
+            or ((myMDL == "models/vj_parr/par1/early/v1/soldier_alpha_pistol.mdl") and myBG != 2 and myBG != 7)
             or (myMDL == "models/vj_parr/par1/savior/soldier_alpha.mdl")
-            or ((myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl") && myBG != 6)
-            or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") && myBG != 4 && myBG != 5)
+            or ((myMDL == "models/vj_parr/par1/soldier_alpha_pistol.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier_alpha_pistol.mdl") and myBG != 6)
+            or ((myMDL == "models/vj_parr/par1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier.mdl" or myMDL == "models/vj_parr/par1/early/v2/soldier.mdl") and myBG != 4 and myBG != 5)
             or (myMDL == "models/vj_parr/par1/soldier_clon_heavy.mdl" or myMDL == "models/vj_parr/par1/early/v1/soldier_clon_heavy.mdl")
-            or ((myMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon.mdl") && self:GetBodygroup(3) != 0)
-            or ((myMDL == "models/vj_parr/par1/diversant.mdl" or myMDL == "models/vj_parr/par1/diversant_pistol.mdl") && myBG2 != 0 && myBG2 != 3 && myBG2 != 5) then
-            if hitgroup == 8 && dmginfo:GetDamagePosition() != vec then
+            or ((myMDL == "models/vj_parr/par1/custom/soldier_clon2.mdl" or myMDL == "models/vj_parr/par1/custom/soldier_clon.mdl") and self:GetBodygroup(3) != 0)
+            or ((myMDL == "models/vj_parr/par1/diversant.mdl" or myMDL == "models/vj_parr/par1/diversant_pistol.mdl") and myBG2 != 0 and myBG2 != 3 and myBG2 != 5) then
+            if hitgroup == 8 and dmginfo:GetDamagePosition() != vec then
                 self.HasBloodParticle = false -- Disable blood particles temporarily when shot at the helmet
                 local rico = EffectData()
                 rico:SetOrigin(dmginfo:GetDamagePosition())
@@ -971,16 +971,16 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             end
         end
         -- Modified cover mechanic to play transition anims
-    elseif status == "PostDamage" && VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) && VJ.AnimExists(self, ACT_GET_UP_STAND) then
+    elseif status == "PostDamage" and VJ.AnimExists(self, ACT_GET_DOWN_CROUCH) and VJ.AnimExists(self, ACT_GET_UP_STAND) then
         local curTime = CurTime()
         local eneData = self.EnemyData
-        if self.CombatDamageResponse && IsValid(eneData.Target) && curTime > self.NextCombatDamageResponseT && !self.IsFollowing && !self.AttackType && !self:IsBusy() && curTime > self.TakingCoverT && eneData.Visible && self:GetWeaponState() != VJ.WEP_STATE_RELOADING && eneData.Distance < self.Weapon_MaxDistance then
+        if self.CombatDamageResponse and IsValid(eneData.Target) and curTime > self.NextCombatDamageResponseT and !self.IsFollowing and !self.AttackType and !self:IsBusy() and curTime > self.TakingCoverT and eneData.Visible and self:GetWeaponState() != VJ.WEP_STATE_RELOADING and eneData.Distance < self.Weapon_MaxDistance then
             if self:DoCoverTrace(self:GetPos() + self:OBBCenter(), eneData.Target:EyePos()) then
                 local hideTime = math_rand(self.CombatDamageResponse_CoverTime.a, self.CombatDamageResponse_CoverTime.b)
                 self:PlayAnim(ACT_GET_DOWN_CROUCH, true, false, false, 0, {OnFinish = function(interrupted, anim)
                     local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
-                        if IsValid(self) && !self.Dead then
+                        if IsValid(self) and !self.Dead then
                             local curAct = self:GetSequenceActivity(self:GetIdealSequence())
                             if (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
                                 self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
@@ -998,10 +998,10 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
-        if dmginfo:GetDamage() > 30 && VJ.AnimExists(self, ACT_BIG_FLINCH) then
+        if dmginfo:GetDamage() > 30 and VJ.AnimExists(self, ACT_BIG_FLINCH) then
             self.FlinchChance = 6
             self.AnimTbl_Flinch = ACT_BIG_FLINCH
         else
@@ -1010,10 +1010,10 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
             if GetConVar("VJ_PARR_DropWeapon"):GetInt() == 0 then self.DropWeaponOnDeath = false end
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
@@ -1022,9 +1022,9 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         if hitgroup == HITGROUP_HEAD or hitgroup == 8 then
             VJ.EmitSound(self, "vj_parr/par1/shared/headshot.wav", 75, 100)
         end
-        if (hitgroup == HITGROUP_HEAD or hitgroup == 8) && VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
+        if (hitgroup == HITGROUP_HEAD or hitgroup == 8) and VJ.AnimExists(self, ACT_DIE_HEADSHOT) then
             self.AnimTbl_Death = ACT_DIE_HEADSHOT
-        elseif hitgroup == HITGROUP_STOMACH && VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
+        elseif hitgroup == HITGROUP_STOMACH and VJ.AnimExists(self, ACT_DIE_GUTSHOT) then
             self.AnimTbl_Death = ACT_DIE_GUTSHOT
         end
         -- Unparent the gunner from PKM Emplacement if they died. Prevents Source from spawning them in a random location of the map
@@ -1049,12 +1049,12 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         -- Remove the weapon body groups and other objects
         if self.DropWeaponOnDeath then self:SetBodygroup(self.Soldier_WepBG, self.Soldier_WepBGRemove) end
         -- Reset the blood decals to default if hit in head
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
         -- Fix for if blood particles were disabled from taking damage to armor
         self.HasBloodParticle = true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
@@ -1072,16 +1072,16 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
         util.Effect("bloodspray", effectData)
         util.Effect("bloodspray", effectData)
     end
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 40))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 40))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 40))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 40))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 40))})
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 3, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 0, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib2.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 1, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib3.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(1, 0, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib4.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 2, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib5.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(2, 0, 40))})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib6.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd, Pos = self:LocalToWorld(Vector(0, 3, 40))})
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
@@ -1089,7 +1089,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     /*corpse.Soldier_AmmoType = self.Soldier_AmmoType
     function corpse:AcceptInput(key, activator, caller, data)
         if self.Soldier_PickedUpAmmo then return end
-        if key == "Use" && self.Soldier_AmmoType && !self.Soldier_PickedUpAmmo then
+        if key == "Use" and self.Soldier_AmmoType and !self.Soldier_PickedUpAmmo then
             self.Soldier_PickedUpAmmo = true
             self:EmitSound("vj_parr/par1/shared/ammopickup" .. math_random(1, 2) .. ".wav", 75, 100)
             activator:GiveAmmo(15, self.Soldier_AmmoType)
@@ -1098,11 +1098,11 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     end*/
     VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_parr/par1/shared/bodysplat.wav", SplatDecal = "VJ_PARR1_Blood_Red_Large"})
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     local watLevel = self:WaterLevel()
-    if watLevel > 0 && watLevel < 3 then
+    if watLevel > 0 and watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
     end
 end

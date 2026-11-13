@@ -13,7 +13,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(00, 0, 130),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
@@ -40,7 +40,7 @@ ENT.T90_DmgForce = 0
 
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init()
     self.SoundTbl_Idle = {
         "vj_parr/par1/officer/monologue1.wav",
@@ -98,11 +98,11 @@ function ENT:Tank_Init()
         "vj_parr/par1/npc/army/konferents_zal.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_GunnerSpawnPosition()
     return self:GetPos() + self:GetUp() * 48 + self:GetRight() * 4
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_UpdateMoveParticles()
     local spawnPos = self:GetPos() + self:GetForward() * -120
     local effectData = EffectData()
@@ -113,7 +113,7 @@ function ENT:Tank_UpdateMoveParticles()
     effectData:SetOrigin(spawnPos + self:GetRight() * -45)
     util.Effect("VJ_VehicleMove", effectData, true, true)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:GetNearDeathSparkPositions()
     local randPos = math_random(1, 5)
     if randPos == 1 then
@@ -128,7 +128,7 @@ function ENT:GetNearDeathSparkPositions()
         self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 50)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local expPos = Vector(0, 0, 100)
 --
 function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
@@ -212,11 +212,11 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
     end)
     return true
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
-    if status == "Init" && dmginfo:GetDamagePosition() != vec then
+    if status == "Init" and dmginfo:GetDamagePosition() != vec then
         local rico = EffectData()
         rico:SetOrigin(dmginfo:GetDamagePosition())
         rico:SetScale(5) -- Size
@@ -225,7 +225,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
     end
     self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local metalCollideSD = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local vec500z = Vector(0, 0, 500)
 local colorGray = Color(90, 90, 90)

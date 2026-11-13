@@ -8,7 +8,7 @@ ENT.HullType = HULL_HUMAN
 ENT.SightAngle = 360
 ENT.MovementType = VJ_MOVETYPE_STATIONARY
 ENT.CanTurnWhileStationary = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.Bleeds = false
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
@@ -24,7 +24,7 @@ ENT.DeathCorpseEntityClass = "prop_vj_animatable"
 -- Custom
 ENT.Brain_LostBodies = false
 ENT.Brain_BodyCount = 0
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     local myPos = self:GetPos()
     local myAng = self:GetAngles()
@@ -115,31 +115,31 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(55, 55, 320), Vector(-55, -55, 0))
     //self:SetSurroundingBounds(Vector(250, 250, 500), Vector(-250, -250, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
-    if !self.GodMode && !self.Dead then self.GodMode = true end
+    if !self.GodMode and !self.Dead then self.GodMode = true end
     -- Make tree vulerable when we lose our 4 bodies
-    if !self.Brain_LostBodies && self.Brain_BodyCount <= 0 && IsValid(self.BrainTree) then
+    if !self.Brain_LostBodies and self.Brain_BodyCount <= 0 and IsValid(self.BrainTree) then
         local brainTree = self.BrainTree
         self.Brain_LostBodies = true
         brainTree.GodMode = false
         brainTree:RemoveFlags(FL_NOTARGET)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Brain_BodyDeath()
     self.Brain_BodyCount = self.Brain_BodyCount - 1
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
     if hitgroup == HITGROUP_HEAD then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 /*function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make it immune to DMG_NERVEGAS, based on source code
@@ -158,38 +158,38 @@ end
         local brainBody2 = self.BrainBody2
         local brainBody3 = self.BrainBody3
         local brainBody4 = self.BrainBody4
-        if myHP <= (myMaxHP * 0.8) && IsValid(brainBody) && brainBody.GodMode then
+        if myHP <= (myMaxHP * 0.8) and IsValid(brainBody) and brainBody.GodMode then
             brainBody.GodMode = false
             brainBody:TakeDamage(brainBody:Health(), brainBody, brainBody)
         end
-        if myHP <= (myMaxHP * 0.6) && IsValid(brainBody2) && brainBody2.GodMode then
+        if myHP <= (myMaxHP * 0.6) and IsValid(brainBody2) and brainBody2.GodMode then
             brainBody2.GodMode = false
             brainBody2:TakeDamage(brainBody2:Health(), brainBody2, brainBody2)
         end
-        if myHP <= (myMaxHP * 0.4) && IsValid(brainBody3) && brainBody3.GodMode then
+        if myHP <= (myMaxHP * 0.4) and IsValid(brainBody3) and brainBody3.GodMode then
             brainBody3.GodMode = false
             brainBody3:TakeDamage(brainBody3:Health(), brainBody3, brainBody3)
         end
-        if myHP <= (myMaxHP * 0.2) && IsValid(brainBody4) && brainBody4.GodMode then
+        if myHP <= (myMaxHP * 0.2) and IsValid(brainBody4) and brainBody4.GodMode then
             brainBody4.GodMode = false
             brainBody4:TakeDamage(brainBody4:Health(), brainBody4, brainBody4)
         end
     end
 end*/
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
         self.Bleeds = true
         -- Reset buff stats for zombies when killed
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) && v.Zombie_Buffed then
+            if IsValid(v) and v.Zombie_Buffed then
                 v.Zombie_Buffed = false
                 v:SetPlaybackRate(v.AnimPlaybackRate)
             end
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:SetModel("models/vj_parr/par1/brain_tree.mdl")
     corpse:ResetSequence("die")

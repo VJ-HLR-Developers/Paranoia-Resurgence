@@ -14,11 +14,11 @@ ENT.Tank_Shell_SpawnPos = Vector(56, 0, 7)
 ENT.Tank_Shell_VelocitySpeed = 3000
 ENT.Tank_Shell_MuzzleFlashPos = Vector(56, 0, 7)
 ENT.Tank_Shell_ParticlePos = Vector(56, 0, 7)
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_Init() return end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Tank_OnThinkActive() return end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR2_Effect_Impact(tr)
 end

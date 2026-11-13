@@ -13,7 +13,7 @@ ENT.AlliedWithPlayerAllies = false
 
 local CurTime = CurTime
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_CombatIdle = {
         "vj_parr/par1/diversant/dv_charge1.wav",
@@ -63,7 +63,7 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/diversant/gr_pain6.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     self:SetBodygroup(2, math_random(0, 5))
     self:SetBodygroup(4, math_random(0, 1))
@@ -75,22 +75,22 @@ function ENT:Soldier_Init()
         self:SetBodygroup(5, 1)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateSound(sdData, sdFile)
     if VJ.HasValue(self.SoundTbl_Breath, sdFile) then return end
     local curTime = CurTime()
     self.Soldier_NextMouthMove = curTime + SoundDuration(sdFile)
 
     VJ.EmitSound(self, "vj_parr/par1/diversant/radio_start.wav")
-    timer.Simple(SoundDuration(sdFile), function() if IsValid(self) && sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/diversant/radio_end.wav") end end)
+    timer.Simple(SoundDuration(sdFile), function() if IsValid(self) and sdData:IsPlaying() then VJ.EmitSound(self, "vj_parr/par1/diversant/radio_end.wav") end end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnWeaponAttack()
     if self.VJ_Controlled or self.IsGuard then return end
     local curTime = CurTime()
     if curTime > self.Soldier_NextRunT then
         timer.Simple(0.8, function()
-            if IsValid(self) && self.AttackType != VJ.ATTACK_TYPE_GRENADE && !self:IsMoving() && !self.Dead then
+            if IsValid(self) and self.AttackType != VJ.ATTACK_TYPE_GRENADE and !self:IsMoving() and !self.Dead then
                 self:SCHEDULE_COVER_ENEMY("TASK_RUN_PATH")
             end
         end)

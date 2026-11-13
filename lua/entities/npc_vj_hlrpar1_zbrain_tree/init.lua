@@ -15,7 +15,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(3, 0, 5),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
 ENT.BloodDecal = "VJ_PARR1_Blood_Red"
@@ -132,7 +132,7 @@ local zombieList2 = {
 local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self.Zombies = {}
 
@@ -146,12 +146,12 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(50, 50, 320), Vector(-50, -50, 0))
     self:SetSurroundingBounds(Vector(250, 250, 500), Vector(-250, -250, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("RELOAD: Buff Zombies/Control Clones")
     ply:ChatPrint("JUMP: Spawn Zombies")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = Color(130, 19, 10)
 local beamEffectTbl = {material = "vj_hl/sprites/shockwave", framerate = 20, flags = 0}
 local ignoreNPCs = {["npc_vj_hlrpar1_zbrain"] = true, ["npc_vj_hlrpar1_zbrain_body"] = true, ["npc_vj_hlrpar1_zbrain_tree"] = true}
@@ -162,14 +162,14 @@ function ENT:OnThinkActive()
     local eneData = self.EnemyData
     local ene = eneData.Target
     local controlled = self.VJ_Controlled
-    local ply = self.VJ_Controlled && self.VJ_Controller:GetPlayer()
+    local ply = self.VJ_Controlled and self.VJ_Controller:GetPlayer()
     -- Spawn zombies during combat
-    if IsValid(ene) && !self.Dead && curTime > self.Brain_NextZombieSpawnT && ((!controlled) or (controlled && ply:KeyDown(IN_JUMP))) then
+    if IsValid(ene) and !self.Dead and curTime > self.Brain_NextZombieSpawnT and ((!controlled) or (controlled and ply:KeyDown(IN_JUMP))) then
         for i = 1, 4 do
             if self.Brain_ZombieCount < self.Brain_ZombieLimit then
-                local zombie = ents.Create((GetConVar("VJ_PARR_Brain_Par2"):GetInt() == 1 && math_random(2) == 1 && VJ.PICK(zombieList2)) or VJ.PICK(zombieList))
-                local opSide = ((i % 2 == 0) && -150) or 150
-                zombie:SetPos(self:GetPos() + self:GetForward() * (i <= 2 && -150 or (i <= 4 && 150 or 0)) + self:GetRight() * opSide + self:GetUp() * 10)
+                local zombie = ents.Create((GetConVar("VJ_PARR_Brain_Par2"):GetInt() == 1 and math_random(2) == 1 and VJ.PICK(zombieList2)) or VJ.PICK(zombieList))
+                local opSide = ((i % 2 == 0) and -150) or 150
+                zombie:SetPos(self:GetPos() + self:GetForward() * (i <= 2 and -150 or (i <= 4 and 150 or 0)) + self:GetRight() * opSide + self:GetUp() * 10)
                 zombie:SetAngles(self:GetAngles())
                 zombie.VJ_NPC_Class = self.VJ_NPC_Class
                 zombie.Brain_Ent = self
@@ -199,23 +199,23 @@ function ENT:OnThinkActive()
         end
     end
     -- Buff nearby zombies & control clones within valid distance
-    if curTime > self.Brain_NextSignalT && ((!controlled && math_random(1, 10) == 1) or (controlled && ply:KeyDown(IN_RELOAD))) then
+    if curTime > self.Brain_NextSignalT and ((!controlled and math_random(1, 10) == 1) or (controlled and ply:KeyDown(IN_RELOAD))) then
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
-            if IsValid(v) /*&& v:Visible(self)*/ && VJ.GetNearestDistance(self, v) <= GetConVar("VJ_PARR_Brain_MaxDistance"):GetInt() && !v.Dead && !ignoreNPCs[v:GetClass()] && !v.IsVJBaseBullseye then
-                if (v.VJ_PARR_Zombie && !v.Zombie_Buffed) or (v.VJ_PARR_Clone && !v.Clone_Controlled) then
+            if IsValid(v) /*and v:Visible(self)*/ and VJ.GetNearestDistance(self, v) <= GetConVar("VJ_PARR_Brain_MaxDistance"):GetInt() and !v.Dead and !ignoreNPCs[v:GetClass()] and !v.IsVJBaseBullseye then
+                if (v.VJ_PARR_Zombie and !v.Zombie_Buffed) or (v.VJ_PARR_Clone and !v.Clone_Controlled) then
                     self.Brain_Signaling = true
-                    if v.VJ_PARR_Zombie && !v.Zombie_Buffed then
+                    if v.VJ_PARR_Zombie and !v.Zombie_Buffed then
                         v.Zombie_Buffed = true
                         if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
                         v:SetPlaybackRate(1.5)
                         v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                         timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
                     end
-                    if v.VJ_PARR_Clone && !v.Clone_Controlled then
+                    if v.VJ_PARR_Clone and !v.Clone_Controlled then
                         v.Clone_Controlled = true
                         v.VJ_NPC_Class = {"CLASS_ZOMBIE"}
                         v.AlliedWithPlayerAllies = false
-                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false) end
+                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false) end
                         v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                         timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                     end
@@ -234,20 +234,20 @@ function ENT:OnThinkActive()
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Brain_ZombieDeath()
     self.Brain_ZombieCount = self.Brain_ZombieCount - 1
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
     if hitgroup == HITGROUP_HEAD then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make it immune to DMG_NERVEGAS, based on source code
@@ -261,10 +261,10 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     local brainEnt = self.Brain_Ent
-    if status == "Init" && IsValid(brainEnt) then
+    if status == "Init" and IsValid(brainEnt) then
         -- Reset stats for zombies & clones when killed
         for _, v in pairs(ents.FindByClass("npc_vj_*")) do
             if IsValid(v) then
@@ -283,25 +283,25 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                         v.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
                         v.AlliedWithPlayerAllies = true
                     end
-                    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 and GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
                         v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
                         v.AlliedWithPlayerAllies = false
                     end
-                    v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                    v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
                     v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-                    timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
+                    timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                 end
             end
         end
         self:SetParent(NULL)
         self:SetPos(self:GetPos() + self:GetUp() * -4)
         timer.Simple(0, function() if IsValid(self) then self:SetParent(brainEnt) end end)
-    elseif status == "Finish" && IsValid(brainEnt) then
+    elseif status == "Finish" and IsValid(brainEnt) then
         brainEnt.GodMode = false
         brainEnt:TakeDamage(brainEnt:Health(), brainEnt, brainEnt)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     corpse:ResetSequence(self:GetSequence())
     corpse:SetCycle(1)
@@ -319,7 +319,7 @@ function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
 
     VJ.HLR_ApplyCorpseSystem(self, corpse, nil, {Gibbable = false})
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
     -- Reset stats for zombies & clones when killed
     for _, v in pairs(ents.FindByClass("npc_vj_*")) do
@@ -339,13 +339,13 @@ function ENT:CustomOnRemove()
                     v.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
                     v.AlliedWithPlayerAllies = true
                 end
-                if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 and GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
                     v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
                     v.AlliedWithPlayerAllies = false
                 end
-                v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
                 v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-                timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
+                timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
             end
         end
     end

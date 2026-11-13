@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/npc_scientist.mdl"
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init()
     self:SetBodygroup(1, math_random(0, 2))
     self:SetSkin(math_random(0, 3))

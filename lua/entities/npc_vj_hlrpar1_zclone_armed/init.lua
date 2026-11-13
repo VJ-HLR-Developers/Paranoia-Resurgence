@@ -19,10 +19,10 @@ ENT.LimitChaseDistance_Min = "UseRangeDistance"
 
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) then
+    if VJ_CVAR_AI_ENABLED and (math_random(1, 3) == 1 or self.Zombie_Turned) then
         local anim = VJ.PICK({"slumprise_a", "slumprise_a2", "slumprise_b"})
         timer.Simple(0, function()
             if IsValid(self) then
@@ -37,7 +37,7 @@ function ENT:Zombie_Init()
         end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:FireFX()
     local attShell = self:GetAttachment(self:LookupAttachment("shell"))
 
@@ -77,17 +77,17 @@ function ENT:FireFX()
     muzLight:Fire("Kill", nil, 0.07)
     self:DeleteOnRemove(muzLight)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttack(status, enemy)
     if status == "Init" then
         self.NextAnyAttackTime_Range = math_rand(1, 2)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "Init" then
         local attPos = self:GetAttachment(self:LookupAttachment("muzzle")).Pos

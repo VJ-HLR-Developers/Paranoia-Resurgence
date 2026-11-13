@@ -14,7 +14,7 @@ ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
 if CLIENT then
     VJ.AddKillIcon("obj_vj_hlrpar1_grenade", ENT.PrintName, VJ.KILLICON_GRENADE)
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_parr/par1/weapons/w_grenade.mdl"
@@ -23,7 +23,7 @@ ENT.CollisionDecal = "VJ_PARR1_Scorch"
 ENT.SoundTbl_OnCollide = {"vj_parr/par1/weapons/grenade_hit1.wav", "vj_parr/par1/weapons/grenade_hit2.wav", "vj_parr/par1/weapons/grenade_hit3.wav"}
 ENT.SoundTbl_OnRemove = "VJ.PARR1_Explosion.Single"
 ENT.OnRemoveSoundLevel = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnCollision(data, phys)
     local getVel = phys:GetVelocity()
     local curVelSpeed = getVel:Length()
@@ -33,7 +33,7 @@ function ENT:OnCollision(data, phys)
         self:PlaySound("OnCollide")
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ60 = Vector(0, 0, 50)
 local vecZ4 = Vector(0, 0, 4)
 local vezZ100 = Vector(0, 0, 100)

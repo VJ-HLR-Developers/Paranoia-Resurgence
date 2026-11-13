@@ -12,18 +12,18 @@ ENT.VJ_NPC_Class = {"CLASS_CLONE"}
 ENT.AlliedWithPlayerAllies = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
     if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
         self.AlliedWithPlayerAllies = true
     end
-    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 and GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
         self.VJ_NPC_Class = {"CLASS_RUSSIAN"}
         self.AlliedWithPlayerAllies = false
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par1/clone/cl_die1.wav",
@@ -40,7 +40,7 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/clone/cl_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     local myMDL = self:GetModel()
     if myMDL != "models/vj_parr/par1/early/v1/soldier_colba.mdl" then

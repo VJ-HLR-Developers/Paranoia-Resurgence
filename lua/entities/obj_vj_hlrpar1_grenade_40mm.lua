@@ -16,7 +16,7 @@ ENT.VJ_ID_Danger = true
 if CLIENT then
     VJ.AddKillIcon("obj_vj_hlrpar1_grenade_40mm", ENT.PrintName, VJ.KILLICON_TYPE_ALIAS, "grenade_ar2")
 end
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_parr/par1/weapons/grenade.mdl"
@@ -32,14 +32,14 @@ ENT.SoundTbl_OnRemove = "VJ.PARR1_Explosion.Single"
 ENT.OnRemoveSoundLevel = 100
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:InitPhys()
     local phys = self:GetPhysicsObject()
     if IsValid(phys) then
         phys:AddAngleVelocity(Vector(0, math_random(300, 400), 0))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ60 = Vector(0, 0, 50)
 --
 function ENT:OnDestroy(data, phys)

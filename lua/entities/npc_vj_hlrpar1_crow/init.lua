@@ -43,7 +43,7 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 ENT.Crow_FollowOffsetPos = 0
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self:SetCollisionBounds(Vector(10, 10, 10), Vector(-10, -10, 0))
     self.Crow_FollowOffsetPos = Vector(math_random(-50, 50), math_random(-120, 120), math_random(-150, 150))
@@ -51,19 +51,19 @@ function ENT:Init()
         VJ.HLR_NPC_Crow_Leader = self
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:TranslateActivity(act)
     if act == ACT_IDLE then
         return ACT_FLY
     end
     return self.BaseClass.TranslateActivity(self, act)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
     if self.VJ_Controlled then return end
     local leader = VJ.HLR_NPC_Crow_Leader
     if IsValid(leader) then
-        if leader != self && leader.AA_CurrentMovePos then
+        if leader != self and leader.AA_CurrentMovePos then
             self.DisableWandering = true
             self:AA_MoveTo(leader, true, "Calm", {AddPos = self.Crow_FollowOffsetPos, IgnoreGround = true}) -- Medzavorin haladz e (Kharen deghme)
         end
@@ -73,19 +73,19 @@ function ENT:OnThink()
         VJ.HLR_NPC_Crow_Leader = self
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
     if hitgroup == HITGROUP_HEAD then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
@@ -97,10 +97,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
     elseif status == "Finish" then
         -- Reset the blood decals to default if hit in head
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
@@ -125,7 +125,7 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

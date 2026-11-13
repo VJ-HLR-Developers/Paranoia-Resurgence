@@ -14,7 +14,7 @@ ENT.ControllerParams = {
     FirstP_Bone = "Dummy01",
     FirstP_Offset = Vector(0, 0, 4)
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.CanOpenDoors = false
 ENT.Behavior = VJ_BEHAVIOR_PASSIVE_NATURE
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
@@ -38,34 +38,34 @@ ENT.MainSoundPitch = VJ.SET(95, 105)
 ENT.Rat_SteppedOn = false
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self:SetCollisionBounds(Vector(5, 5, 5), Vector(-5, -5, 0))
     self:SetSurroundingBounds(Vector(15, 15, 30), Vector(-15, -15, 0))
     self.HasDeathSounds = math_random(0, 4) == 1 -- 1 in 5 chance to play a death squeak sound | Based on: https://github.com/ValveSoftware/halflife/blob/master/dlls/roach.cpp#L166
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnTouch(ent)
-    if ent.VJ_ID_Living && !self.GodMode then
+    if ent.VJ_ID_Living and !self.GodMode then
         self.Rat_SteppedOn = true
         self:TakeDamage(self:Health() + 1, ent, ent)
         -- Based on:   EMIT_SOUND_DYN(ENT(pev), CHAN_BODY, "roach/rch_smash.wav", 0.7, ATTN_NORM, 0, 80 + RANDOM_LONG(0, 39) );
         VJ.EmitSound(self, "vj_parr/par1/roach/rch_smash.wav", 60, 80 + math_random(0, 39))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnBleed(dmginfo, hitgroup)
     -- Spawn a unique decal from headshots, based on source code
     if hitgroup == HITGROUP_HEAD or self.Rat_SteppedOn then
         self.BloodDecal = "VJ_PARR1_Brains"
     else
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
     if status == "Init" then
-        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+        if GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
             self.DeathAnimationDecreaseLengthAmount = -1
             self.DeathCorpseEntityClass = "prop_vj_animatable"
             VJ.HLR_StaticCorpseCheck(self)
@@ -75,10 +75,10 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end
     elseif status == "Finish" then
         -- Reset the blood decals to default if hit in head
-        self.BloodDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
+        self.BloodDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red"
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
@@ -91,11 +91,11 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
         effectData:SetScale(30)
         util.Effect("VJ_Blood1", effectData)
     end
-    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC && "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/hgib1.mdl", {CollisionDecal = (self.VJ_PARR2_NPC and "VJ_PARR2_Blood_Red") or "VJ_PARR1_Blood_Red", CollideSound = gibsCollideSd})
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)

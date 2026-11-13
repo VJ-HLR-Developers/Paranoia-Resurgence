@@ -8,7 +8,7 @@ include("shared.lua")
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par1/cut/general_pistol.mdl"
 ENT.StartHealth = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_IdleDialogue = {
         "vj_parr/par1/npc/army/dermo2.wav",
@@ -52,5 +52,5 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init() return end

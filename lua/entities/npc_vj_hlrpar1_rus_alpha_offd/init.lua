@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/npc_soldier_alpha.mdl"
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/officer/monologue1.wav",
@@ -157,7 +157,7 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init()
     self:SetBodygroup(1, math_random(0, 5))
 end

@@ -9,7 +9,7 @@ include("shared.lua")
 ENT.Model = "models/vj_parr/par1/npc_fsceint.mdl"
 ENT.IsMedic = false
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/polina/monologue1.wav",
@@ -33,7 +33,7 @@ function ENT:Civilian_Voice()
     self.SoundTbl_Death =
         "vj_parr/par1/polina/scream.wav"
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init()
     self:SetBodygroup(1, 1)
 end

@@ -25,7 +25,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(-50, 0, -40),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
 ENT.AlliedWithPlayerAllies = true
 ENT.BecomeEnemyToPlayer = 2
@@ -86,7 +86,7 @@ local math_pi = math.pi
 local math_random = math.random
 local math_rand = math.Rand
 local math_sin = math.sin
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local spawnPos = Vector(0, 0, 400)
 --
 function ENT:Init()
@@ -115,11 +115,11 @@ function ENT:Init()
     self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))
     self:SetSurroundingBounds(Vector(600, 600, 250), Vector(-600, -600, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
     ply:ChatPrint("MOUSE1: Fire chain gun")
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
     -- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
     -- Using 20 for "aim_pitch" to make it a little more forgiving
@@ -131,7 +131,7 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
         self.Heli_HasLOS = true
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Heli_GetMoveDirection()
     local vel = self:GetVelocity()
     if vel:Length() <= 0 then return defVec end
@@ -139,7 +139,7 @@ function ENT:Heli_GetMoveDirection()
     local dir = (((myPos+ vel) or myPos) - myPos)
     return (self:GetAngles() - dir:Angle()):Forward()
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThink()
     -- Idle movement
     local idleMoveOffset = self.Heli_IdleMoveOffset
@@ -154,27 +154,27 @@ function ENT:OnThink()
     -- Flying tilt (X & Y)
     local lerpingFactor = FrameTime() * 4
     local moveDir = self:Heli_GetMoveDirection()
-    local velNorm = moveDir && moveDir:GetNormalized() or defVec
+    local velNorm = moveDir and moveDir:GetNormalized() or defVec
     self:SetPoseParameter("tilt_x", Lerp(lerpingFactor, self:GetPoseParameter("tilt_x"), velNorm.x))
     self:SetPoseParameter("tilt_y", Lerp(lerpingFactor, self:GetPoseParameter("tilt_y"), -velNorm.y))
 
     -- If the helicopter healed, then make sure to stop the smoke particles as well!
-    if self.Heli_SmokeStatus > 0 && self:Health() > (self:GetMaxHealth() * 0.25) then
+    if self.Heli_SmokeStatus > 0 and self:Health() > (self:GetMaxHealth() * 0.25) then
         self:SetNW2Int("Heli_SmokeLevel", 0)
         self.Heli_SmokeStatus = 0
         //self:StopParticles()
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
     self.Heli_RangeAttach = self.Heli_RangeAttach == "missile_left" and "missile_right" or "missile_left"
     return self:GetAttachment(self:LookupAttachment(self.Heli_RangeAttach)).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
     return self:GetForward() * 400
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PreSpawn" then
         projectile.Model = "models/vj_hlr/hl1/hvr.mdl"
@@ -183,14 +183,14 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         VJ.CreateSound(projectile, "vj_parr/par1/weapons/rpg/rocketfire1.wav", 100)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
 --
 -- Firing Delay: Checked in Half-Life 1 (GoldSrc), there is NO delay as long as the gun is facing the enemy!
 function ENT:OnThinkAttack(isAttacking, enemy)
     local curTime = CurTime()
     local eneData = self.EnemyData
-    if self.Heli_HasLOS && self.Heli_NextMGT < curTime && eneData.DistanceNearest <= combatDistance && eneData.Visible && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
+    if self.Heli_HasLOS and self.Heli_NextMGT < curTime and eneData.DistanceNearest <= combatDistance and eneData.Visible and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_ATTACK))) then
         local att = self:GetAttachment(1)
         self:FireBullets({
             Src = att.Pos,
@@ -244,17 +244,17 @@ function ENT:OnThinkAttack(isAttacking, enemy)
         self.Heli_NextMGT = curTime + 0.06
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:DoImpactEffect(tr, damageType)
     return VJ.PARR1_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vec = Vector()
 --
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- If hit in the engine area, then get damage by bullets!
-        if dmginfo:IsBulletDamage() && hitgroup == 2 then
+        if dmginfo:IsBulletDamage() and hitgroup == 2 then
             dmginfo:ScaleDamage(0.05)
             self.Immune_Bullet = false -- To counter the "dmginfo:IsBulletDamage()" function
         else
@@ -293,7 +293,7 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorHeliExp = Color(255, 255, 192, 128)
 local sdGibCollide = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local heliExpGibs = {
@@ -484,7 +484,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:CustomOnRemove()
     VJ.STOPSOUND(self.HeliSD_Rotor)
     VJ.STOPSOUND(self.HeliSD_Whine)

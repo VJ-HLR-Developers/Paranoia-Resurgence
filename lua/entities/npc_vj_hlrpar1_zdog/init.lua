@@ -13,7 +13,7 @@ ENT.ControllerParams = {
     FirstP_Offset = Vector(10, 0, 11.5),
     FirstP_ShrinkBone = false
 }
----------------------------------------------------------------------------------------------------------------------------------------------
+
 ENT.VJ_NPC_Class = {"CLASS_ZOMBIE"}
 ENT.BloodColor = VJ.BLOOD_COLOR_RED
 ENT.BloodParticle = "vj_parr1_blood_red"
@@ -70,7 +70,7 @@ local doorEnts = {
     func_door_rotating = true
 }
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local doorPound = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
 local doorBreak = {"vj_parr/par1/shared/bustmetal1.wav", "vj_parr/par1/shared/bustmetal2.wav"}
 --
@@ -89,7 +89,7 @@ function ENT:OnInput(key, activator, caller, data)
     elseif key == "body" then
         VJ.EmitSound(self, "vj_parr/par1/shared/bodydrop" .. math_random(1, 2) .. ".wav", 75, 100)
         local watLevel = self:WaterLevel()
-        if watLevel > 0 && watLevel < 3 then
+        if watLevel > 0 and watLevel < 3 then
             ParticleEffect("water_splash_01", self:GetPos(), Angle())
             VJ.EmitSound(self, "vj_parr/par1/shared/splash_impact1.wav", 75, 100)
             /*local effectdata = EffectData()
@@ -110,37 +110,37 @@ function ENT:OnInput(key, activator, caller, data)
             else
                 door.doorHP = door.doorHP - doorDmg
             end
-            if doorEnts[door:GetClass()] && door.doorHP <= 0 then
+            if doorEnts[door:GetClass()] and door.doorHP <= 0 then
                 self:BreakDoor(door)
             end
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:PreInit()
     if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 1 then
         self.CanOpenDoors = false
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Init()
     self:SetCollisionBounds(Vector(30, 30, 44), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Controller_Initialize(ply, controlEnt)
     if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 1 then ply:ChatPrint("DUCK: Attack Door") end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnThinkActive()
     if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 0 then return end
     if self.Dead or self.Flinching or self:GetState() == VJ_STATE_ONLY_ANIMATION_NOATTACK then self.Zombie_DoorEnt = NULL return end
-    if !IsValid(self.Zombie_DoorEnt) && !self.Zombie_AttackingDoor && ((!self.VJ_Controlled) or (self.VJ_Controlled && self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK))) then
+    if !IsValid(self.Zombie_DoorEnt) and !self.Zombie_AttackingDoor and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_DUCK))) then
         for _, v in pairs(ents.FindInSphere(self:GetPos(), 35)) do
             local vClass = v:GetClass()
-            if IsValid(v) && doorEnts[vClass] && v:Visible(self) then
+            if IsValid(v) and doorEnts[vClass] and v:Visible(self) then
                 local anim = string_lower(v:GetSequenceName(v:GetSequence()))
-                if vClass == "prop_door_rotating" && !string_find(anim, "locked") then
+                if vClass == "prop_door_rotating" and !string_find(anim, "locked") then
                     self.Zombie_AttackingDoor = true
                 end
                 self.Zombie_AttackingDoor = true
@@ -153,8 +153,8 @@ function ENT:OnThinkActive()
             local curTime = CurTime()
             local door = self.Zombie_DoorEnt
             local dist = VJ.GetNearestDistance(self, door)
-            if IsValid(door) && self.Zombie_AttackingDoor && (self.AttackAnimTime > curTime /*or !door:Visible(self)*/ or dist > 35) then self.Zombie_AttackingDoor = false self.Zombie_DoorEnt = NULL self:SetState() return end
-            if IsValid(door) && self.Zombie_NextDoorAttackAnimT < curTime && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK1 && self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK2 then
+            if IsValid(door) and self.Zombie_AttackingDoor and (self.AttackAnimTime > curTime /*or !door:Visible(self)*/ or dist > 35) then self.Zombie_AttackingDoor = false self.Zombie_DoorEnt = NULL self:SetState() return end
+            if IsValid(door) and self.Zombie_NextDoorAttackAnimT < curTime and self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK1 and self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK2 then
                 local anim = VJ.PICK(self.AnimTbl_MeleeAttack)
                 self:SetTurnTarget(door, 1)
                 self:PlaySoundSystem("BeforeMeleeAttack")
@@ -164,7 +164,7 @@ function ENT:OnThinkActive()
             end
         end
     end
-    if !IsValid(self.Zombie_DoorEnt) && self.Zombie_AttackingDoor then
+    if !IsValid(self.Zombie_DoorEnt) and self.Zombie_AttackingDoor then
         self.Zombie_AttackingDoor = false
         self:SetState()
         /*if self.CurrentSchedule then
@@ -179,7 +179,7 @@ function ENT:OnThinkActive()
         self.PauseAttacks = false*/
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnAlert(ent)
     if math_random(1, 3) == 1 then
         if ent.VJ_ID_Headcrab then
@@ -189,16 +189,16 @@ function ENT:OnAlert(ent)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjPos(projectile)
     return self:GetAttachment(self:LookupAttachment("mouth")).Pos
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:RangeAttackProjVel(projectile)
     ParticleEffect("vj_hlr_spit_acid_spawn", self:GetPos() + self:OBBCenter() + self:GetForward() * 35, self:GetForward():Angle(), projectile)
     return VJ.CalculateTrajectory(self, self.EnemyData.Target, "Curve", projectile:GetPos(), 1, 10)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnRangeAttackExecute(status, enemy, projectile)
     if status == "PostSpawn" then
         projectile.RadiusDamage = 20
@@ -212,11 +212,11 @@ function ENT:OnRangeAttackExecute(status, enemy, projectile)
         }
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:MeleeAttackKnockbackVelocity(ent)
     return self:GetForward() * 55 + self:GetUp() * 255
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local cloneList = {["npc_vj_hlrpar1_clone"] = true, ["npc_vj_hlrpar1_clo_v1"] = true, ["npc_vj_hlrpar1_clo_heavy"] = true, ["npc_vj_hlrpar1_clo_heavy_v1"] = true, ["npc_vj_hlrpar2_clone"] = true, ["npc_vj_hlrpar2_clone_v1"] = true}
 local hazmatSciList = {["npc_vj_hlrpar1_sci_haz"] = true, ["npc_vj_hlrpar2_pirogov"] = true}
@@ -226,13 +226,13 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
     if ent.LNR_InfectedVictim or ent.GOTDR_InfectedVictim or ent.NMRIHR_InfectedVictim or ent.CNCR_InfectedVictim or ent.ZPS_InfectedVictim or ent.OSZ_InfectedVictim then return end
-    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) then return end
-    if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
+    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human and ent.BloodColor != VJ.BLOOD_COLOR_RED) then return end
+    if math_random(1, 2) == 1 and (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
         local findMDL = ent:GetModel()
         timer.Simple(0, function()
             for _, v in pairs(ents.FindInSphere(findPos, 1)) do
-                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL then
+                if IsValid(v) and GetConVar("ai_serverragdolls"):GetInt() == 1 and v:GetClass() == "prop_ragdoll" and v:GetModel() == findMDL then
                     v:Remove()
                 end
             end
@@ -257,7 +257,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             end
         end
         if ent:IsNPC() or ent:IsNextBot() then
-            if ent:IsNPC() && !ent.IsVJBaseSNPC then
+            if ent:IsNPC() and !ent.IsVJBaseSNPC then
                 local wep = ent:GetActiveWeapon()
                 if IsValid(wep) then
                     wep:Remove()
@@ -276,8 +276,8 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 local zomList = VJ.PICK({"npc_vj_hlrpar1_zombie", "npc_vj_hlrpar1_zombie_v1"})
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
                 local zombie = ents.Create(
-                    (cloneList[entClass] && zomCloneList) or (spetsnazList[entClass] && "npc_vj_hlrpar1_zalpha")
-                    or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar1_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar1_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar1_zhazmat") or zomList
+                    (cloneList[entClass] and zomCloneList) or (spetsnazList[entClass] and "npc_vj_hlrpar1_zalpha")
+                    or (entClass == "npc_vj_hlrpar1_scientist" and "npc_vj_hlrpar1_zscientist") or (sciFemaleList[entClass] and "npc_vj_hlrpar1_zscientist_fem") or (hazmatSciList[entClass] and "npc_vj_hlrpar1_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
                     zombie:SetPos(ent:GetPos())
@@ -318,7 +318,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
         end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFlinch(dmginfo, hitgroup, status)
     if status == "Init" then
         if dmginfo:GetDamage() > 30 then
@@ -330,29 +330,29 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDamaged(dmginfo, hitgroup, status)
     if status == "Init" then
         -- Make zombies immune to DMG_NERVEGAS, based on source code
         if dmginfo:IsDamageType(DMG_NERVEGAS) then
             dmginfo:SetDamage(0)
         end
-    elseif status == "PreDamage" && self.Zombie_Buffed then
+    elseif status == "PreDamage" and self.Zombie_Buffed then
         -- Take 30% of bullet damage, based on source code
         if dmginfo:IsBulletDamage() then
             dmginfo:ScaleDamage(0.3)
         end
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnDeath(dmginfo, hitgroup, status)
-    if status == "Init" && GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 && VJ_CVAR_AI_ENABLED && self.HasDeathAnimation then
+    if status == "Init" and GetConVar("vj_hlr1_corpse_static"):GetInt() == 1 and VJ_CVAR_AI_ENABLED and self.HasDeathAnimation then
         self.DeathAnimationDecreaseLengthAmount = -1
         self.DeathCorpseEntityClass = "prop_vj_animatable"
         VJ.HLR_StaticCorpseCheck(self)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibsCollideSd = {"vj_parr/par1/shared/flesh1.wav", "vj_parr/par1/shared/flesh2.wav", "vj_parr/par1/shared/flesh3.wav", "vj_parr/par1/shared/flesh5.wav", "vj_parr/par1/shared/flesh6.wav", "vj_parr/par1/shared/flesh7.wav"}
 --
 function ENT:HandleGibOnDeath(dmginfo, hitgroup)
@@ -383,25 +383,25 @@ function ENT:HandleGibOnDeath(dmginfo, hitgroup)
     self:PlaySoundSystem("Gib", "vj_parr/par1/shared/bodysplat.wav")
     return true, {AllowSound = false}
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local gibs = {"models/vj_parr/par1/gibs/hgib1.mdl", "models/vj_parr/par1/gibs/hgib2.mdl", "models/vj_parr/par1/gibs/hgib3.mdl", "models/vj_parr/par1/gibs/hgib4.mdl", "models/vj_parr/par1/gibs/hgib5.mdl", "models/vj_parr/par1/gibs/hgib6.mdl"}
 --
 function ENT:OnCreateDeathCorpse(dmginfo, hitgroup, corpse)
     VJ.HLR_ApplyCorpseSystem(self, corpse, gibs, {CollisionSound = gibsCollideSd, ExpSound = "vj_parr/par1/shared/bodysplat.wav", SplatDecal = "VJ_PARR1_Blood_Red_Large"})
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:OnFootstepSound(moveType, sdFile)
     if !self:OnGround() then return end
     local watLevel = self:WaterLevel()
-    if watLevel > 0 && watLevel < 3 then
+    if watLevel > 0 and watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:BreakDoor(door)
     local doorPos = door:GetPos()
     local doorAng = door:GetAngles()
-    if IsValid(door) && doorEnts[door:GetClass()] then
+    if IsValid(door) and doorEnts[door:GetClass()] then
         //VJ.EmitSound(door, doorPound, 75, 100)
         VJ.EmitSound(door, doorBreak, 75, 100)
         ParticleEffect("door_pound_core", doorPos, doorAng, nil)

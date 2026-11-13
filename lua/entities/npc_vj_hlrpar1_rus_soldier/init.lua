@@ -10,7 +10,7 @@ ENT.Model = "models/vj_parr/par1/soldier.mdl"
 ENT.StartHealth = 100
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/officer/monologue1.wav",
@@ -152,7 +152,7 @@ function ENT:Soldier_Voice()
         "vj_parr/par1/military/mil_pain5.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Soldier_Init()
     self:SetBodygroup(1, math_random(0, 5))
     self:SetBodygroup(3, math_random(0, 1))

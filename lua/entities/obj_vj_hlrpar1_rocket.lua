@@ -19,7 +19,7 @@ if CLIENT then
     VJ.AddKillIcon("obj_vj_hlrpar1_rocket", ENT.PrintName, VJ.KILLICON_PROJECTILE)
 
     function ENT:Think()
-        if IsValid(self) && self:GetNW2Bool("VJ_Dead") != true then
+        if IsValid(self) and self:GetNW2Bool("VJ_Dead") != true then
             self.Emitter = ParticleEmitter(self:GetPos())
             self.SmokeEffect1 = self.Emitter:Add("particles/flamelet2", self:GetPos() + self:GetForward() * -7)
             self.SmokeEffect1:SetVelocity(self:GetForward() * math_rand(0, -50) + Vector(math_rand(5, -5), math_rand(5, -5), math_rand(5, -5)) + self:GetVelocity())
@@ -35,7 +35,7 @@ if CLIENT then
     end
 end
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 if !SERVER then return end
 
 ENT.Model = "models/vj_parr/par1/weapons/rpgrocket.mdl"
@@ -53,7 +53,7 @@ ENT.OnCollideSoundLevel = 100
 
 -- Custom
 ENT.Rocket_HelicopterMissile = false
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorTrail = Color(224, 224, 255, 255)
 --
 function ENT:Init()
@@ -87,7 +87,7 @@ function ENT:Init()
                 if IsValid(owner) then
                     local phys = self:GetPhysicsObject()
                     local ene = owner:GetEnemy()
-                    if IsValid(phys) && IsValid(ene) then
+                    if IsValid(phys) and IsValid(ene) then
                         phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
                         self:SetAngles(self:GetVelocity():Angle())
                     end
@@ -96,7 +96,7 @@ function ENT:Init()
         end)
     end
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local vecZ60 = Vector(0, 0, 50)
 --
 function ENT:OnDestroy(data, phys)

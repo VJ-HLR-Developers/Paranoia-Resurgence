@@ -10,7 +10,7 @@ ENT.Model = {"models/vj_parr/par1/cut/worker2.mdl", "models/vj_parr/par1/early/v
 ENT.Behavior = VJ_BEHAVIOR_AGGRESSIVE
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init()
     local myMDL = self:GetModel()
     if myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" then

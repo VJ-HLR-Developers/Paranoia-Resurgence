@@ -12,7 +12,7 @@ ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.IsMedic = false
 ENT.HasDeathAnimation = true
 ENT.MainSoundPitch = 100
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par2/scenaric/polina/polina_krot17_1b.wav",
@@ -33,5 +33,5 @@ function ENT:Civilian_Voice()
     self.SoundTbl_Death =
         "vj_parr/par2/scenaric/polina/scream.wav"
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Civilian_Init() return end

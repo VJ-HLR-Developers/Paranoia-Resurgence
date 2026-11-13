@@ -5,25 +5,25 @@ SWEP.PrintName = "Groza"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- NPC Settings 
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlrpar2_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = "vj_parr/par2/weapons/groza/grenadelauncher_groza-outside.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- Main Settings 
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_groza.mdl"
 SWEP.HoldType = "smg"
-    -- World Model ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- World Model 
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "bip01_r_hand",
     Pos = Vector(11.229, 4.6, 3.392),
     Ang = Angle(9.055, -154.662, -95.738)
 }
-    -- Primary Fire ---------------------------------------------------------------------------------------------------------------------------------------------
+    -- Primary Fire 
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
@@ -44,23 +44,23 @@ SWEP.Reload_Finish = "vj_parr/par2/weapons/groza/groza-boltpull.wav"
 
 local math_random = math.random
 local math_rand = math.Rand
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:Init()
     timer.Simple(0.1, function()
-        if IsValid(self) && IsValid(self:GetOwner()) && VJ.HLR_Weapon_CheckModel(self, validModels) then
+        if IsValid(self) and IsValid(self:GetOwner()) and VJ.HLR_Weapon_CheckModel(self, validModels) then
             self.NPC_NextPrimaryFire = false
         end
     end)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:DoImpactEffect(tr, damageType)
     return VJ.PARR2_Effect_Impact(tr)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:OnDrawWorldModel()
     return !IsValid(self:GetOwner())
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:PrimaryAttackEffects(owner)
     local muz = ents.Create("env_sprite")
     muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash2.vmt")
@@ -81,7 +81,7 @@ function SWEP:PrimaryAttackEffects(owner)
     muz:Fire("Kill", nil, 0.08)
     self.BaseClass.PrimaryAttackEffects(self, owner)
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function SWEP:NPC_SecondaryFire()
     local owner = self:GetOwner()
     local spawnPos = self:GetAttachment(self:LookupAttachment("muzzle_launcher")).Pos

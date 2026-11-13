@@ -12,7 +12,7 @@ ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.FlinchHitGroupMap = {{HitGroup = HITGROUP_LEFTARM, Animation = ACT_FLINCH_LEFTARM}, {HitGroup = HITGROUP_RIGHTARM, Animation = ACT_FLINCH_RIGHTARM}}
 
 local math_random = math.random
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Voice()
     /*self.SoundTbl_Breath =
         "vj_parr/par2/shared/hungrysoldier.wav"*/
@@ -35,10 +35,10 @@ function ENT:Zombie_Voice()
         "vj_parr/par2/zombie/zo_pain2.wav"
     }
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 function ENT:Zombie_Init()
     -- Spawn animation
-    if VJ_CVAR_AI_ENABLED && (math_random(1, 3) == 1 or self.Zombie_Turned) then
+    if VJ_CVAR_AI_ENABLED and (math_random(1, 3) == 1 or self.Zombie_Turned) then
         local anim = VJ.PICK({"scen_eating_out", "scen_holeoff"})
         timer.Simple(0, function()
             if IsValid(self) then
@@ -55,7 +55,7 @@ function ENT:Zombie_Init()
     //self.CanEat = true
     self:SetBodygroup(1, math_random(0, 3))
 end
----------------------------------------------------------------------------------------------------------------------------------------------
+
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local cloneList = {["npc_vj_hlrpar1_clone"] = true, ["npc_vj_hlrpar1_clo_v1"] = true, ["npc_vj_hlrpar1_clo_heavy"] = true, ["npc_vj_hlrpar1_clo_heavy_v1"] = true, ["npc_vj_hlrpar2_clone"] = true, ["npc_vj_hlrpar2_clone_v1"] = true}
 local hazmatSciList = {["npc_vj_hlrpar1_sci_haz"] = true, ["npc_vj_hlrpar2_pirogov"] = true}
@@ -65,13 +65,13 @@ local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
     if ent.LNR_InfectedVictim or ent.GOTDR_InfectedVictim or ent.NMRIHR_InfectedVictim or ent.CNCR_InfectedVictim or ent.ZPS_InfectedVictim or ent.OSZ_InfectedVictim then return end
-    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human && ent.BloodColor != VJ.BLOOD_COLOR_RED) or (self.IsVJBaseSNPC_Human && self.WeaponAttackState != VJ.WEP_ATTACK_STATE_NONE) or (self.AttackType != VJ.ATTACK_TYPE_MELEE && self.AttackType != VJ.ATTACK_TYPE_LEAP) then return end
-    if math_random(1, 2) == 1 && (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
+    if ent.VJ_ID_Undead or ent.IsVJBaseSNPC_Creature or (ent.IsVJBaseSNPC_Human and ent.BloodColor != VJ.BLOOD_COLOR_RED) or (self.IsVJBaseSNPC_Human and self.WeaponAttackState != VJ.WEP_ATTACK_STATE_NONE) or (self.AttackType != VJ.ATTACK_TYPE_MELEE and self.AttackType != VJ.ATTACK_TYPE_LEAP) then return end
+    if math_random(1, 2) == 1 and (ent:LookupBone("Bip01 Pelvis") or ent:LookupBone("Bip02 Pelvis") or ent:LookupBone("bip01_pelvis") or ent:LookupBone("unnamed002") or ent:LookupBone("ValveBiped.Bip01_Pelvis")) then
         local findPos = ent:GetPos()
         local findMDL = ent:GetModel()
         timer.Simple(0, function()
             for _, v in pairs(ents.FindInSphere(findPos, 1)) do
-                if IsValid(v) && GetConVar("ai_serverragdolls"):GetInt() == 1 && v:GetClass() == "prop_ragdoll" && v:GetModel() == findMDL then
+                if IsValid(v) and GetConVar("ai_serverragdolls"):GetInt() == 1 and v:GetClass() == "prop_ragdoll" and v:GetModel() == findMDL then
                     v:Remove()
                 end
             end
@@ -97,7 +97,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
             end
         end
         if ent:IsNPC() or ent:IsNextBot() then
-            if ent:IsNPC() && !ent.IsVJBaseSNPC then
+            if ent:IsNPC() and !ent.IsVJBaseSNPC then
                 local wep = ent:GetActiveWeapon()
                 if IsValid(wep) then
                     wep:Remove()
@@ -119,8 +119,8 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 local zomList = VJ.PICK({"npc_vj_hlrpar2_zombie", "npc_vj_hlrpar2_zombie_v1", "npc_vj_hlrpar2_zclassic"})
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed", "npc_vj_hlrpar2_zclone"})
                 local zombie = ents.Create(
-                    (cloneList[entClass] && zomCloneList) or (spetsnazList[entClass] && "npc_vj_hlrpar1_zalpha")
-                    or (entClass == "npc_vj_hlrpar1_scientist" && "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] && "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] && "npc_vj_hlrpar2_zhazmat") or zomList
+                    (cloneList[entClass] and zomCloneList) or (spetsnazList[entClass] and "npc_vj_hlrpar1_zalpha")
+                    or (entClass == "npc_vj_hlrpar1_scientist" and "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] and "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] and "npc_vj_hlrpar2_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
                     zombie:SetPos(ent:GetPos())
