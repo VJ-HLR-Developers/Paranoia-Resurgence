@@ -7,6 +7,8 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/elb_btr80.mdl"
+
+ENT.SoundTbl_Breath = "vj_parr/par2/tanks/elb_engine_loop.wav"
 ENT.SoundTbl_Death = "VJ.PARR2_Explosion.Single"
 
 ENT.Tank_GunnerENT = "npc_vj_hlrpar2_rus_btr80_gun"

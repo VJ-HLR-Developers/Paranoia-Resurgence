@@ -17,9 +17,11 @@ function ENT:Civilian_Voice()
         "^vj_parr/par2/npc/pirogov/npc_pirogov_2.wav",
         "^vj_parr/par2/npc/pirogov/npc_pirogov_3.wav"
     }
-    self.SoundTbl_OnPlayerSight =
-        "^vj_parr/par2/scenaric/pirogov/pirogov_higuys.wav"
-
+    self.SoundTbl_OnPlayerSight = {
+        "^vj_parr/par2/scenaric/pirogov/pirogov_good_luck.wav",
+        "^vj_parr/par2/scenaric/pirogov/pirogov_higuys.wav",
+        "^vj_parr/par2/scenaric/pirogov/pirogov_situation.wav"
+    }
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",
         "vj_parr/par1/military/mil_die2.wav",

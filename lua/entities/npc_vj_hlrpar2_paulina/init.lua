@@ -21,6 +21,14 @@ function ENT:Civilian_Voice()
         "vj_parr/par2/scenaric/polina/polina_monologue_1.wav",
         "vj_parr/par2/scenaric/polina/polina_monologue_4.wav"
     }
+    self.SoundTbl_IdleDialogue = {
+        "vj_parr/par2/scenaric/polina/polina_hot.wav",
+        "vj_parr/par2/scenaric/polina/polina_infected.wav"
+    }
+    self.SoundTbl_IdleDialogueAnswer = {
+        "vj_parr/par2/scenaric/polina/7antidote.wav",
+        "vj_parr/par2/scenaric/polina/polina_whatswrong.wav"
+    }
     self.SoundTbl_CombatIdle = {
         "vj_parr/par2/scenaric/polina/polina_crying.wav",
         "vj_parr/par2/scenaric/polina/polina_monologue_2.wav",
