@@ -90,6 +90,13 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && self.VJ_NPC_Class[1] == "CLASS_PLAYER_ALLY" && self.VJ_NPC_Class[2] == "CLASS_RUSSIAN_FRIENDLY" then
+        self.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+        self.AlliedWithPlayerAllies = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Civilian_Voice()
     self.SoundTbl_Death = {
         "vj_parr/par1/military/mil_die1.wav",

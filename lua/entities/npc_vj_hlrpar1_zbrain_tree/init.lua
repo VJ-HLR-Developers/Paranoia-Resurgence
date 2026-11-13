@@ -277,11 +277,19 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                 end
                 if v.Clone_Controlled then
                     v.Clone_Controlled = false
-                    v.VJ_NPC_Class = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}) or {"CLASS_CLONE"}
-                    v.AlliedWithPlayerAllies = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && true) or false
-                    v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                    v.VJ_NPC_Class = {"CLASS_CLONE"}
+                    v.AlliedWithPlayerAllies = false
+                    if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                        v.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
+                        v.AlliedWithPlayerAllies = true
+                    end
+                    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                        v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+                        v.AlliedWithPlayerAllies = false
+                    end
+                    v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
                     v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-                    timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
+                    timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                 end
             end
         end
@@ -325,11 +333,19 @@ function ENT:CustomOnRemove()
             end
             if v.Clone_Controlled then
                 v.Clone_Controlled = false
-                v.VJ_NPC_Class = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}) or {"CLASS_CLONE"}
-                v.AlliedWithPlayerAllies = (GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 && true) or false
-                v:PlayAnim((self.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                v.VJ_NPC_Class = {"CLASS_CLONE"}
+                v.AlliedWithPlayerAllies = false
+                if GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                    v.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
+                    v.AlliedWithPlayerAllies = true
+                end
+                if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+                    v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+                    v.AlliedWithPlayerAllies = false
+                end
+                v:PlayAnim((v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
                 v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
-                timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
+                timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC && ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
             end
         end
     end

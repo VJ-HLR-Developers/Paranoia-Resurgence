@@ -137,6 +137,13 @@ function ENT:OnInput(key, activator, caller, data)
     end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
+function ENT:PreInit()
+    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && self.VJ_NPC_Class[1] == "CLASS_PLAYER_ALLY" && self.VJ_NPC_Class[2] == "CLASS_RUSSIAN_FRIENDLY" then
+        self.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+        self.AlliedWithPlayerAllies = false
+    end
+end
+---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
     local pickVoice = math_random(1, 2)
     if pickVoice == 1 then

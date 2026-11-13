@@ -18,6 +18,10 @@ function ENT:PreInit()
         self.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
         self.AlliedWithPlayerAllies = true
     end
+    if GetConVar("VJ_PARR_Hostile_Russians"):GetInt() == 1 && GetConVar("VJ_PARR_Friendly_Clones"):GetInt() == 1 then
+        self.VJ_NPC_Class = {"CLASS_RUSSIAN"}
+        self.AlliedWithPlayerAllies = false
+    end
 end
 ---------------------------------------------------------------------------------------------------------------------------------------------
 function ENT:Soldier_Voice()
