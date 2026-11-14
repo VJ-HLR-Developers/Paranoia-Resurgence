@@ -12,4 +12,48 @@ ENT.BloodParticle = "vj_parr2_blood_red"
 ENT.BloodDecal = "VJ_PARR2_Blood_Red"
 ENT.MainSoundPitch = 100
 
+function ENT:Civilian_Voice()
+    self.SoundTbl_Idle = {
+        "vj_parr/par1/npc/bunk/prof_idle1.wav",
+        "vj_parr/par1/npc/bunk/prof_idle2.wav",
+        "vj_parr/par1/npc/bunk/prof_idle3.wav",
+        "vj_parr/par1/npc/bunk/prof_idle4.wav",
+        "vj_parr/par1/npc/bunk/prof_idle5.wav",
+        "vj_parr/par1/npc/bunk/prof_idle6.wav"
+    }
+    self.SoundTbl_CombatIdle = {
+        "vj_parr/par1/npc/indust/worker0.wav",
+        "vj_parr/par1/npc/indust/worker1.wav",
+        "vj_parr/par1/npc/indust/worker2.wav",
+        "vj_parr/par1/npc/indust/worker3.wav",
+        "vj_parr/par1/npc/indust/worker4.wav",
+        "vj_parr/par1/npc/indust/worker5.wav"
+    }
+    self.SoundTbl_OnPlayerSight = {
+        "vj_parr/par1/npc/bunk/prof_hello1.wav",
+        "vj_parr/par1/npc/bunk/prof_hello2.wav",
+        "vj_parr/par1/npc/bunk/prof_hello3.wav"
+    }
+    self.SoundTbl_Alert = {
+        "vj_parr/par1/npc/indust/worker0.wav",
+        "vj_parr/par1/npc/indust/worker1.wav",
+        "vj_parr/par1/npc/indust/worker2.wav",
+        "vj_parr/par1/npc/indust/worker3.wav",
+        "vj_parr/par1/npc/indust/worker4.wav",
+        "vj_parr/par1/npc/indust/worker5.wav"
+    }
+    self.SoundTbl_Death = {
+        "vj_parr/par1/military/mil_die1.wav",
+        "vj_parr/par1/military/mil_die2.wav",
+        "vj_parr/par1/military/mil_die3.wav"
+    }
+    self.SoundTbl_Pain = {
+        "vj_parr/par1/military/mil_pain1.wav",
+        "vj_parr/par1/military/mil_pain2.wav",
+        "vj_parr/par1/military/mil_pain3.wav",
+        "vj_parr/par1/military/mil_pain4.wav",
+        "vj_parr/par1/military/mil_pain5.wav"
+    }
+end
+
 function ENT:Civilian_Init() return end
