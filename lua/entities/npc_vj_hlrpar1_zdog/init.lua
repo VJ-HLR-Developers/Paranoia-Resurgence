@@ -158,7 +158,7 @@ function ENT:OnThinkActive()
                 local anim = VJ.PICK(self.AnimTbl_MeleeAttack)
                 self:SetTurnTarget(door, 1)
                 self:PlaySoundSystem("BeforeMeleeAttack")
-                self:PlayAnim(anim, true, false, false)
+                self:PlayAnim(anim, true, false)
                 self:SetState(VJ_STATE_ONLY_ANIMATION)
                 self.Zombie_NextDoorAttackAnimT = curTime + VJ.AnimDuration(self, anim)
             end

@@ -63,6 +63,7 @@ local math_rand = math.Rand
 ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Spetsnaz
 ENT.CIvilian_WeaponModel = false
 ENT.Civilian_CanHurtWalk = false
+//ENT.Civilian_OpeningDoor = false
 ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
@@ -287,6 +288,16 @@ function ENT:OnThink()
         self.FollowPlayer = false
         self:ResetFollowBehavior()
     end
+
+    -- Play an animation when opening a door
+    /*local openDoorValid = IsValid(self:GetInternalVariable("m_hOpeningDoor"))
+    if openDoorValid and !self.Civilian_OpeningDoor then
+        self.Civilian_OpeningDoor = true
+        self:PlayAnim(ACT_OPEN_DOOR, true, false)
+    elseif !openDoorValid and self.Civilian_OpeningDoor then
+        self.Civilian_OpeningDoor = false
+    end*/
+
     -- Mouth animation when talking
     local curTime = CurTime()
     if curTime < self.Civilian_NextMouthMove then
@@ -299,6 +310,7 @@ function ENT:OnThink()
     else
         self:SetPoseParameter("mouth_move", 0)
     end
+
     if self.Civilian_Type != 4 and self:GetModel() != "models/vj_parr/par1/cut/worker2.mdl" then return end
     -- Handle weapon body group changing
     local bodyGroup = self:GetBodygroup(3)
@@ -333,7 +345,7 @@ function ENT:Civilian_OnThink()
     local ene = self.EnemyData.Target
     if IsValid(ene) and self.AttackAnimTime > curTime and !self.VJ_Controlled and curTime > self.Civilian_NextStrafeT and !self:IsMoving() and self:GetPos():Distance(ene:GetPos()) < 100 then
         self:StopMoving()
-        self:PlayAnim(animStrafing, true, false, false)
+        self:PlayAnim(animStrafing, true, false)
         self.Civilian_NextStrafeT = curTime + 8
     end
 end

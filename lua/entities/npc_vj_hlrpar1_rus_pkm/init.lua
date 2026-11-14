@@ -225,7 +225,7 @@ end
 function ENT:Reload()
     if !self.PKM_Reload then
         self.PKM_Reload = true
-        self:PlayAnim(ACT_RANGE_ATTACK1, true, false, false)
+        self:PlayAnim(ACT_RANGE_ATTACK1, true, false)
         self:RemoveAllGestures()
         VJ.EmitSound(self, (self.VJ_PARR2_NPC and "vj_parr/par2/weapons/pkm/pkm_boxout.wav") or "vj_parr/par1/weapons/pkm/pkm_boxout.wav", 60, 100)
     end

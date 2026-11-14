@@ -74,6 +74,7 @@ ENT.Soldier_WepBGRemove = 0
 //ENT.Soldier_AmmoType = NULL
 ENT.Soldier_PistolAnims = false
 ENT.Soldier_CanHurtWalk = true
+//ENT.Soldier_OpeningDoor = false
 ENT.PKM_Gunner = false
 ENT.Clone_Controlled = false
 ENT.Soldier_NextMouthMove = 0
@@ -668,6 +669,16 @@ function ENT:OnThink()
         self.FollowPlayer = false
         self:ResetFollowBehavior()
     end
+
+    -- Play an animation when opening a door
+    /*local openDoorValid = IsValid(self:GetInternalVariable("m_hOpeningDoor"))
+    if openDoorValid and !self.Soldier_OpeningDoor then
+        self.Soldier_OpeningDoor = true
+        self:PlayAnim(ACT_OPEN_DOOR, true, false)
+    elseif !openDoorValid and self.Soldier_OpeningDoor then
+        self.Soldier_OpeningDoor = false
+    end*/
+
     -- Mouth movement
     local curTime = CurTime()
     if curTime < self.Soldier_NextMouthMove then
@@ -825,7 +836,7 @@ function ENT:Soldier_OnThink()
     local ene = self.EnemyData.Target
     if IsValid(ene) and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and !self.VJ_Controlled and curTime > self.Soldier_NextStrafeT and !self:IsMoving() and self:GetPos():Distance(ene:GetPos()) < 1400 then
         self:StopMoving()
-        self:PlayAnim(animStrafing, true, false, false)
+        self:PlayAnim(animStrafing, true, false)
         self.Soldier_NextRunT = curTime + 2
         self.Soldier_NextStrafeT = curTime + 8
     end
@@ -909,7 +920,7 @@ function ENT:Unmount()
     self:SetParent(NULL)
     if !self.Dead then self:Soldier_Setup() end -- Call it again so gunner has a weapon
     local pickAnim = (self.VJ_PARR2_NPC and VJ.AnimExists(self, ACT_SMALL_FLINCH) and ACT_SMALL_FLINCH) or (self.VJ_PARR2_NPC and VJ.AnimExists(self, ACT_COWER) and ACT_COWER) or ACT_GET_UP_STAND
-    self:PlayAnim(pickAnim, true, false, false)
+    self:PlayAnim(pickAnim, true, false)
     self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
     timer.Simple(VJ.AnimDuration(self, pickAnim), function() if IsValid(self) then self:SetState() end end)
     self:DoChangeMovementType(VJ_MOVETYPE_GROUND)
@@ -978,12 +989,12 @@ function ENT:OnDamaged(dmginfo, hitgroup, status)
             if self:DoCoverTrace(self:GetPos() + self:OBBCenter(), eneData.Target:EyePos()) then
                 local hideTime = math_rand(self.CombatDamageResponse_CoverTime.a, self.CombatDamageResponse_CoverTime.b)
                 self:PlayAnim(ACT_GET_DOWN_CROUCH, true, false, false, 0, {OnFinish = function(interrupted, anim)
-                    local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime, false)
+                    local anim = self:PlayAnim(self.AnimTbl_TakingCover, false, hideTime)
                     timer.Create("VJ_PARR_CrouchStand" .. self:EntIndex(), hideTime - 0.5, 1, function()
                         if IsValid(self) and !self.Dead then
                             local curAct = self:GetSequenceActivity(self:GetIdealSequence())
                             if (curAct == ACT_CROUCHIDLE or curAct == ACT_TWITCH) then
-                                self:PlayAnim(ACT_GET_UP_STAND, true, false, false)
+                                self:PlayAnim(ACT_GET_UP_STAND, true, false)
                             end
                         end
                     end)

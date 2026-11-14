@@ -206,7 +206,7 @@ function ENT:OnThinkActive()
                     self.Brain_Signaling = true
                     if v.VJ_PARR_Zombie and !v.Zombie_Buffed then
                         v.Zombie_Buffed = true
-                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
+                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false) end
                         v:SetPlaybackRate(1.5)
                         v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                         timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
@@ -215,7 +215,7 @@ function ENT:OnThinkActive()
                         v.Clone_Controlled = true
                         v.VJ_NPC_Class = {"CLASS_ZOMBIE"}
                         v.AlliedWithPlayerAllies = false
-                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false) end
+                        if v:GetState() == VJ_STATE_NONE then v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false) end
                         v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                         timer.Simple(VJ.AnimDuration(v, ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                     end
@@ -270,7 +270,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             if IsValid(v) then
                 if v.Zombie_Buffed then
                     v.Zombie_Buffed = false
-                    if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
+                    if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false) end
                     v:SetPlaybackRate(self.AnimPlaybackRate)
                     v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                     timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
@@ -287,7 +287,7 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
                         v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
                         v.AlliedWithPlayerAllies = false
                     end
-                    v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                    v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false)
                     v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                     timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
                 end
@@ -326,7 +326,7 @@ function ENT:CustomOnRemove()
         if IsValid(v) then
             if v.Zombie_Buffed then
                 v.Zombie_Buffed = false
-                if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false, false) end
+                if v:GetState() == VJ_STATE_NONE then v:PlayAnim(ACT_SMALL_FLINCH, true, false) end
                 v:SetPlaybackRate(self.AnimPlaybackRate)
                 v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                 timer.Simple(VJ.AnimDuration(v, ACT_SMALL_FLINCH), function() if IsValid(v) then v:SetState() end end)
@@ -343,7 +343,7 @@ function ENT:CustomOnRemove()
                     v.VJ_NPC_Class = {"CLASS_RUSSIAN"}
                     v.AlliedWithPlayerAllies = false
                 end
-                v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false, false)
+                v:PlayAnim((v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED, true, false)
                 v:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
                 timer.Simple(VJ.AnimDuration(v, (v.VJ_PARR2_NPC and ACT_SMALL_FLINCH) or ACT_STUNNED), function() if IsValid(v) then v:SetState() end end)
             end

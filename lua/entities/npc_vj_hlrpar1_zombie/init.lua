@@ -277,7 +277,7 @@ function ENT:OnThinkActive()
             if IsValid(door) and self.Zombie_NextDoorAttackAnimT < curTime and self:GetSequenceActivity(self:GetIdealSequence()) != ACT_MELEE_ATTACK1 then
                 self:SetTurnTarget(door, 1)
                 self:PlaySoundSystem("BeforeMeleeAttack")
-                self:PlayAnim(ACT_MELEE_ATTACK1, true, false, false)
+                self:PlayAnim(ACT_MELEE_ATTACK1, true, false)
                 self:SetState(VJ_STATE_ONLY_ANIMATION)
                 self.Zombie_NextDoorAttackAnimT = curTime + VJ.AnimDuration(self, ACT_MELEE_ATTACK1)
             end
