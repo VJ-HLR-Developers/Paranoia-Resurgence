@@ -101,7 +101,7 @@ VJ.AddNPC("Random Zombie Spawner", "sent_vj_hlrpar1_zsp", spawnCategory)
 VJ.AddNPC("Random Zombie Spawner (Single)", "sent_vj_hlrpar1_zsin", spawnCategory)
 
 -- Paranoia 2: Savior --
-spawnCategory = "HL Resurgence: Paranoia 2: Savior"
+spawnCategory = "HL Resurgence: Paranoia 2 Savior"
 VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia2.png"})
 subCategory = "Russians"
 -- Civilians
