@@ -128,9 +128,10 @@ end
 
 local colorRed = VJ.Color2Byte(Color(130, 19, 10))
 local cloneList = {["npc_vj_hlrpar1_clone"] = true, ["npc_vj_hlrpar1_clo_v1"] = true, ["npc_vj_hlrpar1_clo_heavy"] = true, ["npc_vj_hlrpar1_clo_heavy_v1"] = true, ["npc_vj_hlrpar2_clone"] = true, ["npc_vj_hlrpar2_clone_v1"] = true}
+local sciList = {["npc_vj_hlrpar1_scientist"] = true, ["npc_vj_hlrpar2_pirogov_v1"] = true}
 local hazmatSciList = {["npc_vj_hlrpar1_sci_haz"] = true, ["npc_vj_hlrpar2_pirogov"] = true}
 local sciFemaleList = {["npc_vj_hlrpar1_sci_fem"] = true, ["npc_vj_hlrpar1_paulina"] = true, ["npc_vj_hlrpar2_paulina"] = true}
-local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_alpha_savior"] = true, ["npc_vj_hlrpar1_rus_alpha_v1"] = true, ["npc_vj_hlrpar1_rus_alpha_v2"] = true, ["npc_vj_hlrpar1_rus_alpha_offd"] = true, ["npc_vj_hlrpar1_rus_alpha_offd_v1"] = true, ["npc_vj_hlrpar1_rus_alpha_offd_v2"] = true, ["npc_vj_hlrpar2_rus_alpha"] = true, ["npc_vj_hlrpar2_rus_alpha_v1"] = true}
+local spetsnazList = {["npc_vj_hlrpar1_rus_alpha"] = true, ["npc_vj_hlrpar1_rus_alpha_savior"] = true, ["npc_vj_hlrpar1_rus_alpha_v1"] = true, ["npc_vj_hlrpar1_rus_alpha_v2"] = true, ["npc_vj_hlrpar1_rus_alpha_offd"] = true, ["npc_vj_hlrpar1_rus_alpha_offd_v1"] = true, ["npc_vj_hlrpar1_rus_alpha_offd_v2"] = true, ["npc_vj_hlrpar2_rus_alpha"] = true, ["npc_vj_hlrpar2_rus_alpha_v1"] = true, ["npc_vj_hlrpar2_rus_alpha_v2"] = true}
 --
 function ENT:OnKilledEnemy(ent, inflictor, wasLast)
     if GetConVar("VJ_PARR_Zombie_Infection"):GetInt() == 0 then return end
@@ -186,7 +187,7 @@ function ENT:OnKilledEnemy(ent, inflictor, wasLast)
                 local zomCloneList = VJ.PICK({"npc_vj_hlrpar1_zclone", "npc_vj_hlrpar1_zclone_v1", "npc_vj_hlrpar1_zclone_armed"})
                 local zombie = ents.Create(
                     (cloneList[entClass] and zomCloneList) or (spetsnazList[entClass] and "npc_vj_hlrpar1_zalpha")
-                    or (entClass == "npc_vj_hlrpar1_scientist" and "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] and "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] and "npc_vj_hlrpar2_zhazmat") or zomList
+                    or (sciList[entClass] and "npc_vj_hlrpar2_zscientist") or (sciFemaleList[entClass] and "npc_vj_hlrpar2_zscientist_fem") or (hazmatSciList[entClass] and "npc_vj_hlrpar2_zhazmat") or zomList
                 )
                 if ent.VJ_ID_Living then
                     zombie:SetPos(ent:GetPos())
