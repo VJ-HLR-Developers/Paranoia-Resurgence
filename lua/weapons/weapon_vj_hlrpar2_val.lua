@@ -5,23 +5,23 @@ SWEP.PrintName = "VAL"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
 //SWEP.NPC_CustomSpread = 0.75
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/savior/w_val.mdl"
 SWEP.HoldType = "ar2"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "bip01_r_hand",
     Pos = Vector(9.955, -1.123, 0.522),
     Ang = Angle(-2.945, -11.015, -89.427)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
@@ -36,9 +36,9 @@ local validModels = {
     ["models/vj_parr/par2/soldier_alpha.mdl"] = true,
     ["models/vj_parr/par2/early/v2/soldier_alpha.mdl"] = true
 }
-SWEP.Reload_Start = "vj_parr/par2/weapons/val/vss_out.wav"
-SWEP.Reload_Middle = "vj_parr/par2/weapons/val/vss_in.wav"
-SWEP.Reload_Finish = "vj_parr/par2/weapons/val/vss_boltpull.wav"
+SWEP.Reload_Start = "^vj_parr/par2/weapons/val/vss_out.wav"
+SWEP.Reload_Middle = "^vj_parr/par2/weapons/val/vss_in.wav"
+SWEP.Reload_Finish = "^vj_parr/par2/weapons/val/vss_boltpull.wav"
 
 local math_random = math.random
 local math_rand = math.Rand

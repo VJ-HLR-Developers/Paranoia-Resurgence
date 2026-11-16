@@ -5,22 +5,22 @@ SWEP.PrintName = "PKM"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_rpk.mdl"
 SWEP.HoldType = "ar2"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
     Pos = Vector(5.383, 4.496, -6.619),
     Ang = Angle(14.165, 19.62, 4.986)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 100
 SWEP.Primary.Ammo = "SMG1"

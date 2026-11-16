@@ -5,22 +5,22 @@ SWEP.PrintName = "AKS"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_aks.mdl"
 SWEP.HoldType = "ar2"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
     Pos = Vector(7.318, 1.715, 0),
     Ang = Angle(0, 17, -90)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 12
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"

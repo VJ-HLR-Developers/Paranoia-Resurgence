@@ -5,7 +5,7 @@ SWEP.PrintName = "MP5"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_ExtraFireSound = "vj_parr/par1/weapons/mp5/hks_02.wav"
@@ -14,18 +14,18 @@ SWEP.NPC_HasSecondaryFire = true
 SWEP.NPC_SecondaryFireEnt = "obj_vj_hlrpar1_grenade_40mm"
 SWEP.NPC_SecondaryFireSound = "vj_parr/par1/weapons/mp5/hks_pinpull.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par1/weapons/w_9mmar.mdl"
 SWEP.HoldType = "smg"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
     Pos = Vector(3.864, 1.035, -1),
     Ang = Angle(0, 15, -90)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 8
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"

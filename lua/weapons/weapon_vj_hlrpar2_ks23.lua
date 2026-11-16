@@ -5,26 +5,26 @@ SWEP.PrintName = "KS-23"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_CustomSpread = 2.5
 SWEP.NPC_FiringDistanceScale = 0.5
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
-SWEP.NPC_ExtraFireSound = "vj_parr/par2/weapons/ks23/ks-23_pump.wav"
+SWEP.NPC_ExtraFireSound = "^vj_parr/par2/weapons/ks23/ks-23_pump.wav"
 SWEP.NPC_ExtraFireSoundTime = 0.2
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_shotgun.mdl"
 SWEP.HoldType = "shotgun"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "bip01_r_hand",
     Pos = Vector(11.229, 4.6, 3.392),
     Ang = Angle(9.055, -154.662, -95.738)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 10
 SWEP.Primary.NumberOfShots = 5
 SWEP.Primary.ClipSize = 3
@@ -39,7 +39,7 @@ SWEP.DryFireSound = "vj_hlr/gsrc/wep/dryfire1.wav"
 local validModels = {
     ["models/vj_parr/par2/early/v2/soldier_alpha.mdl"] = true
 }
-SWEP.Reload_Start = "vj_parr/par2/weapons/ks23/ks-23_insertshell.wav"
+SWEP.Reload_Start = "^vj_parr/par2/weapons/ks23/ks-23_insertshell.wav"
 SWEP.Reload_Finish = SWEP.NPC_ExtraFireSound
 
 local math_random = math.random

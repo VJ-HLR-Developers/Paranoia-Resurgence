@@ -5,22 +5,22 @@ SWEP.PrintName = "AK-74"
 SWEP.Author = "Darkborn"
 SWEP.Contact = "http://steamcommunity.com/groups/vrejgaming"
 SWEP.Category = "Paranoia Resurgence"
-    -- NPC Settings 
+    -- NPC Settings
 SWEP.NPC_NextPrimaryFire = false
 SWEP.NPC_ReloadSound = "vj_hlr/null.wav"
 SWEP.NPC_CanBePickedUp = false
-    -- Main Settings 
+    -- Main Settings
 SWEP.MadeForNPCsOnly = true
 SWEP.WorldModel = "models/vj_parr/par2/weapons/world_akm.mdl"
 SWEP.HoldType = "ar2"
-    -- World Model 
+    -- World Model
 SWEP.WorldModelOffsetParams = {
     Enabled = true,
     Bone = "Bip01 R Hand",
     Pos = Vector(2.085, 1.85, 2.341),
     Ang = Angle(-9.128, 24.328, 80.398)
 }
-    -- Primary Fire 
+    -- Primary Fire
 SWEP.Primary.Damage = 14
 SWEP.Primary.ClipSize = 30
 SWEP.Primary.Ammo = "SMG1"
@@ -42,9 +42,9 @@ local validModels = {
     ["models/vj_parr/par2/early/v1/player2.mdl"] = true,
     ["models/vj_parr/par2/1.0/monster_soldiershooter.mdl"] = true
 }
-SWEP.Reload_Start = "vj_parr/par2/weapons/ak74/ak74_out.wav"
-SWEP.Reload_Middle = "vj_parr/par2/weapons/ak74/ak74_in.wav"
-SWEP.Reload_Finish = "vj_parr/par2/weapons/ak74/ak74_boltpull.wav"
+SWEP.Reload_Start = "^vj_parr/par2/weapons/ak74/ak74_out.wav"
+SWEP.Reload_Middle = "^vj_parr/par2/weapons/ak74/ak74_in.wav"
+SWEP.Reload_Finish = "^vj_parr/par2/weapons/ak74/ak74_boltpull.wav"
 
 local math_random = math.random
 local math_rand = math.Rand
