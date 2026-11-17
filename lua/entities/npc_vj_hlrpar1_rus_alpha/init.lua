@@ -510,12 +510,46 @@ function ENT:Init()
     ACT_STUNNED = util.GetActivityIDByName("ACT_STUNNED")
     ACT_TWITCH = util.GetActivityIDByName("ACT_TWITCH")
 
+    hook.Add("PlayerButtonDown", self, function(self, ply, button)
+        if ply.VJ_Controlling and IsValid(ply.VJ_Controller) then
+            local contEnt = ply.VJ_Controller
+            if contEnt:GetNPC() == self then
+                contEnt:GetNPC():OnKeyPressed(ply, button)
+            end
+        end
+    end)
+
     local curTime = CurTime()
     self.Soldier_NextStrafeT = curTime + 4
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
     if self.Soldier_Init then self:Soldier_Init() end
     if self.Soldier_Setup then self:Soldier_Setup() end
     if self.Soldier_Voice then self:Soldier_Voice() end
+end
+
+function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("E: Use")
+    function controlEnt:OnThink()
+        self:GetNPC():SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
+        self.VJC_BullseyeTracking = (self:GetNPC():IsMoving() and self:GetCameraMode() == 1) or self:GetCameraMode() == 2
+    end
+end
+
+function ENT:OnKeyPressed(ply, key)
+    if key == KEY_E then
+        local eyePos = self:EyePos()
+        local tr = util.TraceLine({
+            start = eyePos,
+            endpos = eyePos + ply:GetAimVector() * 125,
+            filter = {self, ply}
+        })
+        local ent = tr.Entity
+        if tr.Hit and IsValid(ent) then
+            //self:PlayAnim(ACT_OPEN_DOOR, true, false)
+            ent:Fire("Use", nil, 0, ply, self)
+        end
+    end
 end
 
 function ENT:OnCreateSound(sdData, sdFile)
@@ -845,12 +879,13 @@ end
 function ENT:SelectSchedule()
     self.BaseClass.SelectSchedule(self)
     -- Play yield lines when friendly is in line of fire
-    if !self.SoundTbl_YieldToPlayer then return end
+    if !self.SoundTbl_YieldToPlayer or self.VJ_Controlled then return end
     local ene = self:GetEnemy()
     local wep = self:GetActiveWeapon()
     if IsValid(wep) and IsValid(ene) then
         local curTime = CurTime()
-        local eneValid = IsValid(ene)
+        local myPos = self:GetPos()
+        local myPosCentered = myPos + self:OBBCenter()
         local enePos_Eye = ene:EyePos()
         local inCover, inCoverTrace = self:DoCoverTrace(myPosCentered, enePos_Eye, false, {SetLastHiddenTime = true})
         local inCoverEnt = inCoverTrace.Entity
@@ -861,7 +896,7 @@ function ENT:SelectSchedule()
             inCoverEntLiving = true
         end
         if inCoverEntLiving and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
-            self:PlaySoundSystem("YieldToPlayer")
+            self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
         end
     end
 end

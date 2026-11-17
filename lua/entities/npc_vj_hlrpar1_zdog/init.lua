@@ -124,12 +124,43 @@ function ENT:PreInit()
 end
 
 function ENT:Init()
+    hook.Add("PlayerButtonDown", self, function(self, ply, button)
+        if ply.VJ_Controlling and IsValid(ply.VJ_Controller) then
+            local contEnt = ply.VJ_Controller
+            if contEnt:GetNPC() == self then
+                contEnt:GetNPC():OnKeyPressed(ply, button)
+            end
+        end
+    end)
+
     self:SetCollisionBounds(Vector(30, 30, 44), Vector(-30, -30, 0))
     self:SetSurroundingBounds(Vector(80, 80, 150), Vector(-80, -80, 0))
 end
 
 function ENT:Controller_Initialize(ply, controlEnt)
+    ply:ChatPrint("E: Use")
     if GetConVar("VJ_PARR_Zombie_BreakDoors"):GetInt() == 1 then ply:ChatPrint("DUCK: Attack Door") end
+    function controlEnt:OnThink()
+        self:GetNPC():SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
+        self.VJC_BullseyeTracking = (self:GetNPC():IsMoving() and self:GetCameraMode() == 1) or self:GetCameraMode() == 2
+    end
+end
+
+function ENT:OnKeyPressed(ply, key)
+    if key == KEY_E then
+        local eyePos = self:EyePos()
+        local tr = util.TraceLine({
+            start = eyePos,
+            endpos = eyePos + ply:GetAimVector() * 125,
+            filter = {self, ply}
+        })
+        local ent = tr.Entity
+        if tr.Hit and IsValid(ent) then
+            //self:PlayAnim(ACT_OPEN_DOOR, true, false)
+            ent:Fire("Use", nil, 0, ply, self)
+        end
+    end
 end
 
 function ENT:OnThinkActive()

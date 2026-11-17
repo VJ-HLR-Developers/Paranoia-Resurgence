@@ -180,6 +180,15 @@ function ENT:Init()
 
     ACT_FEAR_DISPLAY = util.GetActivityIDByName("ACT_FEAR_DISPLAY")
 
+    hook.Add("PlayerButtonDown", self, function(self, ply, button)
+        if ply.VJ_Controlling and IsValid(ply.VJ_Controller) then
+            local contEnt = ply.VJ_Controller
+            if contEnt:GetNPC() == self then
+                contEnt:GetNPC():OnKeyPressed(ply, button)
+            end
+        end
+    end)
+
     local curTime = CurTime()
     self.Civilian_NextTieAnnoyanceT = curTime + math_rand(2, 100)
     self.Civilian_NextStrafeT = curTime + 4
@@ -189,6 +198,7 @@ end
 
 function ENT:Controller_Initialize(ply, controlEnt)
     if self.Civilian_Type != 0 and self.Civilian_Type != 2 and self.Civilian_Type != 5 then return end
+    ply:ChatPrint("E: Use")
     ply:ChatPrint("RELOAD: Toggle scared animations")
     ply:ChatPrint("LMOUSE: Play tie annoyance (if not scared & possible)")
 
@@ -210,6 +220,28 @@ function ENT:Controller_Initialize(ply, controlEnt)
         elseif key == IN_ATTACK and curTime > npc.Civilian_NextTieAnnoyanceT then
             npc:PlayAnim(ACT_VM_IDLE_1, true, false)
             npc.Civilian_NextTieAnnoyanceT = curTime + 4
+        end
+    end
+
+    function controlEnt:OnThink()
+        self:GetNPC():SetArrivalSpeed(9999)
+        self.VJC_NPC_CanTurn = self:GetCameraMode() == 2
+        self.VJC_BullseyeTracking = (self:GetNPC():IsMoving() and self:GetCameraMode() == 1) or self:GetCameraMode() == 2
+    end
+end
+
+function ENT:OnKeyPressed(ply, key)
+    if key == KEY_E then
+        local eyePos = self:EyePos()
+        local tr = util.TraceLine({
+            start = eyePos,
+            endpos = eyePos + ply:GetAimVector() * 125,
+            filter = {self, ply}
+        })
+        local ent = tr.Entity
+        if tr.Hit and IsValid(ent) then
+            //self:PlayAnim(ACT_OPEN_DOOR, true, false)
+            ent:Fire("Use", nil, 0, ply, self)
         end
     end
 end
