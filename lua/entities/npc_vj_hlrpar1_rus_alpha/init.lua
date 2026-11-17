@@ -881,21 +881,25 @@ function ENT:OnThinkActive()
     if !self.SoundTbl_YieldToPlayer then return end
     -- If we're blocked by an ally, say blocked lines
     local curTime = CurTime()
-    if math_random(1, 5) and self:IsMoving() and curTime > self.Soldier_NextBlockedT then
-        local myCenterPos = self:GetPos() + self:OBBCenter()
-        local tr = util.TraceLine({
-            start = myCenterPos,
-            endpos = myCenterPos + self:GetForward() * 80,
-            filter = self
-        })
-        if tr.Hit then
-            local ent = tr.Entity
-            if IsValid(ent) and ent.VJ_ID_Living and (ent:IsNPC() and !ent:IsMoving() or ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
-                self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
-                self.Soldier_NextBlockedT = curTime + math_rand(2, 3)
-                //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+    if curTime > self.Soldier_NextBlockedT and self:IsMoving() and VJ.GetMoveDirection(self, true).y then
+        if math_random(1, 2) then
+            local myCenterPos = self:GetPos() + self:OBBCenter()
+            local tr = util.TraceLine({
+                start = myCenterPos,
+                endpos = myCenterPos + self:GetForward() * 80,
+                mins = self:OBBMins(),
+                maxs = self:OBBMaxs(),
+                filter = self
+            })
+            if tr.Hit then
+                local ent = tr.Entity
+                if IsValid(ent) and ent.VJ_ID_Living and self.FollowData.Target != ent and ((ent:IsNPC() and !ent:IsMoving()) or (ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) or (ent:IsNextBot() and wnt.loco:GetVelocity():Length() <= 0)) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
+                    self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+                    //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+                end
             end
         end
+        self.Soldier_NextBlockedT = curTime + math_rand(2, 3)
     end
 end
 
