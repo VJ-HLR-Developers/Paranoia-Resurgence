@@ -877,7 +877,29 @@ function ENT:Soldier_OnThink()
     end
 end
 
-function ENT:SelectSchedule()
+function ENT:OnThinkActive()
+    if !self.SoundTbl_YieldToPlayer then return end
+    -- If we're blocked by an ally, say blocked lines
+    local curTime = CurTime()
+    if math_random(1, 5) and self:IsMoving() and curTime > self.Soldier_NextBlockedT then
+        local myCenterPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({
+            start = myCenterPos,
+            endpos = myCenterPos + self:GetForward() * 80,
+            filter = self
+        })
+        if tr.Hit then
+            local ent = tr.Entity
+            if IsValid(ent) and ent.VJ_ID_Living and (ent:IsNPC() and !ent:IsMoving() or ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
+                self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+                self.Soldier_NextBlockedT = curTime + math_rand(2, 3)
+                //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+            end
+        end
+    end
+end
+
+/*function ENT:SelectSchedule()
     self.BaseClass.SelectSchedule(self)
     if !self.SoundTbl_YieldToPlayer or self.VJ_Controlled then return end
     -- Play blocked lines when friendly is in line of fire
@@ -903,7 +925,7 @@ function ENT:SelectSchedule()
             end
         end
     end
-end
+end*/
 
 function ENT:OnAlert(ent)
     -- Monster callouts

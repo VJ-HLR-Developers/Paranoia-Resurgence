@@ -68,6 +68,7 @@ ENT.Civilian_NextMouthMove = 0
 ENT.Civilian_NextMouthDistance = 0
 ENT.Civilian_NextTieAnnoyanceT = 0
 ENT.Civilian_NextStrafeT = 0
+ENT.Civilian_NextBlockedT = 0
 ENT.Civilian_ControllerAnim = 0
 
 function ENT:OnInput(key, activator, caller, data)
@@ -379,6 +380,28 @@ function ENT:Civilian_OnThink()
         self:StopMoving()
         self:PlayAnim(animStrafing, true, false)
         self.Civilian_NextStrafeT = curTime + 8
+    end
+end
+
+function ENT:OnThinkActive()
+    if !self.SoundTbl_YieldToPlayer then return end
+    -- If we're blocked by an ally, say blocked lines
+    local curTime = CurTime()
+    if math_random(1, 5) and self:IsMoving() and curTime > self.Civilian_NextBlockedT then
+        local myCenterPos = self:GetPos() + self:OBBCenter()
+        local tr = util.TraceLine({
+            start = myCenterPos,
+            endpos = myCenterPos + self:GetForward() * 80,
+            filter = self
+        })
+        if tr.Hit then
+            local ent = tr.Entity
+            if IsValid(ent) and ent.VJ_ID_Living and (ent:IsNPC() and !ent:IsMoving() or ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
+                self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+                self.Civilian_NextBlockedT = curTime + math_rand(2, 3)
+                //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+            end
+        end
     end
 end
 
