@@ -81,6 +81,7 @@ ENT.Soldier_NextMouthMove = 0
 ENT.Soldier_NextMouthDistance = 0
 ENT.Soldier_NextStrafeT = 0
 ENT.Soldier_NextRunT = 0
+ENT.Soldier_NextBlockedT = 0
 
 local CurTime = CurTime
 local math_random = math.random
@@ -878,25 +879,28 @@ end
 
 function ENT:SelectSchedule()
     self.BaseClass.SelectSchedule(self)
-    -- Play yield lines when friendly is in line of fire
     if !self.SoundTbl_YieldToPlayer or self.VJ_Controlled then return end
-    local ene = self:GetEnemy()
-    local wep = self:GetActiveWeapon()
-    if IsValid(wep) and IsValid(ene) then
+    -- Play blocked lines when friendly is in line of fire
+    if self:CanFireWeapon(true, true) then
         local curTime = CurTime()
-        local myPos = self:GetPos()
-        local myPosCentered = myPos + self:OBBCenter()
-        local enePos_Eye = ene:EyePos()
-        local inCover, inCoverTrace = self:DoCoverTrace(myPosCentered, enePos_Eye, false, {SetLastHiddenTime = true})
-        local inCoverEnt = inCoverTrace.Entity
-        local wepInCover, wepInCoverTrace = self:DoCoverTrace(wep:GetBulletPos(), enePos_Eye, false)
-        local wepInCoverEnt = wepInCoverTrace.Entity
-        local inCoverEntLiving = false
-        if IsValid(inCoverEnt) and inCoverEnt.VJ_ID_Living then
-            inCoverEntLiving = true
-        end
-        if inCoverEntLiving and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
-            self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+        local ene = self:GetEnemy()
+        local wep = self:GetActiveWeapon()
+        if IsValid(wep) and IsValid(ene) and curTime > self.Soldier_NextBlockedT then
+            local myPos = self:GetPos()
+            local myPosCentered = myPos + self:OBBCenter()
+            local enePos_Eye = ene:EyePos()
+            local inCover, inCoverTrace = self:DoCoverTrace(myPosCentered, enePos_Eye, false, {SetLastHiddenTime = true})
+            local inCoverEnt = inCoverTrace.Entity
+            local wepInCover, wepInCoverTrace = self:DoCoverTrace(wep:GetBulletPos(), enePos_Eye, false)
+            local wepInCoverEnt = wepInCoverTrace.Entity
+            local inCoverEntLiving = false
+            if IsValid(inCoverEnt) and inCoverEnt.VJ_ID_Living then
+                inCoverEntLiving = true
+            end
+            if inCoverEntLiving and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
+                self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+                self.Soldier_NextBlockedT = curTime + math_rand(2, 3)
+            end
         end
     end
 end
