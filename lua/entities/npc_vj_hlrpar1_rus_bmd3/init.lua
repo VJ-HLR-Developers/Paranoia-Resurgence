@@ -1,0 +1,402 @@
+AddCSLuaFile("shared.lua")
+include("shared.lua")
+/*-----------------------------------------------
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
+ENT.Model = "models/vj_parr/par1/cut/td_bmd3.mdl"
+ENT.StartHealth = 350
+ENT.ControllerParams = {
+    ThirdP_Offset = Vector(-20, 0, 40),
+    FirstP_Bone = "joint1",
+    FirstP_Offset = Vector(00, 0, 130),
+    FirstP_ShrinkBone = false
+}
+
+ENT.VJ_NPC_Class = {"CLASS_PLAYER_ALLY", "CLASS_RUSSIAN_FRIENDLY"}
+ENT.AlliedWithPlayerAllies = true
+ENT.BecomeEnemyToPlayer = 2
+ENT.HasOnPlayerSight = true
+
+ENT.SoundTbl_Breath = "vj_parr/par1/tanks/tankidle1.wav"
+ENT.SoundTbl_Death = "VJ.PARR1_Explosion.Single"
+
+ENT.MainSoundPitch = VJ.SET(95, 105)
+
+-- Tank Base
+ENT.Tank_SoundTbl_DrivingEngine = "vj_hlr/gsrc/npc/tanks/tankdrive.wav"
+ENT.Tank_SoundTbl_Track = "vj_hlr/gsrc/npc/tanks/tanktrack.wav"
+ENT.Tank_SoundTbl_RunOver = {"vj_hlr/gsrc/fx/bustflesh1.wav", "vj_hlr/gsrc/fx/bustflesh2.wav"}
+
+ENT.Tank_GunnerENT = "npc_vj_hlrpar1_rus_bmd3_gun"
+ENT.Tank_CollisionBoundSize = 70
+ENT.Tank_CollisionBoundUp = 75
+ENT.Tank_DeathDriverCorpse = {"models/vj_parr/par1/soldier.mdl", "models/vj_parr/par1/early/v1/soldier.mdl", "models/vj_parr/par1/early/v2/soldier.mdl"}
+ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
+
+-- Custom
+ENT.BMD_NextMGT = 0
+
+local math_abs = math.abs
+local math_random = math.random
+local math_rand = math.Rand
+
+function ENT:Tank_Init()
+    self.SoundTbl_Idle = {
+        "vj_parr/par1/officer/monologue1.wav",
+        "vj_parr/par1/officer/monologue2.wav",
+        "vj_parr/par1/officer/monologue3.wav",
+        "vj_parr/par1/officer/monologue4.wav",
+        "vj_parr/par1/officer/monologue5.wav",
+        "vj_parr/par1/officer/monologue6.wav",
+        "vj_parr/par1/officer/monologue7.wav",
+        "vj_parr/par1/officer/monologue8.wav",
+        "vj_parr/par1/soldier/bolnoy1.wav",
+        "vj_parr/par1/soldier/bolnoy2.wav",
+        "vj_parr/par1/soldier/bolnoy3.wav",
+        "vj_parr/par1/alpha/monologue7.wav",
+        "vj_parr/par1/npc/army/afgan.wav",
+        "vj_parr/par1/npc/army/camesklad2.wav",
+        "vj_parr/par1/npc/army/camesklad3.wav",
+        "vj_parr/par1/npc/army/fix.wav",
+        "vj_parr/par1/npc/army/pentagon_hack.wav",
+        "vj_parr/par1/npc/army/zaslon.wav"
+    }
+    self.SoundTbl_CombatIdle = {
+        "vj_parr/par1/npc/army/zapalil1.wav",
+        "vj_parr/par1/npc/army/zapalil2.wav",
+        "vj_parr/par1/npc/army/zapalil3.wav",
+        "vj_parr/par1/npc/army/zapalil4.wav"
+    }
+    self.SoundTbl_ReceiveOrder = {
+        "vj_parr/par1/soldier/ok1.wav",
+        "vj_parr/par1/soldier/ok2.wav",
+        "vj_parr/par1/soldier/ok3.wav",
+        "vj_parr/par1/soldier/yes1.wav",
+        "vj_parr/par1/npc/army/karaul4.wav"
+    }
+    self.SoundTbl_Alert = {
+        "vj_parr/par1/npc/army/karaul1.wav",
+        "vj_parr/par1/npc/army/karaul2.wav",
+        "vj_parr/par1/npc/army/karaul3.wav"
+    }
+    self.SoundTbl_OnPlayerSight = {
+        "vj_parr/par1/officer/hello1.wav",
+        "vj_parr/par1/officer/hello2.wav",
+        "vj_parr/par1/officer/hello3.wav",
+        "vj_parr/par1/officer/hello4.wav",
+        "vj_parr/par1/soldier/hello2.wav",
+        "vj_parr/par1/soldier/hello3.wav",
+        "vj_parr/par1/soldier/hello4.wav",
+        "vj_parr/par1/soldier/hello5.wav",
+        "vj_parr/par1/alpha/hello1.wav",
+        "vj_parr/par1/alpha/hello2.wav",
+        "vj_parr/par1/alpha/hello3.wav",
+        "vj_parr/par1/alpha/hello4.wav",
+        "vj_parr/par1/alpha/hello5.wav",
+        "vj_parr/par1/npc/army/camesklad1.wav",
+        "vj_parr/par1/npc/army/konferents_zal.wav"
+    }
+end
+
+function ENT:Tank_GunnerSpawnPosition()
+    return self:GetPos() + self:GetForward() * -12 + self:GetRight() * 1 + self:GetUp() * 56
+end
+
+local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
+--
+function ENT:Tank_OnThinkActive()
+    local ene = self.EnemyData.Target
+    if IsValid(ene) then
+        local curTime = CurTime()
+        local myPos = self:GetPos()
+        local enePos = ene:GetPos()
+        local angEne = (enePos - myPos):Angle()
+        local angYaw = (angEne.y - (self:GetAngles().y + self.Tank_AngleOffset) + 180) % 360 - 180 -- left(+) / right(-)
+        local angPitch = (angEne.p + 180) % 360 - 180 -- up(-) / down(+)
+        if math_abs(angYaw) < self.Tank_YawLimit and math_abs(angPitch) < self.Tank_PitchLimit and ene:Visible(self) and curTime > self.BMD_NextMGT then
+            local att = self:GetAttachment(1)
+            self:FireBullets({
+                Num = 1,
+                Src = att.Pos,
+                Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
+                Spread = bulletSpread,
+                Tracer = 1,
+                TracerName = "VJ_PARR_Tracer",
+                Force = 3,
+                Damage = self:ScaleByDifficulty(12),
+                AmmoType = "SMG"
+            })
+            VJ.EmitSound(self, "VJ.PARR1_MG.Single")
+            self:FireFX()
+            self.BMD_NextMGT = curTime + 0.06
+        end
+    end
+    return true
+end
+
+function ENT:FireFX()
+    local muz = ents.Create("env_sprite")
+    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
+    muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+    muz:SetKeyValue("HDRColorScale", "1.0")
+    muz:SetKeyValue("renderfx", "14")
+    muz:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+    muz:SetKeyValue("renderamt", "255") -- Transparency
+    muz:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+    muz:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+    muz:SetKeyValue("spawnflags", "0")
+    muz:SetParent(self)
+    muz:Fire("SetParentAttachment", "mg")
+    muz:SetAngles(Angle(math_random(-100, 100), math_random(-100, 100), math_random(-100, 100)))
+    muz:Spawn()
+    muz:Activate()
+    muz:Fire("Kill", nil, 0.08)
+
+    local muzLight = ents.Create("light_dynamic")
+    muzLight:SetKeyValue("brightness", "4")
+    muzLight:SetKeyValue("distance", "120")
+    muzLight:Fire("Color", "255 150 60")
+    muzLight:SetParent(self)
+    muzLight:Fire("SetParentAttachment", "mg")
+    muzLight:Spawn()
+    muzLight:Activate()
+    muzLight:Fire("TurnOn")
+    muzLight:Fire("Kill", nil, 0.07)
+    self:DeleteOnRemove(muzLight)
+end
+
+function ENT:Tank_UpdateMoveParticles()
+    local spawnPos = self:GetPos() + self:GetForward() * -120
+    local effectData = EffectData()
+    effectData:SetScale(1)
+    effectData:SetEntity(self)
+    effectData:SetOrigin(spawnPos + self:GetRight() * 50)
+    util.Effect("VJ_VehicleMove", effectData, true, true)
+    effectData:SetOrigin(spawnPos + self:GetRight() * -50)
+    util.Effect("VJ_VehicleMove", effectData, true, true)
+end
+
+function ENT:GetNearDeathSparkPositions()
+    local randPos = math_random(1, 5)
+    if randPos == 1 then
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 15 + self:GetForward() * -16 + self:GetUp() * 80)
+    elseif randPos == 2 then
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 42 + self:GetForward() * 90 + self:GetUp() * 50)
+    elseif randPos == 3 then
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -42 + self:GetForward() * 90 + self:GetUp() * 50)
+    elseif randPos == 4 then
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * 60 + self:GetForward() * -40 + self:GetUp() * 50)
+    elseif randPos == 5 then
+        self.Spark1:SetLocalPos(self:GetPos() + self:GetRight() * -60 + self:GetForward() * -40 + self:GetUp() * 50)
+    end
+end
+
+local expPos = Vector(0, 0, 100)
+--
+function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
+    self.T90_DmgForce = dmginfo:GetDamageForce()
+    for i = 0, 1, 0.5 do
+        timer.Simple(i, function()
+            if IsValid(self) then
+                local myPos = self:GetPos()
+                local myForward = self:GetForward()
+                VJ.EmitSound(self, self.SoundTbl_Death, 100)
+                VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 100)
+                util.BlastDamage(self, self, myPos, 200, 40)
+                util.ScreenShake(myPos, 100, 200, 1, 2500)
+
+                local spr = ents.Create("env_sprite")
+                spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+                spr:SetKeyValue("GlowProxySize", "2.0")
+                spr:SetKeyValue("HDRColorScale", "1.0")
+                spr:SetKeyValue("renderfx", "14")
+                spr:SetKeyValue("rendermode", "5")
+                spr:SetKeyValue("renderamt", "255")
+                spr:SetKeyValue("disablereceiveshadows", "0")
+                spr:SetKeyValue("mindxlevel", "0")
+                spr:SetKeyValue("maxdxlevel", "0")
+                spr:SetKeyValue("framerate", "15.0")
+                spr:SetKeyValue("spawnflags", "0")
+                spr:SetKeyValue("scale", "2")
+                spr:SetPos(myPos + myForward * -10 + expPos)
+                spr:Spawn()
+                spr:Fire("Kill", nil, 0.9)
+
+                local expLight = ents.Create("light_dynamic")
+                expLight:SetKeyValue("brightness", "4")
+                expLight:SetKeyValue("distance", "300")
+                expLight:SetPos(myPos + myForward * -10 + expPos)
+                expLight:Fire("Color", "255 150 0")
+                expLight:Spawn()
+                expLight:Activate()
+                expLight:Fire("TurnOn")
+                expLight:Fire("Kill", nil, 0.15)
+            end
+        end)
+    end
+
+    timer.Simple(1.5, function()
+        if IsValid(self) then
+            local myPos = self:GetPos()
+            local myForward = self:GetForward()
+            VJ.EmitSound(self, self.SoundTbl_Death, 100)
+            util.BlastDamage(self, self, myPos, 200, 40)
+            util.ScreenShake(myPos, 100, 200, 1, 2500)
+            VJ.EmitSound(self, "vj_parr/par1/weapons/debris3.wav", 100)
+
+            local spr = ents.Create("env_sprite")
+            spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+            spr:SetKeyValue("GlowProxySize", "2.0")
+            spr:SetKeyValue("HDRColorScale", "1.0")
+            spr:SetKeyValue("renderfx", "14")
+            spr:SetKeyValue("rendermode", "5")
+            spr:SetKeyValue("renderamt", "255")
+            spr:SetKeyValue("disablereceiveshadows", "0")
+            spr:SetKeyValue("mindxlevel", "0")
+            spr:SetKeyValue("maxdxlevel", "0")
+            spr:SetKeyValue("framerate", "15.0")
+            spr:SetKeyValue("spawnflags", "0")
+            spr:SetKeyValue("scale", "2")
+            spr:SetPos(myPos + myForward * -10 + expPos)
+            spr:Spawn()
+            spr:Fire("Kill", nil, 0.9)
+
+            local expLight = ents.Create("light_dynamic")
+            expLight:SetKeyValue("brightness", "4")
+            expLight:SetKeyValue("distance", "300")
+            expLight:SetPos(myPos + myForward * -10 + expPos)
+            expLight:Fire("Color", "255 150 0")
+            expLight:Spawn()
+            expLight:Activate()
+            expLight:Fire("TurnOn")
+            expLight:Fire("Kill", nil, 0.15)
+        end
+    end)
+    return true
+end
+
+local vec = Vector()
+--
+function ENT:OnDamaged(dmginfo, hitgroup, status)
+    if status == "Init" and dmginfo:GetDamagePosition() != vec then
+        local rico = EffectData()
+        rico:SetOrigin(dmginfo:GetDamagePosition())
+        rico:SetScale(5) -- Size
+        rico:SetMagnitude(math_random(1, 2)) -- Effect type | 1 = Animated | 2 = Basic
+        util.Effect("VJ_PARR_Rico", rico)
+    end
+    self.BaseClass.OnDamaged(self, dmginfo, hitgroup, status)
+end
+
+local metalCollideSD = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
+local vec500z = Vector(0, 0, 500)
+local colorGray = Color(90, 90, 90)
+--
+function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
+    if status == "Override" then
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 60)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 61)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 62)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 63)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 64)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green6.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 65)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green7.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 66)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 67)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 68)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 69)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 71)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 72)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 73)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 74)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 75)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green6.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 76)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green7.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 77)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 78)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 0, 79)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-11, 0, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-11, 1, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog1.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 1, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_cog2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 2, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_rib.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 3, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 4, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 5, 70)), CollisionSound = metalCollideSD})
+        self:CreateGibEntity("obj_vj_gib", "models/vj_hlr/gibs/rgib_screw.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(-10, 6, 70)), CollisionSound = metalCollideSD})
+
+        local myPos = self:GetPos()
+        local myForward = self:GetForward()
+        local myUp = self:GetUp()
+        VJ.EmitSound(self, self.SoundTbl_Death)
+        util.BlastDamage(self, self, myPos + myForward * -10 + myUp * 60, 200, 10)
+        util.ScreenShake(myPos, 100, 200, 1, 2500)
+        local tr = util.TraceLine({
+            start = myPos + myUp * 4,
+            endpos = myPos - vec500z,
+            filter = self
+        })
+        util.Decal(VJ.PICK(self.Tank_DeathDecal), tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal)
+
+        if math_random(1, self.Tank_DeathDriverCorpseChance) == 1 then
+            local soldierMDL = VJ.PICK(self.Tank_DeathDriverCorpse)
+            if soldierMDL then
+                self:CreateExtraDeathCorpse("prop_ragdoll", soldierMDL, {Pos = myPos + myForward * -10 + myUp * 60 + self:GetRight() * -30, Vel = Vector(math_rand(-600, 600), math_rand(-600, 600), 500)}, function(ent)
+                    ent:SetColor(colorGray)
+                    ent:SetBodygroup(1, math_random(0, 5))
+                    ent:SetBodygroup(2, 1)
+                    ent:SetBodygroup(3, math_random(0, 1))
+                end)
+            end
+        end
+
+        local spr = ents.Create("env_sprite")
+        spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+        spr:SetKeyValue("GlowProxySize", "2.0")
+        spr:SetKeyValue("HDRColorScale", "1.0")
+        spr:SetKeyValue("renderfx", "14")
+        spr:SetKeyValue("rendermode", "5")
+        spr:SetKeyValue("renderamt", "255")
+        spr:SetKeyValue("disablereceiveshadows", "0")
+        spr:SetKeyValue("mindxlevel", "0")
+        spr:SetKeyValue("maxdxlevel", "0")
+        spr:SetKeyValue("framerate", "15.0")
+        spr:SetKeyValue("spawnflags", "0")
+        spr:SetKeyValue("scale", "2")
+        spr:SetPos(myPos + myForward * -10 + expPos)
+        spr:Spawn()
+        spr:Fire("Kill", nil, 0.9)
+
+        local expLight = ents.Create("light_dynamic")
+        expLight:SetKeyValue("brightness", "4")
+        expLight:SetKeyValue("distance", "300")
+        expLight:SetPos(myPos + myForward * -10 + expPos)
+        expLight:Fire("Color", "255 150 0")
+        expLight:Spawn()
+        expLight:Activate()
+        expLight:Fire("TurnOn")
+        expLight:Fire("Kill", nil, 0.15)
+
+        local fireSpr = ents.Create("env_sprite")
+        fireSpr:SetKeyValue("model", "vj_hl/sprites/xffloor.vmt")
+        fireSpr:SetKeyValue("GlowProxySize", "2.0")
+        fireSpr:SetKeyValue("HDRColorScale", "1.0")
+        fireSpr:SetKeyValue("renderfx", "14")
+        fireSpr:SetKeyValue("rendermode", "5")
+        fireSpr:SetKeyValue("renderamt", "255")
+        fireSpr:SetKeyValue("disablereceiveshadows", "0")
+        fireSpr:SetKeyValue("mindxlevel", "0")
+        fireSpr:SetKeyValue("maxdxlevel", "0")
+        fireSpr:SetKeyValue("framerate", "10.0")
+        fireSpr:SetKeyValue("spawnflags", "0")
+        fireSpr:SetKeyValue("scale", "2")
+        fireSpr:SetPos(myPos + myForward * -10 + myUp * 100)
+        fireSpr:SetParent(corpse)
+        fireSpr:Spawn()
+        corpse:DeleteOnRemove(fireSpr)
+
+        corpse.TankSD_Fire = VJ.CreateSound(corpse, "vj_hlr/gsrc/fx/burning1.wav", 70)
+        return true
+    end
+end

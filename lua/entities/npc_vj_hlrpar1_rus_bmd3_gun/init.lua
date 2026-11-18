@@ -1,0 +1,196 @@
+AddCSLuaFile("shared.lua")
+include("shared.lua")
+/*-----------------------------------------------
+    *** Copyright (c) 2012-2026 by DrVrej, All rights reserved. ***
+    No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
+    without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
+-----------------------------------------------*/
+ENT.Model = "models/vj_parr/par1/cut/td_bmd3_gun.mdl"
+ENT.StartHealth = 0
+ENT.HasDeathCorpse = false
+
+-- Tank Base
+ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot1.wav"
+ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
+ENT.Tank_SoundTbl_FireShell = "VJ.PARR1_Cannon.Single"
+
+local vecBullet = Vector(128, 0, 10)
+ENT.Tank_Shell_SpawnPos = Vector(128, 0, 10)
+ENT.Tank_Shell_VelocitySpeed = 3000
+ENT.Tank_Shell_MuzzleFlashPos = Vector(128, 0, 10)
+ENT.Tank_Shell_ParticlePos = Vector(128, 0, 10)
+
+-- Custom
+ENT.BMD_Reload = false
+ENT.BMD_NextMGT = 0
+ENT.BMD_Ammo = 10
+
+local math_random = math.random
+local math_rand = math.Rand
+local CurTime = CurTime
+
+function ENT:Tank_Init()
+    -- Spawn a dummy entity to fix bullet tracer for MG, thanks GMod
+    local dumEnt = ents.Create("prop_vj_animatable")
+    dumEnt:SetModel("models/vj_parr/par1/cut/td_bmd3_gun_mg.mdl")
+    dumEnt:SetPos(self:GetPos())
+    dumEnt:SetAngles(self:GetAngles())
+    dumEnt:SetOwner(self)
+    dumEnt:SetParent(self)
+    dumEnt.PhysgunDisabled = true
+    dumEnt.DoNotDuplicate = true
+    dumEnt:Spawn()
+    dumEnt:SetNoDraw(true)
+    dumEnt:SetSolid(SOLID_NONE)
+    dumEnt:SetCollisionGroup(COLLISION_GROUP_IN_VEHICLE)
+    self:DeleteOnRemove(dumEnt)
+    self.DumEnt = dumEnt
+end
+
+function ENT:Tank_OnPrepareShell()
+    -- If reloading then play the reload sound and delay the time until fire
+    if self.BMD_Reload then
+        self.Tank_Shell_TimeUntilFire = 3.5
+        self.HasReloadShellSound = true
+    else
+        self.Tank_Shell_TimeUntilFire = 0.5
+        self.HasReloadShellSound = false
+        self.Tank_Shell_NextFireTime = 0
+    end
+end
+
+local vecZ40 = Vector(0, 0, 40)
+--
+function ENT:Tank_OnFireShell(status, statusData)
+    if status == "Init" then
+        self.BMD_Ammo = self.BMD_Ammo - 1
+        if self.BMD_Ammo <= 0 then self:Reload() end
+        local ene = self.EnemyData.Target
+        local pos = self:LocalToWorld(vecBullet)
+        if IsValid(ene) then
+            self:FireBullets({
+                Damage = 1,
+                Force = 100,
+                HullSize = 10,
+                Dir = (ene:GetPos() + ene:OBBCenter()) - pos,
+                Src = pos,
+                Spread = Vector(math_rand(-50, 50), math_rand(-50, 50), 0),
+                TracerName = "VJ_PARR_Tracer_Large",
+                Callback = function(attack, tr, dmginfo)
+                    local hitPos = tr.HitPos
+                    local hitNorm = tr.HitNormal
+                    VJ.ApplyRadiusDamage(self, self, hitPos, 50, 30, DMG_BLAST, true, true, {Force = 100})
+                    util.Decal("VJ_PARR1_Scorch", hitPos + hitNorm, hitPos - hitNorm)
+
+                    sound.Play("VJ.PARR1_Explosion.Single", hitPos, 70, 100, 1)
+                    sound.Play("vj_parr/par1/weapons/debris3.wav", hitPos, 70, 100, 1)
+
+                    local spr = ents.Create("env_sprite")
+                    spr:SetKeyValue("model", "vj_parr/sprites/zerogxplode.vmt")
+                    spr:SetKeyValue("GlowProxySize", "2.0")
+                    spr:SetKeyValue("HDRColorScale", "1.0")
+                    spr:SetKeyValue("renderfx", "14")
+                    spr:SetKeyValue("rendermode", "5")
+                    spr:SetKeyValue("renderamt", "255")
+                    spr:SetKeyValue("disablereceiveshadows", "0")
+                    spr:SetKeyValue("mindxlevel", "0")
+                    spr:SetKeyValue("maxdxlevel", "0")
+                    spr:SetKeyValue("framerate", "15.0")
+                    spr:SetKeyValue("spawnflags", "0")
+                    spr:SetKeyValue("scale", "1.5")
+                    spr:SetPos(hitPos + vecZ40)
+                    spr:Spawn()
+                    spr:Fire("Kill", nil, 0.9)
+
+                    local expLight = ents.Create("light_dynamic")
+                    expLight:SetKeyValue("brightness", "4")
+                    expLight:SetKeyValue("distance", "300")
+                    expLight:SetPos(hitPos)
+                    expLight:Fire("Color", "255 150 0")
+                    expLight:Spawn()
+                    expLight:Activate()
+                    expLight:Fire("TurnOn")
+                    expLight:Fire("Kill", nil, 0.15)
+                end
+            })
+        end
+        return true
+    end
+end
+
+local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
+--
+function ENT:Tank_OnThinkActive()
+    local ene = self.EnemyData.Target
+    if IsValid(ene) and IsValid(self.DumEnt) then
+        local curTime = CurTime()
+        if self.Tank_FacingTarget and ene:Visible(self) and curTime > self.BMD_NextMGT then
+            local dumEnt = self.DumEnt
+            local att = dumEnt:GetAttachment(1)
+            dumEnt:FireBullets({
+                Attacker = self,
+                Num = 1,
+                Src = att.Pos,
+                Dir = (ene:GetPos() + ene:OBBCenter() - att.Pos):Angle():Forward(),
+                Spread = bulletSpread,
+                Tracer = 1,
+                TracerName = "VJ_PARR_Tracer",
+                Force = 3,
+                Damage = self:ScaleByDifficulty(12),
+                AmmoType = "SMG"
+            })
+            VJ.EmitSound(self, "VJ.PARR1_MG.Single")
+            self:FireFX()
+            self.BMD_NextMGT = curTime + 0.06
+        end
+    end
+    return true
+end
+
+function ENT:FireFX()
+    local muz = ents.Create("env_sprite")
+    muz:SetKeyValue("model", "vj_parr/sprites/muzzleflash1.vmt")
+    muz:SetKeyValue("scale", "" .. math_rand(0.3, 0.5))
+    muz:SetKeyValue("GlowProxySize", "2.0") -- Size of the glow to be rendered for visibility testing.
+    muz:SetKeyValue("HDRColorScale", "1.0")
+    muz:SetKeyValue("renderfx", "14")
+    muz:SetKeyValue("rendermode", "3") -- Set the render mode to "3" (Glow)
+    muz:SetKeyValue("renderamt", "255") -- Transparency
+    muz:SetKeyValue("disablereceiveshadows", "0") -- Disable receiving shadows
+    muz:SetKeyValue("framerate", "10.0") -- Rate at which the sprite should animate, if at all.
+    muz:SetKeyValue("spawnflags", "0")
+    muz:SetParent(self)
+    muz:Fire("SetParentAttachment", "mg")
+    muz:SetAngles(Angle(math_random(-100, 100), math_random(-100, 100), math_random(-100, 100)))
+    muz:Spawn()
+    muz:Activate()
+    muz:Fire("Kill", nil, 0.08)
+
+    local muzLight = ents.Create("light_dynamic")
+    muzLight:SetKeyValue("brightness", "4")
+    muzLight:SetKeyValue("distance", "120")
+    muzLight:Fire("Color", "255 150 60")
+    muzLight:SetParent(self)
+    muzLight:Fire("SetParentAttachment", "mg")
+    muzLight:Spawn()
+    muzLight:Activate()
+    muzLight:Fire("TurnOn")
+    muzLight:Fire("Kill", nil, 0.07)
+    self:DeleteOnRemove(muzLight)
+end
+
+function ENT:Reload()
+    if !self.BMD_Reload then
+        self.BMD_Reload = true
+    end
+    timer.Simple(3.5, function()
+        if IsValid(self) and self.BMD_Reload then
+            self.BMD_Reload = false
+            self.BMD_Ammo = self.BMD_Ammo + 10
+        end
+    end)
+end
+
+function ENT:DoImpactEffect(tr, damageType)
+    return VJ.PARR1_Effect_Impact(tr)
+end

@@ -24,6 +24,8 @@ VJ.AddNPC("Scientist (Hazmat)", "npc_vj_hlrpar1_sci_haz", spawnCategory, {SubCat
 VJ.AddNPC("Worker", "npc_vj_hlrpar1_worker", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Worker (V1)", "npc_vj_hlrpar1_worker_v1", spawnCategory, {SubCategory = subCategory})
 -- Russian Military
+VJ.AddNPC("Russian BMD-3", "npc_vj_hlrpar1_rus_bmd3", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian BMP-2", "npc_vj_hlrpar1_rus_bmp2", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian BTR-90", "npc_vj_hlrpar1_rus_btr90", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Cook", "npc_vj_hlrpar1_rus_cook", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Cook (V1)", "npc_vj_hlrpar1_rus_cook_v1", spawnCategory, {SubCategory = subCategory})

@@ -1,0 +1,5 @@
+"VertexLitGeneric"
+{
+    "$basetexture" "models/vj_parr/par1/bmd3/bmd32"
+    //"$nocull" "1"
+}

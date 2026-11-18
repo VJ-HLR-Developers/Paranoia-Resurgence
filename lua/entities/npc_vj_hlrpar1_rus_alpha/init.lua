@@ -919,11 +919,11 @@ end
             local inCoverEnt = inCoverTrace.Entity
             local wepInCover, wepInCoverTrace = self:DoCoverTrace(wep:GetBulletPos(), enePos_Eye, false)
             local wepInCoverEnt = wepInCoverTrace.Entity
-            local inCoverEntLiving = false
+            local trBodyEnt = false
             if IsValid(inCoverEnt) and inCoverEnt.VJ_ID_Living then
-                inCoverEntLiving = true
+                trBodyEnt = true
             end
-            if inCoverEntLiving and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
+            if trBodyEnt and self.WeaponAttackState == VJ.WEP_ATTACK_STATE_FIRE_STAND and curTime > self.TakingCoverT and IsValid(wepInCoverEnt) and wepInCoverEnt:IsNPC() and wepInCoverEnt != self and (self:Disposition(wepInCoverEnt) == D_LI or self:Disposition(wepInCoverEnt) == D_NU) and wepInCoverTrace.HitPos:Distance(wepInCoverTrace.StartPos) <= 3000 then
                 self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
                 self.Soldier_NextBlockedT = curTime + math_rand(2, 3)
             end
