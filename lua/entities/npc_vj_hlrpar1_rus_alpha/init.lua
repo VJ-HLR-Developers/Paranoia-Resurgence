@@ -881,12 +881,12 @@ function ENT:OnThinkActive()
     if !self.SoundTbl_YieldToPlayer then return end
     -- If we're blocked by an ally, say blocked lines
     local curTime = CurTime()
-    if curTime > self.Soldier_NextBlockedT and self:IsMoving() and VJ.GetMoveDirection(self, true).y then
+    if curTime > self.Soldier_NextBlockedT and self:GetCurGoalType() != 0 then
         if math_random(1, 2) then
             local myCenterPos = self:GetPos() + self:OBBCenter()
             local tr = util.TraceLine({
                 start = myCenterPos,
-                endpos = myCenterPos + self:GetForward() * 80,
+                endpos = myCenterPos + self:GetForward() * 128,
                 mins = self:OBBMins(),
                 maxs = self:OBBMaxs(),
                 filter = self
