@@ -893,7 +893,7 @@ function ENT:OnThinkActive()
             })
             if tr.Hit then
                 local ent = tr.Entity
-                if IsValid(ent) and ent.VJ_ID_Living and self.FollowData.Target != ent and ((ent:IsNPC() and !ent:IsMoving()) or (ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) or (ent:IsNextBot() and wnt.loco:GetVelocity():Length() <= 0)) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
+                if IsValid(ent) and ent.VJ_ID_Living and !ent.IsGuard and self.FollowData.Target != ent and ((ent:IsNPC() and !ent:IsMoving()) or (ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) or (ent:IsNextBot() and wnt.loco:GetVelocity():Length() <= 0)) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
                     self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
                     //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
                 end

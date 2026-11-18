@@ -6,14 +6,14 @@ include("shared.lua")
     No parts of this code or any of its contents may be reproduced, copied, modified or adapted,
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
-ENT.Model = {"models/vj_parr/par1/cut/worker2.mdl", "models/vj_parr/par1/early/v1/npc_worker_old.mdl"}
+ENT.Model = {"models/vj_parr/par1/early/v1/worker2.mdl", "models/vj_parr/par1/cut/npc_worker_old.mdl"}
 ENT.Behavior = VJ_BEHAVIOR_AGGRESSIVE
 
 local math_random = math.random
 
 function ENT:Civilian_Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/early/v1/npc_worker_old.mdl" then
+    if myMDL == "models/vj_parr/par1/cut/npc_worker_old.mdl" then
         self.Civilian_Type = 4
         self.Civilian_CanHurtWalk = true
         self.Weapon_UnarmedBehavior = false
@@ -22,5 +22,5 @@ function ENT:Civilian_Init()
     self:SetSkin(math_random(0, 1))
     self:SetBodygroup(1, math_random(0, 2))
     self:SetBodygroup(2, math_random(0, 1))
-    if myMDL != "models/vj_parr/par1/early/v1/npc_worker_old.mdl" then self:SetBodygroup(3, math_random(0, 2)) end
+    if myMDL != "models/vj_parr/par1/cut/npc_worker_old.mdl" then self:SetBodygroup(3, math_random(0, 2)) end
 end
