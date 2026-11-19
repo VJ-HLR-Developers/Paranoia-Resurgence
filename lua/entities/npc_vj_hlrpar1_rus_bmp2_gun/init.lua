@@ -11,17 +11,16 @@ ENT.HasDeathCorpse = false
 
 -- Tank Base
 ENT.Tank_SoundTbl_Turning = "vj_parr/par1/tanks/turretrot1.wav"
-ENT.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
-ENT.Tank_SoundTbl_FireShell = "VJ.PARR1_Cannon.Single"
 
 local vecBullet = Vector(117, 0, 10)
-ENT.Tank_Shell_SpawnPos = Vector(117, 0, 10)
+local vecMissile = Vector(6, 2.5, 28)
+ENT.Tank_Shell_Entity = "obj_vj_hlrpar1_rocket"
 ENT.Tank_Shell_VelocitySpeed = 3000
-ENT.Tank_Shell_MuzzleFlashPos = Vector(117, 0, 10)
-ENT.Tank_Shell_ParticlePos = Vector(117, 0, 10)
 
 -- Custom
 ENT.BMP_Reload = false
+ENT.BMP_DoingMissileAtk = false
+ENT.BMP_NextMissileAtkT = 0
 ENT.BMP_NextMGT = 0
 ENT.BMP_Ammo = 10
 
@@ -48,14 +47,37 @@ function ENT:Tank_Init()
 end
 
 function ENT:Tank_OnPrepareShell()
-    -- If reloading then play the reload sound and delay the time until fire
-    if self.BMP_Reload then
-        self.Tank_Shell_TimeUntilFire = 3.5
+    local curTime = CurTime()
+    if curTime > self.BMP_NextMissileAtkT and math_random(1, 5) == 1 then
+        self.BMP_DoingMissileAtk = true
+        self.Tank_Shell_NextFireTime = 3
+        self.Tank_Shell_TimeUntilFire = 1.5
+        self.Tank_Shell_SpawnPos = vecMissile
+        self.Tank_Shell_MuzzleFlashPos = vecMissile
+        self.Tank_Shell_ParticlePos = vecMissile
         self.HasReloadShellSound = true
+        self.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/tow_reload.wav"
+        self.Tank_SoundTbl_FireShell = "vj_hlr/gsrc/npc/tanks/tow_firing.wav"
     else
-        self.Tank_Shell_TimeUntilFire = 0.5
-        self.HasReloadShellSound = false
+        -- If last attack was a missile attack then play the gun switch sound
+        if self.BMP_DoingMissileAtk then
+            self.Tank_Shell_TimeUntilFire = 1
+            self.HasReloadShellSound = true
+        -- If reloading then play the reload sound and delay the time until fire
+        elseif self.BMP_Reload then
+            self.Tank_Shell_TimeUntilFire = 3.5
+            self.HasReloadShellSound = true
+        else
+            self.Tank_Shell_TimeUntilFire = 0.5
+            self.HasReloadShellSound = false
+        end
+        self.BMP_DoingMissileAtk = false
         self.Tank_Shell_NextFireTime = 0
+        self.Tank_Shell_SpawnPos = vecBullet
+        self.Tank_Shell_MuzzleFlashPos = vecBullet
+        self.Tank_Shell_ParticlePos = vecBullet
+        self.Tank_SoundTbl_ReloadShell = "vj_hlr/gsrc/npc/tanks/25mm_reload.wav"
+        self.Tank_SoundTbl_FireShell = "VJ.PARR1_Cannon.Single"
     end
 end
 
@@ -63,6 +85,7 @@ local vecZ40 = Vector(0, 0, 40)
 --
 function ENT:Tank_OnFireShell(status, statusData)
     if status == "Init" then
+        if self.BMP_DoingMissileAtk then return end -- Missile lets the base code execute!
         self.BMP_Ammo = self.BMP_Ammo - 1
         if self.BMP_Ammo <= 0 then self:Reload() end
         local ene = self.EnemyData.Target
@@ -115,6 +138,12 @@ function ENT:Tank_OnFireShell(status, statusData)
             })
         end
         return true
+    elseif status == "OnCreate" then
+        local curTime = CurTime()
+        statusData.Rocket_AirMissile = true
+        self.BMP_NextMissileAtkT = curTime + math_rand(12, 25)
+    elseif status == "OnSpawn" then
+        return true -- Done in the projectile instead
     end
 end
 
@@ -137,7 +166,10 @@ function ENT:Tank_OnThinkActive()
                 TracerName = "VJ_PARR_Tracer",
                 Force = 3,
                 Damage = self:ScaleByDifficulty(12),
-                AmmoType = "SMG"
+                AmmoType = "SMG",
+                Callback = function(attack, tr, dmginfo)
+                    self:DoImpactEffect(tr, damageType)
+                end
             })
             VJ.EmitSound(self, "VJ.PARR1_MG.Single")
             self:FireFX()

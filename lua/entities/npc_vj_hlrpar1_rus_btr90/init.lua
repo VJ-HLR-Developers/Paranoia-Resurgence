@@ -239,14 +239,22 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
                 spr:SetKeyValue("framerate", (self.VJ_PARR2_NPC and "20.0") or "15.0")
                 spr:SetKeyValue("spawnflags", "0")
                 spr:SetKeyValue("scale", "2")
-                spr:SetPos(myPos + myForward * 30 + expPos)
+                if self.VJ_PARR2_NPC then
+                    spr:SetPos(myPos + myForward * 25 + expPos)
+                else
+                    spr:SetPos(myPos + myForward * 30 + expPos)
+                end
                 spr:Spawn()
                 spr:Fire("Kill", nil, (self.VJ_PARR2_NPC and 1.5) or 0.9)
 
                 local expLight = ents.Create("light_dynamic")
                 expLight:SetKeyValue("brightness", "4")
                 expLight:SetKeyValue("distance", "300")
-                expLight:SetPos(myPos + myForward * 30 + expPos)
+                if self.VJ_PARR2_NPC then
+                    expLight:SetPos(myPos + myForward * 25 + expPos)
+                else
+                    expLight:SetPos(myPos + myForward * 30 + expPos)
+                end
                 expLight:Fire("Color", "255 150 0")
                 expLight:Spawn()
                 expLight:Activate()
@@ -278,14 +286,22 @@ function ENT:Tank_OnInitialDeath(dmginfo, hitgroup)
             spr:SetKeyValue("framerate", (self.VJ_PARR2_NPC and "20.0") or "15.0")
             spr:SetKeyValue("spawnflags", "0")
             spr:SetKeyValue("scale", "2")
-            spr:SetPos(myPos + myForward * 30 + expPos)
+            if self.VJ_PARR2_NPC then
+                spr:SetPos(myPos + myForward * 25 + expPos)
+            else
+                spr:SetPos(myPos + myForward * 30 + expPos)
+            end
             spr:Spawn()
             spr:Fire("Kill", nil, (self.VJ_PARR2_NPC and 1.5) or 0.9)
 
             local expLight = ents.Create("light_dynamic")
             expLight:SetKeyValue("brightness", "4")
             expLight:SetKeyValue("distance", "300")
-            expLight:SetPos(myPos + myForward * 30 + expPos)
+            if self.VJ_PARR2_NPC then
+                expLight:SetPos(myPos + myForward * 25 + expPos)
+            else
+                expLight:SetPos(myPos + myForward * 30 + expPos)
+            end
             expLight:Fire("Color", "255 150 0")
             expLight:Spawn()
             expLight:Activate()
@@ -348,7 +364,11 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         local myForward = self:GetForward()
         local myUp = self:GetUp()
         VJ.EmitSound(self, self.SoundTbl_Death)
-        util.BlastDamage(self, self, myPos + myForward * 30 + myUp * 70, 200, 10)
+        if self.VJ_PARR2_NPC then
+            util.BlastDamage(self, self, myPos + myForward * 35 + myUp * 70, 200, 10)
+        else
+            util.BlastDamage(self, self, myPos + myForward * 30 + myUp * 70, 200, 10)
+        end
         util.ScreenShake(myPos, 100, 200, 1, 2500)
         local tr = util.TraceLine({
             start = myPos + myUp * 4,
@@ -382,19 +402,27 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
         spr:SetKeyValue("framerate", (self.VJ_PARR2_NPC and "20.0") or "15.0")
         spr:SetKeyValue("spawnflags", "0")
         spr:SetKeyValue("scale", "2")
-        spr:SetPos(myPos + myForward * 30 + expPos)
+        if self.VJ_PARR2_NPC then
+            spr:SetPos(myPos + myForward * 25 + myUp * 125)
+        else
+            spr:SetPos(myPos + myForward * 30 + myUp * 125)
+        end
         spr:Spawn()
         spr:Fire("Kill", nil, (self.VJ_PARR2_NPC and 1.5) or 0.9)
 
-		local expLight = ents.Create("light_dynamic")
-		expLight:SetKeyValue("brightness", "4")
-		expLight:SetKeyValue("distance", "300")
-		expLight:SetPos(myPos + myForward * 30 + expPos)
-		expLight:Fire("Color", "255 150 0")
-		expLight:Spawn()
-		expLight:Activate()
-		expLight:Fire("TurnOn")
-		expLight:Fire("Kill", nil, 0.15)
+        local expLight = ents.Create("light_dynamic")
+        expLight:SetKeyValue("brightness", "4")
+        expLight:SetKeyValue("distance", "300")
+        if self.VJ_PARR2_NPC then
+            expLight:SetPos(myPos + myForward * 25 + myUp * 125)
+        else
+            expLight:SetPos(myPos + myForward * 30 + myUp * 125)
+        end
+        expLight:Fire("Color", "255 150 0")
+        expLight:Spawn()
+        expLight:Activate()
+        expLight:Fire("TurnOn")
+        expLight:Fire("Kill", nil, 0.15)
 
         local fireSpr = ents.Create("env_sprite")
         fireSpr:SetKeyValue("model", "vj_hl/sprites/xffloor.vmt")

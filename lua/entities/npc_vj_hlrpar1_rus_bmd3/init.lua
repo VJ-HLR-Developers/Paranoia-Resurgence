@@ -36,8 +36,23 @@ ENT.Tank_DeathDriverCorpse = {"models/vj_parr/par1/soldier.mdl", "models/vj_parr
 ENT.Tank_DeathDecal = "VJ_PARR1_Scorch"
 
 -- Custom
+ENT.BMD_HasSpawnedSoldiers = false
+ENT.BMD_PrepDeploy = false
 ENT.BMD_NextMGT = 0
 
+local soldierList = {
+    "npc_vj_hlrpar1_rus_gru",
+    "npc_vj_hlrpar1_rus_ng",
+    "npc_vj_hlrpar1_rus_soldier",
+    "npc_vj_hlrpar1_rus_soldier_v1",
+    "npc_vj_hlrpar1_rus_soldier_v2"
+}
+local spetsnazList = {
+    "npc_vj_hlrpar1_rus_alpha",
+    "npc_vj_hlrpar1_rus_alpha_savior",
+    "npc_vj_hlrpar1_rus_alpha_v1",
+    "npc_vj_hlrpar1_rus_alpha_v2"
+}
 local math_abs = math.abs
 local math_random = math.random
 local math_rand = math.Rand
@@ -98,10 +113,68 @@ function ENT:Tank_Init()
         "vj_parr/par1/npc/army/camesklad1.wav",
         "vj_parr/par1/npc/army/konferents_zal.wav"
     }
+    self.BMD_Soldiers = {}
 end
 
 function ENT:Tank_GunnerSpawnPosition()
     return self:GetPos() + self:GetForward() * -12 + self:GetRight() * 1 + self:GetUp() * 56
+end
+
+function ENT:Tank_OnThink()
+    -- If moving then close the door
+    if self.Tank_Status == 0 and self.BMD_PrepDeploy then
+        self.BMD_PrepDeploy = false
+    end
+
+    -- Deploy soldiers
+    if self.Tank_Status == 1 and !self.BMD_HasSpawnedSoldiers and !self.BMD_PrepDeploy and IsValid(self.EnemyData.Target) and GetConVar("vj_hlr1_bradley_deploygrunts"):GetInt() == 1 and ((!self.VJ_Controlled) or (self.VJ_Controlled and self.VJ_Controller:GetPlayer():KeyDown(IN_JUMP))) then
+        self.BMD_PrepDeploy = true
+        self.BMD_HasSpawnedSoldiers = true
+        self:SetState(VJ_STATE_FREEZE)
+        timer.Simple(0.5, function()
+            if IsValid(self) then
+                if !self.BMD_PrepDeploy then -- Door was suddenly closed, so try again later
+                    self.BMD_HasSpawnedSoldiers = false
+                    self:SetState()
+                else
+                    local ene = self.EnemyData.Target
+                    for i = 1, 4 do
+                        local pickSoldier = VJ.PICK(soldierList)
+                        local soldierClass = pickSoldier
+                        if math_random(1, 5) == 1 then -- 20% for spetsnaz to spawn
+                            soldierClass = VJ.PICK(spetsnazList)
+                        else
+                            soldierClass = pickSoldier
+                        end
+                        local soldier = ents.Create(soldierClass)
+                        local opSide = ((i % 2 == 0) and -25) or 25 -- Make every other soldier spawn to the opposite side
+                        local myPos = self:GetPos()
+                        local myForward = self:GetForward()
+                        local myRight = self:GetRight()
+                        local myUp = self:GetUp()
+                        local pos = myPos + myForward * (i <= 2 and -160 or (i <= 4 and -220 or -290)) + myRight * opSide + myUp * 5
+                        local pos2 = myPos + myForward * (i <= 2 and -180 or (i <= 4 and -240 or -310)) + myRight * opSide + myUp * 5
+                        soldier:SetPos(pos)
+                        soldier:SetAngles(Angle(0, self:GetAngles().y + 180, 0))
+                        soldier.VJ_NPC_Class = self.VJ_NPC_Class
+                        soldier.AlliedWithPlayerAllies = self.AlliedWithPlayerAllies
+                        soldier:Spawn()
+                        soldier:ForceSetEnemy(ene, true)
+                        soldier:SetState(VJ_STATE_FREEZE)
+                        timer.Simple(0.2, function()
+                            if IsValid(soldier) then
+                                soldier:SetState(VJ_STATE_NONE)
+                                soldier:SetLastPosition(soldier:GetPos() + soldier:GetForward() * 150 + soldier:GetRight() * opSide)
+                                soldier:SCHEDULE_GOTO_POSITION("TASK_RUN_PATH")
+                            end
+                        end)
+                        self.BMD_Soldiers[#self.BMD_Soldiers + 1] = soldier -- Register the soldier
+                        self:SetState()
+                    end
+                end
+            end
+        end)
+    end
 end
 
 local bulletSpread = Vector(0.03490, 0.03490, 0.03490)
@@ -126,7 +199,10 @@ function ENT:Tank_OnThinkActive()
                 TracerName = "VJ_PARR_Tracer",
                 Force = 3,
                 Damage = self:ScaleByDifficulty(12),
-                AmmoType = "SMG"
+                AmmoType = "SMG",
+                Callback = function(attack, tr, dmginfo)
+                    self:DoImpactEffect(tr, damageType)
+                end
             })
             VJ.EmitSound(self, "VJ.PARR1_MG.Single")
             self:FireFX()
@@ -166,6 +242,10 @@ function ENT:FireFX()
     muzLight:Fire("TurnOn")
     muzLight:Fire("Kill", nil, 0.07)
     self:DeleteOnRemove(muzLight)
+end
+
+function ENT:DoImpactEffect(tr, damageType)
+    return VJ.PARR1_Effect_Impact(tr)
 end
 
 function ENT:Tank_UpdateMoveParticles()
@@ -398,5 +478,14 @@ function ENT:Tank_OnDeathCorpse(dmginfo, hitgroup, corpse, status, statusData)
 
         corpse.TankSD_Fire = VJ.CreateSound(corpse, "vj_hlr/gsrc/fx/burning1.wav", 70)
         return true
+    end
+end
+
+function ENT:CustomOnRemove()
+    -- If the NPC was removed, then remove its children as well, but not when it's killed!
+    if !self.Dead then
+        for _, v in ipairs(self.BMD_Soldiers) do
+            if IsValid(v) then v:Remove() end
+        end
     end
 end

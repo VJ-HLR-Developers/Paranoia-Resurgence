@@ -23,6 +23,6 @@ ENT.Tank_Shell_ParticlePos = Vector(200, 2, 9)
 
 local math_random = math.random
 
-function ENT:Tank_Init()
+/*function ENT:Tank_Init()
     self:SetBodygroup(0, math_random(0, 1))
-end
+end*/

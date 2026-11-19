@@ -52,8 +52,12 @@ ENT.SoundTbl_OnCollide = "VJ.PARR1_Explosion.Single"
 ENT.OnCollideSoundLevel = 100
 
 -- Custom
+ENT.Rocket_AirMissile = false
 ENT.Rocket_HelicopterMissile = false
 
+local math_random = math.random
+
+local vecZ20 = Vector(0, 0, 40)
 local colorTrail = Color(224, 224, 255, 255)
 --
 function ENT:Init()
@@ -79,22 +83,61 @@ function ENT:Init()
     util.SpriteTrail(self, 0, colorTrail, true, 5, 20, 6, 1 / (5 + 20) * 0.5, "vj_hl/sprites/smoke.vmt")
     self:SetNW2Bool("VJ_Dead", false)
 
-    -- For helicopters
-    if self.Rocket_HelicopterMissile then
-        timer.Simple(0.5, function()
-            if IsValid(self) then
-                local owner = self:GetOwner()
-                if IsValid(owner) then
-                    local phys = self:GetPhysicsObject()
-                    local ene = owner:GetEnemy()
-                    if IsValid(phys) and IsValid(ene) then
-                        phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
-                        self:SetAngles(self:GetVelocity():Angle())
-                    end
-                end
-            end
-        end)
-    end
+	-- For helicopters
+	if self.Rocket_HelicopterMissile then
+		timer.Simple(0.5, function()
+			if IsValid(self) then
+				local owner = self:GetOwner()
+				if IsValid(owner) then
+					local phys = self:GetPhysicsObject()
+					local ene = owner:GetEnemy()
+					if IsValid(phys) and IsValid(ene) then
+						phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 2000))
+						self:SetAngles(self:GetVelocity():Angle())
+					end
+				end
+			end
+		end)
+	-- For BTR & IFVs
+	elseif self.Rocket_AirMissile then
+		local phys = self:GetPhysicsObject()
+		if IsValid(phys) then
+			-- 1. Go forward
+			phys:SetVelocity(self:GetForward() * 200)
+			self:SetAngles(self:GetVelocity():Angle())
+			timer.Simple(0.5, function()
+				if IsValid(self) then
+					local myPos = self:GetPos()
+					-- 2. Go up
+					local tr = util.TraceLine({
+						start = myPos,
+						endpos = myPos + self:GetUp() * math_random(2000, 2800),
+						filter = self
+					})
+					local hitPos = tr.HitPos - vecZ20
+					phys = self:GetPhysicsObject()
+					if IsValid(phys) then
+						phys:SetVelocity(VJ.CalculateTrajectory(self, NULL, "Line", myPos, hitPos, 800))
+						self:SetAngles(self:GetVelocity():Angle())
+						timer.Simple(myPos:Distance(hitPos) / self:GetVelocity():Length(), function()
+							if IsValid(self) then
+								local owner = self:GetOwner()
+								if IsValid(owner) then
+									-- 3. Go to the enemy (Final move)
+									phys = self:GetPhysicsObject()
+									local ene = owner:GetEnemy()
+									if IsValid(phys) and IsValid(ene) then
+										phys:SetVelocity(VJ.CalculateTrajectory(owner, ene, "Line", self:GetPos(), 1, 50000))
+										self:SetAngles(self:GetVelocity():Angle())
+									end
+								end
+							end
+						end)
+					end
+				end
+			end)
+		end
+	end
 end
 
 local vecZ60 = Vector(0, 0, 50)
