@@ -10,10 +10,10 @@ ENT.Model = "models/vj_parr/par2/elb_btr80_gun.mdl"
 ENT.StartHealth = 0
 ENT.HasDeathCorpse = false
 
-ENT.Tank_Shell_SpawnPos = Vector(56, 0, 7)
-ENT.Tank_Shell_VelocitySpeed = 3000
-ENT.Tank_Shell_MuzzleFlashPos = Vector(56, 0, 7)
-ENT.Tank_Shell_ParticlePos = Vector(56, 0, 7)
+local vecBullet = Vector(56, 0, 7)
+ENT.Tank_Shell_SpawnPos = vecBullet
+ENT.Tank_Shell_MuzzleFlashPos = vecBullet
+ENT.Tank_Shell_ParticlePos = vecBullet
 
 function ENT:Tank_Init() return end
 
