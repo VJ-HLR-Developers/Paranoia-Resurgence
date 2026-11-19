@@ -7,3 +7,4 @@ include("shared.lua")
     without the prior written consent of the author, unless otherwise indicated for stand-alone materials.
 -----------------------------------------------*/
 ENT.Model = "models/vj_parr/par2/mgun.mdl"
+ENT.SoundTbl_Death = {"vj_parr/par2/shared/bustmetal1.wav", "vj_parr/par2/shared/bustmetal2.wav"}

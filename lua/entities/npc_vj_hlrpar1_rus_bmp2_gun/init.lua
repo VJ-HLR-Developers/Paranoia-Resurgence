@@ -47,16 +47,15 @@ function ENT:Tank_Init()
 end
 
 function ENT:Tank_OnPrepareShell()
-        -- If reloading then play the reload sound and delay the time until fire
-        if self.BMP_Reload then
-            self.Tank_Shell_TimeUntilFire = 3.5
-            self.HasReloadShellSound = true
-        else
-            self.Tank_Shell_TimeUntilFire = 0.5
-            self.HasReloadShellSound = false
-        end
-        self.Tank_Shell_NextFireTime = 0
+    -- If reloading then play the reload sound and delay the time until fire
+    if self.BMP_Reload then
+        self.Tank_Shell_TimeUntilFire = 3.5
+        self.HasReloadShellSound = true
+    else
+        self.Tank_Shell_TimeUntilFire = 0.5
+        self.HasReloadShellSound = false
     end
+    self.Tank_Shell_NextFireTime = 0
 end
 
 local vecZ40 = Vector(0, 0, 40)

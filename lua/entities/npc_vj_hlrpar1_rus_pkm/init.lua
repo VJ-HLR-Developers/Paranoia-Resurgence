@@ -39,6 +39,8 @@ ENT.VJ_ID_Healable = false
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_RANGE_ATTACK1
 
+ENT.SoundTbl_Death = {"vj_parr/par1/shared/bustmetal1.wav", "vj_parr/par1/shared/bustmetal2.wav"}
+
 -- Custom
 ENT.PKM_HasLOS = false
 ENT.PKM_Shooting = false
@@ -276,6 +278,22 @@ function ENT:OnDeath(dmginfo, hitgroup, status)
             self.DeathAnimationTime = VJ.AnimDuration(gunner, gunner:GetSequenceName(gunner:GetSequence()))
         end*/
     end
+end
+
+local gibCollideSd = {"vj_parr/par1/shared/metal1.wav", "vj_parr/par1/shared/metal2.wav", "vj_parr/par1/shared/metal3.wav", "vj_parr/par1/shared/metal4.wav"}
+--
+function ENT:HandleGibOnDeath(dmginfo, hitgroup)
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(1, 0, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green2.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 1, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(2, 0, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 2, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(3, 0, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green6.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 3, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green7.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(4, 0, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green3.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 4, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green4.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(5, 0, 20)), CollisionSound = gibCollideSd})
+    self:CreateGibEntity("obj_vj_gib", "models/vj_parr/par1/gibs/metalplategibs_green5.mdl", {CollisionDecal = false, Pos = self:LocalToWorld(Vector(0, 5, 20)), CollisionSound = gibCollideSd})
+    return true, {AllowCorpse = false, AllowSound = false}
 end
 
 function ENT:CustomOnRemove()
