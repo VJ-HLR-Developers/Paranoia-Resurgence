@@ -35,6 +35,7 @@ VJ.AddNPC("Russian General", "npc_vj_hlrpar1_rus_general", spawnCategory, {SubCa
 VJ.AddNPC("Russian General (V1)", "npc_vj_hlrpar1_rus_general_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian GRU Soldier", "npc_vj_hlrpar1_rus_gru", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Mil Mi-24", "npc_vj_hlrpar1_rus_mil", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Russian Mil Mi-24 (V1)", "npc_vj_hlrpar1_rus_mil_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian National Guard", "npc_vj_hlrpar1_rus_ng", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Off-Duty Soldier", "npc_vj_hlrpar1_rus_soldier_offd", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Russian Off-Duty Soldier (V1)", "npc_vj_hlrpar1_rus_soldier_offd_v1", spawnCategory, {SubCategory = subCategory})
