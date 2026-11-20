@@ -486,27 +486,45 @@ VJ.AddConVar("VJ_PARR_Brain_MaxDistance", 2000, bit_bor(FCVAR_ARCHIVE, FCVAR_NOT
 
 -- Configure Menu
 if CLIENT then
+    surface.CreateFont("VJ_PARR_Font", {
+        font = "Stencil",
+        size = 14,
+        weight = 50,
+        antialias = true
+    })
     hook.Add("PopulateToolMenu", "VJ_ADDTOMENU_HLRPAR", function()
         spawnmenu.AddToolMenuOption("DrVrej", "SNPC Configures", "Paranoia Resurgence", "Paranoia Resurgence", "", "", function(panel)
             if !game.SinglePlayer() and !LocalPlayer():IsAdmin() then
-                panel:Help("#vjbase.menu.general.admin.not")
-                panel:Help("#vjbase.menu.general.admin.only")
+                panel:Help("#vjbase.menu.general.admin.not"):SetFont("VJ_PARR_Font")
+                panel:Help("#vjbase.menu.general.admin.only"):SetFont("VJ_PARR_Font")
                 return
             end
-            panel:Help("#vjbase.menu.general.admin.only")
-            panel:Help("#vjbase.menu.general.npc.note.future")
-            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Hostile_Russians 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_Friendly_Clones 0\nVJ_PARR_Brain_Par2 0\nVJ_PARR_DropWeapon 1\nVJ_PARR_Brain_MaxDistance 2000"})
-            panel:Help("Server-Side Options:")
-            panel:CheckBox("Russians Are Hostile?", "VJ_PARR_Hostile_Russians")
-            panel:CheckBox("Terrorists Are Not Allied With Saboteurs?", "VJ_PARR_Hostile_Terrorists")
-            panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones")
-            panel:ControlHelp("Note: If Hostile Russians option is enabled, Clones will also be on the same faction.")
-            panel:CheckBox("Zombie Can Break Doors?", "VJ_PARR_Zombie_BreakDoors")
-            panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection")
-            panel:ControlHelp("Note: Will only apply to valid biped models.")
-            //panel:CheckBox("Weapons Drop On Death For Static Corpses?", "VJ_PARR_DropWeapon")
-            panel:CheckBox("Zombie Brain Tree Can Spawn Par2 Zombies?", "VJ_PARR_Brain_Par2")
-            panel:NumSlider("Max Brain Tree Signal Distance", "VJ_PARR_Brain_MaxDistance", 500, 100000, 0)
+            panel:Help("#vjbase.menu.general.admin.only"):SetFont("VJ_PARR_Font")
+            panel:Help("#vjbase.menu.general.npc.note.future"):SetFont("VJ_PARR_Font")
+            panel:AddControl("Button", {Text = "#vjbase.menu.general.reset.everything", Command = "VJ_PARR_Hostile_Russians 0\nVJ_PARR_Hostile_Terrorists 0\nVJ_PARR_Friendly_Clones 0\nVJ_PARR_Brain_Par2 0\nVJ_PARR_DropWeapon 1\nVJ_PARR_Brain_MaxDistance 2000"}):SetFont("VJ_PARR_Font")
+            panel:Help("Server-Side Options:"):SetFont("VJ_PARR_Font")
+            panel:CheckBox("Russians Are Hostile?", "VJ_PARR_Hostile_Russians").Label:SetFont("VJ_PARR_Font")
+            panel:CheckBox("Terrorists Are Allied With Nobody?", "VJ_PARR_Hostile_Terrorists").Label:SetFont("VJ_PARR_Font")
+            panel:CheckBox("Clones Are Friendly?", "VJ_PARR_Friendly_Clones").Label:SetFont("VJ_PARR_Font")
+            panel:ControlHelp("Note: If Hostile Russians option is enabled, Clones will also be on the same faction."):SetFont("VJ_PARR_Font")
+            panel:CheckBox("Zombies Can Break Doors?", "VJ_PARR_Zombie_BreakDoors").Label:SetFont("VJ_PARR_Font")
+            panel:CheckBox("Zombies Infect Victims On Death?", "VJ_PARR_Zombie_Infection").Label:SetFont("VJ_PARR_Font")
+            panel:ControlHelp("Note: Will only apply to valid biped models."):SetFont("VJ_PARR_Font")
+            //panel:CheckBox("Weapons Drop On Death For Static Corpses?", "VJ_PARR_DropWeapon").Label:SetFont("VJ_PARR_Font")
+            panel:CheckBox("Brain Tree Spawns Par2 Zombies?", "VJ_PARR_Brain_Par2").Label:SetFont("VJ_PARR_Font")
+            panel:NumSlider("Brain Tree Distance", "VJ_PARR_Brain_MaxDistance", 500, 100000, 0).Label:SetFont("VJ_PARR_Font")
+            panel:ControlHelp("Max distance the Brain Tree can send out signals."):SetFont("VJ_PARR_Font")
+        end)
+    end)
+    hook.Add("PopulateNPCs", "VJ_PARR_CategoryFont", function(pnlContent, tree, node)
+        timer.Simple(0, function()
+            if !IsValid(tree) then return end
+            for _, child in ipairs(tree:Root():GetChildNodes()) do
+                local childText = child:GetText()
+                if childText == "HL Resurgence: Paranoia" or childText == "HL Resurgence: Paranoia 2 Savior" then
+                    child.Label:SetFont("VJ_PARR_Font")
+                end
+            end
         end)
     end)
 end
