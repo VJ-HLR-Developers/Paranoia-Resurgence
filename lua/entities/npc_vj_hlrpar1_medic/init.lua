@@ -16,6 +16,8 @@ ENT.HasDeathAnimation = false
 ENT.SoundTbl_MedicBeforeHeal = "vj_parr/par1/npc/army/hosp3.wav"
 ENT.SoundTbl_MedicOnHeal = {"vj_parr/par1/shared/smallmedkit1.wav", "vj_parr/par1/shared/smallmedkit2.wav"}
 
+local math_random = math.random
+
 function ENT:Civilian_Voice()
     self.SoundTbl_Idle = {
         "vj_parr/par1/medic/monologue1.wav",
@@ -77,4 +79,8 @@ function ENT:Civilian_Voice()
         "vj_parr/par1/medic/hit2.wav",
         "vj_parr/par1/medic/hit3.wav"
     }
+end
+
+function ENT:Civilian_Init()
+    self:SetBodygroup(1, math_random(0, 1))
 end

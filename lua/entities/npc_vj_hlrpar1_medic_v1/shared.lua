@@ -1,0 +1,7 @@
+ENT.Base = "npc_vj_human_base"
+ENT.Type = "ai"
+ENT.PrintName = "Medic (V1)"
+ENT.Author = "Darkborn"
+ENT.Contact = "http://steamcommunity.com/groups/vrejgaming"
+ENT.Information = "Scientists from the KROT-2/3 labs."
+ENT.Category = "Paranoia Resurgence"

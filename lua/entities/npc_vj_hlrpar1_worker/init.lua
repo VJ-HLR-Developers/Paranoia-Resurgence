@@ -60,7 +60,7 @@ local math_random = math.random
 local math_rand = math.Rand
 
 -- Custom
-ENT.Civilian_Type = 0 -- 0 = Male, 1 = Female, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Spetsnaz
+ENT.Civilian_Type = 0 -- 0 = Male/Female with CSCZ anims, 1 = Female with HL2 anims, 2 = Par2 Paulina, 3 = Pirogov, 4 = Melee, 5 = Spetsnaz
 ENT.CIvilian_WeaponModel = false
 ENT.Civilian_CanHurtWalk = false
 //ENT.Civilian_OpeningDoor = false
@@ -165,7 +165,7 @@ end
 
 function ENT:Init()
     local myMDL = self:GetModel()
-    if myMDL == "models/vj_parr/par1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_himik.mdl" or myMDL == "models/vj_parr/par1/npc_officer.mdl" or myMDL == "models/vj_parr/par1/npc_officer_general.mdl" or myMDL == "models/vj_parr/par1/npc_scientist.mdl" or myMDL == "models/vj_parr/par1/npc_signal.mdl" or myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/npc_svarka.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" or myMDL == "models/vj_parr/par1/cut/rammfan.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl" then
+    if myMDL == "models/vj_parr/par1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/npc_elektrik.mdl" or myMDL == "models/vj_parr/par1/npc_himik.mdl" or myMDL == "models/vj_parr/par1/npc_officer.mdl" or myMDL == "models/vj_parr/par1/npc_officer_general.mdl" or myMDL == "models/vj_parr/par1/npc_scientist.mdl" or myMDL == "models/vj_parr/par1/npc_signal.mdl" or myMDL == "models/vj_parr/par1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/npc_svarka.mdl" or myMDL == "models/vj_parr/par1/npc_worker.mdl" or myMDL == "models/vj_parr/par1/cut/rammfan.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v1/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/early/v1/worker2.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_cooker.mdl" or myMDL == "models/vj_parr/par1/early/v2/npc_soldier.mdl" or myMDL == "models/vj_parr/par1/cut/medic_old.mdl" then
         self.Civilian_Type = 0
     elseif myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_fsceint.mdl" or myMDL == "models/vj_parr/par1/npc_medic.mdl" then
         self.Civilian_Type = 1

@@ -16,6 +16,7 @@ VJ.AddCategoryInfo(spawnCategory, {Icon = "vj_parr/icons/paranoia.png"})
 local subCategory = "Russians"
 -- Civilians
 VJ.AddNPC("Medic", "npc_vj_hlrpar1_medic", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Medic (V1)", "npc_vj_hlrpar1_medic_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Paulina Korolev", "npc_vj_hlrpar1_paulina", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Rammstein Fan", "npc_vj_hlrpar1_rammfan", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Scientist", "npc_vj_hlrpar1_scientist", spawnCategory, {SubCategory = subCategory})
