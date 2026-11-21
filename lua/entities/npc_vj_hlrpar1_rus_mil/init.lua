@@ -110,6 +110,8 @@ function ENT:Init()
     rotorwash:Activate()
     self:DeleteOnRemove(rotorwash)
 
+    self:SetBodygroup(0, math_random(0, 1))
+
     VJ.HLR_ApplyFactionOptions(self)
 
     self:SetCollisionBounds(Vector(150, 150, 180), Vector(-150, -150, 0))

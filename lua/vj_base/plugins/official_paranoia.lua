@@ -65,6 +65,7 @@ subCategory = "Saboteurs"
 VJ.AddNPC("Saboteur", "npc_vj_hlrpar1_saboteur", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Saboteur (Black Ops)", "npc_vj_hlrpar1_sab_blackops", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Saboteur Kamov Ka-50", "npc_vj_hlrpar1_sab_kamov", spawnCategory, {SubCategory = subCategory})
+VJ.AddNPC("Saboteur Kamov Ka-50 (V1)", "npc_vj_hlrpar1_sab_kamov_v1", spawnCategory, {SubCategory = subCategory})
 VJ.AddNPC("Saboteur PKM Emplacement", "npc_vj_hlrpar1_sab_pkm", spawnCategory, {SubCategory = subCategory})
 -- Clones
 subCategory = "Clones"
