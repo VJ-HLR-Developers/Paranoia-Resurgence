@@ -388,23 +388,25 @@ function ENT:OnThinkActive()
     -- If we're blocked by an ally, say blocked lines
     local curTime = CurTime()
     if curTime > self.Civilian_NextBlockedT and self:GetCurGoalType() != 0 then
-        if math_random(1, 2) then
-            local myCenterPos = self:GetPos() + self:OBBCenter()
-            local tr = util.TraceLine({
-                start = myCenterPos,
-                endpos = myCenterPos + self:GetForward() * 128,
-                mins = self:OBBMins(),
-                maxs = self:OBBMaxs(),
-                filter = self
-            })
-            if tr.Hit then
-                local ent = tr.Entity
-                if IsValid(ent) and ent.VJ_ID_Living and !ent.IsGuard and self.FollowData.Target != ent and ((ent:IsNPC() and !ent:IsMoving()) or (ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) or (ent:IsNextBot() and wnt.loco:GetVelocity():Length() <= 0)) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
-                    self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
-                    //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+        timer.Simple(1, function()
+            if IsValid(self) then
+                local myCenterPos = self:GetPos() + self:OBBCenter()
+                local tr = util.TraceLine({
+                    start = myCenterPos,
+                    endpos = myCenterPos + self:GetForward() * 128,
+                    mins = self:OBBMins(),
+                    maxs = self:OBBMaxs(),
+                    filter = self
+                })
+                if tr.Hit then
+                    local ent = tr.Entity
+                    if IsValid(ent) and ent.VJ_ID_Living and !ent.IsGuard and self.FollowData.Target != ent and self:IsInViewCone(ent:GetPos()) and ((ent:IsNPC() and !ent:IsMoving()) or (ent:IsPlayer() and ent:GetVelocity():Length() <= 0 and !VJ_CVAR_IGNOREPLAYERS) or (ent:IsNextBot() and wnt.loco:GetVelocity():Length() <= 0)) and (self:Disposition(ent) == D_LI or self:Disposition(ent) == D_NU) then
+                        self:PlaySoundSystem("Speech", self.SoundTbl_YieldToPlayer)
+                        //PrintMessage(HUD_PRINTCENTER, VJ.GetName(ent) .. ", you're in my way.")
+                    end
                 end
             end
-        end
+        end)
         self.Civilian_NextBlockedT = curTime + math_rand(2, 3)
     end
 end
