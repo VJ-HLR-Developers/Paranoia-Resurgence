@@ -83,6 +83,9 @@ ENT.Soldier_NextStrafeT = 0
 ENT.Soldier_NextRunT = 0
 ENT.Soldier_NextBlockedT = 0
 
+local ACT_TWITCH;
+local ACT_STUNNED;
+
 local CurTime = CurTime
 local math_random = math.random
 local math_rand = math.Rand
@@ -589,7 +592,7 @@ function ENT:TranslateActivity(act)
     local curTime = CurTime()
     local npcState = self:GetNPCState()
     if act == ACT_IDLE and self.PKM_Gunner then
-        return (self.VJ_PARR2_NPC and ((VJ.AnimExists(self, "hunkered") and VJ.SequenceToActivity(self, "hunkered")) or (VJ.AnimExists(self, "crouching_idle") and VJ.SequenceToActivity(self, "crouching_idle")) or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
+        return (self.VJ_PARR2_NPC and ((VJ.AnimExists(self, "hunkered") and ACT_TWITCH) or (VJ.AnimExists(self, "crouching_idle") and ACT_TWITCH) or ACT_CROUCHIDLE)) or ACT_IDLE_MANNEDGUN
     elseif act == ACT_IDLE and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
         return self.AnimationTranslations[ACT_IDLE_ANGRY] or ACT_IDLE_ANGRY
     elseif act == ACT_IDLE and self.IsGuard and npcState == NPC_STATE_IDLE and VJ.AnimExists(self, ACT_IDLE_RELAXED) then

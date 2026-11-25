@@ -264,7 +264,7 @@ function ENT:TranslateActivity(act)
     end
     -- Scared animations
     local npcState = self:GetNPCState()
-    if (self.Civilian_Type == 0 or self.Civilian_Type == 2 or self.Civilian_Type == 5) and ((!self.VJ_Controlled and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_Controlled and self.Civilian_ControllerAnim == 1)) then
+    if ((!self.VJ_Controlled and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT)) or (self.VJ_Controlled and self.Civilian_ControllerAnim == 1)) and VJ.AnimExists(self, ACT_CROUCHIDLE) then
         if act == ACT_IDLE then
             return ACT_CROUCHIDLE
         elseif act == ACT_WALK then
@@ -273,7 +273,7 @@ function ENT:TranslateActivity(act)
             return ACT_RUN_SCARED
         end
         -- Some NPCs don't have scared animations
-    elseif (self.Civilian_Type == 1 or self.Civilian_Type == 3) and (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) then
+    elseif (npcState == NPC_STATE_ALERT or npcState == NPC_STATE_COMBAT) and !VJ.AnimExists(self, ACT_CROUCHIDLE) then
         if act == ACT_IDLE then
             return ACT_IDLE
         end
@@ -412,7 +412,7 @@ function ENT:OnThinkActive()
 end
 
 function ENT:OnAlert(ent)
-    if self.VJ_Controlled or self.Civilian_Type != 0 then return end
+    if self.VJ_Controlled or (self.Civilian_Type != 0 && self.Civilian_Type != 5) then return end
     if math_random(1, 2) == 1 and ent:GetPos():Distance(self:GetPos()) >= 300 then
         self:PlayAnim(ACT_FEAR_DISPLAY, true, false, true)
     end
