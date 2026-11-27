@@ -107,6 +107,7 @@ function ENT:Init()
     gunner:SetParent(self)
     gunner.MovementType = VJ_MOVETYPE_STATIONARY
     gunner.PoseParameterLooking_TurningSpeed = 5
+    gunner.AlertTimeout = VJ.SET(0, 0)
     gunner.PKM_Gunner = true
     gunner.Weapon_Disabled = true
     gunner.AnimTbl_DamageAllyResponse = false
@@ -139,22 +140,23 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
     -- Compare the difference between the current position of the pose parameter and the position it's suppose to go to
     local poseYaw = self:GetPoseParameter("aim_yaw")
     local posePitch = self:GetPoseParameter("aim_pitch")
+    local gunner = self.PKM_Gunners
     if (math_abs(math_angledifference(poseYaw, math_approachangle(poseYaw, yaw, self.PoseParameterLooking_TurningSpeed))) >= threshold) or (math_abs(math_angledifference(posePitch, math_approachangle(posePitch, pitch, self.PoseParameterLooking_TurningSpeed))) >= threshold) then
         self.PKM_HasLOS = false
+        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     else
         self.PKM_HasLOS = true
+        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
     end
 end
 
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
         local gunner = self.PKM_Gunners
-        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
         local curTime = CurTime()
         return !(self.PKM_HasLOS and curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or gunner:IsBusy() or gunner.Flinching
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
-        self.PKM_Gunners.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
     end
 end
 

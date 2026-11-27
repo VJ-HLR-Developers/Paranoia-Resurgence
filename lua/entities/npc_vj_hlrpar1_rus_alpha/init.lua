@@ -612,6 +612,8 @@ function ENT:SetAnimationTranslations(wepHoldType)
     self.AnimationTranslations[ACT_WALK_AGITATED] = ACT_WALK_AGITATED
     self.AnimationTranslations[ACT_RUN_AGITATED] = VJ.PICK({ACT_RUN, ACT_RUN_AGITATED})
 
+    self.PoseParameterLooking_Names = (self.PKM_Gunner and {pitch = {"aim_pitch_mg"}, yaw = {"head_yaw", "aim_yaw_mg"}, roll = {}}) or {pitch = {"aim_pitch"}, yaw = {"head_yaw", "aim_yaw"}, roll = {}}
+
     if self.Soldier_Type == 0 then -- Spetsnaz
         if !self.Soldier_PistolAnims then
             if bodyGroup == 0 then -- AKS
@@ -980,12 +982,14 @@ end
 function ENT:Unmount()
     self.PKM_Gunner = false
     self.PoseParameterLooking_TurningSpeed = 20
+    self.AlertTimeout = VJ.SET(14, 16)
     self.Weapon_Disabled = false
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
     self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
     self.Weapon_UnarmedBehavior = true
     self.PhysgunDisabled = false
+    self:ClearPoseParameters()
     self:SetOwner(NULL)
     self:SetParent(NULL)
     if !self.Dead then self:Soldier_Setup() end -- Call it again so gunner has a weapon
