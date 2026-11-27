@@ -87,6 +87,7 @@ local ACT_TWITCH;
 local ACT_STUNNED;
 
 local CurTime = CurTime
+local math_approachangle = math.ApproachAngle
 local math_random = math.random
 local math_rand = math.Rand
 
@@ -710,6 +711,14 @@ function ENT:OnThink()
         self:ResetFollowBehavior()
     end
 
+    -- Reset aiming if we're a gunner
+    if self.PKM_Gunner && !IsValid(self.EnemyData.Target) && self.UpdatedPoseParam then
+        for i = 0, self:GetNumPoseParameters() -1 do
+            self:SetPoseParameter(self:GetPoseParameterName(i), math_approachangle(self:GetPoseParameter(i), 0, self.PoseParameterLooking_TurningSpeed))
+        end
+        timer.Create("VJ_PARR_ResetAim" .. self:EntIndex(), 1, 1, function() if IsValid(self) then self.UpdatedPoseParam = false end end)
+    end
+
     -- Play an animation when opening a door
     /*local openDoorValid = IsValid(self:GetInternalVariable("m_hOpeningDoor"))
     if openDoorValid and !self.Soldier_OpeningDoor then
@@ -982,8 +991,9 @@ end
 function ENT:Unmount()
     self.PKM_Gunner = false
     self.PoseParameterLooking_TurningSpeed = 20
-    self.AlertTimeout = VJ.SET(14, 16)
+    self.HasMeleeAttack = true
     self.Weapon_Disabled = false
+    self.HasGrenadeAttack = true
     self.AnimTbl_DamageAllyResponse = ACT_SIGNAL3
     self.AnimTbl_CallForHelp = ACT_SIGNAL1
     self.AnimTbl_TakingCover = {ACT_CROUCHIDLE, ACT_TWITCH}
@@ -1093,6 +1103,8 @@ function ENT:OnFlinch(dmginfo, hitgroup, status)
             self.FlinchChance = 14
             self.AnimTbl_Flinch = ACT_SMALL_FLINCH
         end
+		-- Gunner shouldn't flinch
+		return self.PKM_Gunner
     end
 end
 
@@ -1189,5 +1201,15 @@ function ENT:OnFootstepSound(moveType, sdFile)
     local watLevel = self:WaterLevel()
     if watLevel > 0 and watLevel < 3 then
         VJ.EmitSound(self, "vj_parr/par1/shared/npc_slosh" .. math_random(1, 2) .. ".wav", self.FootstepSoundLevel, self:GetSoundPitch(self.FootstepSoundPitch))
+    end
+end
+
+function ENT:CustomOnRemove()
+    -- Remove the PKM Emplacement but NOT when the gunner is killed
+    if !self.Dead then
+        local owner = self:GetOwner()
+        if IsValid(owner) then
+            owner:Remove()
+        end
     end
 end

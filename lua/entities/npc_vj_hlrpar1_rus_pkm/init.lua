@@ -36,6 +36,9 @@ ENT.NextRangeAttackTime = 0.06
 
 ENT.VJ_ID_Healable = false
 
+ENT.CanFlinch = true
+ENT.AnimTbl_Flinch = ACT_RANGE_ATTACK1
+
 ENT.HasDeathAnimation = true
 ENT.AnimTbl_Death = ACT_RANGE_ATTACK1
 
@@ -107,9 +110,10 @@ function ENT:Init()
     gunner:SetParent(self)
     gunner.MovementType = VJ_MOVETYPE_STATIONARY
     gunner.PoseParameterLooking_TurningSpeed = 5
-    gunner.AlertTimeout = VJ.SET(0, 0)
     gunner.PKM_Gunner = true
+    gunner.HasMeleeAttack = false
     gunner.Weapon_Disabled = true
+    gunner.HasGrenadeAttack = false
     gunner.AnimTbl_DamageAllyResponse = false
     gunner.AnimTbl_CallForHelp = false
     gunner.AnimTbl_TakingCover = false
@@ -152,9 +156,8 @@ end
 
 function ENT:OnRangeAttack(status, enemy)
     if status == "PreInit" then
-        local gunner = self.PKM_Gunners
         local curTime = CurTime()
-        return !(self.PKM_HasLOS and curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or gunner:IsBusy() or gunner.Flinching
+        return !(self.PKM_HasLOS and curTime > self.PKM_LockTime) or self.PKM_Ammo <= 0 or self.Flinching or !IsValid(self.PKM_Gunners)
     elseif status == "PostInit" then
         self:PlayAnim(ACT_RANGE_ATTACK1, false, false, false, 0, {AlwaysUseGesture = true})
     end
