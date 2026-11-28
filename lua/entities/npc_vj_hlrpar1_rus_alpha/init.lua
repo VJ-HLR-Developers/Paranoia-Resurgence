@@ -711,12 +711,15 @@ function ENT:OnThink()
         self:ResetFollowBehavior()
     end
 
-    -- Reset aiming if we're a gunner
-    if self.PKM_Gunner && !IsValid(self.EnemyData.Target) && self.UpdatedPoseParam then
-        for i = 0, self:GetNumPoseParameters() -1 do
-            self:SetPoseParameter(self:GetPoseParameterName(i), math_approachangle(self:GetPoseParameter(i), 0, self.PoseParameterLooking_TurningSpeed))
+    -- Adjust aiming if we're a gunner
+    if self.PKM_Gunner and self.Alerted then
+        if !IsValid(self.EnemyData.Target) then
+            //self:UpdatePoseParamTracking()
+        //else
+            for i = 0, self:GetNumPoseParameters() -1 do
+                self:SetPoseParameter(self:GetPoseParameterName(i), math_approachangle(self:GetPoseParameter(i), 0, self.PoseParameterLooking_TurningSpeed))
+            end
         end
-        timer.Create("VJ_PARR_ResetAim" .. self:EntIndex(), 1, 1, function() if IsValid(self) then self.UpdatedPoseParam = false end end)
     end
 
     -- Play an animation when opening a door
@@ -990,7 +993,7 @@ end
 
 function ENT:Unmount()
     self.PKM_Gunner = false
-    self.PoseParameterLooking_TurningSpeed = 20
+    self.PoseParameterLooking_TurningSpeed = 10
     self.HasMeleeAttack = true
     self.Weapon_Disabled = false
     self.HasGrenadeAttack = true

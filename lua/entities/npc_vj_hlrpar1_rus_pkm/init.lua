@@ -147,10 +147,10 @@ function ENT:OnUpdatePoseParamTracking(pitch, yaw, roll)
     local gunner = self.PKM_Gunners
     if (math_abs(math_angledifference(poseYaw, math_approachangle(poseYaw, yaw, self.PoseParameterLooking_TurningSpeed))) >= threshold) or (math_abs(math_angledifference(posePitch, math_approachangle(posePitch, pitch, self.PoseParameterLooking_TurningSpeed))) >= threshold) then
         self.PKM_HasLOS = false
-        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
+        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_AIM
     else
         self.PKM_HasLOS = true
-        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_NONE
+        gunner.WeaponAttackState = VJ.WEP_ATTACK_STATE_FIRE
     end
 end
 
