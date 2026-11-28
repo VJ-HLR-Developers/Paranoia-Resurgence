@@ -963,6 +963,14 @@ function ENT:OnAlert(ent)
     end
 end
 
+function ENT:OnDangerDetected(dangerType, data)
+    if math_random(1, 3) == 1 and self:DoCoverTrace(self:GetPos() + self:OBBCenter(), self.EnemyData.Target:EyePos()) and VJ.AnimExists(self, ACT_COWER) then
+        self:PlayAnim(ACT_COWER, true, false)
+        self:SetState(VJ_STATE_ONLY_ANIMATION_NOATTACK)
+        timer.Simple(VJ.AnimDuration(self, ACT_COWER), function() if IsValid(self) then self:SetState() end end)
+    end
+end
+
 function ENT:MeleeAttackTraceDirection()
     return self:GetForward()
 end
